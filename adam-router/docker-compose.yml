@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: adam-router_web_1
+      APP_PORT: 8080
+
+  web:
+    image: nginx:1.27-alpine
+    restart: on-failure
+    environment:
+      # Change this to your router's address (no scheme, no trailing slash).
+      ROUTER_HOST: "192.168.2.1"
+    volumes:
+      - ${APP_DATA_DIR}/data/default.conf.template:/etc/nginx/templates/default.conf.template:ro

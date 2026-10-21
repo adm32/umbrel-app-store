@@ -2,8 +2,9 @@ manifestVersion: 1
 id: adam-router
 category: networking
 name: Router
-version: "1.0.1"
+version: "1.0.2"
 tagline: Open your Telekom router's admin page from Umbrel
+icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-router/icon.svg
 description: >-
   Adds an Umbrel tile that reverse-proxies your home router's web interface,
   so you can configure it from anywhere you can reach Umbrel, including over
@@ -20,4 +21,4 @@ defaultUsername: ""
 defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
-releaseNotes: Initial release.
+releaseNotes: Points at the router on 10.0.0.1, fixes cookies and redirects through the proxy, and adds an icon.

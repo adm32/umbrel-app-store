@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff3d9a"/>
+      <stop offset="1" stop-color="#9b1c6e"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#f1dbe8"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" fill="url(#bg)"/>
+  <!-- signal waves -->
+  <g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="10">
+    <path d="M96 78a45 45 0 0 1 64 0" opacity="0.95"/>
+    <path d="M74 56a76 76 0 0 1 108 0" opacity="0.6"/>
+  </g>
+  <circle cx="128" cy="100" r="9" fill="#ffffff"/>
+  <!-- antennas -->
+  <g stroke="#ffffff" stroke-linecap="round" stroke-width="9">
+    <line x1="78" y1="150" x2="64" y2="112"/>
+    <line x1="178" y1="150" x2="192" y2="112"/>
+  </g>
+  <!-- router body -->
+  <rect x="40" y="144" width="176" height="64" rx="18" fill="url(#body)"/>
+  <rect x="40" y="194" width="176" height="14" rx="7" fill="#000000" opacity="0.08"/>
+  <!-- status lights -->
+  <g fill="#2fd27a">
+    <circle cx="74" cy="175" r="8"/>
+    <circle cx="102" cy="175" r="8"/>
+  </g>
+  <circle cx="130" cy="175" r="8" fill="#ff3d9a"/>
+  <!-- ports -->
+  <g fill="#9b1c6e" opacity="0.55">
+    <rect x="154" y="168" width="12" height="14" rx="3"/>
+    <rect x="172" y="168" width="12" height="14" rx="3"/>
+    <rect x="190" y="168" width="12" height="14" rx="3"/>
+  </g>
+</svg>

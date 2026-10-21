@@ -2,25 +2,22 @@ manifestVersion: 1
 id: adam-router
 category: networking
 name: Router
-version: "1.0.0"
+version: "1.0.1"
 tagline: Open your Telekom router's admin page from Umbrel
 description: >-
-  Adds an Umbrel tile that reverse-proxies your home router's web interface
-  (Telekom Speedport or any other HTTP admin page), so you can configure it
-  from anywhere you can reach Umbrel, including over Tailscale.
-
-
-  The router address is set with the ROUTER_HOST value in docker-compose.yml
-  (default 192.168.2.1, the Speedport default).
+  Adds an Umbrel tile that reverse-proxies your home router's web interface,
+  so you can configure it from anywhere you can reach Umbrel, including over
+  Tailscale. The router address is set with ROUTER_HOST in docker-compose.yml.
 developer: Adam
-website: ""
+website: https://github.com/adm32/umbrel-app-store
 dependencies: []
-repo: ""
-support: ""
+repo: https://github.com/adm32/umbrel-app-store
+support: https://github.com/adm32/umbrel-app-store/issues
 port: 8095
 gallery: []
 path: ""
 defaultUsername: ""
 defaultPassword: ""
 submitter: Adam
-submission: ""
+submission: https://github.com/adm32/umbrel-app-store
+releaseNotes: Initial release.

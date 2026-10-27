@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: admcore.hu
-version: "1.1.1"
+version: "1.2.0"
 tagline: Orosz Ádám – weboldalak zalai vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -29,4 +29,4 @@ defaultUsername: ""
 defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
-releaseNotes: Adds the real phone number and e-mail address.
+releaseNotes: More compact layout, side-by-side portfolio, fixed logo caching, live link to esszenciakozmetika.hu.

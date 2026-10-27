@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /koszonom.html
+
+Sitemap: https://admcore.hu/sitemap.xml

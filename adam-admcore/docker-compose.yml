@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: adam-admcore_web_1
+      APP_PORT: 8080
+      # Public website: visitors must NOT be asked for the Umbrel login
+      PROXY_AUTH_ADD: "false"
+
+  web:
+    image: node:22-alpine
+    restart: on-failure
+    stop_grace_period: 5s
+    user: "1000:1000"
+    working_dir: /app
+    command: ["node", "/app/server.mjs"]
+    environment:
+      NODE_ENV: production
+    volumes:
+      - ${APP_DATA_DIR}/www:/app/www:ro
+      - ${APP_DATA_DIR}/server.mjs:/app/server.mjs:ro
+      - ${APP_DATA_DIR}/data:/data

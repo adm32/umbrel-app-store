@@ -1,0 +1,32 @@
+manifestVersion: 1
+id: adam-admcore
+category: social
+name: admcore.hu
+version: "1.0.0"
+tagline: Orosz Ádám – weboldalak zalai vállalkozásoknak
+icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
+description: >-
+  The admcore.hu website: liquid-glass one-pager with a live demo phone,
+  portfolio (Vadvirág, Esszencia), packages and prices, FAQ, contact form,
+  impresszum and privacy policy. Hungarian, no cookies, fonts served locally.
+
+
+  The contact form sends a push notification to your phone through ntfy.
+  Put your secret topic URL into data/ntfy-url.txt in the app's data folder.
+
+
+  To put it on admcore.hu, point a Cloudflare Tunnel public hostname at
+  http://<umbrel-ip>:4760.
+developer: Adam
+website: https://admcore.hu
+dependencies: []
+repo: https://github.com/adm32/umbrel-app-store
+support: https://github.com/adm32/umbrel-app-store/issues
+port: 4760
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+submitter: Adam
+submission: https://github.com/adm32/umbrel-app-store
+releaseNotes: First version of the admcore.hu website.

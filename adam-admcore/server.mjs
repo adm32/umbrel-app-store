@@ -58,7 +58,7 @@ function notFound(res) {
 const LIMITS = { nev: 80, vallalkozas: 120, telepules: 60, telefon: 40, email: 120, tipus: 40, uzenet: 2000 };
 const LABELS = {
   bemutato: "Ingyenes bemutatót kér", nevjegy: "Névjegy csomag", vallalkozas: "Vállalkozás csomag",
-  rendeles: "Rendelés & Foglalás csomag", kerdes: "Kérdése van",
+  rendeles: "Rendelés & Foglalás csomag", premium: "Prémium Partner csomag", zene: "Zenei szolgáltatás", kerdes: "Kérdése van",
 };
 const hits = new Map(); // ip -> [timestamps], simple rate limit
 
@@ -80,7 +80,7 @@ async function handleForm(req, res) {
     }
     if (status === 200) { res.writeHead(303, { Location: "/koszonom.html" }); return res.end(); }
     res.writeHead(status, { ...SECURITY, "Content-Type": "text/html; charset=utf-8" });
-    res.end(`<!doctype html><html lang="hu"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hiba</title><link rel="stylesheet" href="/assets/css/site.css?v=2"><main class="doc"><div class="wrap"><div class="doc__card glass center-card"><h1>Nem sikerült elküldeni</h1><p>${message.replace(/[<>&]/g, "")}</p><a class="btn" href="/#kapcsolat">Vissza az űrlaphoz</a></div></div></main></html>`);
+    res.end(`<!doctype html><html lang="hu"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hiba</title><link rel="stylesheet" href="/assets/css/site.css?v=4"><main class="doc"><div class="wrap"><div class="doc__card glass center-card"><h1>Nem sikerült elküldeni</h1><p>${message.replace(/[<>&]/g, "")}</p><a class="btn" href="/#kapcsolat">Vissza az űrlaphoz</a></div></div></main></html>`);
   };
 
   const ip = String(req.headers["cf-connecting-ip"] || req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim();

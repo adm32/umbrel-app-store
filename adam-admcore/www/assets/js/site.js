@@ -247,9 +247,24 @@
         var b = a.querySelector("b"), s = a.querySelector("span");
         roll(b, parseInt(b.getAttribute("data-" + k), 10));
         s.textContent = s.getAttribute("data-" + k);
+        var pd = a.parentNode.querySelector(".perday span");
+        if (pd) pd.textContent = fmt(Math.round(parseInt(b.getAttribute("data-" + k), 10) / (k === "y" ? 365 : 30)));
       });
     });
   });
+
+  /* ---------- Music: "Hamarosan" dialog ---------- */
+  var dlg = $("#soonDlg");
+  $$("[data-soon]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (dlg && dlg.showModal) dlg.showModal();
+      else alert("Hamarosan! A zenei szolgáltatások rendelése még nem elérhető.");
+    });
+  });
+  if (dlg) {
+    dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+    $$("[data-close]", dlg).forEach(function (a) { a.addEventListener("click", function () { dlg.close(); }); });
+  }
 
   /* ---------- Plan buttons preselect the form ---------- */
   $$("[data-plan]").forEach(function (a) {

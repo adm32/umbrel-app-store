@@ -1,9 +1,9 @@
 manifestVersion: 1
 id: adam-admcore
 category: social
-name: Ékezet (admcore.hu)
-version: "1.3.0"
-tagline: Ékezet webstúdió – weboldalak zalai vállalkozásoknak
+name: core (admcore.hu)
+version: "1.4.0"
+tagline: core webstúdió – weboldalak zalai vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
   The admcore.hu website: liquid-glass one-pager with a live demo phone,
@@ -29,4 +29,4 @@ defaultUsername: ""
 defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
-releaseNotes: New Ékezet brand and é logo, lower prices with a Prémium Partner plan, prod. adm music section with a Hamarosan dialog.
+releaseNotes: Back to the á logo with the name core, info@admcore.hu as contact e-mail, jingle service removed.

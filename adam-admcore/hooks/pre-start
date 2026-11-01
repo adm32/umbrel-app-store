@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Umbrel only copies docker-compose.yml, umbrel-app.yml and hooks/ on update, not the
+# website files. This copies the fresh www/ and server.mjs from the app store before
+# every start, so an update really shows the new website. data/ is never touched.
+src="${SCRIPT_APP_REPO_DIR:-}"
+dst="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [[ -z "${src}" || ! -d "${src}/www" || "${src}" == "${dst}" ]]; then
+  exit 0
+fi
+rm -rf "${dst}/www.new"
+cp -r "${src}/www" "${dst}/www.new" && rm -rf "${dst}/www" && mv "${dst}/www.new" "${dst}/www"
+cp -f "${src}/server.mjs" "${dst}/server.mjs"
+mkdir -p "${dst}/data"
+echo "core: website files updated from ${src}"
+exit 0

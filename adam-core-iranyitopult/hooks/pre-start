@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Umbrel only copies docker-compose.yml, umbrel-app.yml and hooks/ on update. This copies
+# the fresh program (app/) from the app store before every start. data/ is never touched.
+src="${SCRIPT_APP_REPO_DIR:-}"
+dst="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [[ -z "${src}" || ! -d "${src}/app" || "${src}" == "${dst}" ]]; then
+  exit 0
+fi
+rm -rf "${dst}/app.new"
+cp -r "${src}/app" "${dst}/app.new" && rm -rf "${dst}/app" && mv "${dst}/app.new" "${dst}/app"
+mkdir -p "${dst}/data"
+echo "core Irányítópult: program files updated from ${src}"
+exit 0

@@ -1,0 +1,35 @@
+manifestVersion: 1
+id: adam-core-iranyitopult
+category: automation
+name: core Irányítópult
+version: "1.0.0"
+tagline: Érdeklődők és látogatók az admcore.hu-ról, értesítéssel
+icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-core-iranyitopult/icon.svg
+description: >-
+  A core webstúdió irányítópultja. Minden kérés, amit valaki az admcore.hu
+  weboldaltervezőjében küld, ide érkezik: látod, mit tervezett (élő
+  előnézettel), milyen csomagot választott, és egy koppintással felhívhatod,
+  SMS-t vagy e-mailt küldhetsz neki. Állapotok (Új, Felhívtam, Bemutató készül,
+  Elküldve, Megrendelte), jegyzetek, a bemutató linkje és előzmények.
+
+
+  Látogatottság sütik nélkül: napi látogatók, honnan jönnek, telefonról vagy
+  gépről, és a tervező tölcsére (hol akadnak el). Értesítés a telefonodra az
+  ntfy appon keresztül új érdeklődőről, és ha a weboldal nem érhető el.
+
+
+  Saját jelszó védi, az első jelszót otthonról kell beállítani. Kell hozzá a
+  "core (admcore.hu)" app is.
+developer: Adam
+website: https://admcore.hu
+dependencies: []
+repo: https://github.com/adm32/umbrel-app-store
+support: https://github.com/adm32/umbrel-app-store/issues
+port: 4761
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+submitter: Adam
+submission: https://github.com/adm32/umbrel-app-store
+releaseNotes: Első kiadás.

@@ -2,17 +2,19 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: core (admcore.hu)
-version: "1.4.0"
-tagline: core webstúdió – weboldalak zalai vállalkozásoknak
+version: "2.0.0"
+tagline: core webstúdió – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
-  The admcore.hu website: liquid-glass one-pager with a live demo phone,
-  portfolio (Vadvirág, Esszencia), packages and prices, FAQ, contact form,
-  impresszum and privacy policy. Hungarian, no cookies, fonts served locally.
+  The admcore.hu website: warm, phone-first one-pager with a live demo phone,
+  a step-by-step website planner (visitors design their site and request a
+  free demo), portfolio, prices, FAQ, impresszum and privacy policy.
+  Hungarian, no cookies, fonts served locally.
 
 
-  The contact form sends a push notification to your phone through ntfy.
-  Put your secret topic URL into data/ntfy-url.txt in the app's data folder.
+  Requests from the planner go to the "core Irányítópult" app (install it
+  too). Until it is reachable they wait in this app and are retried every
+  minute. The site also counts visitors without cookies for the Irányítópult.
 
 
   To put it on admcore.hu, point a Cloudflare Tunnel public hostname at
@@ -29,4 +31,8 @@ defaultUsername: ""
 defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
-releaseNotes: Back to the á logo with the name core, info@admcore.hu as contact e-mail, jingle service removed.
+releaseNotes: >-
+  New warm design, much shorter texts, music section removed, nationwide instead of
+  Zala only. New step-by-step website planner with live preview instead of the contact
+  form; requests go to the new "core Irányítópult" app. Cookieless visitor statistics.
+  Fixed: updates now really replace the website files.

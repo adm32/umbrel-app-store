@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: core (admcore.hu)
-version: "2.0.0"
+version: "2.0.1"
 tagline: core webstúdió – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -32,7 +32,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  New warm design, much shorter texts, music section removed, nationwide instead of
-  Zala only. New step-by-step website planner with live preview instead of the contact
-  form; requests go to the new "core Irányítópult" app. Cookieless visitor statistics.
-  Fixed: updates now really replace the website files.
+  The example screenshots under "Munkáink" now sit in proper phone frames, also on phones.

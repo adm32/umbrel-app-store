@@ -257,8 +257,22 @@
     return h;
   }
 
-  function render() {
+  // Signature of what's on screen: polling only redraws when something actually changed.
+  function sig() {
+    var st = S.stats || {}, ps = (S.status && S.status.public) || {}, ss = (S.status && S.status.site) || {};
+    return [S.tab, S.filter, S.leads.map(function (l) { return l.id + l.status + l.updated + (l.seen ? 1 : 0); }).join(","),
+      st.live, st.ok, JSON.stringify(st.days || {}).length, ps.ok, ss.ok, ss.outbox].join("|");
+  }
+  // Quiet redraw from polling: never while the user types, never under an open sheet, no entry animations.
+  function softRender() {
+    var ae = document.activeElement;
+    if (!sheet.hidden || S.tab === "beallitasok" || (ae && $("#main").contains(ae) && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName)) || sig() === S.lastSig) { subline(); return; }
+    render(true);
+  }
+  function render(quiet) {
     var main = $("#main");
+    main.classList.toggle("quiet", !!quiet);
+    S.lastSig = sig();
     var titles = { attekintes: "Áttekintés", erdeklodok: "Érdeklődők", latogatok: "Látogatók", beallitasok: "Beállítások" };
     $("#title").textContent = titles[S.tab];
     var html = S.tab === "attekintes" ? viewOverview() : S.tab === "erdeklodok" ? viewLeads() : S.tab === "latogatok" ? viewVisitors() : viewSettings();
@@ -283,8 +297,8 @@
     render();
     if (!keepScroll) window.scrollTo({ top: 0 });
     try { localStorage.setItem("core-dash-tab", t); } catch (e) { /* ignore */ }
-    if (t === "latogatok" || t === "attekintes") loadStats().then(function () { if (S.tab === t) render(); });
-    if (t === "beallitasok") Promise.all([loadSettings(), loadStatus()]).then(function () { if (S.tab === t) render(); });
+    if (t === "latogatok" || t === "attekintes") loadStats().then(function () { if (S.tab === t) softRender(); });
+    if (t === "beallitasok") Promise.all([loadSettings(), loadStatus()]).then(function () { if (S.tab === t && sheet.hidden) render(true); });
   }
   function moveKnob() {
     var b = $('#tabs button[aria-selected="true"]'), k = $("#knob");
@@ -325,7 +339,7 @@
     S.open = null;
     setTimeout(function () { if (!sheet.classList.contains("on")) sheet.hidden = true; }, 450);
     if (!fromPop && history.state && history.state.sheet) history.back();
-    render();
+    render(true);
   }
   $("#shClose").addEventListener("click", function () { closeSheet(); });
   scrim.addEventListener("click", function () { closeSheet(); });
@@ -493,7 +507,7 @@
     });
     $("#bCheck").addEventListener("click", function () {
       var b = this; b.disabled = true; b.textContent = "Ellenőrzés…";
-      api("/api/check", { method: "POST" }).then(function (j) { S.status = j.status; render(); });
+      api("/api/check", { method: "POST" }).then(function (j) { S.status = j.status; render(true); });
     });
     $("#bPw").addEventListener("click", function () {
       var o = $("#pOld").value, n = $("#pNew").value;
@@ -510,12 +524,12 @@
     var b = $("#btnRefresh"); if (spin) b.classList.add("spin");
     return Promise.all([loadLeads(true), loadStats(), loadStatus()]).then(function () {
       b.classList.remove("spin");
-      if (sheet.hidden) render(); else subline();
+      softRender();
     }, function () { b.classList.remove("spin"); });
   }
   $("#btnRefresh").addEventListener("click", function () { haptic(); refreshAll(true); });
-  setInterval(function () { if (!document.hidden) loadLeads(true).then(function () { if (sheet.hidden && S.tab !== "beallitasok") render(); }); }, 20000);
-  setInterval(function () { if (!document.hidden) Promise.all([loadStats(), loadStatus()]).then(function () { if (sheet.hidden && S.tab !== "beallitasok") render(); else subline(); }); }, 60000);
+  setInterval(function () { if (!document.hidden) loadLeads(true).then(softRender); }, 20000);
+  setInterval(function () { if (!document.hidden) Promise.all([loadStats(), loadStatus()]).then(softRender); }, 60000);
   document.addEventListener("visibilitychange", function () { if (!document.hidden) refreshAll(); });
 
   /* ---------- start ---------- */

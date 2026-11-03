@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 # Umbrel only copies docker-compose.yml, umbrel-app.yml and hooks/ on update. This copies
-# the fresh program (app/) from the app store before every start. data/ is never touched.
+# the fresh program (bin/, Dockerfile) from the app store before every start. data/ is never touched.
 src="${SCRIPT_APP_REPO_DIR:-}"
 dst="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-if [[ -z "${src}" || ! -d "${src}/app" || "${src}" == "${dst}" ]]; then
+if [[ -z "${src}" || ! -d "${src}/bin" || "${src}" == "${dst}" ]]; then
   exit 0
 fi
-rm -rf "${dst}/app.new"
-cp -r "${src}/app" "${dst}/app.new" && rm -rf "${dst}/app" && mv "${dst}/app.new" "${dst}/app"
-mkdir -p "${dst}/data"
+mkdir -p "${dst}/bin" "${dst}/data"
+cp -f "${src}"/bin/iranyitopult-linux-* "${dst}/bin/" && chmod +x "${dst}"/bin/iranyitopult-linux-*
+for f in Dockerfile .dockerignore; do
+  [[ -f "${src}/${f}" ]] && cp -f "${src}/${f}" "${dst}/${f}"
+done
+rm -rf "${dst}/app"
 echo "core Irányítópult: program files updated from ${src}"
 exit 0

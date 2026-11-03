@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
-# Umbrel only copies docker-compose.yml, umbrel-app.yml and hooks/ on update, not the
-# website files. This copies the fresh www/ and server.mjs from the app store before
-# every start, so an update really shows the new website. data/ is never touched.
+# Umbrel only copies docker-compose.yml, umbrel-app.yml and hooks/ on update. This copies
+# the fresh program (bin/, Dockerfile) from the app store before every start, so an update
+# really shows the new website. data/ is never touched.
 src="${SCRIPT_APP_REPO_DIR:-}"
 dst="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-if [[ -z "${src}" || ! -d "${src}/www" || "${src}" == "${dst}" ]]; then
+if [[ -z "${src}" || ! -d "${src}/bin" || "${src}" == "${dst}" ]]; then
   exit 0
 fi
-rm -rf "${dst}/www.new"
-cp -r "${src}/www" "${dst}/www.new" && rm -rf "${dst}/www" && mv "${dst}/www.new" "${dst}/www"
-cp -f "${src}/server.mjs" "${dst}/server.mjs"
-mkdir -p "${dst}/data"
-echo "core: website files updated from ${src}"
+mkdir -p "${dst}/bin" "${dst}/data"
+cp -f "${src}"/bin/weboldal-linux-* "${dst}/bin/" && chmod +x "${dst}"/bin/weboldal-linux-*
+for f in Dockerfile .dockerignore; do
+  [[ -f "${src}/${f}" ]] && cp -f "${src}/${f}" "${dst}/${f}"
+done
+# Leftovers of the old Node version
+rm -rf "${dst}/www" "${dst}/server.mjs"
+echo "core: program files updated from ${src}"
 exit 0

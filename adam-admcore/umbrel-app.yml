@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: core (admcore.hu)
-version: "2.0.1"
+version: "2.1.0"
 tagline: core webstúdió – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -32,4 +32,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  The example screenshots under "Munkáink" now sit in proper phone frames, also on phones.
+  Rewritten in Go like the Vadvirág apps: about 10 MB of memory instead of about 70 MB. Same website, same data.

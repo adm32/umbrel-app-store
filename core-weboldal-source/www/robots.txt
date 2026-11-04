@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /koszonom.html
+Disallow: /fizetes/
+Disallow: /elofizetes
 
 Sitemap: https://admcore.hu/sitemap.xml

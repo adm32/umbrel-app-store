@@ -9,9 +9,9 @@
 <meta name="theme-color" content="#FBF7F1" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#15110E" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="favicon-warm.svg" type="image/svg+xml">
-<link rel="icon" href="favicon.ico?v=7" sizes="32x32">
+<link rel="icon" href="favicon.ico?v=8" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon-warm.png">
-<link rel="stylesheet" href="assets/css/site.css?v=7">
+<link rel="stylesheet" href="assets/css/site.css?v=8">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
@@ -22,7 +22,7 @@
 <header class="head is-scrolled">
   <div class="wrap head__in">
     <a class="brand" href="index.html" aria-label="core – főoldal">
-      <img src="assets/logo/core-mark.svg?v=7" alt="" width="36" height="36">
+      <img src="assets/logo/core-mark.svg?v=8" alt="" width="36" height="36">
       <b>core</b>
     </a>
     <a class="back" href="index.html"><svg><use href="#i-back"/></svg>Főoldal</a>
@@ -34,7 +34,7 @@
     <article class="doc__card">
       <p class="eyebrow">Jogi információk</p>
       <h1>Impresszum és adatvédelem</h1>
-      <p>Hatályos: 2026. november 1-jétől.</p>
+      <p>Hatályos: 2026. november 4-étől.</p>
       <nav class="doc__nav" aria-label="Ugrás">
         <a href="#impresszum">Impresszum</a>
         <a href="#adatkezeles">Adatkezelés</a>
@@ -44,14 +44,15 @@
 
       <h2 id="impresszum">Impresszum</h2>
       <p>Az elektronikus kereskedelmi szolgáltatásokról szóló 2001. évi CVIII. törvény 4. §-a szerinti adatok.</p>
-      <!-- TODO: a vállalkozás bejegyzése után töltse ki a jelölt mezőket -->
+      <!-- TODO: töltse ki a jelölt mezőket a cégkivonat alapján (e-cegjegyzek.hu) -->
       <dl class="kv">
-        <div><dt>Szolgáltató</dt><dd>Orosz Ádám egyéni vállalkozó (core webstúdió)</dd></div>
-        <div><dt>Székhely</dt><dd>8790 Zalaszentgrót, <mark class="todo">utca, házszám</mark></dd></div>
+        <div><dt>Szolgáltató</dt><dd>Tiguan Gasztro Kft. (márkanév: core webstúdió)</dd></div>
+        <div><dt>Székhely</dt><dd><mark class="todo">irányítószám, település, utca, házszám</mark></dd></div>
+        <div><dt>Cégjegyzékszám</dt><dd><mark class="todo">00-09-000000</mark>, nyilvántartja: <mark class="todo">… Törvényszék Cégbírósága</mark></dd></div>
+        <div><dt>Adószám</dt><dd><mark class="todo">00000000-0-00</mark></dd></div>
+        <div><dt>Képviseli</dt><dd><mark class="todo">ügyvezető neve</mark>, ügyvezető</dd></div>
         <div><dt>E-mail</dt><dd>info@admcore.hu</dd></div>
         <div><dt>Telefon</dt><dd>+36 20 328 2840</dd></div>
-        <div><dt>Nyilvántartási szám</dt><dd><mark class="todo">egyéni vállalkozói nyilvántartási szám</mark></dd></div>
-        <div><dt>Adószám</dt><dd><mark class="todo">adószám</mark></dd></div>
         <div><dt>Weboldal</dt><dd>https://admcore.hu</dd></div>
         <div><dt>Tárhely</dt><dd>A weboldal a szolgáltató saját, Magyarországon üzemelő szerverén fut. A forgalmat a Cloudflare, Inc. (101 Townsend St., San Francisco, CA 94107, USA) hálózata továbbítja és védi.</dd></div>
       </dl>
@@ -60,7 +61,7 @@
       <p>Ez a tájékoztató leírja, milyen személyes adatokat kezelünk, amikor a weboldalon ajánlatot kér, vagy felveszi velünk a kapcsolatot, és milyen jogai vannak. Az Európai Unió általános adatvédelmi rendelete (GDPR) és a 2011. évi CXII. törvény alapján készült.</p>
 
       <h3>Az adatkezelő</h3>
-      <p><strong>Orosz Ádám</strong> egyéni vállalkozó (core webstúdió), 8790 Zalaszentgrót. E-mail: info@admcore.hu. Adatvédelmi kérdésben ezen a címen érhet el.</p>
+      <p><strong>Tiguan Gasztro Kft.</strong> (core webstúdió), székhely: <mark class="todo">cím</mark>. E-mail: info@admcore.hu. Adatvédelmi kérdésben ezen a címen érhet el.</p>
 
       <h3>1. Weboldaltervező és ajánlatkérés</h3>
       <ul>
@@ -78,24 +79,34 @@
         <li><strong>Megőrzés:</strong> a számviteli bizonylatokat 8 évig őrizzük meg.</li>
       </ul>
 
-      <h3 id="statisztika">3. Látogatottsági statisztika</h3>
+      <h3 id="fizetes">3. Online fizetés és előfizetés</h3>
+      <ul>
+        <li><strong>Kezelt adatok:</strong> név, e-mail-cím, számlázási cím, adószám (ha megadja), a választott csomag és díj, a befizetések időpontja és összege, valamint annak időpontja, hogy a fizetési oldalon elfogadta a feltételeket és az ismétlődő terhelést (ehhez az IP-címből és a böngésző adataiból képzett, visszafejthetetlen rövid kódot tárolunk, magát az IP-címet nem).</li>
+        <li><strong>Kártyaadatok:</strong> a bankkártya adatait kizárólag a Stripe kezeli. Mi a kártyaszámot nem látjuk és nem tároljuk, csak azt, hogy a fizetés sikerült-e.</li>
+        <li><strong>Cél:</strong> a havi vagy éves díj automatikus beszedése, a befizetések nyilvántartása és a számlázás.</li>
+        <li><strong>Jogalap:</strong> a szerződés teljesítése (GDPR 6. cikk (1) b) pont), a befizetések és számlák megőrzése jogi kötelezettség (GDPR 6. cikk (1) c) pont).</li>
+        <li><strong>Megőrzés:</strong> a szerződés ideje alatt, a számviteli bizonylatokat pedig 8 évig.</li>
+      </ul>
+
+      <h3 id="statisztika">4. Látogatottsági statisztika</h3>
       <ul>
         <li>A weboldal saját maga számolja, hány látogatója van, sütik nélkül. Nem tárolunk IP-címet, és nem követjük Önt más oldalakon.</li>
         <li>A látogatókat egy naponta cserélődő, visszafejthetetlen kóddal különböztetjük meg, így csak összesített számokat látunk (például hányan jártak itt egy napon, telefonról vagy számítógépről, a Google-ből vagy a Facebookról érkeztek-e, és hányan nyitották meg a tervezőt).</li>
         <li><strong>Jogalap:</strong> jogos érdek a weboldal fejlesztéséhez (GDPR 6. cikk (1) f) pont). A napi összesítéseket legfeljebb 13 hónapig őrizzük.</li>
       </ul>
 
-      <h3>4. A weboldal működése</h3>
+      <h3>5. A weboldal működése</h3>
       <p>A Cloudflare a biztonságos működéshez rövid ideig technikai adatokat (IP-cím, böngésző típusa, időpont) kezel, például a túlterheléses támadások kiszűréséhez. Jogalap: jogos érdek az oldal védelméhez (GDPR 6. cikk (1) f) pont).</p>
 
       <h3>Kik férnek hozzá az adatokhoz</h3>
       <p>Az adatokat nem adjuk el, és nem adjuk át senkinek reklámcélra. A következő szolgáltatók adatfeldolgozóként vesznek részt a működésben:</p>
       <ul>
+        <li><strong>Stripe Payments Europe, Ltd.</strong> (1 Grand Canal Street Lower, Grand Canal Dock, Dublin, D02 H210, Írország): bankkártyás és Apple Pay / Google Pay fizetés, az ismétlődő díjak beszedése. A Stripe a fizetési adatokat saját adatkezelőként is kezeli a pénzforgalmi és csalásmegelőzési szabályok szerint: <a href="https://stripe.com/hu/privacy" rel="noopener">stripe.com/hu/privacy</a>.</li>
         <li><strong>Cloudflare, Inc.</strong> (USA): a forgalom továbbítása és védelme, e-mail-továbbítás.</li>
         <li><strong>ntfy.sh</strong> push-értesítési szolgáltatás: egy új kérésről rövid értesítést kapunk a telefonunkra. Az értesítést legfeljebb 12 óráig tárolja.</li>
         <li><strong>Google Ireland Ltd.</strong> (Gmail): az e-mailes levelezéshez.</li>
       </ul>
-      <p>A Cloudflare és a Google az EU–USA adatvédelmi keretrendszer (Data Privacy Framework) alapján, illetve az Európai Bizottság általános szerződési feltételeivel biztosítja az adatok megfelelő védelmét, ha azok az Európai Unión kívülre kerülnek.</p>
+      <p>A Cloudflare, a Google és a Stripe az EU–USA adatvédelmi keretrendszer (Data Privacy Framework) alapján, illetve az Európai Bizottság általános szerződési feltételeivel biztosítja az adatok megfelelő védelmét, ha azok az Európai Unión kívülre kerülnek.</p>
 
       <h2 id="sutik">Sütik</h2>
       <p>Ez az oldal nem használ sütiket, és nem tartalmaz reklám- vagy követőkódot (például Facebook-pixelt vagy Google Analyticset). A betűtípusok is erről a szerverről töltődnek be, nem a Google-től. Ezért nincs sütifigyelmeztetés sem.</p>
@@ -119,7 +130,7 @@
 
 <footer class="foot foot--plain">
   <div class="wrap">
-    <div class="foot__bottom" style="margin-top:0;border-top:0;padding-top:0"><span>© 2026 core · Zalaszentgrót</span><span>Sütik és követőkódok nélkül.</span><a class="back" href="index.html">Vissza a főoldalra</a></div>
+    <div class="foot__bottom" style="margin-top:0;border-top:0;padding-top:0"><span>© 2026 core · Tiguan Gasztro Kft.</span><span>Sütik és követőkódok nélkül.</span><a class="back" href="index.html">Vissza a főoldalra</a></div>
   </div>
 </footer>
 </body>

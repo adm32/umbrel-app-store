@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: core (admcore.hu)
-version: "2.1.0"
+version: "2.2.0"
 tagline: core webstúdió – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -32,4 +32,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Rewritten in Go like the Vadvirág apps: about 10 MB of memory instead of about 70 MB. Same website, same data.
+  Online fizetés: admcore.hu/fizetes/… fizetési oldal (Stripe, bankkártya, Apple Pay, Google Pay, havi vagy éves automatikus terhelés), ÁSZF oldal, impresszum a Tiguan Gasztro Kft. adataival, ÁFA-szöveg az Irányítópultból.

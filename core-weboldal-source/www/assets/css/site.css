@@ -570,6 +570,34 @@ mark.todo { background: var(--honey-soft); color: var(--ink); padding: 0 4px; bo
 .center-card { text-align: center; display: grid; justify-items: center; gap: 14px; padding: 48px 24px; }
 .center-card .ok { width: 72px; height: 72px; border-radius: 50%; background: var(--sage-soft); color: var(--sage); display: grid; place-items: center; }
 .center-card .ok svg { width: 34px; height: 34px; }
+/* ---------- payment page (/fizetes/…) ---------- */
+.paypage .doc { padding-top: 16px; }
+.pay { max-width: 560px; }
+.pay h1 { font-size: clamp(28px, 7vw, 40px); line-height: 1.1; margin-bottom: 6px; overflow-wrap: anywhere; }
+.pay__plan { color: var(--ink-2); font-size: 16px; }
+.pay__price { display: flex; align-items: baseline; gap: 8px; margin: 22px 0 6px; }
+.pay__price b { font-size: clamp(44px, 12vw, 60px); font-weight: 700; letter-spacing: -.04em; font-variant-numeric: tabular-nums; line-height: 1; }
+.pay__price span { font-size: 18px; color: var(--ink-2); font-weight: 550; }
+.pay__kv { margin-top: 10px; }
+.pay__kv div { grid-template-columns: 1fr auto !important; align-items: baseline; }
+.pay__kv dd { text-align: right; font-variant-numeric: tabular-nums; }
+.pay__vat { font-size: 13.5px !important; color: var(--ink-3) !important; margin-top: 8px; }
+.pay__list { list-style: none !important; padding: 0 !important; margin: 22px 0 8px; display: grid; gap: 10px !important; }
+.pay__list li { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; color: var(--ink); }
+.pay__list svg { width: 20px; height: 20px; flex: none; color: var(--sage); margin-top: 2px; }
+.pay__form { margin-top: 22px; display: grid; gap: 14px; }
+.pay__ok { display: flex; gap: 12px; align-items: flex-start; padding: 16px; border-radius: var(--r); background: var(--bg-2); cursor: pointer; font-size: 15.5px; line-height: 1.5; color: var(--ink); }
+.pay__ok input { width: 24px; height: 24px; flex: none; margin: 0; accent-color: var(--accent); }
+.pay__form > * { min-width: 0; }
+.pay__go { width: 100%; white-space: normal; text-align: center; line-height: 1.2; padding: 12px 20px; height: auto; min-height: 58px; }
+.pay__go svg { width: 20px; height: 20px; }
+.pay__safe { display: flex; gap: 8px; align-items: center; justify-content: center; font-size: 13.5px !important; color: var(--ink-3) !important; text-align: center; }
+.pay__safe svg { width: 16px; height: 16px; flex: none; }
+.pay__err { padding: 12px 14px; border-radius: var(--r-sm); background: var(--accent-soft); color: var(--accent-text) !important; font-weight: 600; font-size: 15px !important; }
+.pay__test { margin: -6px 0 18px; padding: 10px 14px; border-radius: var(--r-sm); background: var(--honey-soft); font-size: 14px !important; font-weight: 600; color: var(--ink) !important; }
+.pay__fine { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13px !important; color: var(--ink-3) !important; }
+.pay__lead { color: var(--ink-2); font-size: 18px; max-width: 26em; }
+.paypage .center-card .btn--ghost { margin-bottom: -4px; }
 @media (min-width: 720px) { .doc { padding: 48px 0 60px; } .doc__card { padding: 48px 56px; } .kv div { grid-template-columns: 200px 1fr; gap: 16px; } }
 
 /* =========================================================

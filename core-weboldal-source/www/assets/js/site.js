@@ -143,6 +143,9 @@
     });
   });
 
+  /* ---------- VAT wording: chosen in the Irányítópult ---------- */
+  var VAT = { brutto: "Az árak bruttó árak, az ÁFA-t tartalmazzák.", netto: "Az árak nettó árak, + 27% ÁFA.", mentes: "Az árak végösszegek, ÁFA-t nem tartalmaznak." };
+
   /* ---------- Launch discount: remaining places come from the server ---------- */
   function applySpots(n) {
     spots = n;
@@ -160,7 +163,10 @@
     }
   }
   fetch("/api/info", { headers: { Accept: "application/json" } }).then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (j) { if (j && typeof j.spots === "number") applySpots(j.spots); }).catch(function () { /* keep defaults */ });
+    .then(function (j) {
+      if (j && typeof j.spots === "number") applySpots(j.spots);
+      if (j && VAT[j.vat]) $$("[data-vat]").forEach(function (el) { el.textContent = VAT[j.vat]; });
+    }).catch(function () { /* keep defaults */ });
 
   /* ---------- Hero demo phone ---------- */
   var heroScreen = $("#heroScreen"), heroDevice = $("#heroDevice");

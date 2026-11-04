@@ -7,13 +7,18 @@
 //	GET  /...                 the website
 //	POST /api/ajanlatkeres    request from the planner (JSON) or the no-JS form (urlencoded)
 //	POST /api/e               cookieless page statistics (counts only)
-//	GET  /api/info            { spots } – remaining launch-discount places
+//	GET  /api/info            { spots, vat } – remaining launch-discount places, VAT wording
+//	GET  /fizetes/{kod}       payment page for a client (link sent from the Irányítópult)
+//	POST /fizetes/{kod}       accepts the terms, then redirects to Stripe Checkout
+//	GET  /fizetes/kesz        thank-you page after a successful payment
+//	GET  /elofizetes          redirect to the Stripe customer portal (card, invoices)
+//	POST /stripe/webhook      Stripe webhooks, passed unchanged to the Irányítópult (it checks the signature)
 //
 // Internal (port 9095, only reachable from other containers on the Umbrel, never published):
 //
 //	GET  /stats               aggregated statistics (no personal data) for the core Irányítópult app
 //	GET  /health              status of the outbox
-//	POST /config              { spots } – set by the Irányítópult
+//	POST /config              { spots, vat, portal } – set by the Irányítópult
 //
 // Requests are saved to DATA_DIR/outbox.json first, then handed to the Irányítópult (DASH_INGEST).
 // Until that succeeds they stay in the outbox and are retried every minute. If the Irányítópult
@@ -260,8 +265,10 @@ func notFound(w http.ResponseWriter, r *http.Request) {
 var (
 	cfgMu  sync.Mutex
 	config = struct {
-		Spots int `json:"spots"`
-	}{Spots: 5}
+		Spots  int    `json:"spots"`
+		Vat    string `json:"vat"`
+		Portal string `json:"portal"`
+	}{Spots: 5, Vat: "brutto"}
 )
 
 // ---------- statistics (no cookies, no IP addresses stored) ----------
@@ -771,14 +778,29 @@ func public(w http.ResponseWriter, r *http.Request) {
 		return
 	case "/api/info":
 		cfgMu.Lock()
-		n := max(0, config.Spots)
+		n, vat := max(0, config.Spots), config.Vat
 		cfgMu.Unlock()
 		w.Header().Set("Cache-Control", "public, max-age=60")
-		sendJSON(w, 200, map[string]int{"spots": n})
+		sendJSON(w, 200, map[string]any{"spots": n, "vat": vat})
+		return
+	case "/stripe/webhook":
+		if r.Method != "POST" {
+			w.Header().Set("Allow", "POST")
+			w.WriteHeader(405)
+			return
+		}
+		relayWebhook(w, r)
+		return
+	case "/elofizetes":
+		portalRedirect(w, r)
 		return
 	case "/healthz":
 		w.Header().Set("Content-Type", "text/plain")
 		io.WriteString(w, "ok")
+		return
+	}
+	if strings.HasPrefix(p, "/fizetes/") {
+		payPage(w, r, strings.TrimPrefix(p, "/fizetes/"))
 		return
 	}
 	if r.Method != "GET" && r.Method != "HEAD" {
@@ -817,7 +839,9 @@ func internal(w http.ResponseWriter, r *http.Request) {
 		sendJSON(w, 200, map[string]any{"ok": true, "outbox": n, "oldest": oldest, "ntfyFallback": setting("NTFY_URL", "ntfy-url.txt") != "", "version": appVersion})
 	case r.URL.Path == "/config" && r.Method == "POST":
 		var c struct {
-			Spots *float64 `json:"spots"`
+			Spots  *float64 `json:"spots"`
+			Vat    *string  `json:"vat"`
+			Portal *string  `json:"portal"`
 		}
 		b, _ := io.ReadAll(io.LimitReader(r.Body, 1000))
 		if json.Unmarshal(b, &c) != nil {
@@ -827,6 +851,12 @@ func internal(w http.ResponseWriter, r *http.Request) {
 		cfgMu.Lock()
 		if c.Spots != nil {
 			config.Spots = max(0, min(99, int(*c.Spots+0.5)))
+		}
+		if c.Vat != nil && (*c.Vat == "brutto" || *c.Vat == "netto" || *c.Vat == "mentes") {
+			config.Vat = *c.Vat
+		}
+		if c.Portal != nil && (*c.Portal == "" || strings.HasPrefix(*c.Portal, "https://")) {
+			config.Portal = cut(*c.Portal, 300)
 		}
 		err := writeJSON("config.json", config)
 		out := config

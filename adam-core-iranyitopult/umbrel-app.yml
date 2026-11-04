@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-core-iranyitopult
 category: automation
 name: core Irányítópult
-version: "1.1.0"
+version: "1.2.0"
 tagline: Érdeklődők és látogatók az admcore.hu-ról, értesítéssel
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-core-iranyitopult/icon.svg
 description: >-
@@ -33,6 +33,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Újraírva Go-ban (mint a Vadvirág appok): kb. 12 MB memória a korábbi ~70 MB helyett.
-  Javítva: a háttérfrissítés nem törli többé a keresőmezőt és nem villogtatja a grafikonokat.
-  A frissítés után egyszer újra be kell állítani a jelszót (otthonról).
+  Stripe fizetés: fizetési link egy gombnyomással, havi vagy éves előfizetés, befizetések és sikertelen fizetések értesítéssel, lemondás, kiszámlázandó lista és befizetés-táblázat a könyvelőnek.

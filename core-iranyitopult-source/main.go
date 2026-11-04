@@ -10,7 +10,9 @@
 //
 //	jelszo.json   salted PBKDF2-SHA256 hash of the password + session secret
 //	leads.json    the requests, with status, notes and history
-//	settings.json notifications and the launch-discount counter
+//	settings.json notifications, the launch-discount counter and the Stripe keys
+//
+// Payments (Stripe) live in pay.go.
 package main
 
 import (
@@ -47,7 +49,7 @@ import (
 	"unicode/utf8"
 )
 
-const version = "1.1.0"
+const version = "1.2.0"
 
 //go:embed web
 var webFS embed.FS
@@ -153,15 +155,21 @@ type Lead struct {
 	Seen        bool     `json:"seen"`
 	Updated     string   `json:"updated"`
 	History     []Hist   `json:"history"`
+	Pay         *Payment `json:"pay,omitempty"`
 }
 type Settings struct {
-	NtfyURL     string `json:"ntfyUrl"`
-	NtfyToken   string `json:"ntfyToken"`
-	NotifyLeads bool   `json:"notifyLeads"`
-	NotifyDown  bool   `json:"notifyDown"`
-	SiteURL     string `json:"siteUrl"`
-	DashURL     string `json:"dashUrl"`
-	Spots       int    `json:"spots"`
+	NtfyURL       string `json:"ntfyUrl"`
+	NtfyToken     string `json:"ntfyToken"`
+	NotifyLeads   bool   `json:"notifyLeads"`
+	NotifyDown    bool   `json:"notifyDown"`
+	SiteURL       string `json:"siteUrl"`
+	DashURL       string `json:"dashUrl"`
+	Spots         int    `json:"spots"`
+	NotifyPay     bool   `json:"notifyPay"`
+	StripeKey     string `json:"stripeKey"`
+	StripeWebhook string `json:"stripeWebhook"`
+	VatMode       string `json:"vatMode"` // brutto | netto | mentes
+	PortalURL     string `json:"portalUrl"`
 }
 type Auth struct {
 	Algo   string `json:"algo"`
@@ -174,7 +182,7 @@ type Auth struct {
 var (
 	mu       sync.Mutex
 	leads    []*Lead
-	settings = Settings{NotifyLeads: true, NotifyDown: true, SiteURL: "https://admcore.hu", Spots: 5}
+	settings = Settings{NotifyLeads: true, NotifyDown: true, NotifyPay: true, SiteURL: "https://admcore.hu", Spots: 5, VatMode: "brutto"}
 	auth     Auth
 )
 
@@ -462,11 +470,12 @@ func check() {
 	stMu.Unlock()
 }
 
-func pushSpots() bool {
+// pushConfig sends what the public website needs: discount places, VAT wording, customer-portal link.
+func pushConfig() bool {
 	mu.Lock()
-	n := settings.Spots
+	c := map[string]any{"spots": settings.Spots, "vat": settings.VatMode, "portal": settings.PortalURL}
 	mu.Unlock()
-	b, _ := json.Marshal(map[string]int{"spots": n})
+	b, _ := json.Marshal(c)
 	r, err := httpc.Post(siteURL+"/config", "application/json", bytes.NewReader(b))
 	if err != nil {
 		return false
@@ -682,7 +691,27 @@ func publicSettings() Settings {
 	if s.NtfyToken != "" {
 		s.NtfyToken = "••••••"
 	}
+	s.StripeKey = maskKey(s.StripeKey)
+	s.StripeWebhook = maskKey(s.StripeWebhook)
 	return s
+}
+func maskKey(k string) string {
+	if k == "" {
+		return ""
+	}
+	pre := k
+	if i := strings.LastIndex(k[:min(len(k), 9)], "_"); i > 0 {
+		pre = k[:i+1]
+	}
+	return pre + "••••" + k[max(0, len(k)-4):]
+}
+
+// call with mu held
+func stripeInfo() map[string]any {
+	hookMu.Lock()
+	h := hookStatus
+	hookMu.Unlock()
+	return map[string]any{"keySet": settings.StripeKey != "", "hookSet": settings.StripeWebhook != "", "live": strings.Contains(settings.StripeKey, "_live_"), "hook": h, "vatNote": vatNote(settings.VatMode)}
 }
 func findLead(id string) *Lead {
 	for _, l := range leads {
@@ -704,7 +733,7 @@ func api(w http.ResponseWriter, r *http.Request, p string) {
 	}
 	switch {
 	case p == "/api/me" && r.Method == "GET":
-		sendJSON(w, 200, map[string]any{"ok": true, "version": version, "labels": L, "prices": prices})
+		sendJSON(w, 200, map[string]any{"ok": true, "version": version, "labels": L, "prices": prices, "setup": setupPrices})
 	case p == "/api/leads" && r.Method == "GET":
 		mu.Lock()
 		b, _ := json.Marshal(map[string]any{"ok": true, "leads": leads})
@@ -728,6 +757,30 @@ func api(w http.ResponseWriter, r *http.Request, p string) {
 		saveLeads()
 		mu.Unlock()
 		sendJSON(w, 200, map[string]any{"ok": true, "lead": l})
+	case payPath.MatchString(p):
+		m := payPath.FindStringSubmatch(p)
+		payAPI(w, r, m[1], m[2])
+	case p == "/api/stripe/test" && r.Method == "POST":
+		stripeTest(w)
+	case p == "/api/payments.csv" && r.Method == "GET":
+		w.Header().Set("Content-Type", "text/csv; charset=utf-8")
+		w.Header().Set("Cache-Control", "no-store")
+		w.Header().Set("Content-Disposition", `attachment; filename="befizetesek-`+time.Now().Format("2006-01-02")+`.csv"`)
+		io.WriteString(w, "\xEF\xBB\xBF")
+		c := csv.NewWriter(w)
+		c.Comma = ';'
+		c.UseCRLF = true
+		c.Write([]string{"Dátum", "Vállalkozás", "Név", "E-mail", "Telefon", "Összeg (Ft)", "Csomag", "Stripe számlaszám", "Stripe nyugta", "Kiszámlázva"})
+		mu.Lock()
+		rows := paymentsCSVRows()
+		mu.Unlock()
+		for _, row := range rows {
+			for i := range row {
+				row[i] = csvCell(row[i])
+			}
+			c.Write(row)
+		}
+		c.Flush()
 	case leadPath.MatchString(p):
 		m := leadPath.FindStringSubmatch(p)
 		mu.Lock()
@@ -794,6 +847,10 @@ func api(w http.ResponseWriter, r *http.Request, p string) {
 			saveLeads()
 			sendJSON(w, 200, map[string]any{"ok": true, "lead": l})
 		case m[2] == "" && r.Method == "DELETE":
+			if l.Pay.running() {
+				sendJSON(w, 409, map[string]any{"ok": false, "error": "Ennek az ügyfélnek fut az előfizetése. Előbb mondd le."})
+				return
+			}
 			out := leads[:0]
 			for _, x := range leads {
 				if x != l {
@@ -849,8 +906,9 @@ func api(w http.ResponseWriter, r *http.Request, p string) {
 	case p == "/api/settings" && r.Method == "GET":
 		mu.Lock()
 		s := publicSettings()
+		si := stripeInfo()
 		mu.Unlock()
-		sendJSON(w, 200, map[string]any{"ok": true, "settings": s})
+		sendJSON(w, 200, map[string]any{"ok": true, "settings": s, "stripe": si})
 	case p == "/api/settings" && r.Method == "PUT":
 		var d map[string]any
 		if !readBody(r, 16<<10, &d) {
@@ -872,7 +930,8 @@ func api(w http.ResponseWriter, r *http.Request, p string) {
 		mu.Lock()
 		next := settings
 		mu.Unlock()
-		errs := map[string]string{"ntfyUrl": "Az ntfy-cím nem érvényes (pl. https://ntfy.sh/titkos-nev).", "siteUrl": "A weboldal címe nem érvényes.", "dashUrl": "Az Irányítópult címe nem érvényes."}
+		cfgChanged := false
+		errs := map[string]string{"ntfyUrl": "Az ntfy-cím nem érvényes (pl. https://ntfy.sh/titkos-nev).", "siteUrl": "A weboldal címe nem érvényes.", "dashUrl": "Az Irányítópult címe nem érvényes.", "portalUrl": "Az ügyfélportál linkje nem érvényes (https://billing.stripe.com/p/login/…)."}
 		for k, msg := range errs {
 			if v, ok := d[k]; ok {
 				s, good := validURL(v)
@@ -887,6 +946,13 @@ func api(w http.ResponseWriter, r *http.Request, p string) {
 					next.SiteURL = s
 				case "dashUrl":
 					next.DashURL = s
+				case "portalUrl":
+					if s != "" && !strings.HasPrefix(s, "https://") {
+						sendJSON(w, 422, map[string]any{"ok": false, "error": msg})
+						return
+					}
+					next.PortalURL = s
+					cfgChanged = true
 				}
 			}
 		}
@@ -899,6 +965,33 @@ func api(w http.ResponseWriter, r *http.Request, p string) {
 		if v, ok := d["notifyDown"].(bool); ok {
 			next.NotifyDown = v
 		}
+		if v, ok := d["notifyPay"].(bool); ok {
+			next.NotifyPay = v
+		}
+		if v, ok := d["stripeKey"].(string); ok && !strings.Contains(v, "••••") {
+			v = strings.TrimSpace(v)
+			if v != "" && !stripeKey.MatchString(v) {
+				sendJSON(w, 422, map[string]any{"ok": false, "error": "Ez nem Stripe titkos kulcs. sk_test_… vagy sk_live_… kezdetű kulcsot másolj be (Fejlesztők → API-kulcsok)."})
+				return
+			}
+			next.StripeKey = v
+		}
+		if v, ok := d["stripeWebhook"].(string); ok && !strings.Contains(v, "••••") {
+			v = strings.TrimSpace(v)
+			if v != "" && !whsecRe.MatchString(v) {
+				sendJSON(w, 422, map[string]any{"ok": false, "error": "A webhook kulcs whsec_ kezdetű (Fejlesztők → Webhookok → a végpont → Aláíró kulcs)."})
+				return
+			}
+			next.StripeWebhook = v
+		}
+		if v, ok := d["vatMode"].(string); ok {
+			if v != "brutto" && v != "netto" && v != "mentes" {
+				sendJSON(w, 422, map[string]any{"ok": false})
+				return
+			}
+			next.VatMode = v
+			cfgChanged = true
+		}
 		spotsChanged := false
 		if v, ok := d["spots"].(float64); ok {
 			n := int(v + 0.5)
@@ -909,16 +1002,17 @@ func api(w http.ResponseWriter, r *http.Request, p string) {
 		settings = next
 		err := writeJSON("settings.json", settings)
 		s := publicSettings()
+		si := stripeInfo()
 		mu.Unlock()
 		if err != nil {
 			sendJSON(w, 500, map[string]any{"ok": false, "error": "Nem sikerült menteni."})
 			return
 		}
 		synced := true
-		if spotsChanged {
-			synced = pushSpots()
+		if spotsChanged || cfgChanged {
+			synced = pushConfig()
 		}
-		sendJSON(w, 200, map[string]any{"ok": true, "synced": synced, "settings": s})
+		sendJSON(w, 200, map[string]any{"ok": true, "synced": synced, "settings": s, "stripe": si})
 	case p == "/api/test-ntfy" && r.Method == "POST":
 		if err := ntfy(ntfyMsg{Title: "core Irányítópult", Message: "Működik! Innen kapod majd az új érdeklődőket.", Tags: []string{"tada"}, Priority: 3}); err != nil {
 			sendJSON(w, 502, map[string]any{"ok": false, "error": err.Error()})
@@ -975,7 +1069,7 @@ func api(w http.ResponseWriter, r *http.Request, p string) {
 	case p == "/api/backup.json" && r.Method == "GET":
 		mu.Lock()
 		s := settings
-		s.NtfyToken = ""
+		s.NtfyToken, s.StripeKey, s.StripeWebhook = "", "", ""
 		b, _ := json.MarshalIndent(map[string]any{"version": version, "exported": nowISO(), "leads": leads, "settings": s}, "", " ")
 		mu.Unlock()
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
@@ -1102,7 +1196,9 @@ var (
 )
 
 func ingest(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" || r.URL.Path != "/ingest" {
+	p := r.URL.Path
+	known := (p == "/ingest" && r.Method == "POST") || (p == "/stripe" && r.Method == "POST") || strings.HasPrefix(p, "/pay/")
+	if !known {
 		http.NotFound(w, r)
 		return
 	}
@@ -1114,13 +1210,21 @@ func ingest(w http.ResponseWriter, r *http.Request) {
 			keep = append(keep, t)
 		}
 	}
-	if len(keep) > 60 {
+	if len(keep) > 300 {
 		inMu.Unlock()
 		w.WriteHeader(429)
 		return
 	}
 	inLimit[ip] = append(keep, time.Now())
 	inMu.Unlock()
+	switch {
+	case p == "/stripe":
+		internalStripe(w, r)
+		return
+	case strings.HasPrefix(p, "/pay/"):
+		internalPay(w, r, strings.TrimPrefix(p, "/pay/"))
+		return
+	}
 	var d leadIn
 	if !readBody(r, 32<<10, &d) {
 		w.WriteHeader(400)
@@ -1174,7 +1278,7 @@ func main() {
 			check()
 		}
 	}()
-	go func() { time.Sleep(5 * time.Second); pushSpots() }()
+	go func() { time.Sleep(5 * time.Second); pushConfig() }()
 	go func() {
 		srv := &http.Server{Addr: ":" + ingestPort, Handler: http.HandlerFunc(ingest), ReadTimeout: 10 * time.Second, WriteTimeout: 10 * time.Second}
 		log.Print("ingest on :", ingestPort)

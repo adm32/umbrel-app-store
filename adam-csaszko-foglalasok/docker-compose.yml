@@ -4,29 +4,29 @@ services:
   app_proxy:
     environment:
       # <app-id>_<service>_1
-      APP_HOST: adam-csaszko-foglalasok_server_1
+      APP_HOST: adam-csaszko-foglalasok_web_1
       APP_PORT: 8080
       # Private admin app: Umbrel's login screen stays ON (default).
 
-  server:
-    image: node:22-alpine
+  web:
+    build:
+      context: ${APP_DATA_DIR}
+    # Rebuilt on every start, so after an update the new program really runs.
+    pull_policy: build
     restart: on-failure
     stop_grace_period: 5s
     user: "1000:1000"
-    working_dir: /app
-    command: ["node", "server.js"]
     environment:
       TZ: Europe/Budapest
       DATA_DIR: /data
       ADMIN_PORT: "8080"
+      # Public booking API for the Csaszko Barbershop website. Reached over Umbrel's internal
+      # network (adam-csaszko-foglalasok_web_1:3001), not published on the Umbrel.
       PUBLIC_PORT: "3001"
       REMOTE_PORT: "8082"
     ports:
-      # Public booking API used by the Csaszko website (services, free times, new bookings only).
-      - "4772:3001"
       # Same admin app with its own password, for a Cloudflare Tunnel hostname.
       # Stays locked until a password is set from the Umbrel-protected address.
       - "4773:8082"
     volumes:
-      - ${APP_DATA_DIR}/server:/app:ro
       - ${APP_DATA_DIR}/data:/data

@@ -2,13 +2,14 @@ manifestVersion: 1
 id: adam-csaszko
 category: social
 name: Csaszko Barbershop
-version: "1.0.1"
+version: "2.0.0"
 tagline: A Csaszko Barbershop weboldala, Zalaszentgrót
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-csaszko/icon.svg
 description: >-
   Website of Csaszko Barbershop (Császár Bence, Zalaszentgrót, Nefelejts u. 1.):
   prices with durations, online booking, opening hours, location, TikTok and
-  Instagram. Hungarian, phone-first, no cookies, fonts served locally.
+  Instagram. Hungarian, phone-first, no cookies, fonts served locally. A small Go program
+  (no nginx), the site is compiled into it.
 
 
   Bookings, free times, services and prices come from the "Csaszko Foglalások"
@@ -30,4 +31,5 @@ defaultUsername: ""
 defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
-releaseNotes: Frissítéskor a weboldal fájljai is frissülnek (eddig csak a beállítások).
+releaseNotes: >-
+  Újraírva Go nyelven: kb. 6 MB-os program nginx helyett, kevesebb tárhely és memória. A weboldal ugyanaz; a foglalásokat az Umbrel belső hálózatán éri el.

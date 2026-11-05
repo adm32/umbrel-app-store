@@ -1,16 +1,18 @@
 #!/usr/bin/env bash
 # Umbrel only copies docker-compose.yml, umbrel-app.yml and hooks/ on update. This copies the
-# fresh website (www/, nginx.conf) from the app store before every start, so an update really
-# shows the new site.
+# fresh program (bin/, Dockerfile) from the app store before every start, so an update really
+# shows the new website.
 src="${SCRIPT_APP_REPO_DIR:-}"
 dst="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-if [[ -z "${src}" || ! -d "${src}/www" || ! -f "${src}/nginx.conf" || "${src}" == "${dst}" ]]; then
+if [[ -z "${src}" || ! -d "${src}/bin" || "${src}" == "${dst}" ]]; then
   exit 0
 fi
-rm -rf "${dst}/www.new"
-cp -r "${src}/www" "${dst}/www.new"
-rm -rf "${dst}/www"
-mv "${dst}/www.new" "${dst}/www"
-cp -f "${src}/nginx.conf" "${dst}/nginx.conf"
-echo "Csaszko Barbershop: website files updated from ${src}"
+mkdir -p "${dst}/bin"
+cp -f "${src}"/bin/csaszko-weboldal-linux-* "${dst}/bin/" && chmod +x "${dst}"/bin/csaszko-weboldal-linux-*
+for f in Dockerfile .dockerignore; do
+  [[ -f "${src}/${f}" ]] && cp -f "${src}/${f}" "${dst}/${f}"
+done
+# Leftovers of the nginx version (1.x)
+rm -rf "${dst}/www" "${dst}/nginx.conf"
+echo "Csaszko Barbershop: program files updated from ${src}"
 exit 0

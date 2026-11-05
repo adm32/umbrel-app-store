@@ -13,6 +13,9 @@ services:
     image: nginx:stable-alpine
     restart: on-failure
     stop_grace_period: 10s
+    extra_hosts:
+      # lets nginx reach the booking API published by the Csaszko Foglalások app
+      - "host.docker.internal:host-gateway"
     volumes:
       # Umbrel copies this app folder (www/ + nginx.conf) into ${APP_DATA_DIR}
       - ${APP_DATA_DIR}/www:/usr/share/nginx/html:ro

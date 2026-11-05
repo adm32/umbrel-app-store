@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Belépés · Csaszko Foglalások</title>
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="login-page">
+  <main class="login">
+    <img class="login__icon" src="icon-192.png" alt="" width="72" height="72">
+    <h1 class="login__title"><span>CSASZKO</span>Foglalások</h1>
+    <form class="panel login__form" data-login novalidate>
+      <input type="text" name="username" value="csaszko" autocomplete="username" hidden>
+      <label class="field"><span>Jelszó</span>
+        <input name="password" type="password" autocomplete="current-password" required></label>
+      <label class="check"><input type="checkbox" data-show><span>Jelszó mutatása</span></label>
+      <p class="err-line" data-error role="alert" hidden></p>
+      <button class="btn login__btn" type="submit">Belépés</button>
+    </form>
+    <p class="login__off" data-off hidden>A távoli belépés még nincs bekapcsolva. Nyisd meg az appot az Umbrelen, és a <b>Beállítások → Távoli elérés</b> résznél adj meg egy jelszót.</p>
+  </main>
+  <script src="login.js" defer></script>
+</body>
+</html>

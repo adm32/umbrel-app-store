@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Csaszko Barbershop</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Hajvágás és szakálligazítás Zalaszentgróton, a Nefelejts utca 1.-ben. Kedd–vasárnap 15:00–21:00, foglalj időpontot online.">
+<meta name="description" content="Csaszko Barbershop, Zalaszentgrót, Nefelejts u. 1. Hajvágás, szakálligazítás, gyerekhajvágás. Kedd–vasárnap 15:00–21:00, foglalj időpontot online.">
 <meta name="theme-color" content="#000000">
 <meta property="og:title" content="Csaszko Barbershop – Zalaszentgrót">
 <meta property="og:description" content="Hajvágás és szakálligazítás. Kedd–vasárnap 15:00–21:00, foglalj időpontot online.">
@@ -22,16 +22,16 @@
 
 <header class="top">
   <div class="top__in">
-    <a class="top__mark" href="#" aria-label="Csaszko Barbershop, vissza az oldal tetejére">Csaszko</a>
-    <a class="btn btn--line btn--sm" href="#foglalas">Foglalás</a>
+    <a class="top__mark" href="#" aria-label="Csaszko Barbershop, vissza az oldal tetejére">Csaszko <span>Barbershop</span></a>
+    <a class="btn btn--line btn--sm" href="#foglalas" data-ev="book_open">Foglalás</a>
   </div>
 </header>
 
 <main>
   <section class="hero wrap" aria-labelledby="name">
-    <h1 class="name" id="name">Csaszko</h1>
+    <h1 class="name" id="name"><span class="name__a">Csaszko</span><span class="name__b">Barbershop</span></h1>
     <div class="stripe" aria-hidden="true"></div>
-    <p class="sub">Barbershop Zalaszentgróton, a Nefelejts utca 1.-ben. Hajvágás, szakáll, gyerekhaj.</p>
+    <p class="sub">Zalaszentgrót, Nefelejts utca 1. Hajvágás, szakáll, gyerekhaj.</p>
 
     <div class="hero__row">
       <div class="now">
@@ -42,15 +42,15 @@
         </div>
       </div>
       <div class="cta">
-        <a class="btn btn--gold" href="#foglalas">Időpontot foglalok</a>
-        <a class="btn btn--line" href="tel:+36307355077">Hívás</a>
+        <a class="btn btn--gold" href="#foglalas" data-ev="book_open">Időpontot foglalok</a>
+        <a class="btn btn--line" href="tel:+36307355077" data-ev="call">Hívás</a>
       </div>
     </div>
 
     <dl class="facts">
       <div><dt>Kedd – vasárnap</dt><dd>15:00 – 21:00</dd></div>
       <div><dt>Hétfő</dt><dd>zárva</dd></div>
-      <div><dt>Hajvágás</dt><dd>3 500 Ft</dd></div>
+      <div><dt>Hajvágás</dt><dd id="factPrice">3 500 Ft</dd></div>
     </dl>
   </section>
 
@@ -62,6 +62,7 @@
 
     <section class="booking" id="foglalas" aria-labelledby="foglalas-h">
       <h2 id="foglalas-h">Időpontfoglalás</h2>
+      <p class="offline" id="offline" hidden>Az online foglalás most nem érhető el. Hívd Bencét: <a href="tel:+36307355077">+36 30 735 5077</a></p>
 
       <form id="book" novalidate>
         <fieldset>
@@ -77,7 +78,7 @@
         <fieldset>
           <legend><span class="n">3</span>Hánykor?</legend>
           <div class="times" id="timeList"></div>
-          <p class="hint" id="timeHint">Előbb válassz napot.</p>
+          <p class="hint" id="timeHint">Előbb válaszd ki, mit kérsz, és melyik nap.</p>
         </fieldset>
 
         <fieldset>
@@ -85,32 +86,39 @@
           <div class="fields">
             <label class="field" for="fName"><span>Neved</span><input id="fName" name="nev" type="text" autocomplete="name" maxlength="60" required></label>
             <label class="field" for="fPhone"><span>Telefonszámod</span><input id="fPhone" name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="+36 30 123 4567" maxlength="20" required></label>
-            <label class="field field--wide" for="fNote"><span>Megjegyzés <em>(nem kötelező)</em></span><input id="fNote" name="megjegyzes" type="text" maxlength="140" placeholder="pl. két főre, apa és fia"></label>
+            <label class="field field--wide" for="fEmail"><span>E-mail címed <em>(ide küldjük a visszaigazolást)</em></span><input id="fEmail" name="email" type="email" inputmode="email" autocomplete="email" maxlength="120" required></label>
+            <label class="field field--wide" for="fNote"><span>Megjegyzés <em>(nem kötelező)</em></span><input id="fNote" name="megjegyzes" type="text" maxlength="140" placeholder="pl. oldalt rövid, felül hagyd hosszabbra"></label>
+            <label class="hp" aria-hidden="true">Weboldal<input id="fWeb" name="website" type="text" tabindex="-1" autocomplete="off"></label>
           </div>
         </fieldset>
 
         <div class="summary" id="summary" aria-live="polite">Válaszd ki, mit kérsz, melyik nap és hánykor.</div>
         <button class="btn btn--gold btn--wide" type="submit" id="submitBtn">Időpont foglalása</button>
-        <p class="fine">A nevedet és a telefonszámodat csak a foglaláshoz használjuk.</p>
+        <p class="fine">A nevedet, a telefonszámodat és az e-mail címedet csak a foglaláshoz használjuk.</p>
       </form>
 
       <div class="done" id="done" hidden tabindex="-1">
-        <h3>Foglalás elküldve</h3>
+        <h3 id="doneTitle">Foglalás elküldve</h3>
         <p id="doneText"></p>
-        <p class="done__demo">Ez egy bemutató oldal, ezért a foglalás most nem ment el sehova.</p>
+        <p class="done__demo" id="doneDemo" hidden>Ez egy bemutató oldal, ezért a foglalás most nem ment el sehova.</p>
         <button class="btn btn--line" type="button" id="again">Új foglalás</button>
       </div>
     </section>
   </div>
 
+  <section class="gallery wrap" id="vagasok" aria-labelledby="vagasok-h" hidden>
+    <h2 id="vagasok-h">Vágások</h2>
+    <div class="gallery__grid" id="galleryGrid"></div>
+  </section>
+
   <div class="wrap info">
     <section aria-labelledby="rolam-h">
-      <h2 id="rolam-h">Bence</h2>
-      <p>Császár Bence vagyok, három éve vágok hajat. Délután háromtól este kilencig dolgozom, így munka vagy suli után is beférsz, és este kilenckor még foglalhatsz időpontot.</p>
-      <p>A friss vágásaimat a TikTokon és az Instagramon mutatom meg.</p>
+      <h2 id="rolam-h">Három éve vágok hajat</h2>
+      <p>Császár Bence vagyok. Délután háromtól este kilencig dolgozom, így munka vagy suli után is beférsz, és este kilenckor még foglalhatsz időpontot.</p>
+      <p>A legutóbbi vágásaim fent vannak TikTokon és Instagramon.</p>
       <div class="links">
-        <a class="btn btn--line btn--sm" href="https://www.tiktok.com/@csaszkooo09" target="_blank" rel="noopener">TikTok</a>
-        <a class="btn btn--line btn--sm" href="https://www.instagram.com/csaszkobarbershop69/" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn--line btn--sm" href="https://www.tiktok.com/@csaszkooo09" target="_blank" rel="noopener" data-ev="tiktok">TikTok</a>
+        <a class="btn btn--line btn--sm" href="https://www.instagram.com/csaszkobarbershop69/" target="_blank" rel="noopener" data-ev="instagram">Instagram</a>
       </div>
     </section>
 
@@ -125,7 +133,7 @@
         <li data-d="6"><span>Szombat</span><span>15:00 – 21:00</span></li>
         <li data-d="0"><span>Vasárnap</span><span>15:00 – 21:00</span></li>
       </ul>
-      <p class="fine">Az utolsó időpont 21:00-kor kezdődik.</p>
+      <p class="fine" id="lastStart">Az utolsó időpont 21:00-kor kezdődik.</p>
     </section>
 
     <section aria-labelledby="hol-h">
@@ -135,18 +143,23 @@
         <span>8790 Zalaszentgrót</span>
       </address>
       <div class="links">
-        <a class="btn btn--line btn--sm" href="https://www.google.com/maps/search/?api=1&amp;query=Zalaszentgr%C3%B3t%2C%20Nefelejts%20utca%201" target="_blank" rel="noopener">Google Térkép</a>
-        <a class="btn btn--line btn--sm" href="https://maps.apple.com/?q=Nefelejts%20utca%201%2C%208790%20Zalaszentgr%C3%B3t" target="_blank" rel="noopener">Apple Térkép</a>
+        <a class="btn btn--line btn--sm" href="https://www.google.com/maps/search/?api=1&amp;query=Zalaszentgr%C3%B3t%2C%20Nefelejts%20utca%201" target="_blank" rel="noopener" data-ev="map">Google Térkép</a>
+        <a class="btn btn--line btn--sm" href="https://maps.apple.com/?q=Nefelejts%20utca%201%2C%208790%20Zalaszentgr%C3%B3t" target="_blank" rel="noopener" data-ev="map">Apple Térkép</a>
       </div>
-      <p class="phone">Telefon: <a href="tel:+36307355077">+36 30 735 5077</a></p>
+      <p class="phone">Telefon: <a href="tel:+36307355077" data-ev="call">+36 30 735 5077</a></p>
     </section>
   </div>
 </main>
 
 <footer class="foot wrap">
   <p>© 2026 Csaszko Barbershop, Zalaszentgrót</p>
-  <p>Bemutató oldal. Készítette a <a href="https://admcore.hu" target="_blank" rel="noopener">core</a>.</p>
+  <a class="foot__core" href="https://admcore.hu" target="_blank" rel="noopener"><span>Weboldal:</span><img src="img/core-logo.svg" alt="core webstúdió" width="70" height="30"></a>
 </footer>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox__close" type="button" id="lbClose">Bezárás</button>
+  <img id="lbImg" alt="">
+</div>
 
 </div>
 <script src="app.js"></script>

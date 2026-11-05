@@ -2,21 +2,21 @@ manifestVersion: 1
 id: adam-csaszko
 category: social
 name: Csaszko Barbershop
-version: "0.1.0"
-tagline: Bemutató weboldal – Csaszko Barbershop, Zalaszentgrót
+version: "1.0.0"
+tagline: A Csaszko Barbershop weboldala, Zalaszentgrót
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-csaszko/icon.svg
 description: >-
-  Demo website for Csaszko Barbershop (Császár Bence, Zalaszentgrót,
-  Nefelejts u. 1.): prices with durations, opening hours (Tuesday–Sunday
-  15:00–21:00), location, TikTok and Instagram links and an appointment
-  form. Hungarian, phone-first, no cookies, fonts served locally.
+  Website of Csaszko Barbershop (Császár Bence, Zalaszentgrót, Nefelejts u. 1.):
+  prices with durations, online booking, opening hours, location, TikTok and
+  Instagram. Hungarian, phone-first, no cookies, fonts served locally.
 
 
-  The appointment form is in demo mode: it shows the confirmation but sends
-  nothing yet.
+  Bookings, free times, services and prices come from the "Csaszko Foglalások"
+  app (install it too). If that app is not running, the site shows the built-in
+  price list and asks visitors to call.
 
 
-  To share it, point a Cloudflare Tunnel public hostname (for example
+  To publish it, point a Cloudflare Tunnel public hostname (for example
   csaszko.admcore.hu) at http://<umbrel-ip>:4770.
 developer: Adam
 website: https://admcore.hu
@@ -30,4 +30,5 @@ defaultUsername: ""
 defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
-releaseNotes: First demo version.
+releaseNotes: >-
+  Hivatalos változat: online foglalás a Csaszko Foglalások appal (valódi szabad időpontok), kötelező e-mail a visszaigazoláshoz, "Csaszko Barbershop" név a nyitóképen, core logó a láblécben, helyet kapott egy Vágások galéria (a képek feltöltéséig rejtve).

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Csaszko · Foglalások</title>
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="top">
+    <div class="top__in">
+      <div class="brand"><span class="brand__name">CSASZKO</span><span class="brand__sub" data-brand-sub>Foglalások</span></div>
+      <div class="top__tools">
+        <button class="mode-btn" type="button" data-mode aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true" data-mode-icon><path d="M4 20h16M7 16v-5M12 16V6M17 16v-8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span data-mode-label>Statisztika</span>
+        </button>
+        <button class="icon-btn" type="button" data-refresh aria-label="Frissítés" title="Frissítés">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Nézetek" data-tabs>
+      <button role="tab" type="button" data-tab="requests" aria-selected="true">Foglalások <span class="badge" data-badge hidden>0</span></button>
+      <button role="tab" type="button" data-tab="calendar" aria-selected="false">Naptár</button>
+      <button role="tab" type="button" data-tab="past" aria-selected="false">Korábbiak</button>
+      <button role="tab" type="button" data-tab="settings" aria-selected="false">Beállítások</button>
+    </nav>
+  </header>
+
+  <main class="main">
+    <div class="banner" data-mail-banner hidden>
+      <strong>Még nem kapsz értesítést az új foglalásokról.</strong>
+      Állítsd be a telefonos értesítést (ntfy) vagy az e-mailt. <button type="button" class="link" data-goto="settings">Beállítás most</button>
+    </div>
+    <p class="err-line" data-load-error hidden>Nem sikerült betölteni az adatokat. Újrapróbálom…</p>
+
+    <section data-view="requests"></section>
+    <section data-view="calendar" hidden></section>
+    <section data-view="past" hidden></section>
+    <section data-view="settings" hidden></section>
+    <section data-view="stats" hidden></section>
+  </main>
+
+  <div class="fab" data-fab>
+    <button type="button" class="fab__btn" data-new-booking>+ Új foglalás</button>
+    <button type="button" class="fab__btn fab__btn--line" data-new-block>Zárás / szabadság</button>
+  </div>
+
+  <dialog class="dlg" data-dialog>
+    <form method="dialog" class="dlg__in" data-dialog-form novalidate>
+      <h2 data-dialog-title tabindex="-1"></h2>
+      <div data-dialog-body></div>
+      <p class="err-line" data-dialog-error hidden></p>
+      <div class="dlg__actions">
+        <button type="button" class="btn btn--line" data-dialog-cancel>Mégse</button>
+        <button type="submit" class="btn" data-dialog-ok>Rendben</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="dlg dlg--event" data-event aria-label="Foglalás részletei">
+    <div class="dlg__in">
+      <div class="dlg__bar"><button type="button" class="dlg__close" data-event-close>Kész</button></div>
+      <div data-event-body></div>
+    </div>
+  </dialog>
+
+  <div class="toast" data-toast role="status" aria-live="polite" hidden></div>
+
+  <script src="admin.js" defer></script>
+  <script src="stats.js" defer></script>
+</body>
+</html>

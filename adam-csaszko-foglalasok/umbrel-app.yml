@@ -1,0 +1,39 @@
+manifestVersion: 1
+id: adam-csaszko-foglalasok
+category: productivity
+name: Csaszko Foglalások
+version: "1.0.0"
+tagline: Időpontfoglalások kezelése a Csaszko Barbershop weboldalához
+icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-csaszko-foglalasok/icon.svg
+description: >-
+  Privát kezelőfelület a Csaszko Barbershop online foglalásaihoz (az Esszencia
+  Foglalások app alapján).
+
+
+  A weboldalon a vendég a valódi szabad időpontok közül választ: az app a
+  szolgáltatások hossza, a nyitvatartás és a meglévő foglalások alapján számolja
+  ki őket, így két ember sosem kaphatja ugyanazt az időpontot. A foglalás lehet
+  kérés (te fogadod el) vagy automatikusan visszaigazolt.
+
+
+  Értesítés a telefonra (ntfy) és e-mailben, kész SMS-szöveg a vendégnek, kézi
+  (telefonos) foglalás, áthelyezés, lemondás, szabadság/zárás, nyitvatartás,
+  szolgáltatások és árak szerkesztése (ezek a weboldalon is frissülnek), és egy
+  anonim, sütik nélküli statisztika.
+
+
+  A Csaszko Barbershop weboldal (adam-csaszko) ezen az appon keresztül fogad
+  foglalásokat. Telepítsd mindkettőt.
+developer: Adam
+website: https://admcore.hu
+dependencies: []
+repo: https://github.com/adm32/umbrel-app-store
+support: https://github.com/adm32/umbrel-app-store/issues
+port: 4771
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+submitter: Adam
+submission: https://github.com/adm32/umbrel-app-store
+releaseNotes: Első kiadás.

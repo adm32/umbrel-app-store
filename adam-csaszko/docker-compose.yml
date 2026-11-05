@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      # <app-id>_<service>_1
+      APP_HOST: adam-csaszko_web_1
+      APP_PORT: 80
+      # public website: visitors must NOT get the Umbrel login
+      PROXY_AUTH_ADD: "false"
+
+  web:
+    image: nginx:stable-alpine
+    restart: on-failure
+    stop_grace_period: 10s
+    volumes:
+      # Umbrel copies this app folder (www/ + nginx.conf) into ${APP_DATA_DIR}
+      - ${APP_DATA_DIR}/www:/usr/share/nginx/html:ro
+      - ${APP_DATA_DIR}/nginx.conf:/etc/nginx/conf.d/default.conf:ro

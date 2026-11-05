@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Csaszko Barbershop</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Hajvágás és szakálligazítás Zalaszentgróton, a Nefelejts utca 1.-ben. Kedd–vasárnap 15:00–21:00, foglalj időpontot online.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="Csaszko Barbershop – Zalaszentgrót">
+<meta property="og:description" content="Hajvágás és szakálligazítás. Kedd–vasárnap 15:00–21:00, foglalj időpontot online.">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/archivo-var.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BarberShop","name":"Csaszko Barbershop","founder":"Császár Bence","sameAs":["https://www.tiktok.com/@csaszkooo09","https://www.instagram.com/csaszkobarbershop69/"],"telephone":"+36307355077","priceRange":"2 000–5 500 Ft","address":{"@type":"PostalAddress","streetAddress":"Nefelejts utca 1.","postalCode":"8790","addressLocality":"Zalaszentgrót","addressCountry":"HU"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"15:00","closes":"21:00"}]}
+</script>
+</head>
+<body>
+<div class="page">
+
+<header class="top">
+  <div class="top__in">
+    <a class="top__mark" href="#" aria-label="Csaszko Barbershop, vissza az oldal tetejére">Csaszko</a>
+    <a class="btn btn--line btn--sm" href="#foglalas">Foglalás</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap" aria-labelledby="name">
+    <h1 class="name" id="name">Csaszko</h1>
+    <div class="stripe" aria-hidden="true"></div>
+    <p class="sub">Barbershop Zalaszentgróton, a Nefelejts utca 1.-ben. Hajvágás, szakáll, gyerekhaj.</p>
+
+    <div class="hero__row">
+      <div class="now">
+        <p class="status"><span class="pole" id="pole" aria-hidden="true"></span><span id="statusText">Kedd–vasárnap 15:00–21:00</span></p>
+        <div class="next" id="next" hidden>
+          <p class="next__label" id="nextLabel"></p>
+          <div class="next__times" id="nextTimes"></div>
+        </div>
+      </div>
+      <div class="cta">
+        <a class="btn btn--gold" href="#foglalas">Időpontot foglalok</a>
+        <a class="btn btn--line" href="tel:+36307355077">Hívás</a>
+      </div>
+    </div>
+
+    <dl class="facts">
+      <div><dt>Kedd – vasárnap</dt><dd>15:00 – 21:00</dd></div>
+      <div><dt>Hétfő</dt><dd>zárva</dd></div>
+      <div><dt>Hajvágás</dt><dd>3 500 Ft</dd></div>
+    </dl>
+  </section>
+
+  <div class="wrap split">
+    <section class="prices" id="arak" aria-labelledby="arak-h">
+      <h2 id="arak-h">Árak</h2>
+      <ul class="board" id="board"></ul>
+    </section>
+
+    <section class="booking" id="foglalas" aria-labelledby="foglalas-h">
+      <h2 id="foglalas-h">Időpontfoglalás</h2>
+
+      <form id="book" novalidate>
+        <fieldset>
+          <legend><span class="n">1</span>Mit kérsz?</legend>
+          <div class="chips" id="svcList"></div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="n">2</span>Melyik nap?</legend>
+          <div class="days" id="dayList"></div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="n">3</span>Hánykor?</legend>
+          <div class="times" id="timeList"></div>
+          <p class="hint" id="timeHint">Előbb válassz napot.</p>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="n">4</span>Kinek foglaljunk?</legend>
+          <div class="fields">
+            <label class="field" for="fName"><span>Neved</span><input id="fName" name="nev" type="text" autocomplete="name" maxlength="60" required></label>
+            <label class="field" for="fPhone"><span>Telefonszámod</span><input id="fPhone" name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="+36 30 123 4567" maxlength="20" required></label>
+            <label class="field field--wide" for="fNote"><span>Megjegyzés <em>(nem kötelező)</em></span><input id="fNote" name="megjegyzes" type="text" maxlength="140" placeholder="pl. két főre, apa és fia"></label>
+          </div>
+        </fieldset>
+
+        <div class="summary" id="summary" aria-live="polite">Válaszd ki, mit kérsz, melyik nap és hánykor.</div>
+        <button class="btn btn--gold btn--wide" type="submit" id="submitBtn">Időpont foglalása</button>
+        <p class="fine">A nevedet és a telefonszámodat csak a foglaláshoz használjuk.</p>
+      </form>
+
+      <div class="done" id="done" hidden tabindex="-1">
+        <h3>Foglalás elküldve</h3>
+        <p id="doneText"></p>
+        <p class="done__demo">Ez egy bemutató oldal, ezért a foglalás most nem ment el sehova.</p>
+        <button class="btn btn--line" type="button" id="again">Új foglalás</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap info">
+    <section aria-labelledby="rolam-h">
+      <h2 id="rolam-h">Bence</h2>
+      <p>Császár Bence vagyok, három éve vágok hajat. Délután háromtól este kilencig dolgozom, így munka vagy suli után is beférsz, és este kilenckor még foglalhatsz időpontot.</p>
+      <p>A friss vágásaimat a TikTokon és az Instagramon mutatom meg.</p>
+      <div class="links">
+        <a class="btn btn--line btn--sm" href="https://www.tiktok.com/@csaszkooo09" target="_blank" rel="noopener">TikTok</a>
+        <a class="btn btn--line btn--sm" href="https://www.instagram.com/csaszkobarbershop69/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="nyitva-h">
+      <h2 id="nyitva-h">Nyitvatartás</h2>
+      <ul class="week" id="week">
+        <li data-d="1"><span>Hétfő</span><span>zárva</span></li>
+        <li data-d="2"><span>Kedd</span><span>15:00 – 21:00</span></li>
+        <li data-d="3"><span>Szerda</span><span>15:00 – 21:00</span></li>
+        <li data-d="4"><span>Csütörtök</span><span>15:00 – 21:00</span></li>
+        <li data-d="5"><span>Péntek</span><span>15:00 – 21:00</span></li>
+        <li data-d="6"><span>Szombat</span><span>15:00 – 21:00</span></li>
+        <li data-d="0"><span>Vasárnap</span><span>15:00 – 21:00</span></li>
+      </ul>
+      <p class="fine">Az utolsó időpont 21:00-kor kezdődik.</p>
+    </section>
+
+    <section aria-labelledby="hol-h">
+      <h2 id="hol-h">Itt találsz</h2>
+      <address>
+        <span class="addr">Nefelejts utca 1.</span>
+        <span>8790 Zalaszentgrót</span>
+      </address>
+      <div class="links">
+        <a class="btn btn--line btn--sm" href="https://www.google.com/maps/search/?api=1&amp;query=Zalaszentgr%C3%B3t%2C%20Nefelejts%20utca%201" target="_blank" rel="noopener">Google Térkép</a>
+        <a class="btn btn--line btn--sm" href="https://maps.apple.com/?q=Nefelejts%20utca%201%2C%208790%20Zalaszentgr%C3%B3t" target="_blank" rel="noopener">Apple Térkép</a>
+      </div>
+      <p class="phone">Telefon: <a href="tel:+36307355077">+36 30 735 5077</a></p>
+    </section>
+  </div>
+</main>
+
+<footer class="foot wrap">
+  <p>© 2026 Csaszko Barbershop, Zalaszentgrót</p>
+  <p>Bemutató oldal. Készítette a <a href="https://admcore.hu" target="_blank" rel="noopener">core</a>.</p>
+</footer>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>

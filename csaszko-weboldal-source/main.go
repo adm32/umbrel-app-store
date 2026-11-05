@@ -76,6 +76,31 @@ func load() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	// Cache busting: the page asks for styles.css?v=<hash> and app.js?v=<hash>, so a browser or
+	// Cloudflare copy of an older version can never be combined with a newer page.
+	if idx := files["/index.html"]; idx != nil {
+		b := string(idx.body)
+		for _, name := range []string{"styles.css", "app.js"} {
+			if f := files["/"+name]; f != nil {
+				b = strings.ReplaceAll(b, `"`+name+`"`, `"`+name+`?v=`+strings.Trim(f.etag, `"`)+`"`)
+			}
+		}
+		setBody(idx, []byte(b))
+	}
+}
+
+func setBody(f *file, b []byte) {
+	f.body = b
+	sum := sha256.Sum256(b)
+	f.etag = `"` + hex.EncodeToString(sum[:8]) + `"`
+	f.gz = nil
+	var buf bytes.Buffer
+	zw, _ := gzip.NewWriterLevel(&buf, gzip.BestCompression)
+	zw.Write(b)
+	zw.Close()
+	if buf.Len() < len(b) {
+		f.gz = buf.Bytes()
+	}
 }
 
 func securityHeaders(h http.Header) {
@@ -107,7 +132,7 @@ func static(w http.ResponseWriter, r *http.Request) {
 	h.Set("Content-Type", f.ctype)
 	h.Set("ETag", f.etag)
 	h.Set("Vary", "Accept-Encoding")
-	if f.long {
+	if f.long || (r.URL.Query().Get("v") != "" && p != "/index.html") {
 		h.Set("Cache-Control", "public, max-age=604800")
 	} else {
 		h.Set("Cache-Control", "no-cache") // always revalidate (cheap 304), so an update shows at once

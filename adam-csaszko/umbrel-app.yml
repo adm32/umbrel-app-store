@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-csaszko
 category: social
 name: Csaszko Barbershop
-version: "2.0.0"
+version: "2.0.1"
 tagline: A Csaszko Barbershop weboldala, Zalaszentgrót
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-csaszko/icon.svg
 description: >-
@@ -32,4 +32,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Újraírva Go nyelven: kb. 6 MB-os program nginx helyett, kevesebb tárhely és memória. A weboldal ugyanaz; a foglalásokat az Umbrel belső hálózatán éri el.
+  A stílusfájl és a program verziószámot kap a címében, így a böngésző vagy a Cloudflare régi másolata nem keveredhet az új oldallal.

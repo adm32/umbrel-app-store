@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Umbrel only copies docker-compose.yml, umbrel-app.yml and hooks/ on update. This copies the
+# fresh program (server/) from the app store before every start, so an update really runs the
+# new version. data/ (bookings, settings, statistics) is never touched.
+src="${SCRIPT_APP_REPO_DIR:-}"
+dst="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [[ -z "${src}" || ! -f "${src}/server/server.js" || "${src}" == "${dst}" ]]; then
+  exit 0
+fi
+if [[ ! -d "${dst}/data" ]]; then
+  mkdir -p "${dst}/data" && chown 1000:1000 "${dst}/data"
+fi
+rm -rf "${dst}/server.new"
+cp -r "${src}/server" "${dst}/server.new"
+rm -rf "${dst}/server"
+mv "${dst}/server.new" "${dst}/server"
+echo "Csaszko Foglalások: program files updated from ${src}"
+exit 0

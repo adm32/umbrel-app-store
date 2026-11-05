@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-csaszko
 category: social
 name: Csaszko Barbershop
-version: "1.0.0"
+version: "1.0.1"
 tagline: A Csaszko Barbershop weboldala, Zalaszentgrót
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-csaszko/icon.svg
 description: >-
@@ -30,5 +30,4 @@ defaultUsername: ""
 defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
-releaseNotes: >-
-  Hivatalos változat: online foglalás a Csaszko Foglalások appal (valódi szabad időpontok), kötelező e-mail a visszaigazoláshoz, "Csaszko Barbershop" név a nyitóképen, core logó a láblécben, helyet kapott egy Vágások galéria (a képek feltöltéséig rejtve).
+releaseNotes: Frissítéskor a weboldal fájljai is frissülnek (eddig csak a beállítások).

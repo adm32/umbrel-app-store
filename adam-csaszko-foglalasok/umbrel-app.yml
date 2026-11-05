@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-csaszko-foglalasok
 category: productivity
 name: Csaszko Foglalások
-version: "1.0.0"
+version: "1.0.1"
 tagline: Időpontfoglalások kezelése a Csaszko Barbershop weboldalához
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-csaszko-foglalasok/icon.svg
 description: >-
@@ -36,4 +36,4 @@ defaultUsername: ""
 defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
-releaseNotes: Első kiadás.
+releaseNotes: Frissítéskor a program fájljai is frissülnek; a foglalások és a beállítások megmaradnak.

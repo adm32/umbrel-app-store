@@ -17,13 +17,18 @@
     <h1 class="login__title"><span>CSASZKO</span>Foglalások</h1>
     <form class="panel login__form" data-login novalidate>
       <input type="text" name="username" value="csaszko" autocomplete="username" hidden>
-      <label class="field"><span>Jelszó</span>
+      <p class="login__lead" data-lead hidden></p>
+      <label class="field"><span data-pw-label>Jelszó</span>
         <input name="password" type="password" autocomplete="current-password" required></label>
+      <label class="field" data-pw2-row hidden><span>Jelszó még egyszer</span>
+        <input name="password2" type="password" autocomplete="new-password"></label>
       <label class="check"><input type="checkbox" data-show><span>Jelszó mutatása</span></label>
       <p class="err-line" data-error role="alert" hidden></p>
       <button class="btn login__btn" type="submit">Belépés</button>
+      <button class="login__link" type="button" data-forgot hidden>Elfelejtetted a jelszót?</button>
+      <button class="login__link" type="button" data-back hidden>Vissza a belépéshez</button>
     </form>
-    <p class="login__off" data-off hidden>A távoli belépés még nincs bekapcsolva. Nyisd meg az appot az Umbrelen, és a <b>Beállítások → Távoli elérés</b> résznél adj meg egy jelszót.</p>
+    <p class="login__off" data-off hidden>Még nincs jelszó. Nyisd meg az appot az Umbrelen, és ott adj meg egyet.</p>
   </main>
   <script src="login.js" defer></script>
 </body>

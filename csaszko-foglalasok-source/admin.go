@@ -72,7 +72,7 @@ func state(remote bool) obj {
 	blocks := append([]*Block{}, db.Blocks...) // never null in JSON
 	sort.SliceStable(blocks, func(i, j int) bool { return blocks[i].Date < blocks[j].Date })
 	return obj{"today": t.date, "nowMin": t.min, "bookings": sortedBookings(), "blocks": blocks,
-		"mailConfigured": smtpConfigured(), "ntfyConfigured": settings.NtfyURL != "", "settings": settingsForClient(), "remoteSession": remote}
+		"mailConfigured": smtpConfigured(), "ntfyConfigured": settings.NtfyURL != "", "settings": settingsForClient(), "remoteSession": remote, "remotePort": remotePort != ""}
 }
 
 func findBooking(id string) (*Booking, int) {
@@ -164,14 +164,10 @@ func adminAPI(w http.ResponseWriter, r *http.Request, remote bool) {
 		}
 		mu.Lock()
 		defer mu.Unlock()
-		ver := 0
-		if settings.Remote != nil {
-			ver = settings.Remote.Ver
-		}
 		switch {
 		case truthy(body["disable"]):
-			settings.Remote = &Remote{Ver: ver + 1}
-			saveSettings()
+			send(w, 400, obj{"error": "Az app jelszavát nem lehet kikapcsolni, csak megváltoztatni."})
+			return
 		case truthy(body["logoutAll"]):
 			if remoteEnabled() {
 				settings.Remote.Ver++
@@ -179,8 +175,8 @@ func adminAPI(w http.ResponseWriter, r *http.Request, remote bool) {
 			}
 		default:
 			pw := asStr(body["password"])
-			if len([]rune(pw)) < 10 {
-				send(w, 400, obj{"error": "A jelszó legyen legalább 10 karakter."})
+			if len([]rune(pw)) < 8 {
+				send(w, 400, obj{"error": "A jelszó legyen legalább 8 karakter."})
 				return
 			}
 			if len([]rune(pw)) > 200 {

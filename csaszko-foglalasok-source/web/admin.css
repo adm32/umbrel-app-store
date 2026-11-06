@@ -197,6 +197,10 @@ details.tbl th:first-child, details.tbl td:first-child { text-align: left; }
 .login__title { margin: 14px 0 24px; text-align: center; font-size: 1.15rem; font-weight: 500; color: var(--moss); }
 .login__title span { display: block; margin-bottom: 4px; font-size: 1.3rem; letter-spacing: .3em; color: var(--pine); }
 .login__btn { width: 100%; margin-top: 6px; }
+.login__lead { margin: 0 0 4px; color: var(--soft); line-height: 1.45; }
+.login__link { display: block; justify-self: center; align-self: center; margin: 4px auto 0; padding: 8px; border: 0; background: none; color: inherit; font: inherit; font-size: .92rem; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; opacity: .8; }
+.login__link:hover { opacity: 1; }
+.login__link[hidden] { display: none; }
 .login__off { padding: 14px 16px; border-radius: var(--r); background: var(--warn-bg); color: var(--warn); }
 
 /* ---------- calendar: month grid + day timeline (clean, Apple Calendar–like) ---------- */

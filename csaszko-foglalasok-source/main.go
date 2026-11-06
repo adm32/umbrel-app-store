@@ -753,12 +753,12 @@ func main() {
 
 	servers := []*http.Server{
 		serve(publicPort, publicAPI, "public"),
-		serve(adminPort, func(w http.ResponseWriter, r *http.Request) { adminAPI(w, r, false) }, "admin"),
+		serve(adminPort, guarded(false), "admin"),
 	}
 	log.Print("Public booking API on :" + publicPort)
 	log.Print("Admin app on :" + adminPort)
 	if remotePort != "" {
-		servers = append(servers, serve(remotePort, remoteAPI, "remote"))
+		servers = append(servers, serve(remotePort, guarded(true), "remote"))
 		log.Print("Remote admin (own password) on :" + remotePort)
 	}
 

@@ -578,23 +578,22 @@
     $('input[name=date]', body).addEventListener('change', function (e) { var t = $('input[name=dateTo]', body); if (!t.value || t.value < e.target.value) t.value = e.target.value; });
   }
 
-  /* ---------------- remote access (own password, for a tunnel hostname) ---------------- */
+  /* ---------------- app password (asked on the Umbrel address and the remote one) ---------------- */
   function remotePanel() {
     var r = S.settings.remote || {};
+    var logout = '<button type="button" class="btn btn--line btn--small" data-logout>Kijelentkezés erről az eszközről</button>';
     if (S.remoteSession) {
-      return '<div class="panel"><h3>Távoli elérés</h3><p>Ezen a címen jelszóval vagy belépve. A jelszót csak az Umbrelen keresztül lehet megváltoztatni.</p>' +
-        '<button type="button" class="btn btn--line" data-logout>Kijelentkezés erről az eszközről</button></div>';
+      return '<div class="panel"><h3>Jelszó</h3><p>Jelszóval vagy belépve. A jelszót az Umbrelen keresztül lehet megváltoztatni.</p>' +
+        '<div class="card__actions">' + logout + '</div></div>';
     }
-    return '<div class="panel"><h3>Távoli elérés</h3>' +
-      '<p>' + (r.enabled
-        ? '<strong>Bekapcsolva</strong>' + (r.setAt ? ' (jelszó beállítva: ' + esc(fmtStamp(r.setAt)) + ')' : '') + '. Az app saját jelszóval elérhető a 4773-as porton, pl. egy Cloudflare-címen (csaszko-app.admcore.hu).'
-        : 'Ha az appot Umbrel nélkül, egy saját címen is el szeretnéd érni (pl. csaszko-app.admcore.hu), adj meg egy jelszót. A Cloudflare-útvonal a 4773-as portra mutasson.') + '</p>' +
+    return '<div class="panel"><h3>Jelszó</h3>' +
+      '<p>Az app jelszóval védett' + (r.setAt ? ' (beállítva: ' + esc(fmtStamp(r.setAt)) + ')' : '') + '. Ugyanezzel a jelszóval lehet belépni az Umbrelen és a saját címén is, pl. csaszko-app.admcore.hu (a Cloudflare-útvonal a 4773-as portra mutasson).</p>' +
       '<form data-remote novalidate>' +
       '<input type="text" name="username" value="csaszko" autocomplete="username" hidden>' +
-      '<label class="field"><span>' + (r.enabled ? 'Új jelszó' : 'Jelszó') + '</span><input name="pw1" type="password" autocomplete="new-password" minlength="10"><small>Legalább 10 karakter. Egy hosszabb mondat is jó, pl. „friss fade minden pénteken”.</small></label>' +
-      '<label class="field"><span>Jelszó még egyszer</span><input name="pw2" type="password" autocomplete="new-password"></label>' +
-      '<button type="submit" class="btn">' + (r.enabled ? 'Jelszó cseréje' : 'Bekapcsolás') + '</button>' +
-      (r.enabled ? '<div class="card__actions"><button type="button" class="btn btn--line btn--small" data-remote-logoutall>Kijelentkeztetés minden eszközről</button><button type="button" class="btn btn--bad btn--small" data-remote-off>Kikapcsolás</button></div>' : '') +
+      '<label class="field"><span>Új jelszó</span><input name="pw1" type="password" autocomplete="new-password" minlength="8"><small>Legalább 8 karakter.</small></label>' +
+      '<label class="field"><span>Új jelszó még egyszer</span><input name="pw2" type="password" autocomplete="new-password"></label>' +
+      '<button type="submit" class="btn">Jelszó cseréje</button>' +
+      '<div class="card__actions"><button type="button" class="btn btn--line btn--small" data-remote-logoutall>Kijelentkeztetés minden eszközről</button>' + logout + '</div>' +
       '</form></div>';
   }
   function bindRemotePanel(el) {
@@ -611,16 +610,12 @@
     }
     f.addEventListener('submit', function (ev) {
       ev.preventDefault();
-      if (f.pw1.value.length < 10) return toast('A jelszó legyen legalább 10 karakter.', true);
+      if (f.pw1.value.length < 8) return toast('A jelszó legyen legalább 8 karakter.', true);
       if (f.pw1.value !== f.pw2.value) return toast('A két jelszó nem egyezik.', true);
-      post({ password: f.pw1.value }, 'Jelszó elmentve. A többi eszközön újra be kell lépni.');
+      post({ password: f.pw1.value }, 'Jelszó elmentve. A többi eszközön újra be kell lépni.').then(function () { location.href = '/login'; });
     });
     var all = $('[data-remote-logoutall]', el);
     if (all) all.addEventListener('click', function () { post({ logoutAll: true }, 'Minden eszköz kijelentkeztetve.'); });
-    var off = $('[data-remote-off]', el);
-    if (off) off.addEventListener('click', function () {
-      if (confirm('Kikapcsolod a távoli elérést? Utána csak az Umbrelen keresztül lehet belépni.')) post({ disable: true }, 'Távoli elérés kikapcsolva.');
-    });
   }
 
   /* ---------------- settings ---------------- */

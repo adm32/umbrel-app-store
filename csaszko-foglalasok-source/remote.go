@@ -1,8 +1,10 @@
 package main
 
-// Remote login for a Cloudflare Tunnel hostname. Password: scrypt hash in settings.remote
-// (same format as the Node.js version). Session: signed cookie "<version>.<expiry>.<hmac>";
-// bumping the version logs out every device.
+// The app's own password, asked on every address: the Umbrel one (admin port, behind Umbrel's
+// login) and the remote one for a Cloudflare Tunnel hostname. Password: scrypt hash in
+// settings.remote (same format as the Node.js version). Session: signed cookie
+// "<version>.<expiry>.<hmac>"; bumping the version logs out every device.
+// Only the Umbrel address may create the first password or reset a forgotten one.
 
 import (
 	"crypto/hmac"
@@ -121,8 +123,14 @@ var loginFiles = map[string]string{
 	"/icon-192.png": "icon-192.png", "/icon-512.png": "icon-512.png", "/manifest.webmanifest": "manifest.webmanifest",
 }
 
-func remoteAPI(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Strict-Transport-Security", "max-age=15552000")
+func guarded(remote bool) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) { guardedAPI(w, r, remote) }
+}
+
+func guardedAPI(w http.ResponseWriter, r *http.Request, remote bool) {
+	if remote {
+		w.Header().Set("Strict-Transport-Security", "max-age=15552000")
+	}
 	p := strings.TrimRight(r.URL.Path, "/")
 	if p == "" {
 		p = "/"
@@ -132,7 +140,40 @@ func remoteAPI(w http.ResponseWriter, r *http.Request) {
 		mu.Lock()
 		en := remoteEnabled()
 		mu.Unlock()
-		send(w, 200, obj{"enabled": en})
+		send(w, 200, obj{"enabled": en, "setup": !remote && !en, "canReset": !remote && en})
+		return
+	}
+	// first password, or a new one when it was forgotten: only on the Umbrel address
+	if (p == "/api/setup" || p == "/api/reset") && r.Method == "POST" {
+		if r.Header.Get("X-Csaszko") != "1" {
+			send(w, 403, obj{"error": "forbidden"})
+			return
+		}
+		if remote {
+			send(w, 403, obj{"error": "Új jelszót csak az Umbrelen keresztül lehet megadni."})
+			return
+		}
+		body, _, err := readBody(w, r, 4096)
+		if err != nil {
+			send(w, 400, obj{"error": "invalid"})
+			return
+		}
+		pw := asStr(body["password"])
+		if n := len([]rune(pw)); n < 8 || n > 200 {
+			send(w, 400, obj{"error": "A jelszó legyen legalább 8 karakter."})
+			return
+		}
+		mu.Lock()
+		if p == "/api/setup" && remoteEnabled() {
+			mu.Unlock()
+			send(w, 409, obj{"error": "Már van jelszó. Frissítsd az oldalt."})
+			return
+		}
+		setRemotePassword(pw) // a reset also logs out every other device
+		s := makeSession()
+		mu.Unlock()
+		w.Header().Add("Set-Cookie", sessionCookie(r, s, sessionDays*86400))
+		send(w, 200, obj{"ok": true})
 		return
 	}
 	if p == "/api/login" && r.Method == "POST" {
@@ -146,7 +187,7 @@ func remoteAPI(w http.ResponseWriter, r *http.Request) {
 		blocked := tooManyFails("ip:"+ip, 8, 15*time.Minute) || tooManyFails("all", 40, time.Hour)
 		mu.Unlock()
 		if !en {
-			send(w, 403, obj{"error": "A távoli belépés nincs bekapcsolva. Az Umbrelen, a Beállításoknál lehet bekapcsolni."})
+			send(w, 403, obj{"error": "Még nincs jelszó. Nyisd meg az appot az Umbrelen, és ott adj meg egyet."})
 			return
 		}
 		if blocked {
@@ -205,5 +246,5 @@ func remoteAPI(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(302)
 		return
 	}
-	adminAPI(w, r, true)
+	adminAPI(w, r, remote)
 }

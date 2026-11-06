@@ -60,7 +60,7 @@ func settingsForClient() obj {
 	}
 	return obj{
 		"hours": s.Hours, "stepMinutes": s.StepMinutes, "bufferMinutes": s.BufferMinutes, "minNoticeMinutes": s.MinNoticeMinutes,
-		"horizonDays": s.HorizonDays, "autoConfirm": s.AutoConfirm, "services": s.Services, "smtp": smtp,
+		"horizonDays": s.HorizonDays, "autoConfirm": s.AutoConfirm, "sameDay": s.SameDay, "services": s.Services, "smtp": smtp,
 		"notifyEmail": s.NotifyEmail, "ntfyUrl": s.NtfyURL, "adminUrl": s.AdminURL, "siteUrl": s.SiteURL,
 		"remote": obj{"enabled": remoteEnabled(), "setAt": setAt},
 	}
@@ -542,6 +542,9 @@ func putSettings(w http.ResponseWriter, s obj) {
 	}
 	if v, ok := s["autoConfirm"]; ok && v != nil {
 		next.AutoConfirm = truthy(v)
+	}
+	if v, ok := s["sameDay"]; ok && v != nil {
+		next.SameDay = truthy(v)
 	}
 	if v, ok := s["horizonDays"]; ok && v != nil {
 		next.HorizonDays = numIn(v, 7, 365, 30)

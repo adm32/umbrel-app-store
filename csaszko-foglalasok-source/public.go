@@ -127,7 +127,7 @@ func publicAPI(w http.ResponseWriter, r *http.Request) {
 		mu.Lock()
 		t := now()
 		out := obj{"hours": settings.Hours, "stepMinutes": settings.StepMinutes, "horizonDays": settings.HorizonDays,
-			"autoConfirm": settings.AutoConfirm, "services": publicServices(), "today": t.date, "nowMin": t.min}
+			"autoConfirm": settings.AutoConfirm, "sameDay": settings.SameDay, "services": publicServices(), "today": t.date, "nowMin": t.min}
 		mu.Unlock()
 		send(w, 200, out)
 		return
@@ -161,7 +161,7 @@ func publicAPI(w http.ResponseWriter, r *http.Request) {
 				out[d] = s
 			}
 		}
-		send(w, 200, obj{"today": t.date, "lastDay": addDays(t.date, settings.HorizonDays), "hours": settings.Hours, "days": out})
+		send(w, 200, obj{"today": t.date, "lastDay": addDays(t.date, settings.HorizonDays), "hours": settings.Hours, "sameDay": settings.SameDay, "days": out})
 		return
 
 	case r.Method == "POST" && p == "/api/hit":

@@ -13,7 +13,8 @@
     // 0 = vasárnap … 6 = szombat; the second time is the last START time
     hours: { 0: ["15:00", "21:00"], 1: null, 2: ["15:00", "21:00"], 3: ["15:00", "21:00"], 4: ["15:00", "21:00"], 5: ["15:00", "21:00"], 6: ["15:00", "21:00"] },
     stepMinutes: 20,
-    autoConfirm: false
+    autoConfirm: false,
+    sameDay: false                  // false: online booking starts tomorrow
   };
   // Photos of cuts: { src: "img/vagas-1.webp", alt: "Skin fade oldalról" }. The section stays hidden while empty.
   var GALLERY = [];
@@ -53,6 +54,7 @@
   function wd(k) { return dobj(k).getUTCDay(); }
   function hoursOf(k) { return cfg.hours[wd(k)] || null; }
   function dayLabel(k) { var d = dobj(k); return WD[d.getUTCDay()] + ", " + MON[d.getUTCMonth()] + " " + d.getUTCDate() + "."; }
+  function firstOffset() { return cfg.sameDay ? 0 : 1; }
   function svc(id) { return cfg.services.filter(function (s) { return s.id === id; })[0] || null; }
 
   /* ---------- stats (only when the booking app is there; anonymous, no cookies) ---------- */
@@ -75,7 +77,7 @@
     }, function (e) { clearTimeout(t); throw e; });
   }
   function loadAvail(id) {
-    return getJSON("/api/availability?service=" + encodeURIComponent(id) + "&days=" + DAYS_SHOWN, 6000).then(function (d) {
+    return getJSON("/api/availability?service=" + encodeURIComponent(id) + "&days=" + (DAYS_SHOWN + 1), 6000).then(function (d) {
       avail[id] = { days: d.days || {} };
       if (d.lastDay) lastDay = d.lastDay;
       return avail[id];
@@ -88,6 +90,7 @@
     if (!s || !hoursOf(k)) return [];
     if (live) return (avail[id] && avail[id].days[k]) || [];
     var h = hoursOf(k), n = now(), out = [];
+    if (k <= n.day && !cfg.sameDay) return [];
     for (var m = toMin(h[0]); m <= toMin(h[1]); m += cfg.stepMinutes || 20) {
       if (k === n.day && m < n.min + LEAD) continue;
       out.push(hm(m));
@@ -149,6 +152,8 @@
     var when = gap === 1 ? "holnap" : ON_DAY[wd(nx)];
     var next = nh ? when + " " + nh[0] + "-tól nyitva." : "Hívj, és megbeszéljük.";
     if (!h) txt = "Ma zárva, " + next;
+    else if (!cfg.sameDay && n.min < toMin(h[0])) txt = "Ma " + h[0] + "-tól nyitva. Online holnaptól foglalhatsz.";
+    else if (!cfg.sameDay && n.min <= toMin(h[1])) { txt = "Most nyitva, " + h[1] + "-ig. Online holnaptól foglalhatsz."; open = true; }
     else if (n.min < toMin(h[0])) txt = "Ma " + h[0] + "-tól nyitva, " + h[1] + "-ig foglalhatsz.";
     else if (n.min <= toMin(h[1])) { txt = "Most nyitva, ma még " + h[1] + "-ig foglalhatsz."; open = true; }
     else txt = "Mára zárva, " + next;
@@ -161,7 +166,7 @@
   function renderNext() {
     var s = cfg.services[0], n = now();
     if (!s) { $("#next").hidden = true; return; }
-    for (var i = 0; i < DAYS_SHOWN; i++) {
+    for (var i = firstOffset(); i < firstOffset() + DAYS_SHOWN; i++) {
       var k = addDays(n.day, i), slots = slotsFor(k, s.id);
       if (!slots.length) continue;
       $("#nextLabel").textContent = s.name + (i === 0 ? " ma még szabad:" : i === 1 ? " holnap szabad:" : " " + ON_DAY[wd(k)] + " szabad:");
@@ -187,7 +192,7 @@
 
   function renderDays() {
     var n = now(), html = "";
-    for (var i = 0; i < DAYS_SHOWN; i++) {
+    for (var i = firstOffset(); i < firstOffset() + DAYS_SHOWN; i++) {
       var k = addDays(n.day, i), d = dobj(k), open = !!hoursOf(k), later = !!(lastDay && k > lastDay);
       // until the free times for the chosen service have arrived, judge by opening hours only
       var known = sel.svc && (!live || avail[sel.svc]);
@@ -356,7 +361,7 @@
     if (!d || !Array.isArray(d.services) || !d.services.length) throw new Error("no services");
     live = true;
     $("#offline").hidden = true;
-    cfg = { services: d.services, hours: d.hours || FALLBACK.hours, stepMinutes: d.stepMinutes || 20, autoConfirm: !!d.autoConfirm };
+    cfg = { services: d.services, hours: d.hours || FALLBACK.hours, stepMinutes: d.stepMinutes || 20, autoConfirm: !!d.autoConfirm, sameDay: !!d.sameDay };
     if (sel.svc && !svc(sel.svc)) sel = { svc: null, day: null, time: null };
     var ref = ""; try { var r = document.referrer && new URL(document.referrer); if (r && r.hostname !== location.hostname) ref = r.hostname; } catch (e) {}
     hit({ t: "view", w: window.innerWidth, ref: ref, internal: !!(document.referrer && !ref) });

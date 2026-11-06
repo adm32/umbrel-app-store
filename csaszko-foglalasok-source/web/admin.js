@@ -656,6 +656,7 @@
 
       '<div class="panel"><h3>Foglalási szabályok</h3>' +
       '<label class="check"><input type="checkbox" name="autoConfirm"' + (s.autoConfirm ? ' checked' : '') + '><span><b>Automatikus elfogadás.</b> A weboldalas foglalás azonnal visszaigazolt, nem kell elfogadnod. Kikapcsolva minden foglalás kérésként érkezik.</span></label>' +
+      '<label class="check"><input type="checkbox" name="sameDay"' + (s.sameDay ? ' checked' : '') + '><span><b>Mai napra is lehet foglalni.</b> Kikapcsolva a weboldalon csak holnaptól lehet időpontot kérni. Te a mai napra is felvehetsz foglalást.</span></label>' +
       '<div class="row2"><label class="field"><span>Legkorábban ennyivel előre</span><select name="minNoticeMinutes">' + opt([0, 15, 30, 60, 120, 240, 1440], s.minNoticeMinutes, function (m) { return m === 0 ? 'bármikor' : m < 60 ? m + ' perc' : m === 1440 ? '1 nap' : (m / 60) + ' óra'; }) + '</select></label>' +
       '<label class="field"><span>Legfeljebb ennyi nappal előre</span><input name="horizonDays" type="number" min="7" max="365" value="' + s.horizonDays + '"></label></div>' +
       '<div class="row2"><label class="field"><span>Kezdési időpontok lépése</span><select name="stepMinutes">' + opt([10, 15, 20, 30, 60], s.stepMinutes, function (m) { return m + ' perc'; }) + '</select></label>' +
@@ -733,7 +734,7 @@
         return { id: row.getAttribute('data-id'), name: $('[name=svcName]', row).value, minutes: $('[name=svcMin]', row).value, price: $('[name=svcPrice]', row).value, note: $('[name=svcNote]', row).value };
       });
       var body = {
-        hours: hours, services: services, autoConfirm: f.autoConfirm.checked,
+        hours: hours, services: services, autoConfirm: f.autoConfirm.checked, sameDay: f.sameDay.checked,
         minNoticeMinutes: f.minNoticeMinutes.value, horizonDays: f.horizonDays.value,
         stepMinutes: f.stepMinutes.value, bufferMinutes: f.bufferMinutes.value,
         notifyEmail: f.notifyEmail.value, ntfyUrl: f.ntfyUrl.value, adminUrl: f.adminUrl.value, siteUrl: f.siteUrl.value,

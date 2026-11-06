@@ -140,6 +140,7 @@ type Settings struct {
 	MinNoticeMinutes int                 `json:"minNoticeMinutes"`
 	HorizonDays      int                 `json:"horizonDays"`
 	AutoConfirm      bool                `json:"autoConfirm"`
+	SameDay          bool                `json:"sameDay"` // false: the website books from tomorrow on
 	Services         []Service           `json:"services"`
 	SMTP             SMTPConf            `json:"smtp"`
 	NotifyEmail      string              `json:"notifyEmail"`
@@ -394,7 +395,7 @@ func freeStarts(date string, minutes int, admin bool, excludeID string) []string
 		return res
 	}
 	t := now()
-	if !admin && (date < t.date || date > addDays(t.date, settings.HorizonDays)) {
+	if !admin && (date < t.date || (date == t.date && !settings.SameDay) || date > addDays(t.date, settings.HorizonDays)) {
 		return res
 	}
 	earliest := math.MinInt

@@ -346,16 +346,46 @@
   $("#galleryGrid").addEventListener("click", function (e) {
     var b = e.target.closest("[data-g]"); if (!b) return;
     var g = GALLERY[+b.getAttribute("data-g")];
-    $("#lbImg").src = g.full || g.src; $("#lbImg").alt = g.alt || "Vágás";
-    lb.hidden = false; lb._from = b; $("#lbClose").focus(); ev("gallery");
+    openLb(g.full || g.src, g.alt || "Vágás", null, b);
   });
+  function openLb(src, alt, post, from) {
+    $("#lbImg").src = src; $("#lbImg").alt = alt;
+    $("#lbMeta").hidden = !post;
+    if (post) { $("#lbCap").textContent = post.caption || ""; $("#lbLink").href = post.link || profile; $("#lbLink").textContent = post.video ? "Videó megnézése az Instagramon ↗" : "Megnyitás az Instagramon ↗"; }
+    lb.hidden = false; lb._from = from; $("#lbClose").focus(); ev("gallery");
+  }
   function closeLb() { if (lb.hidden) return; lb.hidden = true; $("#lbImg").removeAttribute("src"); if (lb._from) lb._from.focus(); }
+
+  /* ---------- instagram: latest posts, served by the booking app (no requests to Instagram from here) ---------- */
+  var profile = $("#instaHandle").href, posts = [];
+  function loadInsta() {
+    getJSON("/api/instagram", 5000).then(function (d) {
+      if (d.user && /^[A-Za-z0-9._]{1,30}$/.test(d.user)) {
+        profile = "https://www.instagram.com/" + d.user + "/";
+        ["#instaHandle", "#instaCard", "#instaMore"].forEach(function (s) { $(s).href = profile; });
+        $("#instaHandle").textContent = "@" + d.user; $("#instaCard small").textContent = "@" + d.user;
+      }
+      posts = (d.posts || []).filter(function (p) { return p && /^\/api\/ig\/[0-9]+$/.test(p.img); });
+      if (!posts.length) return;
+      $("#instaGrid").innerHTML = posts.map(function (p, i) {
+        var alt = p.caption ? p.caption.slice(0, 90) : "Instagram poszt";
+        return '<button type="button" class="insta__item" data-p="' + i + '"><img src="' + esc(p.img) + '" alt="' + esc(alt) + '" loading="lazy" decoding="async">' +
+          (p.video ? '<span class="play" aria-label="Videó">▶</span>' : "") + "</button>";
+      }).join("");
+      $("#instaGrid").hidden = false; $("#instaMore").hidden = false; $("#instaCard").hidden = true;
+    }).catch(function () {}); // no feed: the link card stays
+  }
+  $("#instaGrid").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-p]"); if (!b) return;
+    var p = posts[+b.getAttribute("data-p")]; if (!p) return;
+    openLb(p.img, b.querySelector("img").alt, p, b);
+  });
   lb.addEventListener("click", function (e) { if (e.target === lb || e.target.closest("#lbClose")) closeLb(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLb(); });
 
   /* ---------- start ---------- */
   function renderAll() { renderBoard(); renderServices(); renderWeek(); status(); renderDays(); renderTimes(); renderNext(); summary(); }
-  renderAll(); renderGallery();
+  renderAll(); renderGallery(); if (!PREVIEW) loadInsta();
 
   getJSON("/api/info", 4000).then(function (d) {
     if (!d || !Array.isArray(d.services) || !d.services.length) throw new Error("no services");

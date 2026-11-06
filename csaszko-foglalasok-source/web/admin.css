@@ -291,3 +291,9 @@ details.tbl th:first-child, details.tbl td:first-child { text-align: left; }
 [data-svc-list] { margin-bottom: 14px; }
 .check b { font-weight: 700; }
 a.btn { text-decoration: none; }
+
+/* instagram panel */
+.ig-st { display: block; padding: 10px 12px; border-radius: var(--r); background: var(--sage-100); color: var(--soft); line-height: 1.4; }
+.ig-st--ok { background: #E6F0EA; color: var(--ok); }
+.ig-st--bad { background: var(--bad-bg); color: var(--bad); }
+.help .fine { margin: 8px 0 0; font-size: .88rem; color: var(--moss); }

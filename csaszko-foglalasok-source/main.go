@@ -149,6 +149,9 @@ type Settings struct {
 	SiteURL          string              `json:"siteUrl"`
 	Secret           string              `json:"secret"`
 	Remote           *Remote             `json:"remote,omitempty"`
+	IGToken          string              `json:"igToken,omitempty"`       // Instagram long-lived access token
+	IGUser           string              `json:"igUser,omitempty"`        // Instagram name for the profile link
+	IGRefreshedAt    string              `json:"igRefreshedAt,omitempty"` // when the token was saved or last refreshed
 }
 
 func ip(n int) *int { return &n }
@@ -738,7 +741,9 @@ func main() {
 		log.Fatal(err)
 	}
 	loadAll()
+	loadIG()
 	purge()
+	go igLoop()
 	go func() {
 		for range time.Tick(12 * time.Hour) {
 			purge()

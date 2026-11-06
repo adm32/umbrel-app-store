@@ -14,7 +14,7 @@
   var WD = ['H', 'K', 'Sze', 'Cs', 'P', 'Szo', 'V'];
   var WD_LONG = ['hétfő', 'kedd', 'szerda', 'csütörtök', 'péntek', 'szombat', 'vasárnap'];
   var DEV = { mobile: 'Telefon', tablet: 'Tablet', desktop: 'Számítógép' };
-  var CLICKS = [['call', 'Hívás gomb'], ['map', 'Térkép / útvonal'], ['instagram', 'Instagram'], ['tiktok', 'TikTok'], ['next_time', 'Gyors időpont a nyitóképen'], ['gallery', 'Galéria képek']];
+  var CLICKS = [['call', 'Hívás gomb'], ['map', 'Térkép / útvonal'], ['instagram', 'Instagram'], ['tiktok', 'TikTok'], ['next_time', 'Gyors időpont a nyitóképen'], ['gallery', 'Képek megnyitása az oldalon']];
   var nf = new Intl.NumberFormat('hu-HU');
   var n = function (x) { return nf.format(x || 0); };
 

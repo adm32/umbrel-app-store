@@ -63,7 +63,8 @@ func settingsForClient() obj {
 		"hours": s.Hours, "stepMinutes": s.StepMinutes, "bufferMinutes": s.BufferMinutes, "minNoticeMinutes": s.MinNoticeMinutes,
 		"horizonDays": s.HorizonDays, "autoConfirm": s.AutoConfirm, "sameDay": s.SameDay, "services": s.Services, "smtp": smtp,
 		"notifyEmail": s.NotifyEmail, "ntfyUrl": s.NtfyURL, "adminUrl": s.AdminURL, "siteUrl": s.SiteURL,
-		"remote": obj{"enabled": remoteEnabled(), "setAt": setAt},
+		"remote":    obj{"enabled": remoteEnabled(), "setAt": setAt},
+		"instagram": obj{"user": igUser(), "hasToken": s.IGToken != ""},
 	}
 }
 
@@ -72,7 +73,7 @@ func state(remote bool) obj {
 	blocks := append([]*Block{}, db.Blocks...) // never null in JSON
 	sort.SliceStable(blocks, func(i, j int) bool { return blocks[i].Date < blocks[j].Date })
 	return obj{"today": t.date, "nowMin": t.min, "bookings": sortedBookings(), "blocks": blocks,
-		"mailConfigured": smtpConfigured(), "ntfyConfigured": settings.NtfyURL != "", "settings": settingsForClient(), "remoteSession": remote, "remotePort": remotePort != ""}
+		"mailConfigured": smtpConfigured(), "ntfyConfigured": settings.NtfyURL != "", "settings": settingsForClient(), "remoteSession": remote, "remotePort": remotePort != "", "instagram": igStatus()}
 }
 
 func findBooking(id string) (*Booking, int) {
@@ -326,6 +327,18 @@ func adminAPI(w http.ResponseWriter, r *http.Request, remote bool) {
 
 	case p == "/api/admin/settings" && r.Method == "PUT":
 		putSettings(w, body)
+		return
+
+	case p == "/api/admin/instagram/sync" && r.Method == "POST":
+		err := syncIG()
+		mu.Lock()
+		st := igStatus()
+		mu.Unlock()
+		if err != nil {
+			send(w, 502, obj{"error": err.Error(), "instagram": st})
+			return
+		}
+		send(w, 200, obj{"ok": true, "instagram": st})
 		return
 
 	case p == "/api/admin/test-ntfy" && r.Method == "POST":
@@ -672,8 +685,40 @@ func putSettings(w http.ResponseWriter, s obj) {
 			next.SMTP.Secure = truthy(v)
 		}
 	}
+	if v, ok := s["igUser"]; ok && v != nil {
+		u := strings.TrimSpace(oneLine(v, 200))
+		u = strings.TrimPrefix(strings.TrimPrefix(strings.TrimPrefix(u, "https://"), "www."), "instagram.com/")
+		u = strings.Trim(strings.TrimPrefix(u, "@"), "/")
+		if i := strings.IndexAny(u, "/?"); i >= 0 {
+			u = u[:i]
+		}
+		if u != "" && !reIGUser.MatchString(u) {
+			send(w, 400, obj{"error": "Hibás Instagram név (pl. csaszkobarbershop69)."})
+			return
+		}
+		next.IGUser = u
+	}
+	newIG, clearedIG := false, false
+	if v := asStr(s["igToken"]); strings.TrimSpace(v) != "" {
+		t := reSpace.ReplaceAllString(v, "")
+		if len(t) < igTokenMinLength || len(t) > 1000 || strings.ContainsAny(t, "\"'<>") {
+			send(w, 400, obj{"error": "Ez nem tűnik Instagram tokennek. Másold be újra az egészet."})
+			return
+		}
+		newIG = t != next.IGToken
+		next.IGToken, next.IGRefreshedAt = t, isoNow()
+	}
+	if truthy(s["igClear"]) {
+		next.IGToken, next.IGRefreshedAt = "", ""
+		clearedIG = true
+	}
 	*settings = next
 	saveSettings()
+	if clearedIG {
+		clearIG()
+	} else if newIG {
+		go syncIG()
+	}
 	send(w, 200, obj{"ok": true, "settings": settingsForClient(), "mailConfigured": smtpConfigured()})
 }
 

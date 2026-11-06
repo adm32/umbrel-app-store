@@ -174,7 +174,10 @@ func apiProxy(target string) http.Handler {
 			IdleConnTimeout:       60 * time.Second,
 		},
 		ModifyResponse: func(res *http.Response) error {
-			res.Header.Set("Cache-Control", "no-store")
+			// Instagram pictures may be cached; everything else (free times, bookings) never
+			if !strings.HasPrefix(res.Header.Get("Cache-Control"), "public") || !strings.HasPrefix(res.Header.Get("Content-Type"), "image/") {
+				res.Header.Set("Cache-Control", "no-store")
+			}
 			res.Header.Set("X-Content-Type-Options", "nosniff")
 			return nil
 		},

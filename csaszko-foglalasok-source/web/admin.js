@@ -618,6 +618,51 @@
     if (all) all.addEventListener('click', function () { post({ logoutAll: true }, 'Minden eszköz kijelentkeztetve.'); });
   }
 
+  /* ---------------- instagram on the website ---------------- */
+  function igStatusText(st) {
+    if (!st || !st.connected) return '<span class="ig-st">Nincs összekötve. A weboldalon most egy link látszik az Instagram-profilra.</span>';
+    if (st.error) return '<span class="ig-st ig-st--bad">' + esc(st.error) + (st.count ? ' A weboldalon a korábbi ' + st.count + ' kép marad.' : '') + '</span>';
+    if (!st.fetchedAt) return '<span class="ig-st">Összekötve, a képek letöltése folyamatban…</span>';
+    return '<span class="ig-st ig-st--ok">Összekötve: ' + st.count + ' kép a weboldalon, frissítve ' + esc(fmtStamp(st.fetchedAt)) + '. Óránként magától frissül.</span>';
+  }
+  function igPanel() {
+    var s = S.settings.instagram || {}, st = S.instagram || {};
+    return '<div class="panel"><h3>Instagram a weboldalon</h3>' +
+      '<p>A weboldal alján a legutóbbi Instagram-posztok látszanak. A képeket ez az app tölti le és adja át, a látogatók böngészője nem kapcsolódik az Instagramhoz.</p>' +
+      '<p data-ig-status>' + igStatusText(st) + '</p>' +
+      '<label class="field"><span>Instagram név</span><input name="igUser" value="' + esc(s.user || '') + '" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="csaszkobarbershop69"></label>' +
+      '<label class="field"><span>Instagram hozzáférési token</span><input name="igToken" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" data-1p-ignore data-lpignore="true" data-form-type="other" placeholder="' + (s.hasToken ? 'elmentve, csak cseréhez írd be' : 'IGAA…') + '"></label>' +
+      '<details class="help"><summary>Hogyan kapok tokent?</summary><ol>' +
+      '<li>Bence Instagramján: <b>Beállítások → Fióktípus és eszközök → Váltás professzionális fiókra</b>, és válaszd az <b>Alkotó</b> fiókot. Ingyenes, a profil ugyanúgy néz ki.</li>' +
+      '<li>Nyisd meg: <b>developers.facebook.com</b> → <b>Saját appok → App létrehozása</b>, és válaszd az Instagram-os felhasználási esetet (üzenetek és tartalom kezelése az Instagramon).</li>' +
+      '<li>Az app <b>Instagram → API-beállítás Instagram-bejelentkezéssel</b> részénél nyomd meg a <b>Hozzáférési tokenek létrehozása → Fiók hozzáadása</b> gombot, és Bence lépjen be az Instagramjával.</li>' +
+      '<li>A megjelenő tokent másold ide, és mentsd el. 60 napig érvényes, az app hetente magától megújítja.</li></ol>' +
+      '<p class="fine">A Meta oldalán a menüpontok neve kicsit eltérhet.</p></details>' +
+      '<div class="card__actions"><button type="button" class="btn btn--line btn--small" data-ig-sync' + (s.hasToken ? '' : ' hidden') + '>Frissítés most</button>' +
+      '<button type="button" class="btn btn--bad btn--small" data-ig-clear' + (s.hasToken ? '' : ' hidden') + '>Leválasztás</button></div></div>';
+  }
+  function igSync(btn) {
+    if (btn) { btn.disabled = true; btn.textContent = 'Frissítés…'; }
+    return api('/api/admin/instagram/sync', { method: 'POST', body: {} })
+      .then(function (r) { S.instagram = r.instagram; toast('Instagram frissítve: ' + r.instagram.count + ' kép.'); })
+      .catch(function (e) { toast(e.message, true); return api('/api/admin/state').then(function (st) { S.instagram = st.instagram; }).catch(function () {}); })
+      .then(function () {
+        var el = $('[data-ig-status]'); if (el) el.innerHTML = igStatusText(S.instagram);
+        if (btn) { btn.disabled = false; btn.textContent = 'Frissítés most'; }
+      });
+  }
+  function bindIgPanel(el) {
+    var sy = $('[data-ig-sync]', el);
+    if (sy) sy.addEventListener('click', function () { igSync(sy); });
+    var cl = $('[data-ig-clear]', el);
+    if (cl) cl.addEventListener('click', function () {
+      if (!confirm('Leválasztod az Instagramot? A képek eltűnnek a weboldalról, csak a profil linkje marad.')) return;
+      api('/api/admin/settings', { method: 'PUT', body: { igClear: true } }).then(function (r) {
+        S.settings = r.settings; S.instagram = { connected: false }; toast('Instagram leválasztva.'); renderSettings();
+      }).catch(function (e) { toast(e.message, true); });
+    });
+  }
+
   /* ---------------- settings ---------------- */
   function svcRow(x) {
     return '<div class="svc-row" data-svc-row data-id="' + esc(x.id || '') + '">' +
@@ -676,6 +721,8 @@
       '<label class="field"><span>Új foglalások értesítése erre a címre</span><input name="notifyEmail" type="email" value="' + esc(s.notifyEmail) + '"></label>' +
       '<button type="button" class="btn btn--line" data-test-mail>Teszt e-mail küldése</button></div>' +
 
+      igPanel() +
+
       '<div class="panel"><h3>Linkek</h3>' +
       '<label class="field"><span>Ennek az appnak a címe (az értesítésekben erre visz a gomb)</span><input name="adminUrl" value="' + esc(s.adminUrl) + '" placeholder="https://csaszko-app.admcore.hu"></label>' +
       '<label class="field"><span>A weboldal címe</span><input name="siteUrl" value="' + esc(s.siteUrl) + '"></label></div>' +
@@ -683,6 +730,7 @@
       '<div class="save-bar"><button type="submit" class="btn">Beállítások mentése</button></div></form>' + remotePanel();
 
     bindRemotePanel(el);
+    bindIgPanel(el);
     var list = $('[data-svc-list]', el);
     $('[data-svc-add]', el).addEventListener('click', function () {
       list.insertAdjacentHTML('beforeend', svcRow({ name: '', minutes: 30, price: '' }));
@@ -736,14 +784,17 @@
         minNoticeMinutes: f.minNoticeMinutes.value, horizonDays: f.horizonDays.value,
         stepMinutes: f.stepMinutes.value, bufferMinutes: f.bufferMinutes.value,
         notifyEmail: f.notifyEmail.value, ntfyUrl: f.ntfyUrl.value, adminUrl: f.adminUrl.value, siteUrl: f.siteUrl.value,
-        smtp: { user: f.user.value, fromName: f.fromName.value }
+        smtp: { user: f.user.value, fromName: f.fromName.value }, igUser: f.igUser.value
       };
+      var newIg = !!f.igToken.value.trim();
+      if (newIg) body.igToken = f.igToken.value;
       if (f.gappcode.value.trim()) body.smtp.pass = f.gappcode.value;
       var btn = $('button[type=submit]', f); btn.disabled = true;
       api('/api/admin/settings', { method: 'PUT', body: body }).then(function (r) {
         S.settings = r.settings; S.mailConfigured = r.mailConfigured; S.ntfyConfigured = !!r.settings.ntfyUrl; SVC = null;
         toast('Beállítások elmentve.');
         renderSettings(); render();
+        if (newIg) igSync(null);
       }).catch(function (e) { toast(e.message, true); }).then(function () { btn.disabled = false; });
     });
   }

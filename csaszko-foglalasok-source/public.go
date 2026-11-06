@@ -184,6 +184,14 @@ func publicAPI(w http.ResponseWriter, r *http.Request) {
 	case r.Method == "POST" && p == "/api/bookings":
 		createWebBooking(w, r)
 		return
+
+	case r.Method == "GET" && p == "/api/instagram":
+		igPublic(w)
+		return
+
+	case (r.Method == "GET" || r.Method == "HEAD") && strings.HasPrefix(p, "/api/ig/"):
+		igImage(w, r, strings.TrimPrefix(p, "/api/ig/"))
+		return
 	}
 	send(w, 404, obj{"error": "not found"})
 }

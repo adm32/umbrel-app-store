@@ -149,6 +149,19 @@
       <p class="phone">Telefon: <a href="tel:+36307355077" data-ev="call">+36 30 735 5077</a></p>
     </section>
   </div>
+
+  <section class="insta wrap" id="instagram" aria-labelledby="insta-h">
+    <div class="insta__head">
+      <h2 id="insta-h">Legutóbbi munkák</h2>
+      <a class="insta__handle" id="instaHandle" href="https://www.instagram.com/csaszkobarbershop69/" target="_blank" rel="noopener" data-ev="instagram">@csaszkobarbershop69</a>
+    </div>
+    <div class="insta__grid" id="instaGrid" hidden></div>
+    <a class="insta__card" id="instaCard" href="https://www.instagram.com/csaszkobarbershop69/" target="_blank" rel="noopener" data-ev="instagram">
+      <span><strong>A vágásaim az Instagramon</strong><small>@csaszkobarbershop69</small></span>
+      <span class="insta__arrow" aria-hidden="true">↗</span>
+    </a>
+    <a class="btn btn--line insta__more" id="instaMore" href="https://www.instagram.com/csaszkobarbershop69/" target="_blank" rel="noopener" data-ev="instagram" hidden>Továbbiak az Instagramon ↗</a>
+  </section>
 </main>
 
 <footer class="foot wrap">
@@ -158,7 +171,13 @@
 
 <div class="lightbox" id="lightbox" hidden>
   <button class="lightbox__close" type="button" id="lbClose">Bezárás</button>
-  <img id="lbImg" alt="">
+  <figure class="lightbox__fig">
+    <img id="lbImg" alt="">
+    <figcaption class="lightbox__meta" id="lbMeta" hidden>
+      <p id="lbCap"></p>
+      <a class="btn btn--line btn--sm" id="lbLink" href="#" target="_blank" rel="noopener" data-ev="instagram">Megnyitás az Instagramon ↗</a>
+    </figcaption>
+  </figure>
 </div>
 
 </div>

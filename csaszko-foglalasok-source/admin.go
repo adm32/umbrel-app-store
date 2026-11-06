@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/fs"
 	"net/http"
 	"path"
@@ -349,8 +350,27 @@ func adminAPI(w http.ResponseWriter, r *http.Request, remote bool) {
 	case p == "/api/admin/test-email" && r.Method == "POST":
 		mu.Lock()
 		s := *settings
-		ok := smtpConfigured()
 		mu.Unlock()
+		// the form sends what is typed, so a password can be tried before it is saved
+		unsaved := false
+		if u := oneLine(body["user"], 120); u != "" {
+			if !isEmail(u) {
+				send(w, 400, obj{"error": "Hibás Gmail cím."})
+				return
+			}
+			unsaved = unsaved || u != s.SMTP.User
+			s.SMTP.User = u
+		}
+		if v := asStr(body["pass"]); strings.TrimSpace(v) != "" {
+			p, msg := cleanAppPassword(v, s.SMTP.Host)
+			if msg != "" {
+				send(w, 400, obj{"error": msg})
+				return
+			}
+			unsaved = unsaved || p != s.SMTP.Pass
+			s.SMTP.Pass = p
+		}
+		ok := s.SMTP.Host != "" && s.SMTP.User != "" && s.SMTP.Pass != ""
 		if !ok {
 			send(w, 400, obj{"error": "Előbb add meg a Gmail címet és az alkalmazásjelszót, és mentsd el."})
 			return
@@ -368,7 +388,7 @@ func adminAPI(w http.ResponseWriter, r *http.Request, remote bool) {
 			send(w, 502, obj{"error": explainMail(err)})
 			return
 		}
-		send(w, 200, obj{"ok": true, "to": to})
+		send(w, 200, obj{"ok": true, "to": to, "unsaved": unsaved})
 		return
 	}
 
@@ -626,8 +646,16 @@ func putSettings(w http.ResponseWriter, s obj) {
 			next.SMTP.User = u
 		}
 		if v := asStr(sm["pass"]); v != "" {
-			// Google shows app passwords with spaces
-			next.SMTP.Pass = cut(reSpace.ReplaceAllString(v, ""), 200)
+			host := next.SMTP.Host // the server named in this same save counts
+			if h, ok := sm["host"]; ok && h != nil && oneLine(h, 120) != "" {
+				host = oneLine(h, 120)
+			}
+			p, msg := cleanAppPassword(v, host)
+			if msg != "" {
+				send(w, 400, obj{"error": msg})
+				return
+			}
+			next.SMTP.Pass = p
 		}
 		if truthy(sm["clearPass"]) {
 			next.SMTP.Pass = ""
@@ -652,3 +680,19 @@ func putSettings(w http.ResponseWriter, s obj) {
 	saveSettings()
 	send(w, 200, obj{"ok": true, "settings": settingsForClient(), "mailConfigured": smtpConfigured()})
 }
+
+// cleanAppPassword removes the spaces Google shows and checks the shape of a Gmail app password
+// (16 letters), so a password the browser filled in by itself is refused instead of saved.
+func cleanAppPassword(v, host string) (string, string) {
+	p := reSpace.ReplaceAllString(v, "")
+	if !strings.Contains(strings.ToLower(host), "gmail.com") {
+		return cut(p, 200), ""
+	}
+	p = strings.ToLower(p) // Google's codes are lowercase; the iPad keyboard may capitalise the first letter
+	if !reAppPass.MatchString(p) {
+		return "", "A Google alkalmazásjelszó pontosan 16 betű (pl. abcd efgh ijkl mnop). Ez " + fmt.Sprint(len([]rune(p))) + " karakter: másold be újra a Google oldaláról."
+	}
+	return p, ""
+}
+
+var reAppPass = regexp.MustCompile(`^[a-z]{16}$`)

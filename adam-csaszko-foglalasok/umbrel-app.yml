@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-csaszko-foglalasok
 category: productivity
 name: Csaszko Foglalások
-version: "2.1.0"
+version: "2.1.1"
 tagline: Időpontfoglalások kezelése a Csaszko Barbershop weboldalához
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-csaszko-foglalasok/icon.svg
 description: >-
@@ -37,4 +37,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Új beállítás: „Mai napra is lehet foglalni”. Alapból kikapcsolva, így a weboldalon csak holnaptól lehet időpontot kérni; te a mai napra is felvehetsz foglalást.
+  Gmail javítás: a böngésző nem tudja többé magától kitölteni az alkalmazásjelszó mezőt, a rossz formájú jelszót nem menti el, és a teszt e-mail a beírt adatokkal próbál, mentés előtt is. Hiba esetén a Gmail saját válasza is látszik.

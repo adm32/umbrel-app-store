@@ -186,7 +186,7 @@ func explainMail(err error) string {
 	if errors.As(err, &te) {
 		switch {
 		case te.Code == 535:
-			return "A Gmail nem fogadta el a belépést – ellenőrizd az e-mail címet és az alkalmazásjelszót."
+			return "A Gmail nem fogadta el a belépést – ellenőrizd az e-mail címet és az alkalmazásjelszót. (Gmail: " + cut(te.Msg, 90) + ")"
 		case te.Code >= 550 && te.Code <= 554:
 			return "A címzett e-mail címe nem létezik vagy elutasította a levelet."
 		}

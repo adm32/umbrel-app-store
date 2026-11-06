@@ -670,7 +670,7 @@
       '<div class="panel"><h3>E-mail (Gmail)</h3>' +
       '<p>Erről a címről mennek a visszaigazolások azoknak, akik megadtak e-mail címet, és ide jön értesítés az új foglalásokról.</p>' +
       '<label class="field"><span>Gmail cím</span><input name="user" type="email" value="' + esc(s.smtp.user) + '" autocomplete="off"></label>' +
-      '<label class="field"><span>Google alkalmazásjelszó</span><input name="pass" type="password" autocomplete="new-password" placeholder="' + (s.smtp.hasPass ? '•••• •••• •••• •••• (elmentve)' : '16 karakter, pl. abcd efgh ijkl mnop') + '">' +
+      '<label class="field"><span>Google alkalmazásjelszó</span><input name="gappcode" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" data-1p-ignore data-lpignore="true" data-form-type="other" placeholder="' + (s.smtp.hasPass ? '•••• •••• •••• •••• (elmentve)' : '16 karakter, pl. abcd efgh ijkl mnop') + '">' +
       '<small>' + (s.smtp.hasPass ? 'Csak akkor írd be, ha cserélni szeretnéd.' : 'Ez nem a Gmail jelszavad, hanem egy külön, erre a célra készített jelszó.') + '</small></label>' +
       '<details class="help"><summary>Hogyan kapok alkalmazásjelszót?</summary><ol>' +
       '<li>Jelentkezz be a Gmail fiókba a böngészőben, és nyisd meg: <b>myaccount.google.com/security</b></li>' +
@@ -710,8 +710,11 @@
     });
     $('[data-test-mail]', el).addEventListener('click', function (e) {
       var b = e.target; b.disabled = true; b.textContent = 'Küldés…';
-      api('/api/admin/test-email', { method: 'POST', body: {} })
-        .then(function (r) { toast('Teszt e-mail elküldve ide: ' + r.to); })
+      // test exactly what is on screen, saved or not
+      var f = e.target.closest('form'), tb = { user: f.user.value, to: f.notifyEmail.value };
+      if (f.gappcode.value.trim()) tb.pass = f.gappcode.value;
+      api('/api/admin/test-email', { method: 'POST', body: tb })
+        .then(function (r) { toast('Teszt e-mail elküldve ide: ' + r.to + (r.unsaved ? '. Most nyomd meg a Beállítások mentése gombot.' : '')); })
         .catch(function (err) { toast(err.message, true); })
         .then(function () { b.disabled = false; b.textContent = 'Teszt e-mail küldése'; });
     });
@@ -740,7 +743,7 @@
         notifyEmail: f.notifyEmail.value, ntfyUrl: f.ntfyUrl.value, adminUrl: f.adminUrl.value, siteUrl: f.siteUrl.value,
         smtp: { user: f.user.value, fromName: f.fromName.value }
       };
-      if (f.pass.value.trim()) body.smtp.pass = f.pass.value;
+      if (f.gappcode.value.trim()) body.smtp.pass = f.gappcode.value;
       var btn = $('button[type=submit]', f); btn.disabled = true;
       api('/api/admin/settings', { method: 'PUT', body: body }).then(function (r) {
         S.settings = r.settings; S.mailConfigured = r.mailConfigured; S.ntfyConfigured = !!r.settings.ntfyUrl; SVC = null;

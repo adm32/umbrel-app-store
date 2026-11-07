@@ -76,8 +76,11 @@ h3 { font-size: 1.7rem; }
   padding-block: 10px;
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
 }
-.top__mark { font-stretch: 75%; font-weight: 750; font-size: 1.35rem; letter-spacing: .02em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
-.top__mark span { color: var(--gold); }
+.top__mark { display: inline-flex; align-items: center; gap: 10px; min-width: 0; font-stretch: 75%; font-weight: 750; font-size: 1.35rem; letter-spacing: .02em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
+.top__logo { flex: none; width: 32px; height: 32px; }
+.top__name span { color: var(--gold); }
+/* narrow phones: logo + CSASZKO, the full name is right below in the hero */
+@media (max-width: 419px) { .top__name span { display: none; } }
 
 /* ---------- hero ---------- */
 .hero { display: grid; gap: 22px; padding-block: 30px 52px; }
@@ -245,6 +248,11 @@ address { font-style: normal; display: grid; gap: 2px; }
 .links { display: flex; flex-wrap: wrap; gap: 8px; }
 .phone a { color: var(--gold); font-weight: 650; text-decoration: none; font-variant-numeric: tabular-nums; }
 .phone a:hover { text-decoration: underline; }
+
+/* the round badge as a sign-off above the footer */
+.sign { display: grid; place-items: center; padding-block: 8px 44px; }
+.sign img { width: 168px; height: auto; }
+@media (min-width: 700px) { .sign img { width: 196px; } }
 
 .foot {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 24px;

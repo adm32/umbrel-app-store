@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: core (admcore.hu)
-version: "2.2.2"
+version: "2.2.3"
 tagline: core webstúdió – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -32,4 +32,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Frissített képek a Csaszko Barbershop referenciánál.
+  Domain: a .hu domain minden csomag árában benne van, más végződés beszerzési áron. Eltávolítva az ígéret, hogy a domain az ügyfél nevén van; az ÁSZF ennek megfelelően frissítve.

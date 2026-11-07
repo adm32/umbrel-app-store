@@ -761,8 +761,14 @@ func api(w http.ResponseWriter, r *http.Request, p string) {
 		m := payPath.FindStringSubmatch(p)
 		payAPI(w, r, m[1], m[2])
 	case p == "/api/stripe/test" && r.Method == "POST":
+		if paymentsOff(w) {
+			return
+		}
 		stripeTest(w)
 	case p == "/api/payments.csv" && r.Method == "GET":
+		if paymentsOff(w) {
+			return
+		}
 		w.Header().Set("Content-Type", "text/csv; charset=utf-8")
 		w.Header().Set("Cache-Control", "no-store")
 		w.Header().Set("Content-Disposition", `attachment; filename="befizetesek-`+time.Now().Format("2006-01-02")+`.csv"`)

@@ -31,6 +31,8 @@
 
   /* ---------- state ---------- */
   var S = { leads: [], L: null, prices: {}, setup: {}, stats: null, status: null, settings: null, stripe: null, tab: "attekintes", filter: "nyitott", q: "", open: null, known: null };
+  // Online payment is switched off for now (also paymentsEnabled in pay.go): every payment part is hidden.
+  var PAYMENTS = false;
   var PAY_STATE = { pending: "Fizetésre vár", active: "Aktív előfizetés", past_due: "Sikertelen fizetés", canceling: "Lemondva", canceled: "Megszűnt" };
   var PAY_EVENT = { elindult: "Előfizetés elindult", fizetve: "Befizetés", sikertelen: "Sikertelen levonás", lemondva: "Lemondva, az időszak végén megszűnik", visszavonva: "Lemondás visszavonva", megszunt: "Megszűnt" };
   var RUNNING = function (p) { return !!p && (p.state === "active" || p.state === "past_due" || p.state === "canceling"); };
@@ -190,7 +192,7 @@
       '<span class="r"><small>' + ago(l.created) + "</small>" + rowChip(l) + "</span></button>";
   }
   function rowChip(l) {
-    var p = l.pay;
+    var p = PAYMENTS && l.pay;
     if (p && (p.state === "past_due" || p.state === "pending" || p.state === "canceling")) return '<span class="chip c-pay-' + p.state + '">' + PAY_STATE[p.state] + "</span>";
     return '<span class="chip c-' + l.status + '">' + lab("status", l.status) + "</span>";
   }
@@ -206,7 +208,7 @@
     var open = S.leads.filter(OPEN), won = S.leads.filter(function (l) { return l.status === "megrendelte"; });
     var nNew = S.leads.filter(function (l) { return l.status === "uj"; }).length;
     var pipe = open.reduce(function (s, l) { return s + (S.prices[l.plan] || 0); }, 0);
-    var subs = S.leads.filter(function (l) { return RUNNING(l.pay); });
+    var subs = PAYMENTS ? S.leads.filter(function (l) { return RUNNING(l.pay); }) : [];
     var failing = subs.filter(function (l) { return l.pay.state === "past_due"; });
     var mrr = subs.length ? subs.reduce(function (s, l) { return s + (l.pay.interval === "year" ? Math.round(l.pay.amount / 12) : l.pay.amount); }, 0)
       : won.reduce(function (s, l) { return s + (S.prices[l.plan] || 0); }, 0);
@@ -219,7 +221,7 @@
       (subs.length ? kpi(failing.length ? "var(--red)" : "var(--green)", I.card, "Havi bevétel", num(mrr) + "<small>Ft</small>", subs.length + " előfizető" + (failing.length ? " · " + failing.length + " sikertelen" : ""), "megrendelte")
         : kpi("var(--green)", I.check, "Megrendelt havidíj", num(mrr) + "<small>Ft</small>", won.length + " ügyfél", "megrendelte")) + "</div>";
     if (failing.length) h += '<div class="hdr"><h2>Sikertelen fizetés</h2></div><div class="list">' + failing.map(leadRow).join("") + "</div>";
-    var bill = toBill();
+    var bill = PAYMENTS ? toBill() : [];
     if (bill.length) h += '<div class="hdr"><h2>Kiszámlázandó</h2><span class="sp"></span><a href="/api/payments.csv" download>Táblázat</a></div><div class="list">' + bill.slice(0, 8).map(billRow).join("") + "</div>" + (bill.length > 8 ? '<p class="note" style="margin:8px 4px 0">És még ' + (bill.length - 8) + " befizetés. A táblázatban mind benne van.</p>" : "");
     h += '<div class="hdr"><h2>Legutóbbi érdeklődők</h2><span class="sp"></span><button data-go="osszes">Összes</button></div>';
     h += S.leads.length ? '<div class="list">' + S.leads.slice(0, 5).map(leadRow).join("") + "</div>"
@@ -278,16 +280,20 @@
       "<label><span>Új érdeklődő<small>Hívás gombbal az értesítésben</small></span>" + sw("sLeads", s.notifyLeads) + "</label>" +
       "<label><span>Ha a weboldal nem érhető el<small>5 percenként ellenőrzi</small></span>" + sw("sDown", s.notifyDown) + "</label>" +
       '</div><div class="btnrow"><button class="btn sec" id="bTest">Próbaértesítés küldése</button></div>';
-    var si = S.stripe || {}, hk = si.hook || {};
+    var si = S.stripe || {};
+    h += '<div class="lbl">Árak</div><div class="set">' +
+      '<label><span>Árak a weboldalon<small>' + esc(si.vatNote || "") + '</small></span><select class="selr" id="sVat"><option value="brutto"' + (s.vatMode === "brutto" ? " selected" : "") + '>Bruttó</option><option value="netto"' + (s.vatMode === "netto" ? " selected" : "") + '>Nettó + ÁFA</option><option value="mentes"' + (s.vatMode === "mentes" ? " selected" : "") + ">ÁFA nélkül</option></select></label>" + '</div>';
+    if (PAYMENTS) {
+    var hk = si.hook || {};
     var site = (s.siteUrl || "https://admcore.hu").replace(/\/$/, "");
     h += '<div class="lbl">Fizetés (Stripe)' + (si.keySet ? (si.live ? ' <span class="tag-live">ÉLES</span>' : ' <span class="tag-test">TESZT</span>') : "") + '</div><div class="set">' +
       '<label class="stack"><span>Titkos kulcs<small>Stripe → Fejlesztők → API-kulcsok. Teszteléshez az sk_test_ kezdetűt.</small></span><input type="password" id="sKey" value="' + esc(s.stripeKey) + '" placeholder="sk_test_…" autocomplete="off" spellcheck="false"></label>' +
       '<label class="stack"><span>Webhook aláíró kulcs<small>Webhook végpont: <b class="mono">' + esc(site) + '/stripe/webhook</b></small></span><input type="password" id="sHook" value="' + esc(s.stripeWebhook) + '" placeholder="whsec_…" autocomplete="off" spellcheck="false"></label>' +
-      '<label><span>Árak a weboldalon<small>' + esc(si.vatNote || "") + '</small></span><select class="selr" id="sVat"><option value="brutto"' + (s.vatMode === "brutto" ? " selected" : "") + '>Bruttó</option><option value="netto"' + (s.vatMode === "netto" ? " selected" : "") + '>Nettó + ÁFA</option><option value="mentes"' + (s.vatMode === "mentes" ? " selected" : "") + ">ÁFA nélkül</option></select></label>" +
       '<label class="stack"><span>Ügyfélportál linkje<small>Stripe → Beállítások → Számlázás → Ügyfélportál. Ide visz az admcore.hu/elofizetes.</small></span><input type="url" id="sPortal" value="' + esc(s.portalUrl) + '" placeholder="https://billing.stripe.com/p/login/…" inputmode="url" autocomplete="off"></label>' +
       "<label><span>Értesítés befizetésről és sikertelen fizetésről</span>" + sw("sPay", s.notifyPay) + "</label>" +
       '<div class="stat-li"><i class="dot ' + (hk.at ? (hk.error ? "r" : "g") : "") + '"></i><span>Webhook<small>' + (hk.at ? (hk.error ? esc(hk.error) : "Utoljára: " + esc(hk.type) + " · " + ago(hk.at)) : "Még nem jött üzenet a Stripe-tól") + "</small></span></div>" +
       '</div><div class="btnrow"><button class="btn sec" id="bStripe"' + (si.keySet ? "" : " disabled") + '>Kapcsolat ellenőrzése</button><a class="btn sec" href="/api/payments.csv" download>Befizetések (CSV)</a></div>';
+    }
     h += '<div class="lbl">Induló kedvezmény</div><div class="set"><div class="li"><span>Szabad helyek<small>A weboldal ennyit mutat. 0-nál eltűnik a kedvezmény.</small></span><span class="stepper" style="flex:none"><button id="spMinus" aria-label="Kevesebb">−</button><b id="spVal">' + (s.spots ?? 5) + '</b><button id="spPlus" aria-label="Több">+</button></span></div></div>';
     h += '<div class="lbl">Címek</div><div class="set">' +
       '<label class="stack"><span>Weboldal<small>Ezt figyeli az Irányítópult</small></span><input type="url" id="sSite" value="' + esc(s.siteUrl) + '" placeholder="https://admcore.hu"></label>' +
@@ -410,7 +416,7 @@
     h += '<div class="stpick" role="group" aria-label="Állapot">' + STATUS_ORDER.map(function (k) {
       return '<button data-st="' + k + '" style="--c:' + STATUS_COLOR[k] + '" aria-pressed="' + (l.status === k) + '">' + lab("status", k) + "</button>";
     }).join("") + "</div>";
-    h += payHTML(l);
+    if (PAYMENTS) h += payHTML(l);
     if (l.source === "tervezo" && P) {
       var plan = l.plan || l.recommended;
       h += '<div class="card design"><div class="mini"><div class="scr" id="miniScr"></div></div><div class="planbox"><span class="note" style="margin:0">Ezt tervezte</span><b>' + esc(lab("csomag", plan) || "–") + '</b><div class="p">' + (plan ? num(S.prices[plan]) + " Ft / hó" + (l.billing === "y" ? " · éves fizetés" : "") : "") + "</div>" +
@@ -473,7 +479,7 @@
         });
       });
     });
-    bindPay(l);
+    if (PAYMENTS) bindPay(l);
     var copy = $("#aCopy");
     if (copy) copy.addEventListener("click", function () {
       var txt = [l.name, l.business, l.phone, l.email].filter(Boolean).join("\n");
@@ -689,13 +695,13 @@
       i.addEventListener("change", function () { var b = {}; b[map[id]] = i.value.trim(); saveSetting(b); });
     });
     $("#sLeads").addEventListener("change", function (e) { saveSetting({ notifyLeads: e.target.checked }); });
-    $("#sPay").addEventListener("change", function (e) { saveSetting({ notifyPay: e.target.checked }); });
+    if ($("#sPay")) $("#sPay").addEventListener("change", function (e) { saveSetting({ notifyPay: e.target.checked }); });
     [["sKey", "stripeKey"], ["sHook", "stripeWebhook"], ["sPortal", "portalUrl"]].forEach(function (x) {
-      var i = $("#" + x[0]);
+      var i = $("#" + x[0]); if (!i) return;
       i.addEventListener("change", function () { var b = {}; b[x[1]] = i.value.trim(); saveSetting(b).then(function () { if (S.tab === "beallitasok") render(true); }); });
     });
     $("#sVat").addEventListener("change", function (e) { saveSetting({ vatMode: e.target.value }, "A weboldal árai frissültek").then(function () { if (S.tab === "beallitasok") render(true); }); });
-    $("#bStripe").addEventListener("click", function () {
+    if ($("#bStripe")) $("#bStripe").addEventListener("click", function () {
       var b = this; b.disabled = true; b.textContent = "Ellenőrzés…";
       api("/api/stripe/test", { method: "POST" }).then(function (j) {
         b.disabled = false; b.textContent = "Kapcsolat ellenőrzése";

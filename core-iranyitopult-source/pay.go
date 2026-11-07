@@ -581,7 +581,7 @@ var payLimit = struct {
 }{m: map[string][]time.Time{}}
 
 func internalPay(w http.ResponseWriter, r *http.Request, code string) {
-	if !codeRe.MatchString(code) {
+	if !paymentsEnabled || !codeRe.MatchString(code) { // payment pages answer "not found" while payments are off
 		sendJSON(w, 404, map[string]any{"ok": false, "state": "notfound"})
 		return
 	}
@@ -667,7 +667,23 @@ func internalStripe(w http.ResponseWriter, r *http.Request) {
 
 // ---------- dashboard API ----------
 
+// paymentsEnabled switches online payment (Stripe payment links, the admcore.hu/fizetes pages)
+// on or off. Off for now: the dashboard hides everything about payments, and no new payment
+// can start. Set to true (and PAYMENTS in web/app.js) to bring it back; saved data is kept.
+const paymentsEnabled = false
+
+func paymentsOff(w http.ResponseWriter) bool {
+	if paymentsEnabled {
+		return false
+	}
+	sendJSON(w, 403, map[string]any{"ok": false, "error": "Az online fizetés jelenleg ki van kapcsolva."})
+	return true
+}
+
 func payAPI(w http.ResponseWriter, r *http.Request, id, sub string) {
+	if paymentsOff(w) {
+		return
+	}
 	mu.Lock()
 	l := findLead(id)
 	if l == nil {

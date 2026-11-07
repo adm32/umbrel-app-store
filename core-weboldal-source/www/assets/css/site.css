@@ -348,6 +348,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .work__media { position: relative; height: 290px; overflow: hidden; display: flex; justify-content: center; align-items: flex-start; gap: 4%; padding: 28px 12px 0; -webkit-mask-image: linear-gradient(#000 78%, transparent); mask-image: linear-gradient(#000 78%, transparent); }
 .work__media--a { background: radial-gradient(90% 80% at 50% 110%, #E9B79F, #F6E3D6 70%); }
 .work__media--b { background: radial-gradient(90% 80% at 50% 110%, #C7D3BD, #ECEFE4 70%); }
+.work__media--c { background: radial-gradient(90% 80% at 50% 110%, #6B5430, #16130F 70%); }
+.work__media--c .ph img { border-top-color: #000; } /* the barbershop site is black */
 @media (prefers-color-scheme: dark) { .work__media--a { background: radial-gradient(90% 80% at 50% 110%, #5A3324, #261B16 70%); } .work__media--b { background: radial-gradient(90% 80% at 50% 110%, #34402F, #1C1F19 70%); } }
 /* Each screenshot sits in a small phone: dark bezel, rounded corners, camera island */
 .ph { position: relative; flex: none; width: min(44%, 165px); padding: 6px; border-radius: 30px; background: linear-gradient(160deg, #3A2D25, #120D0A 60%); box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset, 0 22px 40px -14px rgba(40,20,10,.5); transition: transform .8s var(--spring); }
@@ -365,6 +367,11 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .tags span { font-size: 13.5px; font-weight: 550; padding: 5px 11px; border-radius: 999px; background: var(--bg-2); color: var(--ink-2); }
 .work .link { margin-top: 16px; }
 @media (min-width: 820px) { .works { grid-template-columns: 1fr 1fr; gap: 24px; } .work__media { height: 340px; } .ph { width: 175px; padding: 7px; border-radius: 32px; } .ph img { border-radius: 25px; } }
+/* the third reference spans the row: phones on the left, text on the right */
+@media (min-width: 820px) {
+  .work--wide { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; align-items: center; }
+  .work--wide .work__body { padding: 32px 40px 32px 16px; }
+}
 
 /* ---------- How ---------- */
 .how { display: grid; gap: 14px; counter-reset: s; }

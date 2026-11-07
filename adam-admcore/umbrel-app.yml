@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: core (admcore.hu)
-version: "2.2.4"
+version: "2.2.5"
 tagline: core webstúdió – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -32,4 +32,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Tegező hangnem az egész oldalon (a tervezőben, a hibaüzenetekben és az adatvédelmi tájékoztatóban is), új megosztási kép. Orosz Ádám neve a kapcsolatnál és a láblécben. Rendelés & Foglalás: 12 990 Ft/hó, beállítás 39 500 Ft-tól.
+  A Tiguan Gasztro Kft. adatai lekerültek az oldalról (impresszum, ÁSZF, adatvédelem, lábléc, fizetési oldal); a szolgáltató egyelőre Orosz Ádám (core webstúdió).

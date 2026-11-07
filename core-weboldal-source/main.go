@@ -467,7 +467,7 @@ var labels = map[string]map[string]string{
 	"hivhato":  {"delelott": "Délelőtt", "delutan": "Délután", "barmikor": "Bármikor"},
 	"csomag":   {"nevjegy": "Névjegy", "vallalkozas": "Vállalkozás", "rendeles": "Rendelés & Foglalás", "premium": "Prémium Partner"},
 }
-var prices = map[string]int{"nevjegy": 3490, "vallalkozas": 6990, "rendeles": 14990, "premium": 39990}
+var prices = map[string]int{"nevjegy": 3490, "vallalkozas": 6990, "rendeles": 12990, "premium": 39990}
 
 func pick(g string, v any) string {
 	s, _ := v.(string)
@@ -525,7 +525,7 @@ func saveOutbox() error { return writeJSON("outbox.json", outbox) }
 
 func errorPage(msg string) string {
 	esc := strings.NewReplacer("<", "", ">", "", "&", "")
-	return `<!doctype html><html lang="hu"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nem sikerült elküldeni</title><link rel="stylesheet" href="/assets/css/site.css?v=9"><main class="doc"><div class="wrap"><div class="doc__card center-card"><h1>Nem sikerült elküldeni</h1><p>` + esc.Replace(msg) + `</p><p>Hívjon minket: <a href="tel:+36203282840">+36 20 328 2840</a></p><a class="btn btn--primary" href="/#tervezes">Vissza</a></div></div></main></html>`
+	return `<!doctype html><html lang="hu"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nem sikerült elküldeni</title><link rel="stylesheet" href="/assets/css/site.css?v=9"><main class="doc"><div class="wrap"><div class="doc__card center-card"><h1>Nem sikerült elküldeni</h1><p>` + esc.Replace(msg) + `</p><p>Hívj minket: <a href="tel:+36203282840">+36 20 328 2840</a></p><a class="btn btn--primary" href="/#tervezes">Vissza</a></div></div></main></html>`
 }
 
 func handleLead(w http.ResponseWriter, r *http.Request) {
@@ -546,7 +546,7 @@ func handleLead(w http.ResponseWriter, r *http.Request) {
 		io.WriteString(w, errorPage(msg))
 	}
 	if !formLimit.allow(clientIP(r)) {
-		reply(429, "Túl sok kérés rövid idő alatt. Próbálja újra később, vagy hívjon minket.")
+		reply(429, "Túl sok kérés rövid idő alatt. Próbáld újra később, vagy hívj minket.")
 		return
 	}
 	raw, err := io.ReadAll(io.LimitReader(r.Body, 20001))
@@ -615,19 +615,19 @@ func handleLead(w http.ResponseWriter, r *http.Request) {
 	consent := d["adatkezeles"] == "igen" || d["adatkezeles"] == true
 	switch {
 	case utf8.RuneCountInString(l.Name) < 2:
-		reply(422, "Adja meg a nevét.")
+		reply(422, "Add meg a neved.")
 		return
 	case l.Phone == "" && l.Email == "":
-		reply(422, "Adjon meg egy telefonszámot vagy e-mail-címet.")
+		reply(422, "Adj meg egy telefonszámot vagy e-mail-címet.")
 		return
 	case l.Email != "" && !emailRe.MatchString(l.Email):
 		reply(422, "Az e-mail-cím formátuma nem megfelelő.")
 		return
 	case !consent:
-		reply(422, "Kérjük, fogadja el az adatkezelési tájékoztatót.")
+		reply(422, "Fogadd el az adatkezelési tájékoztatót.")
 		return
 	case l.Business == "" && l.Source == "urlap":
-		reply(422, "Adja meg a vállalkozás nevét.")
+		reply(422, "Add meg a vállalkozás nevét.")
 		return
 	}
 	obMu.Lock()

@@ -38,7 +38,7 @@
   /* ---------- Content model ---------- */
   var TYPES = {
     etterem: { label: "Étterem, kávézó", icon: "fork", sample: "Kemencés Bisztró", city: "Zalaegerszeg", title: "Házias ízek, kemencés pizza.", sub: "Ebéd, vacsora és kiszállítás.", cta: "Asztalfoglalás", open: "Most nyitva · 22:00-ig", listT: "Étlap", list: [["Napi menü", "2 290 Ft"], ["Kemencés pizza", "3 190 Ft"], ["Házi limonádé", "990 Ft"]], galT: "Hangulat", bookT: "Asztalfoglalás", features: ["arlista", "galeria", "rendeles"], style: "meleg" },
-    szepseg: { label: "Szépség, egészség", icon: "sparkle", sample: "Rózsakert Szalon", city: "Keszthely", title: "Szánjon időt magára.", sub: "Kozmetika, manikűr, masszázs.", cta: "Időpontot kérek", open: "Ma nyitva · 9:00–18:00", listT: "Árlista", list: [["Arctisztító kezelés", "12 900 Ft"], ["Géllakk", "7 500 Ft"], ["Frissítő masszázs", "9 900 Ft"]], galT: "Szalonunk", bookT: "Időpontfoglalás", features: ["arlista", "foglalas", "galeria"], style: "lagy" },
+    szepseg: { label: "Szépség, egészség", icon: "sparkle", sample: "Rózsakert Szalon", city: "Keszthely", title: "Szánj időt magadra.", sub: "Kozmetika, manikűr, masszázs.", cta: "Időpontot kérek", open: "Ma nyitva · 9:00–18:00", listT: "Árlista", list: [["Arctisztító kezelés", "12 900 Ft"], ["Géllakk", "7 500 Ft"], ["Frissítő masszázs", "9 900 Ft"]], galT: "Szalonunk", bookT: "Időpontfoglalás", features: ["arlista", "foglalas", "galeria"], style: "lagy" },
     szaki: { label: "Szaki, építőipar", icon: "tool", sample: "Horváth Villanyszerelés", city: "Veszprém", title: "Gyors kiszállás, tiszta munka.", sub: "Szerelés, javítás, hibaelhárítás.", cta: "Ajánlatot kérek", open: "Hívható · H–Szo 7–19", listT: "Szolgáltatások", list: [["Hibaelhárítás", "24 órán belül"], ["Lakásfelújítás", "egyedi ár"], ["Árajánlat fotó alapján", "ingyenes"]], galT: "Referenciák", bookT: "Időpont felmérésre", features: ["arlista", "galeria", "ajanlat"], style: "friss" },
     szallas: { label: "Szállás, vendégház", icon: "bed", sample: "Szőlőhegy Vendégház", city: "Hévíz", title: "Csend, kilátás, pihenés.", sub: "Vendégház a dombok között.", cta: "Szabad szobák", open: "Szabad szoba: nov. 14–16.", listT: "Árak", list: [["Kétágyas szoba", "22 000 Ft / éj"], ["Reggeli", "3 500 Ft / fő"], ["Wellness", "a házban"]], galT: "Szobák", bookT: "Szobafoglalás", features: ["galeria", "foglalas", "nyelv"], style: "termeszetes" },
     bolt: { label: "Üzlet, bolt", icon: "bag", sample: "Napfény Virágbolt", city: "Szombathely", title: "Friss virág minden nap.", sub: "Csokrok, kaspók, ajándékok.", cta: "Kínálatunk", open: "Most nyitva · 18:00-ig", listT: "Kínálat", list: [["Szezonális csokor", "5 900 Ft-tól"], ["Cserepes növény", "2 490 Ft-tól"], ["Kiszállítás", "a városban"]], galT: "Galéria", bookT: "Előrendelés", features: ["arlista", "galeria", "kozosseg"], style: "termeszetes" },
@@ -55,7 +55,7 @@
     { id: "nyelv", label: "Német és angol nyelv", icon: "globe" },
     { id: "tobb", label: "Több aloldal", sub: "Például Rólunk, Szolgáltatások", icon: "pages" },
     { id: "kozosseg", label: "Facebook és Instagram", sub: "A legújabb bejegyzések az oldalon", icon: "heart" },
-    { id: "kezeles", label: "Intézzenek mindent Önök", sub: "Google- és Facebook-kezelés, korlátlan módosítás", icon: "crown" }
+    { id: "kezeles", label: "Intézzetek el mindent ti", sub: "Google- és Facebook-kezelés, korlátlan módosítás", icon: "crown" }
   ];
   var FEAT = {}; FEATURES.forEach(function (f) { FEAT[f.id] = f; });
 
@@ -77,10 +77,10 @@
   var CALLS = [{ id: "delelott", label: "Délelőtt" }, { id: "delutan", label: "Délután" }, { id: "barmikor", label: "Bármikor" }];
 
   var PLANS = {
-    nevjegy: { name: "Névjegy", short: "Névjegy", m: 3490, y: 34900, setup: 19900, now: 9950, from: false, why: "Egy átlátható, egyoldalas oldal mindent tud, amit kiválasztott." },
+    nevjegy: { name: "Névjegy", short: "Névjegy", m: 3490, y: 34900, setup: 19900, now: 9950, from: false, why: "Egy átlátható, egyoldalas oldal mindent tud, amit kiválasztottál." },
     vallalkozas: { name: "Vállalkozás", short: "Vállalk.", m: 6990, y: 69900, setup: 39900, now: 19950, from: false, why: "A galériához, a több oldalhoz és a nyelvekhez ez a csomag való." },
-    rendeles: { name: "Rendelés & Foglalás", short: "Rendelés", m: 14990, y: 149900, setup: 99000, now: 49500, from: true, why: "Az online rendeléshez vagy foglaláshoz kezelőprogram és értesítés is jár." },
-    premium: { name: "Prémium Partner", short: "Prémium", m: 39990, y: 399900, setup: 349000, now: 174500, from: false, why: "Ön a vevőkkel foglalkozik, minden mást mi intézünk." }
+    rendeles: { name: "Rendelés & Foglalás", short: "Rendelés", m: 12990, y: 129900, setup: 79000, now: 39500, from: true, why: "Az online rendeléshez vagy foglaláshoz kezelőprogram és értesítés is jár." },
+    premium: { name: "Prémium Partner", short: "Prémium", m: 39990, y: 399900, setup: 349000, now: 174500, from: false, why: "Te a vevőkkel foglalkozol, minden mást mi intézünk." }
   };
   var PLAN_ORDER = ["nevjegy", "vallalkozas", "rendeles", "premium"];
 
@@ -106,7 +106,7 @@
     var keys = [];
     var sec = function (k, html) { keys.push(k); return '<section class="ps-sec' + (known && !known[k] ? " ps-new" : "") + '" data-k="' + k + '">' + html + "</section>"; };
     var cta = has("rendeles") ? "Rendelés online" : has("foglalas") ? (s.type === "etterem" ? "Asztalfoglalás" : t.cta) : t.cta;
-    var third = has("rendeles") ? ["cart", "Rendelés"] : has("foglalas") ? ["cal", "Foglalás"] : has("arlista") ? ["list", t.listT] : ["chat", "Írjon"];
+    var third = has("rendeles") ? ["cart", "Rendelés"] : has("foglalas") ? ["cal", "Foglalás"] : has("arlista") ? ["list", t.listT] : ["chat", "Írj"];
     var h = "";
     h += '<div class="ps-bar"><span>9:41</span><i></i></div>';
     h += '<div class="ps-url">' + svg("lock", 2.6) + '<span data-ps="url">' + esc(slug(name)) + ".hu</span></div>";

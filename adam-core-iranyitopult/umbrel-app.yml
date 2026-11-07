@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-core-iranyitopult
 category: automation
 name: core Irányítópult
-version: "1.3.0"
+version: "1.3.1"
 tagline: Érdeklődők és látogatók az admcore.hu-ról, értesítéssel
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-core-iranyitopult/icon.svg
 description: >-
@@ -33,4 +33,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Az online fizetés egyelőre ki van kapcsolva: eltűnt a fizetési link, a Stripe-beállítások és a bevételi részek. Az ÁFA-beállítás külön „Árak” részbe került. A mentett adatok megmaradnak.
+  Az ügyfeleknek szóló SMS- és e-mail-sablonok tegeződnek, és Orosz Ádám aláírásával mennek. Új ár: Rendelés & Foglalás 12 990 Ft/hó, beállítás 79 000 helyett 39 500 Ft.

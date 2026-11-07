@@ -81,7 +81,7 @@ var L = map[string]map[string]string{
 	"csomag":   {"nevjegy": "Névjegy", "vallalkozas": "Vállalkozás", "rendeles": "Rendelés & Foglalás", "premium": "Prémium Partner"},
 	"status":   {"uj": "Új", "hivtam": "Felhívtam", "bemutato": "Bemutató készül", "elkuldve": "Bemutató elküldve", "megrendelte": "Megrendelte", "elutasitotta": "Nem kérte"},
 }
-var prices = map[string]int{"nevjegy": 3490, "vallalkozas": 6990, "rendeles": 14990, "premium": 39990}
+var prices = map[string]int{"nevjegy": 3490, "vallalkozas": 6990, "rendeles": 12990, "premium": 39990}
 
 func pick(g, v string) string {
 	if _, ok := L[g][v]; ok {

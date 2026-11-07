@@ -120,10 +120,10 @@ func dashPay(method, code string, body any) (int, payInfo, error) {
 func stateMessage(w http.ResponseWriter, info payInfo) {
 	switch info.State {
 	case "active", "past_due", "canceling":
-		payMessage(w, 200, "Ez az előfizetés már él", "Köszönjük, a fizetés korábban megtörtént. A kártyáját és a számláit itt kezelheti:", true,
+		payMessage(w, 200, "Ez az előfizetés már él", "Köszönjük, a fizetés korábban megtörtént. A kártyádat és a számláidat itt kezelheted:", true,
 			`<a class="btn btn--ghost" href="/elofizetes">Előfizetés kezelése</a>`)
 	default:
-		payMessage(w, 410, "Ez a fizetési link lejárt", "Kérjen új linket: hívjon minket a <a href=\"tel:+36203282840\">+36 20 328 2840</a> számon, vagy írjon az <a href=\"mailto:info@admcore.hu\">info@admcore.hu</a> címre.", false, "")
+		payMessage(w, 410, "Ez a fizetési link lejárt", "Kérj új linket: hívj minket a <a href=\"tel:+36203282840\">+36 20 328 2840</a> számon, vagy írj az <a href=\"mailto:info@admcore.hu\">info@admcore.hu</a> címre.", false, "")
 	}
 }
 
@@ -156,7 +156,7 @@ func payForm(w http.ResponseWriter, code int, info payInfo, errMsg string) {
 	}
 	b.WriteString(`<ul class="pay__list">
 <li>` + checkSVG + `<span>Bankkártya, Apple Pay vagy Google Pay</span></li>
-<li>` + checkSVG + `<span>Nem kell figyelnie a határidőket, a díjat ` + adv + ` automatikusan levonjuk</span></li>
+<li>` + checkSVG + `<span>Nem kell figyelned a határidőket, a díjat ` + adv + ` automatikusan levonjuk</span></li>
 <li>` + checkSVG + `<span>Minden befizetésről számlát küldünk e-mailben</span></li>
 </ul>`)
 	b.WriteString(`<form class="pay__form" method="post" action="/fizetes/` + info.Code + `">`)
@@ -165,8 +165,8 @@ func payForm(w http.ResponseWriter, code int, info payInfo, errMsg string) {
 	}
 	b.WriteString(`<label class="pay__ok"><input type="checkbox" name="elfogadom" value="igen" required><span>Elolvastam és elfogadom az <a href="/aszf.html" target="_blank" rel="noopener">általános szerződési feltételeket</a>, és hozzájárulok, hogy a díjat ` + adv + ` automatikusan levonják a kártyámról.</span></label>`)
 	b.WriteString(`<button class="btn btn--primary btn--lg pay__go" type="submit"><span>Tovább a biztonságos fizetéshez</span>` + arrowSVG + `</button>`)
-	b.WriteString(`<p class="pay__safe">` + lockSVG + `<span>A fizetés a Stripe oldalán történik. A kártyaadatait mi nem látjuk és nem tároljuk.</span></p></form>`)
-	b.WriteString(`<p class="pay__fine">Szolgáltató: Tiguan Gasztro Kft. (core webstúdió) · <a href="/aszf.html">ÁSZF</a> · <a href="/adatvedelem.html">Adatvédelem</a> · Kérdése van? <a href="tel:+36203282840">+36 20 328 2840</a></p></article>`)
+	b.WriteString(`<p class="pay__safe">` + lockSVG + `<span>A fizetés a Stripe oldalán történik. A kártyaadataidat mi nem látjuk és nem tároljuk.</span></p></form>`)
+	b.WriteString(`<p class="pay__fine">Szolgáltató: Tiguan Gasztro Kft. (core webstúdió) · <a href="/aszf.html">ÁSZF</a> · <a href="/adatvedelem.html">Adatvédelem</a> · Kérdésed van? <a href="tel:+36203282840">+36 20 328 2840</a></p></article>`)
 	payShell(w, code, "Előfizetés indítása", b.String())
 }
 
@@ -177,7 +177,7 @@ func payPage(w http.ResponseWriter, r *http.Request, rest string) {
 	}
 	code := strings.ToUpper(strings.TrimSpace(rest))
 	if !payCodeRe.MatchString(code) {
-		payMessage(w, 404, "A fizetési link nem érvényes", "Ellenőrizze, hogy a teljes linket nyitotta-e meg. Ha nem megy, hívjon minket: <a href=\"tel:+36203282840\">+36 20 328 2840</a>.", false, "")
+		payMessage(w, 404, "A fizetési link nem érvényes", "Ellenőrizd, hogy a teljes linket nyitottad-e meg. Ha nem megy, hívj minket: <a href=\"tel:+36203282840\">+36 20 328 2840</a>.", false, "")
 		return
 	}
 	if r.Method != "GET" && r.Method != "HEAD" && r.Method != "POST" {
@@ -186,16 +186,16 @@ func payPage(w http.ResponseWriter, r *http.Request, rest string) {
 		return
 	}
 	if !payLimit.allow(clientIP(r)) {
-		payMessage(w, 429, "Túl sok próbálkozás", "Várjon néhány percet, és nyissa meg újra a linket.", false, "")
+		payMessage(w, 429, "Túl sok próbálkozás", "Várj néhány percet, és nyisd meg újra a linket.", false, "")
 		return
 	}
 	st, info, err := dashPay("GET", code, nil)
 	if err != nil || st >= 500 {
-		payMessage(w, 503, "A fizetés most nem érhető el", "Kérjük, próbálja újra néhány perc múlva, vagy hívjon minket: <a href=\"tel:+36203282840\">+36 20 328 2840</a>.", false, "")
+		payMessage(w, 503, "A fizetés most nem érhető el", "Próbáld újra néhány perc múlva, vagy hívj minket: <a href=\"tel:+36203282840\">+36 20 328 2840</a>.", false, "")
 		return
 	}
 	if st == 404 {
-		payMessage(w, 404, "A fizetési link nem érvényes", "Lehet, hogy már visszavontuk, vagy elírás van benne. Hívjon minket, és küldünk újat: <a href=\"tel:+36203282840\">+36 20 328 2840</a>.", false, "")
+		payMessage(w, 404, "A fizetési link nem érvényes", "Lehet, hogy már visszavontuk, vagy elírás van benne. Hívj minket, és küldünk újat: <a href=\"tel:+36203282840\">+36 20 328 2840</a>.", false, "")
 		return
 	}
 	if info.State != "pending" {
@@ -210,7 +210,7 @@ func payPage(w http.ResponseWriter, r *http.Request, rest string) {
 	raw, _ := io.ReadAll(io.LimitReader(r.Body, 4000))
 	form, _ := url.ParseQuery(string(raw))
 	if form.Get("elfogadom") != "igen" {
-		payForm(w, 422, info, "A folytatáshoz fogadja el a feltételeket (pipálja be a négyzetet).")
+		payForm(w, 422, info, "A folytatáshoz fogadd el a feltételeket (pipáld be a négyzetet).")
 		return
 	}
 	who := sha256.Sum256([]byte(clientIP(r) + "|" + r.UserAgent()))
@@ -222,7 +222,7 @@ func payPage(w http.ResponseWriter, r *http.Request, rest string) {
 	u, perr := url.Parse(res.URL)
 	if err != nil || st != 200 || !res.OK || perr != nil || (u.Scheme != "https" && u.Scheme != "http") {
 		log.Printf("pay %s: checkout failed (%d) %s", code, st, res.Error)
-		payForm(w, 502, info, "A fizetési oldal most nem nyílt meg. Próbálja újra pár perc múlva, vagy hívjon minket.")
+		payForm(w, 502, info, "A fizetési oldal most nem nyílt meg. Próbáld újra pár perc múlva, vagy hívj minket.")
 		return
 	}
 	w.Header().Set("Location", res.URL)
@@ -267,5 +267,5 @@ func portalRedirect(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(303)
 		return
 	}
-	payMessage(w, 200, "Előfizetés kezelése", "Kártyacseréhez, számlamásolathoz vagy bármilyen kérdéshez hívjon minket a <a href=\"tel:+36203282840\">+36 20 328 2840</a> számon, vagy írjon az <a href=\"mailto:info@admcore.hu\">info@admcore.hu</a> címre.", false, "")
+	payMessage(w, 200, "Előfizetés kezelése", "Kártyacseréhez, számlamásolathoz vagy bármilyen kérdéshez hívj minket a <a href=\"tel:+36203282840\">+36 20 328 2840</a> számon, vagy írj az <a href=\"mailto:info@admcore.hu\">info@admcore.hu</a> címre.", false, "")
 }

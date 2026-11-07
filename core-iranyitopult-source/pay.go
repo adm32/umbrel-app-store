@@ -30,7 +30,7 @@ import (
 var stripeAPI = strings.TrimRight(env("STRIPE_API", "https://api.stripe.com"), "/")
 
 // One-off setup fees per plan: [full price, launch-discount price]. Must match the website (preview.js PLANS).
-var setupPrices = map[string][2]int{"nevjegy": {19900, 9950}, "vallalkozas": {39900, 19950}, "rendeles": {99000, 49500}, "premium": {349000, 174500}}
+var setupPrices = map[string][2]int{"nevjegy": {19900, 9950}, "vallalkozas": {39900, 19950}, "rendeles": {79000, 39500}, "premium": {349000, 174500}}
 
 type PayEvent struct {
 	ID     string `json:"id"`

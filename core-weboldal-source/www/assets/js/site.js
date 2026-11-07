@@ -293,11 +293,11 @@
   function chosenPlan() { return S.plan || recommend(curFeatures()); }
   function paintOffer() {
     var rec = recommend(curFeatures()), k = chosenPlan(), p = PLANS[k];
-    $("#rec .rec__k").textContent = k === rec ? "Ezt ajánljuk Önnek" : "Az Ön választása";
+    $("#rec .rec__k").textContent = k === rec ? "Ezt ajánljuk neked" : "A te választásod";
     $("#recName").textContent = p.name;
     $("#recPrice").textContent = fmt(billing === "y" ? p.y : p.m);
     $("#rec .amt span").textContent = billing === "y" ? "Ft / év" : "Ft / hó";
-    $("#recWhy").textContent = k === rec ? p.why : "Bármikor válthat másik csomagra.";
+    $("#recWhy").textContent = k === rec ? p.why : "Bármikor válthatsz másik csomagra.";
     $("#recSetup").innerHTML = spots > 0
       ? "Beállítás: <s>" + fmt(p.setup) + " Ft</s> <strong>" + fmt(p.now) + " Ft" + (p.from ? "-tól" : "") + "</strong> <em>−50%</em>"
       : "Beállítás: <strong>" + fmt(p.setup) + " Ft" + (p.from ? "-tól" : "") + "</strong>";
@@ -358,7 +358,7 @@
       var box = $("#optTypes"); box.animate && box.animate([{ transform: "translateX(-6px)" }, { transform: "translateX(6px)" }, { transform: "none" }], { duration: 300 });
       return;
     }
-    if (name === "name" && S.biz.trim().length < 2) { bad($("#fldBiz"), el.errName, "Írja be a vállalkozás nevét (ha még nincs, egy munkanevet is)."); el.biz.focus(); return; }
+    if (name === "name" && S.biz.trim().length < 2) { bad($("#fldBiz"), el.errName, "Írd be a vállalkozás nevét (ha még nincs, egy munkanevet is)."); el.biz.focus(); return; }
     if (name === "contact") return submit();
     if (name === "done") return closePlanner();
     setStep(stepIdx + 1, 1);
@@ -492,11 +492,11 @@
   function submit() {
     if (sending) return;
     var nev = S.nev.trim(), tel = S.tel.trim(), mail = S.email.trim();
-    if (nev.length < 2) { bad($("#fldName"), el.errContact, "Kérjük, adja meg a nevét."); el.name.focus(); return; }
-    if (!tel && !mail) { bad($("#fldTel"), el.errContact, "Adjon meg egy telefonszámot vagy e-mail-címet, hogy elküldhessük a bemutatót."); el.tel.focus(); return; }
+    if (nev.length < 2) { bad($("#fldName"), el.errContact, "Add meg a neved."); el.name.focus(); return; }
+    if (!tel && !mail) { bad($("#fldTel"), el.errContact, "Adj meg egy telefonszámot vagy e-mail-címet, hogy elküldhessük a bemutatót."); el.tel.focus(); return; }
     if (tel && tel.replace(/\D/g, "").length < 8) { bad($("#fldTel"), el.errContact, "Ez a telefonszám túl rövidnek tűnik."); el.tel.focus(); return; }
     if (mail && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) { bad($("#fldMail"), el.errContact, "Az e-mail-cím formátuma nem megfelelő."); el.mail.focus(); return; }
-    if (!el.consent.checked) { bad(null, el.errContact, "Kérjük, fogadja el az adatkezelési tájékoztatót."); $("#fldConsent").animate && $("#fldConsent").animate([{ transform: "translateX(-6px)" }, { transform: "translateX(6px)" }, { transform: "none" }], { duration: 300 }); return; }
+    if (!el.consent.checked) { bad(null, el.errContact, "Fogadd el az adatkezelési tájékoztatót."); $("#fldConsent").animate && $("#fldConsent").animate([{ transform: "translateX(-6px)" }, { transform: "translateX(6px)" }, { transform: "none" }], { duration: 300 }); return; }
     sending = true; el.next.classList.add("is-loading"); el.next.disabled = true;
     var data = {
       v: 2, forras: "tervezo", src: S.src, tipus: S.type, vallalkozas: S.biz.trim(), telepules: S.city.trim(),
@@ -511,7 +511,7 @@
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && j.ok, msg: j.message }; }); })
       .then(function (res) {
         clearTimeout(timer); sending = false; el.next.classList.remove("is-loading"); el.next.disabled = false;
-        if (!res.ok) { el.errContact.textContent = (res.msg || "Most nem sikerült elküldeni.") + " Hívjon minket: +36 20 328 2840."; return; }
+        if (!res.ok) { el.errContact.textContent = (res.msg || "Most nem sikerült elküldeni.") + " Hívj minket: +36 20 328 2840."; return; }
         track("cfg_sent", { plan: data.csomag });
         store.del(DRAFT);
         var first = nev.split(/\s+/).pop();
@@ -521,7 +521,7 @@
       })
       .catch(function () {
         clearTimeout(timer); sending = false; el.next.classList.remove("is-loading"); el.next.disabled = false;
-        el.errContact.textContent = "Nem sikerült elküldeni. Ellenőrizze az internetkapcsolatot, vagy hívjon minket: +36 20 328 2840.";
+        el.errContact.textContent = "Nem sikerült elküldeni. Ellenőrizd az internetkapcsolatot, vagy hívj minket: +36 20 328 2840.";
       });
   }
   function confetti() {

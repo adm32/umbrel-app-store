@@ -404,9 +404,10 @@
   function firstName(n) { var p = String(n || "").trim().split(/\s+/); return p.length > 1 ? p[p.length - 1] : p[0] || ""; }
   function leadHTML(l) {
     var t = P && P.TYPES[l.type], st = P && P.STYLES[l.style];
-    var smsBody = l.demoUrl ? "Jó napot! Elkészült a(z) " + (l.business || "vállalkozása") + " weboldalának bemutatója: " + l.demoUrl + " – core, +36 20 328 2840" : "Jó napot! A core-tól írok a weboldal miatt. Mikor beszélhetnénk pár percet? +36 20 328 2840";
+    var hi = firstName(l.name) ? "Szia " + firstName(l.name) + "!" : "Szia!";
+    var smsBody = l.demoUrl ? hi + " Elkészült a(z) " + (l.business || "vállalkozásod") + " weboldalának bemutatója: " + l.demoUrl + " – Orosz Ádám, core, +36 20 328 2840" : hi + " Orosz Ádám vagyok a core-tól, a weboldal miatt írok. Mikor tudnánk pár percet beszélni? +36 20 328 2840";
     var mailSubj = "Weboldal bemutató – " + (l.business || l.name);
-    var mailBody = "Kedves " + firstName(l.name) + "!\n\nKöszönjük az érdeklődését. " + (l.demoUrl ? "Elkészült a bemutató, itt tudja megnézni a telefonján: " + l.demoUrl : "Hamarosan elkészül a bemutató, és elküldjük a linkjét.") + "\n\nÜdvözlettel:\ncore · admcore.hu\n+36 20 328 2840";
+    var mailBody = hi + "\n\nKöszönöm az érdeklődésed. " + (l.demoUrl ? "Elkészült a bemutató, itt nézheted meg a telefonodon: " + l.demoUrl : "Hamarosan elkészül a bemutató, és elküldöm a linkjét.") + "\n\nÜdv:\nOrosz Ádám\ncore · admcore.hu\n+36 20 328 2840";
     var h = '<div class="hero2">' + avatar(l, true) + "<div><h3>" + esc(l.business || l.name) + "</h3><p>" + esc([l.name, l.city].filter(Boolean).join(" · ")) + "</p></div></div>";
     h += '<div class="acts">' +
       '<a class="act" href="' + telHref(l.phone) + '" aria-disabled="' + !l.phone + '">' + ICON(I.phone) + "Hívás</a>" +
@@ -625,10 +626,11 @@
     }
     if (!p) return;
     var link = p.code ? payLink(p) : "", who = l.business || "a weboldal";
-    var smsTxt = "Jó napot! Itt tudja elindítani a(z) " + who + " előfizetését (" + num(p.amount) + " Ft/" + (p.interval === "year" ? "év" : "hó") + "): " + link + " – core, +36 20 328 2840";
+    var hi = firstName(l.name) ? "Szia " + firstName(l.name) + "!" : "Szia!";
+    var smsTxt = hi + " Itt tudod elindítani a(z) " + who + " előfizetését (" + num(p.amount) + " Ft/" + (p.interval === "year" ? "év" : "hó") + "): " + link + " – Orosz Ádám, core, +36 20 328 2840";
     var sms = $("#pySms", body); if (sms) sms.href = "sms:" + String(l.phone || "").replace(/[^\d+]/g, "") + "?&body=" + encodeURIComponent(smsTxt);
     var mail = $("#pyMail", body);
-    if (mail) mail.href = "mailto:" + encodeURIComponent(l.email || "") + "?subject=" + encodeURIComponent("Előfizetés indítása – " + who) + "&body=" + encodeURIComponent("Kedves " + firstName(l.name) + "!\n\nKöszönjük, hogy minket választott. Ezen a linken tudja elindítani az előfizetést, bankkártyával, Apple Pay-jel vagy Google Pay-jel:\n" + link + "\n\n" + (p.setup ? "Most " + num(p.amount + p.setup) + " Ft-ot fizet (benne az egyszeri beállítás), utána " : "Utána ") + (p.interval === "year" ? "évente " : "havonta ") + num(p.amount) + " Ft-ot vonunk le automatikusan. Minden befizetésről számlát küldünk.\n\nÜdvözlettel:\ncore · admcore.hu\n+36 20 328 2840");
+    if (mail) mail.href = "mailto:" + encodeURIComponent(l.email || "") + "?subject=" + encodeURIComponent("Előfizetés indítása – " + who) + "&body=" + encodeURIComponent(hi + "\n\nKöszönöm, hogy minket választottál. Ezen a linken tudod elindítani az előfizetést, bankkártyával, Apple Pay-jel vagy Google Pay-jel:\n" + link + "\n\n" + (p.setup ? "Most " + num(p.amount + p.setup) + " Ft-ot fizetsz (benne az egyszeri beállítás), utána " : "Utána ") + (p.interval === "year" ? "évente " : "havonta ") + num(p.amount) + " Ft-ot vonunk le automatikusan. Minden befizetésről számlát küldünk.\n\nÜdv:\nOrosz Ádám\ncore · admcore.hu\n+36 20 328 2840");
     var cp = $("#pyCopy", body);
     if (cp) cp.addEventListener("click", function () {
       var done = function () { haptic(); toast("Link kimásolva"); };

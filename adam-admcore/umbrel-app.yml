@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: Zala Studio (admcore.hu)
-version: "3.1.0"
+version: "3.1.1"
 tagline: Zala Studio – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -33,4 +33,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Új animációk: betűnként beúszó cím és átforduló szó, görgetésre dőlő telefon, ferde narancs szalag vállalkozástípusokkal (görgetésre gyorsul), alulról előbukkanó címek, felugró ikonok és fényvillanás a kártyákon, sorban felvillanó lépések, forgó fényes keret az ajánlott csomagon, felpörgő árak, csillogó gombok és görgetésjelző a fejlécben. Akinek a telefonján be van kapcsolva a „mozgás csökkentése”, annak nem jelennek meg.
+  A narancssárga, ferde szalag lekerült a főoldalról; minden más animáció marad.

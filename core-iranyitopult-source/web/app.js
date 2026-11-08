@@ -825,14 +825,14 @@
     var nd = (T.deadlines || [])[0];
     var big = function (n) { return n >= 1e6 ? (n / 1e6).toFixed(1).replace(".", ",") + "<small>M Ft</small>" : num(n) + "<small>Ft</small>"; };
     h += '<div class="kpis taxkpis">' +
-      kpi("var(--green)", I.coin, "Bevétel, " + year, big(totR), T.people.length + " fő együtt") +
+      kpi("var(--green)", I.coin, "Bevétel, " + year, big(totR), T.people.length > 1 ? T.people.length + " fő együtt" : "eddig ebben az évben") +
       kpi(totTax > 0 ? "var(--orange)" : "var(--teal)", I.receipt, "Várható adó", big(totTax), totTax > 0 ? "egész évre számolva" : "az adómentes kereten belül") +
       kpi("var(--indigo)", I.check, "Adómentesen még", big(leftFree), "bevétel, összesen") +
       kpi(nd && nd.days <= 7 ? "var(--red)" : "var(--blue)", I.cal, "Következő határidő", nd ? esc(nd.date.slice(5).replace("-", ". ")) + "." : "–", nd ? esc(nd.title) + " · " + (nd.days === 0 ? "ma" : nd.days + " nap") : "") +
       "</div>";
     var notReg = T.people.filter(function (p) { return !p.registered; });
-    if (notReg.length) h += '<div class="card warnbox"><b>' + esc(notReg.map(function (p) { return p.name; }).join(" és ")) + (notReg.length > 1 ? " még nincsenek" : " még nincs") + " bejelentve egyéni vállalkozóként.</b>Amíg nincs, ne fogadjatok el pénzt. Ha megvan, írd be a bejelentés dátumát (koppints a névre).</div>";
-    h += '<div class="cols c2">';
+    if (notReg.length) h += '<div class="card warnbox"><b>' + esc(notReg.map(function (p) { return p.name; }).join(" és ")) + (notReg.length > 1 ? " még nincsenek" : " még nincs") + " bejelentve egyéni vállalkozóként.</b>" + (T.people.length > 1 ? "Amíg nincs, ne fogadjatok el pénzt." : "Amíg nincs, ne fogadj el pénzt.") + " Ha megvan, írd be a bejelentés dátumát (koppints a névre).</div>";
+    h += T.people.length > 1 ? '<div class="cols c2">' : "<div>";
     T.people.forEach(function (p, pi) {
       var c = calcs[pi];
       var ini = p.name.split(" ").filter(Boolean).map(function (w) { return w.charAt(0); }).join("").slice(0, 2);
@@ -851,13 +851,13 @@
       h += "</div>";
     });
     h += "</div>";
-    h += '<p class="note" style="margin:10px 6px 0">Átalányadónál nem lehet költséget levonni: ha valaki a bevételéből a másiknak fizet, az nem csökkenti a saját adóját. Ezért egyszerűbb, ha mindenki a saját munkáját számlázza közvetlenül az ügyfélnek.</p>';
+    if (T.people.length > 1) h += '<p class="note" style="margin:10px 6px 0">Átalányadónál nem lehet költséget levonni: ha valaki a bevételéből a másiknak fizet, az nem csökkenti a saját adóját. Ezért egyszerűbb, ha mindenki a saját munkáját számlázza közvetlenül az ügyfélnek.</p>';
     // revenue log
     var list = T.invoices.filter(function (i) { return i.date.slice(0, 4) === String(year) && (!S.taxWho || i.person === S.taxWho); });
     h += '<div class="hdr"><h2>Bevételek</h2><span class="sp"></span><button id="taxAdd">Új bevétel</button></div>';
     if (T.people.length > 1) h += '<div class="pills" style="margin:0 0 10px"><button class="pill' + (!S.taxWho ? " on" : "") + '" data-taxwho="">Mindenki</button>' + T.people.map(function (p) { return '<button class="pill" aria-pressed="' + (S.taxWho === p.id) + '" data-taxwho="' + esc(p.id) + '">' + esc(p.name.split(" ").slice(-1)[0]) + "</button>"; }).join("") + "</div>";
     h += list.length ? '<div class="list">' + list.map(function (i) {
-      return '<button class="row" data-taxinv="' + esc(i.id) + '"><span class="av" style="background:var(--green)">' + ICON(I.receipt) + '</span><span class="t"><b>' + esc(i.client || "Bevétel") + "</b><span>" + esc([i.number, personName(i.person)].filter(Boolean).join(" · ")) + '</span></span><span class="r"><b class="amt">' + num(i.amount) + " Ft</b><small>" + esc(i.date.replace(/-/g, ". ")) + ".</small></span></button>";
+      return '<button class="row" data-taxinv="' + esc(i.id) + '"><span class="av" style="background:var(--green)">' + ICON(I.receipt) + '</span><span class="t"><b>' + esc(i.client || "Bevétel") + "</b><span>" + esc([i.number, T.people.length > 1 ? personName(i.person) : ""].filter(Boolean).join(" · ")) + '</span></span><span class="r"><b class="amt">' + num(i.amount) + " Ft</b><small>" + esc(i.date.replace(/-/g, ". ")) + ".</small></span></button>";
     }).join("") + "</div>" : '<div class="card empty"><b>Még nincs bevétel ' + year + '-ben</b>Minden befizetést írj ide a számla kiállításakor. Ebből lesz a kötelező bevételi nyilvántartás.</div>';
     h += '<div class="btnrow"><a class="btn sec" href="/api/ado/bevetelek.csv?ev=' + year + (S.taxWho ? "&szemely=" + encodeURIComponent(S.taxWho) : "") + '" download>Bevételi nyilvántartás (CSV)</a></div>';
     // deadlines
@@ -898,7 +898,7 @@
     var opts = T.people.map(function (p) { return '<option value="' + esc(p.id) + '"' + (p.id === who ? " selected" : "") + ">" + esc(p.name) + "</option>"; }).join("");
     openSheet(inv ? "Bevétel" : "Új bevétel", '<form class="form" id="invForm" autocomplete="off">' +
       '<p class="note" style="margin:0 4px 12px">Akkor írd be, amikor a pénz megérkezett, a számla adataival.</p>' +
-      '<select class="inp sel" name="person">' + opts + "</select>" +
+      (T.people.length > 1 ? '<select class="inp sel" name="person">' + opts + "</select>" : '<input type="hidden" name="person" value="' + esc(who || "") + '">') +
       '<input class="inp" name="amount" inputmode="numeric" placeholder="Összeg (Ft)" value="' + (inv ? num(inv.amount) : "") + '" required>' +
       '<input class="inp" name="date" type="date" value="' + esc(inv ? inv.date : today) + '" required>' +
       '<input class="inp" name="client" placeholder="Ügyfél" maxlength="120" value="' + esc(inv ? inv.client : "") + '">' +

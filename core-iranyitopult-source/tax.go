@@ -1,7 +1,7 @@
 package main
 
-// Adó: a simple bookkeeping helper for átalányadózó egyéni vállalkozók (one entry per person,
-// e.g. Orosz Ádám and Kánya Márk). It keeps the revenue log (bevételi nyilvántartás) that the
+// Adó: a simple bookkeeping helper for átalányadózó egyéni vállalkozók (one entry per
+// person). It keeps the revenue log (bevételi nyilvántartás) that the
 // law requires, and reminds through ntfy before the usual tax deadlines. The estimates are
 // computed in the browser (web/app.js) from the parameters stored here; they are guidance,
 // not tax advice.
@@ -75,7 +75,6 @@ func loadTax() {
 		taxData = TaxData{
 			People: []TaxPerson{
 				{ID: "adam", Name: "Orosz Ádám", Side: true},
-				{ID: "mark", Name: "Kánya Márk"},
 			},
 			Invoices:  []TaxInvoice{},
 			CostRatio: 45,
@@ -85,6 +84,7 @@ func loadTax() {
 	if taxData.Invoices == nil {
 		taxData.Invoices = []TaxInvoice{}
 	}
+	dropRemovedPeople()
 	if taxData.Years == nil {
 		taxData.Years = map[string]TaxYear{}
 	}
@@ -460,4 +460,39 @@ func taxLoop() {
 		taxReminders()
 		time.Sleep(time.Hour)
 	}
+}
+
+// The Adó tab is for one person now. Earlier versions also created "mark"; he is removed once,
+// together with his revenue entries, which are first saved to a separate backup file.
+func dropRemovedPeople() {
+	keep := taxData.People[:0]
+	removed := false
+	for _, p := range taxData.People {
+		if p.ID == "mark" {
+			removed = true
+			continue
+		}
+		keep = append(keep, p)
+	}
+	if !removed {
+		return
+	}
+	var gone []TaxInvoice
+	inv := []TaxInvoice{}
+	for _, i := range taxData.Invoices {
+		if i.Person == "mark" {
+			gone = append(gone, i)
+		} else {
+			inv = append(inv, i)
+		}
+	}
+	if len(gone) > 0 {
+		writeJSON("ado-eltavolitott-szemely-mentes.json", gone)
+	}
+	taxData.People, taxData.Invoices = keep, inv
+	if len(taxData.People) == 0 {
+		taxData.People = []TaxPerson{{ID: "adam", Name: "Orosz Ádám", Side: true}}
+	}
+	writeJSON("ado.json", taxData)
+	log.Print("ado: removed person mark (", len(gone), " entries backed up)")
 }

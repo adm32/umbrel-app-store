@@ -506,7 +506,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .direct__av { width: 54px; height: 54px; border-radius: 50%; flex: none; display: grid; place-items: center; background: linear-gradient(140deg, #EE7D46, #C9A04E); color: #1A120D; font-weight: 700; font-size: 18px; letter-spacing: -.02em; }
 .direct__avs { display: flex; flex: none; }
 .direct__avs .direct__av { width: 48px; height: 48px; font-size: 15px; box-shadow: 0 0 0 3px #1F1814; }
-.direct__av--b { margin-left: -6px; background: linear-gradient(140deg, #F2B259, #93B98C); }
+.direct__av--logo { background: none; border-radius: 14px; box-shadow: none !important; }
 .direct a { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 18px; background: rgba(255,248,240,.06); box-shadow: 0 0 0 1px rgba(255,228,200,.1) inset; text-decoration: none; color: #F5EDE4; transition: background-color .2s, transform .5s var(--spring); }
 .direct a:hover { background: rgba(255,248,240,.1); }
 .direct a:active { transform: scale(.98); }

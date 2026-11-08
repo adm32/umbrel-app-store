@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-core-iranyitopult
 category: automation
 name: Zala Studio Irányítópult
-version: "1.5.1"
+version: "1.5.2"
 tagline: Érdeklődők és látogatók a zalastudio.hu-ról, értesítéssel
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-core-iranyitopult/icon.svg
 description: >-
@@ -33,4 +33,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Új gomb a Beállítások › Adatok részben: „Összes adat törlése…” – kiválaszthatod, hogy a kéréseket, az Adó fül bevételeit és a Stripe-beállításokat töröld; a törlés előtt automatikusan mentés készül. Javítva: ha még nem volt beírt bevétel, az Adó fül nem tudott megjelenni, ezért a Beállítások maradt a képernyőn. Az Adó fül új megjelenést is kapott (összesítő számok felül, személyenkénti kártyák, a beállítások külön ablakban), és a telefon már nem tölthet be régi, gyorsítótárazott szkriptet. A „kiegészítő” helyett „mellékállású” a pontos megnevezés (Tbj. 42. § (2)). A weboldal alapcíme zalastudio.hu.
+  Az Adó fül mostantól egy személyre szól: a második személy és az ő bevételei törlődnek (a bevételeiről külön mentés készül az adatmappába), a felület pedig egyszemélyes nézetre vált.

@@ -263,8 +263,15 @@
       setWord(DEMOS[di].word);
       var neu = heroScreen.__ps;
       if (old && old.animate && !reduced) {
-        neu.animate(phone ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: "scale(1.04)" }, { opacity: 1, transform: "none" }], { duration: phone ? 500 : 700, easing: "cubic-bezier(.22,1,.36,1)" });
-        old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: "forwards" }).onfinish = function () { old.remove(); };
+        if (phone) {
+          // Phones: the old screen fades out first, then the new one fades in, so the two never overlap.
+          old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: "ease-in", fill: "forwards" }).onfinish = function () { old.remove(); };
+          neu.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 380, delay: 200, easing: "ease-out", fill: "backwards" });
+          setTimeout(function () { if (old.parentNode) old.remove(); }, 1000);
+        } else {
+          neu.animate([{ opacity: 0, transform: "scale(1.04)" }, { opacity: 1, transform: "none" }], { duration: 700, easing: "cubic-bezier(.22,1,.36,1)" });
+          old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: "forwards" }).onfinish = function () { old.remove(); };
+        }
       } else if (old) old.remove();
     };
     var loop = function () { clearTimeout(dtimer); if (!reduced && dvisible && !document.hidden && !plOpen) dtimer = setTimeout(function () { nextDemo(); loop(); }, 3600); };

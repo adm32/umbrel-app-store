@@ -220,7 +220,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 @keyframes enter { to { opacity: 1; transform: none; } }
 
 /* ---------- Demo device (hero) ---------- */
-.stage { position: relative; display: grid; justify-items: center; }
+.stage { position: relative; display: grid; justify-items: center; margin: 0; }
 .stage__glow { position: absolute; top: 8%; width: 86%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(closest-side, rgba(238, 125, 70, .5), transparent); z-index: -1; }
 .device {
   --w: 300px;

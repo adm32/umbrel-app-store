@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: Zala Studio (admcore.hu)
-version: "3.0.1"
+version: "3.0.2"
 tagline: Zala Studio – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -33,4 +33,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  A címek, a megosztási kép és az e-mail-cím (info@admcore.hu) egyelőre az admcore.hu-t használják, amíg a zalastudio.hu nincs beállítva. Az előző verzióból: új név és arculat (Zala Studio), új logó és ikonok, letisztultabb főoldal, Kánya Márk az oldalon, fizetés átutalással.
+  Érthetőbb címek a főoldalon: „Munkáink” a referenciáknál, és „Ez minden oldalban benne van.” a funkcióknál.

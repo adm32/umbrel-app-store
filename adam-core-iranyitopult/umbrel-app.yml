@@ -2,11 +2,11 @@ manifestVersion: 1
 id: adam-core-iranyitopult
 category: automation
 name: Zala Studio Irányítópult
-version: "1.5.0"
-tagline: Érdeklődők és látogatók az admcore.hu-ról, értesítéssel
+version: "1.5.1"
+tagline: Érdeklődők és látogatók a zalastudio.hu-ról, értesítéssel
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-core-iranyitopult/icon.svg
 description: >-
-  A Zala Studio irányítópultja. Minden kérés, amit valaki az admcore.hu
+  A Zala Studio irányítópultja. Minden kérés, amit valaki a zalastudio.hu
   weboldaltervezőjében küld, ide érkezik: látod, mit tervezett (élő
   előnézettel), milyen csomagot választott, és egy koppintással felhívhatod,
   SMS-t vagy e-mailt küldhetsz neki. Állapotok (Új, Felhívtam, Bemutató készül,
@@ -19,9 +19,9 @@ description: >-
 
 
   Saját jelszó védi, az első jelszót otthonról kell beállítani. Kell hozzá a
-  "Zala Studio (admcore.hu)" app is.
+  "Zala Studio (zalastudio.hu)" app is.
 developer: Adam
-website: https://admcore.hu
+website: https://zalastudio.hu
 dependencies: []
 repo: https://github.com/adm32/umbrel-app-store
 support: https://github.com/adm32/umbrel-app-store/issues
@@ -33,4 +33,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Új „Adó” fül: bevételi nyilvántartás személyenként (Orosz Ádám, Kánya Márk), letölthető CSV-ben; becsült SZJA, TB-járulék és szocho átalányadóval (kiegészítő vagy főállású); figyeli az adómentes részt, az alanyi ÁFA-mentesség és az átalányadó határát; a szokásos adóhatáridők listája, és ntfy-emlékeztető egy héttel és egy nappal előtte. A számítás becslés, a NAV-nál érdemes megerősíteni.
+  Új gomb a Beállítások › Adatok részben: „Összes adat törlése…” – kiválaszthatod, hogy a kéréseket, az Adó fül bevételeit és a Stripe-beállításokat töröld; a törlés előtt automatikusan mentés készül. Javítva: ha még nem volt beírt bevétel, az Adó fül nem tudott megjelenni, ezért a Beállítások maradt a képernyőn. Az Adó fül új megjelenést is kapott (összesítő számok felül, személyenkénti kártyák, a beállítások külön ablakban), és a telefon már nem tölthet be régi, gyorsítótárazott szkriptet. A „kiegészítő” helyett „mellékállású” a pontos megnevezés (Tbj. 42. § (2)). A weboldal alapcíme zalastudio.hu.

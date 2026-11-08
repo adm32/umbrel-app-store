@@ -25,7 +25,7 @@ type TaxPerson struct {
 	ID         string `json:"id"`
 	Name       string `json:"name"`
 	Registered string `json:"registered"` // date of registration as egyéni vállalkozó, "" = not yet
-	Side       bool   `json:"side"`       // kiegészítő tevékenység (student, or 36-hour job next to it)
+	Side       bool   `json:"side"`       // no minimum contribution base: full-time student or 36-hour job next to it (Tbj. 42. § (2))
 	Skilled    bool   `json:"skilled"`    // minimum base: garantált bérminimum instead of minimálbér
 }
 
@@ -197,7 +197,7 @@ func taxReminders() {
 func taxState() map[string]any {
 	taxMu.Lock()
 	defer taxMu.Unlock()
-	inv := append([]TaxInvoice(nil), taxData.Invoices...)
+	inv := append([]TaxInvoice{}, taxData.Invoices...)
 	sort.Slice(inv, func(i, j int) bool {
 		if inv[i].Date != inv[j].Date {
 			return inv[i].Date > inv[j].Date
@@ -406,7 +406,7 @@ func taxAPI(w http.ResponseWriter, r *http.Request, p string) {
 			name = pp.Name
 		}
 		rows := [][]string{{"Sorszám", "Dátum", "Számla száma", "Ügyfél", "Összeg (Ft)", "Megjegyzés", "Kié"}}
-		inv := append([]TaxInvoice(nil), taxData.Invoices...)
+		inv := append([]TaxInvoice{}, taxData.Invoices...)
 		sort.Slice(inv, func(i, j int) bool { return inv[i].Date < inv[j].Date })
 		n, sum := 0, 0
 		for _, t := range inv {

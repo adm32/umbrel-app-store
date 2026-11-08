@@ -12,7 +12,7 @@
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="/preview.css">
+<link rel="stylesheet" href="/preview.css?v={{v}}">
 <title>Zala Studio Irányítópult</title>
 <style>
 /* Same visual system as the Vadvirág apps (iOS look), with the Zala Studio accent colour. */
@@ -196,6 +196,7 @@ textarea.inp{min-height:110px;resize:vertical;line-height:1.45}
 .timeline{list-style:none}
 .timeline li{display:flex;gap:10px;align-items:center;font-size:14.5px;padding:7px 0}
 .timeline li>span:last-child{color:var(--label2);margin-left:auto;font-size:13px}
+.danger[disabled]{opacity:.45}
 .danger{display:block;width:100%;margin-top:26px;min-height:50px;border-radius:14px;background:var(--card);box-shadow:var(--shadow);color:var(--red);font-weight:600}
 .msg{white-space:pre-wrap;font-size:15px;line-height:1.5;background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:14px 16px}
 
@@ -312,6 +313,9 @@ textarea.inp{min-height:110px;resize:vertical;line-height:1.45}
 /* Adó */
 .warnbox{margin-bottom:12px;background:color-mix(in srgb,var(--orange) 12%,var(--card));font-size:14.5px;line-height:1.45;color:var(--label2)}
 .warnbox b{display:block;color:var(--label);font-size:15.5px;margin-bottom:3px}
+.taxkpis{margin-bottom:12px}
+@media (min-width:820px){.taxkpis{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.taxp__av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:13.5px;font-weight:700;flex:none}
 .taxp__head{display:flex;align-items:center;gap:8px;width:100%;text-align:left;margin:-4px 0 6px;min-height:36px;flex-wrap:wrap}
 .taxp__head b{font-size:18px;font-weight:700}
 .taxp__head .chev{width:18px;height:18px;color:var(--label3);stroke-width:2.4}
@@ -366,7 +370,7 @@ textarea.inp{min-height:110px;resize:vertical;line-height:1.45}
 </section>
 <div class="toast" id="toast" role="status"></div>
 
-<script src="/preview.js"></script>
-<script src="/app.js"></script>
+<script src="/preview.js?v={{v}}"></script>
+<script src="/app.js?v={{v}}"></script>
 </body>
 </html>

@@ -8,6 +8,8 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  // Phones: no scroll-linked hero or parallax effects (they made the hero stutter on iPhones).
+  var phone = window.matchMedia("(max-width: 699px)").matches;
   var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
 
   /* ---------- Headings: split into words that rise out of a mask ---------- */
@@ -70,7 +72,7 @@
     }
 
     // hero: background drifts, text lifts and fades, the phone tips back
-    if (hero) {
+    if (hero && !phone) {
       var h = hero.offsetHeight;
       if (y < h + 100) {
         var p = clamp(y / h, 0, 1);
@@ -81,7 +83,7 @@
     }
 
     // reference phones drift in opposite directions
-    medias.forEach(function (m) {
+    if (!phone) medias.forEach(function (m) {
       var r = m.getBoundingClientRect();
       if (r.bottom < -50 || r.top > vh + 50) return;
       var k = clamp((r.top + r.height / 2) / vh - 0.5, -1, 1);

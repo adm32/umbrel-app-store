@@ -867,6 +867,17 @@ textarea.inp { min-height: 100px; resize: vertical; line-height: 1.5; }
   .device { --sp: 0 !important; }
 }
 
+/* Phones: the same look with lighter motion (2D only, no blur, nothing moving behind the text) */
+@media (max-width: 699px) {
+  .orb { animation: none; will-change: auto; }
+  .waves, .hero__spot { display: none; }
+  .ch-in { animation-name: chInLite; animation-duration: .7s; animation-timing-function: cubic-bezier(.22, 1, .36, 1); animation-delay: calc(var(--c) * 30ms + 80ms); }
+  .rot { perspective: none; }
+  .device { transform: none; }
+  .js .hero h1.enter { animation: none; opacity: 1; transform: none; }
+}
+@keyframes chInLite { from { opacity: 0; transform: translateY(.35em); } }
+
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

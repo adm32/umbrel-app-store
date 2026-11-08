@@ -1,12 +1,12 @@
 manifestVersion: 1
 id: adam-admcore
 category: social
-name: Zala Studio (admcore.hu)
-version: "3.1.1"
+name: Zala Studio (zalastudio.hu)
+version: "3.1.2"
 tagline: Zala Studio – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
-  The Zala Studio website (on admcore.hu until zalastudio.hu is set up): phone-first one-pager with a dark hero and a live demo phone,
+  The Zala Studio website (zalastudio.hu; admcore.hu redirects here): phone-first one-pager with a dark hero and a live demo phone,
   a step-by-step website planner (visitors design their site and request a
   free demo), portfolio, prices, FAQ, impresszum and privacy policy.
   Hungarian, no cookies, fonts served locally.
@@ -21,7 +21,7 @@ description: >-
   later zalastudio.hu) at http://<umbrel-ip>:4760. Once the first visit
   arrives on zalastudio.hu, admcore.hu redirects there automatically.
 developer: Adam
-website: https://admcore.hu
+website: https://zalastudio.hu
 dependencies: []
 repo: https://github.com/adm32/umbrel-app-store
 support: https://github.com/adm32/umbrel-app-store/issues
@@ -33,4 +33,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  A narancssárga, ferde szalag lekerült a főoldalról; minden más animáció marad.
+  Telefonon simább lett a nyitókép: kikapcsoltuk a görgetéshez kötött 3D-s és parallaxos mozgást, a lebegő foltok animációját és a hullámokat, a betűk egyszerűbben úsznak be, a szócsere pedig egy finom áttűnés. Tableten és számítógépen minden animáció marad. A linkek, a sitemap és a megosztási adatok mostantól a zalastudio.hu címre mutatnak.

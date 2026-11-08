@@ -622,7 +622,7 @@ func internalPay(w http.ResponseWriter, r *http.Request, code string) {
 		sendJSON(w, 200, map[string]any{"ok": true, "url": p.SessionURL})
 		return
 	}
-	site := strings.TrimRight(firstNonEmpty(s.SiteURL, "https://admcore.hu"), "/")
+	site := strings.TrimRight(firstNonEmpty(s.SiteURL, "https://zalastudio.hu"), "/")
 	id, link, err := createSession(lc, p, site)
 	if err != nil {
 		sendJSON(w, 502, map[string]any{"ok": false, "error": err.Error()})

@@ -49,7 +49,7 @@ import (
 	"unicode/utf8"
 )
 
-const version = "1.5.0"
+const version = "1.5.1"
 
 //go:embed web
 var webFS embed.FS
@@ -182,7 +182,7 @@ type Auth struct {
 var (
 	mu       sync.Mutex
 	leads    []*Lead
-	settings = Settings{NotifyLeads: true, NotifyDown: true, NotifyPay: true, SiteURL: "https://admcore.hu", Spots: 5, VatMode: "brutto"}
+	settings = Settings{NotifyLeads: true, NotifyDown: true, NotifyPay: true, SiteURL: "https://zalastudio.hu", Spots: 5, VatMode: "brutto"}
 	auth     Auth
 )
 
@@ -648,6 +648,8 @@ var tplVar = regexp.MustCompile(`\{\{\w+\}\}`)
 func page(w http.ResponseWriter, code int, file string, vars map[string]string) {
 	b, _ := webFS.ReadFile("web/" + file)
 	s := string(b)
+	// Script and style links carry the running version, so a phone never mixes a new page with an old cached script.
+	s = strings.ReplaceAll(s, "{{v}}", version+"-"+strconv.FormatInt(startTime.Unix(), 36))
 	esc := strings.NewReplacer("<", "&lt;", ">", "&gt;", "&", "&amp;", `"`, "&quot;")
 	for k, v := range vars {
 		s = strings.ReplaceAll(s, "{{"+k+"}}", esc.Replace(v))
@@ -1105,6 +1107,49 @@ func api(w http.ResponseWriter, r *http.Request, p string) {
 		}
 		mu.Unlock()
 		c.Flush()
+	case p == "/api/torles" && r.Method == "POST":
+		// Delete everything chosen (test data). A full copy is written to the data folder first.
+		var d struct {
+			Leads   bool   `json:"leads"`
+			Ado     bool   `json:"ado"`
+			Stripe  bool   `json:"stripe"`
+			Confirm string `json:"confirm"`
+		}
+		if !readBody(r, 4<<10, &d) || strings.ToUpper(strings.TrimSpace(d.Confirm)) != "TÖRLÉS" {
+			sendJSON(w, 422, map[string]any{"ok": false, "error": "Írd be: TÖRLÉS"})
+			return
+		}
+		if !d.Leads && !d.Ado && !d.Stripe {
+			sendJSON(w, 422, map[string]any{"ok": false, "error": "Válaszd ki, mit törölj."})
+			return
+		}
+		mu.Lock()
+		taxMu.Lock()
+		name := "torles-elotti-mentes-" + time.Now().Format("2006-01-02-150405") + ".json"
+		err := writeJSON(name, map[string]any{"version": version, "exported": nowISO(), "leads": leads, "settings": settings, "ado": taxData})
+		if err == nil {
+			if d.Leads {
+				leads = []*Lead{}
+				saveLeads()
+			}
+			if d.Stripe {
+				settings.StripeKey, settings.StripeWebhook, settings.PortalURL = "", "", ""
+				writeJSON("settings.json", settings)
+			}
+			if d.Ado {
+				taxData.Invoices = []TaxInvoice{}
+				taxData.Sent = map[string]string{}
+				saveTax()
+			}
+		}
+		taxMu.Unlock()
+		mu.Unlock()
+		if err != nil {
+			sendJSON(w, 500, map[string]any{"ok": false, "error": "Nem sikerült a biztonsági mentés, ezért nem töröltem semmit."})
+			return
+		}
+		log.Printf("adatok törölve (érdeklődők: %v, adó: %v, stripe: %v), mentés: %s", d.Leads, d.Ado, d.Stripe, name)
+		sendJSON(w, 200, map[string]any{"ok": true, "backup": name})
 	case p == "/api/backup.json" && r.Method == "GET":
 		mu.Lock()
 		s := settings

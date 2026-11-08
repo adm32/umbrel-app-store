@@ -225,7 +225,7 @@
     if (bill.length) h += '<div class="hdr"><h2>Kiszámlázandó</h2><span class="sp"></span><a href="/api/payments.csv" download>Táblázat</a></div><div class="list">' + bill.slice(0, 8).map(billRow).join("") + "</div>" + (bill.length > 8 ? '<p class="note" style="margin:8px 4px 0">És még ' + (bill.length - 8) + " befizetés. A táblázatban mind benne van.</p>" : "");
     h += '<div class="hdr"><h2>Legutóbbi érdeklődők</h2><span class="sp"></span><button data-go="osszes">Összes</button></div>';
     h += S.leads.length ? '<div class="list">' + S.leads.slice(0, 5).map(leadRow).join("") + "</div>"
-      : '<div class="card empty"><b>Még nincs érdeklődő</b>Ha valaki kitölti a tervezőt az admcore.hu-n, itt jelenik meg, és értesítést is kapsz róla.</div>';
+      : '<div class="card empty"><b>Még nincs érdeklődő</b>Ha valaki kitölti a tervezőt a zalastudio.hu-n, itt jelenik meg, és értesítést is kapsz róla.</div>';
     h += '<div class="cols c2" style="margin-top:12px">';
     h += '<div class="card"><div class="hdr" style="margin:0 0 4px"><h2 style="font-size:17px">Látogatók, 14 nap</h2><span class="sp"></span><span class="note" style="margin:0">' + num(r14.uv) + " fő</span></div>" + (S.stats && S.stats.ok === false ? '<p class="note">' + esc(S.stats.error) + "</p>" : barsHTML(14)) + "</div>";
     h += '<div class="card"><div class="hdr" style="margin:0 0 4px"><h2 style="font-size:17px">Tervező, 30 nap</h2><span class="sp"></span><span class="note" style="margin:0">' + conv.toFixed(1).replace(".", ",") + "% konverzió</span></div>" + funnelHTML(r30) + "</div>";
@@ -285,24 +285,25 @@
       '<label><span>Árak a weboldalon<small>' + esc(si.vatNote || "") + '</small></span><select class="selr" id="sVat"><option value="brutto"' + (s.vatMode === "brutto" ? " selected" : "") + '>Bruttó</option><option value="netto"' + (s.vatMode === "netto" ? " selected" : "") + '>Nettó + ÁFA</option><option value="mentes"' + (s.vatMode === "mentes" ? " selected" : "") + ">ÁFA nélkül</option></select></label>" + '</div>';
     if (PAYMENTS) {
     var hk = si.hook || {};
-    var site = (s.siteUrl || "https://admcore.hu").replace(/\/$/, "");
+    var site = (s.siteUrl || "https://zalastudio.hu").replace(/\/$/, "");
     h += '<div class="lbl">Fizetés (Stripe)' + (si.keySet ? (si.live ? ' <span class="tag-live">ÉLES</span>' : ' <span class="tag-test">TESZT</span>') : "") + '</div><div class="set">' +
       '<label class="stack"><span>Titkos kulcs<small>Stripe → Fejlesztők → API-kulcsok. Teszteléshez az sk_test_ kezdetűt.</small></span><input type="password" id="sKey" value="' + esc(s.stripeKey) + '" placeholder="sk_test_…" autocomplete="off" spellcheck="false"></label>' +
       '<label class="stack"><span>Webhook aláíró kulcs<small>Webhook végpont: <b class="mono">' + esc(site) + '/stripe/webhook</b></small></span><input type="password" id="sHook" value="' + esc(s.stripeWebhook) + '" placeholder="whsec_…" autocomplete="off" spellcheck="false"></label>' +
-      '<label class="stack"><span>Ügyfélportál linkje<small>Stripe → Beállítások → Számlázás → Ügyfélportál. Ide visz az admcore.hu/elofizetes.</small></span><input type="url" id="sPortal" value="' + esc(s.portalUrl) + '" placeholder="https://billing.stripe.com/p/login/…" inputmode="url" autocomplete="off"></label>' +
+      '<label class="stack"><span>Ügyfélportál linkje<small>Stripe → Beállítások → Számlázás → Ügyfélportál. Ide visz a zalastudio.hu/elofizetes.</small></span><input type="url" id="sPortal" value="' + esc(s.portalUrl) + '" placeholder="https://billing.stripe.com/p/login/…" inputmode="url" autocomplete="off"></label>' +
       "<label><span>Értesítés befizetésről és sikertelen fizetésről</span>" + sw("sPay", s.notifyPay) + "</label>" +
       '<div class="stat-li"><i class="dot ' + (hk.at ? (hk.error ? "r" : "g") : "") + '"></i><span>Webhook<small>' + (hk.at ? (hk.error ? esc(hk.error) : "Utoljára: " + esc(hk.type) + " · " + ago(hk.at)) : "Még nem jött üzenet a Stripe-tól") + "</small></span></div>" +
       '</div><div class="btnrow"><button class="btn sec" id="bStripe"' + (si.keySet ? "" : " disabled") + '>Kapcsolat ellenőrzése</button><a class="btn sec" href="/api/payments.csv" download>Befizetések (CSV)</a></div>';
     }
     h += '<div class="lbl">Induló kedvezmény</div><div class="set"><div class="li"><span>Szabad helyek<small>A weboldal ennyit mutat. 0-nál eltűnik a kedvezmény.</small></span><span class="stepper" style="flex:none"><button id="spMinus" aria-label="Kevesebb">−</button><b id="spVal">' + (s.spots ?? 5) + '</b><button id="spPlus" aria-label="Több">+</button></span></div></div>';
     h += '<div class="lbl">Címek</div><div class="set">' +
-      '<label class="stack"><span>Weboldal<small>Ezt figyeli az Irányítópult</small></span><input type="url" id="sSite" value="' + esc(s.siteUrl) + '" placeholder="https://admcore.hu"></label>' +
+      '<label class="stack"><span>Weboldal<small>Ezt figyeli az Irányítópult</small></span><input type="url" id="sSite" value="' + esc(s.siteUrl) + '" placeholder="https://zalastudio.hu"></label>' +
       '<label class="stack"><span>Irányítópult címe<small>Ha kívülről is eléred, az értesítés ide visz</small></span><input type="url" id="sDash" value="' + esc(s.dashUrl) + '" placeholder="nem kötelező"></label></div>';
     h += '<div class="lbl">Állapot</div><div class="set">' +
       '<div class="stat-li"><i class="dot ' + dotc(st.public.ok) + '"></i><span>Nyilvános elérés' + (s.siteUrl ? " (" + esc(s.siteUrl.replace(/^https?:\/\//, "")) + ")" : "") + "<small>" + (st.public.ok ? "Elérhető, " + st.public.ms + " ms" : st.public.ok === false ? esc(st.public.error) : "Még nem ellenőrizte") + (st.public.at ? " · " + ago(st.public.at) : "") + "</small></span></div>" +
       '<div class="stat-li"><i class="dot ' + dotc(st.site.ok) + '"></i><span>Zala Studio weboldal app<small>' + (st.site.ok ? "Fut" + (st.site.outbox ? ", " + st.site.outbox + " kérés vár továbbításra" : "") : st.site.ok === false ? esc(st.site.error) : "Még nem ellenőrizte") + "</small></span></div>" +
       '</div><div class="btnrow"><button class="btn sec" id="bCheck">Ellenőrzés most</button></div>';
     h += '<div class="lbl">Adatok</div><div class="btnrow" style="margin-top:0"><a class="btn sec" href="/api/export.csv" download>Táblázat letöltése (CSV)</a><a class="btn sec" href="/api/backup.json" download>Biztonsági mentés</a></div>';
+    h += '<button class="danger" id="bWipe" style="margin-top:12px">Összes adat törlése…</button>';
     h += '<div class="lbl">Jelszó</div><div class="set"><label><span>Jelenlegi</span><input type="password" id="pOld" autocomplete="current-password"></label><label><span>Új (min. 8 karakter)</span><input type="password" id="pNew" autocomplete="new-password"></label></div><div class="btnrow"><button class="btn sec" id="bPw">Jelszó módosítása</button></div>';
     h += '<form method="post" action="/logout" style="margin-top:26px"><button class="danger" style="margin-top:0">Kijelentkezés</button></form>';
     h += '<p class="note" style="text-align:center;margin-top:16px">Zala Studio Irányítópult · ' + esc(S.statusVersion || "") + "</p>";
@@ -327,7 +328,10 @@
     S.lastSig = sig();
     var titles = { attekintes: "Áttekintés", erdeklodok: "Érdeklődők", latogatok: "Látogatók", ado: "Adó", beallitasok: "Beállítások" };
     $("#title").textContent = titles[S.tab];
-    var html = S.tab === "attekintes" ? viewOverview() : S.tab === "erdeklodok" ? viewLeads() : S.tab === "latogatok" ? viewVisitors() : S.tab === "ado" ? viewTax() : viewSettings();
+    // A view that fails shows an error card instead of leaving the previous tab on screen.
+    var html;
+    try { html = S.tab === "attekintes" ? viewOverview() : S.tab === "erdeklodok" ? viewLeads() : S.tab === "latogatok" ? viewVisitors() : S.tab === "ado" ? viewTax() : viewSettings(); }
+    catch (e) { if (window.console) console.error(e); html = '<div class="card empty"><b>Ezt a fület nem sikerült megjeleníteni.</b><p>Frissítsd az oldalt. Ha nem segít, írd meg ezt a hibát: ' + esc(String(e && e.message || e)) + "</p></div>"; }
     main.innerHTML = '<div class="view">' + html + "</div>";
     subline();
     if (S.tab === "beallitasok") bindSettings();
@@ -376,6 +380,27 @@
     if (row) openLead(row.getAttribute("data-lead"));
   });
 
+  /* ---------- delete all data (test data) ---------- */
+  function openWipe() {
+    openSheet("Összes adat törlése", '<p class="note" style="margin:0 6px 12px">Teszteléshez: törli a kiválasztott adatokat. Előtte az app automatikusan biztonsági mentést készít az adatmappájába, úgyhogy baj esetén visszahozható.</p><div class="set">' +
+      "<label><span>Érdeklődők és előfizetések<small>Minden érdeklődő, a fizetési linkek és a teszt-előfizetések</small></span>" + sw("wLeads", true) + "</label>" +
+      "<label><span>Adó fül: bevételek<small>A beírt bevételek (a személyek és a beállítások maradnak)</small></span>" + sw("wAdo", true) + "</label>" +
+      "<label><span>Stripe-kulcsok<small>A beállított teszt- vagy éles kulcsok és az ügyfélportál linkje</small></span>" + sw("wStripe", true) + "</label>" +
+      '</div><p class="note" style="margin:14px 6px 8px">A Stripe-on belüli teszt-előfizetések ott maradnak, de teszt módban nem terhelnek semmit. A látogatottsági statisztika a weboldal appban van, azt ez nem törli.</p>' +
+      '<input class="inp" id="wConfirm" placeholder="A megerősítéshez írd be: TÖRLÉS" autocomplete="off" autocapitalize="characters" spellcheck="false">' +
+      '<button class="danger" id="wGo" style="margin-top:10px" disabled>Végleges törlés</button>');
+    var inp = $("#wConfirm"), go = $("#wGo");
+    inp.addEventListener("input", function () { go.disabled = inp.value.trim().toUpperCase() !== "TÖRLÉS"; });
+    go.addEventListener("click", function () {
+      go.disabled = true;
+      api("/api/torles", { method: "POST", body: { leads: $("#wLeads").checked, ado: $("#wAdo").checked, stripe: $("#wStripe").checked, confirm: inp.value } }).then(function (j) {
+        if (!j.ok) { go.disabled = false; return toast(j.error || "Nem sikerült törölni."); }
+        S.leads = []; S.known = {}; S.tax = null; updateBadge();
+        Promise.all([loadSettings(), loadTax()]).then(function () { closeSheet(); toast("Törölve. Mentés: " + j.backup); });
+      });
+    });
+  }
+
   /* ---------- lead sheet ---------- */
   var sheet = $("#sheet"), scrim = $("#scrim");
   function openSheet(title, html, opts) {
@@ -409,7 +434,7 @@
     var hi = firstName(l.name) ? "Szia " + firstName(l.name) + "!" : "Szia!";
     var smsBody = l.demoUrl ? hi + " Elkészült a(z) " + (l.business || "vállalkozásod") + " weboldalának bemutatója: " + l.demoUrl + " – Orosz Ádám, Zala Studio, +36 20 328 2840" : hi + " Orosz Ádám vagyok a Zala Studiótól, a weboldal miatt írok. Mikor tudnánk pár percet beszélni? +36 20 328 2840";
     var mailSubj = "Weboldal bemutató – " + (l.business || l.name);
-    var mailBody = hi + "\n\nKöszönöm az érdeklődésed. " + (l.demoUrl ? "Elkészült a bemutató, itt nézheted meg a telefonodon: " + l.demoUrl : "Hamarosan elkészül a bemutató, és elküldöm a linkjét.") + "\n\nÜdv:\nOrosz Ádám\nZala Studio · admcore.hu\n+36 20 328 2840";
+    var mailBody = hi + "\n\nKöszönöm az érdeklődésed. " + (l.demoUrl ? "Elkészült a bemutató, itt nézheted meg a telefonodon: " + l.demoUrl : "Hamarosan elkészül a bemutató, és elküldöm a linkjét.") + "\n\nÜdv:\nOrosz Ádám\nZala Studio · zalastudio.hu\n+36 20 328 2840";
     var h = '<div class="hero2">' + avatar(l, true) + "<div><h3>" + esc(l.business || l.name) + "</h3><p>" + esc([l.name, l.city].filter(Boolean).join(" · ")) + "</p></div></div>";
     h += '<div class="acts">' +
       '<a class="act" href="' + telHref(l.phone) + '" aria-disabled="' + !l.phone + '">' + ICON(I.phone) + "Hívás</a>" +
@@ -513,7 +538,7 @@
     });
   }
   /* ---------- payments ---------- */
-  function siteBase() { return ((S.settings && S.settings.siteUrl) || "https://admcore.hu").replace(/\/$/, ""); }
+  function siteBase() { return ((S.settings && S.settings.siteUrl) || "https://zalastudio.hu").replace(/\/$/, ""); }
   function payLink(p) { return siteBase() + "/fizetes/" + p.code; }
   function suggest(plan, iv) {
     var m = S.prices[plan] || 0, st = S.setup[plan] || [0, 0];
@@ -632,7 +657,7 @@
     var smsTxt = hi + " Itt tudod elindítani a(z) " + who + " előfizetését (" + num(p.amount) + " Ft/" + (p.interval === "year" ? "év" : "hó") + "): " + link + " – Orosz Ádám, Zala Studio, +36 20 328 2840";
     var sms = $("#pySms", body); if (sms) sms.href = "sms:" + String(l.phone || "").replace(/[^\d+]/g, "") + "?&body=" + encodeURIComponent(smsTxt);
     var mail = $("#pyMail", body);
-    if (mail) mail.href = "mailto:" + encodeURIComponent(l.email || "") + "?subject=" + encodeURIComponent("Előfizetés indítása – " + who) + "&body=" + encodeURIComponent(hi + "\n\nKöszönöm, hogy minket választottál. Ezen a linken tudod elindítani az előfizetést, bankkártyával, Apple Pay-jel vagy Google Pay-jel:\n" + link + "\n\n" + (p.setup ? "Most " + num(p.amount + p.setup) + " Ft-ot fizetsz (benne az egyszeri beállítás), utána " : "Utána ") + (p.interval === "year" ? "évente " : "havonta ") + num(p.amount) + " Ft-ot vonunk le automatikusan. Minden befizetésről számlát küldünk.\n\nÜdv:\nOrosz Ádám\nZala Studio · admcore.hu\n+36 20 328 2840");
+    if (mail) mail.href = "mailto:" + encodeURIComponent(l.email || "") + "?subject=" + encodeURIComponent("Előfizetés indítása – " + who) + "&body=" + encodeURIComponent(hi + "\n\nKöszönöm, hogy minket választottál. Ezen a linken tudod elindítani az előfizetést, bankkártyával, Apple Pay-jel vagy Google Pay-jel:\n" + link + "\n\n" + (p.setup ? "Most " + num(p.amount + p.setup) + " Ft-ot fizetsz (benne az egyszeri beállítás), utána " : "Utána ") + (p.interval === "year" ? "évente " : "havonta ") + num(p.amount) + " Ft-ot vonunk le automatikusan. Minden befizetésről számlát küldünk.\n\nÜdv:\nOrosz Ádám\nZala Studio · zalastudio.hu\n+36 20 328 2840");
     var cp = $("#pyCopy", body);
     if (cp) cp.addEventListener("click", function () {
       var done = function () { haptic(); toast("Link kimásolva"); };
@@ -699,6 +724,7 @@
       i.addEventListener("change", function () { var b = {}; b[map[id]] = i.value.trim(); saveSetting(b); });
     });
     $("#sLeads").addEventListener("change", function (e) { saveSetting({ notifyLeads: e.target.checked }); });
+    var wipe = $("#bWipe"); if (wipe) wipe.addEventListener("click", openWipe);
     if ($("#sPay")) $("#sPay").addEventListener("change", function (e) { saveSetting({ notifyPay: e.target.checked }); });
     [["sKey", "stripeKey"], ["sHook", "stripeWebhook"], ["sPortal", "portalUrl"]].forEach(function (x) {
       var i = $("#" + x[0]); if (!i) return;
@@ -756,7 +782,7 @@
      The figures are estimates; the people concerned check them with NAV.
      ========================================================= */
   S.tax = null; S.taxYear = new Date().getFullYear(); S.taxWho = "";
-  function loadTax() { return api("/api/ado").then(function (j) { if (j.ok) S.tax = j; }); }
+  function loadTax() { return api("/api/ado").then(function (j) { if (j.ok) { j.invoices = j.invoices || []; j.people = j.people || []; S.tax = j; } }); }
   function taxParams(year) {
     var ys = (S.tax && S.tax.years) || {}, best = null;
     Object.keys(ys).forEach(function (k) { if (+k <= year && (!best || +k > +best)) best = k; });
@@ -793,12 +819,24 @@
     T.invoices.forEach(function (i) { years[+i.date.slice(0, 4)] = 1; });
     var ylist = Object.keys(years).map(Number).sort();
     if (ylist.length > 1) h += '<div class="pills" style="margin:0 0 12px">' + ylist.map(function (y) { return '<button class="pill" aria-pressed="' + (y === year) + '" data-taxyear="' + y + '">' + y + "</button>"; }).join("") + "</div>";
+    var calcs = T.people.map(function (p) { return taxCalc(p, year); });
+    var totR = calcs.reduce(function (s, c) { return s + c.R; }, 0), totTax = calcs.reduce(function (s, c) { return s + c.total; }, 0);
+    var leftFree = calcs.reduce(function (s, c) { return s + Math.max(0, c.freeRevenue - c.R); }, 0);
+    var nd = (T.deadlines || [])[0];
+    var big = function (n) { return n >= 1e6 ? (n / 1e6).toFixed(1).replace(".", ",") + "<small>M Ft</small>" : num(n) + "<small>Ft</small>"; };
+    h += '<div class="kpis taxkpis">' +
+      kpi("var(--green)", I.coin, "Bevétel, " + year, big(totR), T.people.length + " fő együtt") +
+      kpi(totTax > 0 ? "var(--orange)" : "var(--teal)", I.receipt, "Várható adó", big(totTax), totTax > 0 ? "egész évre számolva" : "az adómentes kereten belül") +
+      kpi("var(--indigo)", I.check, "Adómentesen még", big(leftFree), "bevétel, összesen") +
+      kpi(nd && nd.days <= 7 ? "var(--red)" : "var(--blue)", I.cal, "Következő határidő", nd ? esc(nd.date.slice(5).replace("-", ". ")) + "." : "–", nd ? esc(nd.title) + " · " + (nd.days === 0 ? "ma" : nd.days + " nap") : "") +
+      "</div>";
     var notReg = T.people.filter(function (p) { return !p.registered; });
     if (notReg.length) h += '<div class="card warnbox"><b>' + esc(notReg.map(function (p) { return p.name; }).join(" és ")) + (notReg.length > 1 ? " még nincsenek" : " még nincs") + " bejelentve egyéni vállalkozóként.</b>Amíg nincs, ne fogadjatok el pénzt. Ha megvan, írd be a bejelentés dátumát (koppints a névre).</div>";
     h += '<div class="cols c2">';
-    T.people.forEach(function (p) {
-      var c = taxCalc(p, year);
-      h += '<div class="card taxp"><button class="taxp__head" data-taxperson="' + esc(p.id) + '"><b>' + esc(p.name) + '</b><span class="chip" style="color:' + (p.side ? "var(--green)" : "var(--orange)") + '">' + (p.side ? "Kiegészítő" : "Főállású") + "</span>" + (p.registered ? "" : '<span class="chip">Nincs bejelentve</span>') + '<span class="sp"></span>' + ICON('<path d="M9 6l6 6-6 6"/>', "chev") + "</button>";
+    T.people.forEach(function (p, pi) {
+      var c = calcs[pi];
+      var ini = p.name.split(" ").filter(Boolean).map(function (w) { return w.charAt(0); }).join("").slice(0, 2);
+      h += '<div class="card taxp"><button class="taxp__head" data-taxperson="' + esc(p.id) + '"><span class="taxp__av" style="background:' + (pi % 2 ? "var(--indigo)" : "var(--tint)") + '">' + esc(ini) + "</span><b>" + esc(p.name) + '</b><span class="chip" style="color:' + (p.side ? "var(--green)" : "var(--orange)") + '">' + (p.side ? "Mellékállású" : "Főállású") + "</span>" + (p.registered ? "" : '<span class="chip">Nincs bejelentve</span>') + '<span class="sp"></span>' + ICON('<path d="M9 6l6 6-6 6"/>', "chev") + "</button>";
       h += '<div class="taxp__big">' + num(c.R) + '<small>Ft bevétel, ' + year + "</small></div>";
       h += '<p class="note" style="margin-top:0">' + c.n + " tétel · jövedelem (" + Math.round((1 - c.k) * 100) + "%): " + num(c.income) + " Ft</p>";
       h += bar("Adómentes jövedelem", Math.min(c.income, c.free), c.free, num(Math.min(c.income, c.free)) + "<small>/ " + num(c.free) + "</small>", 85);
@@ -809,7 +847,7 @@
       h += '<div class="taxsum"><span>Várható adó és járulék, ' + year + '</span><b>' + num(c.total) + " Ft</b></div>";
       h += '<p class="note" style="margin-top:4px">SZJA ' + num(c.szja) + " · TB-járulék " + num(c.tb) + " · szocho " + num(c.szocho) + "</p>";
       if (!p.side && p.registered) h += '<p class="note warn">Főállásúként havonta legalább kb. <b>' + num(c.minMonthly) + " Ft</b> járulékot kell fizetni akkor is, ha nincs bevétel (" + c.months + " hónap " + year + "-ben).</p>";
-      if (!p.side && !p.registered) h += '<p class="note">Ha főállásúként jelentkezik be, havonta legalább kb. ' + num(c.minMonthly) + " Ft járulék jön. Ha diák vagy 36 órás munkája van, kiegészítő lehet: kérdezd meg a NAV-ot (1819).</p>";
+      if (!p.side && !p.registered) h += '<p class="note">Ha főállásúként jelentkezik be, havonta legalább kb. ' + num(c.minMonthly) + " Ft járulék jön. Ha nappali tagozatos diák, vagy heti 36 órás munkája van, csak a tényleges jövedelme után fizet: kérdezd meg a NAV-ot (1819).</p>";
       h += "</div>";
     });
     h += "</div>";
@@ -828,30 +866,30 @@
       return '<div class="row"><span class="av" style="background:' + c + '">' + ICON(I.cal) + '</span><span class="t"><b>' + esc(d.title) + '</b><span class="wrap2">' + esc(d.what) + '</span></span><span class="r"><b>' + esc(d.date.slice(5).replace("-", ". ")) + '.</b><small>' + (d.days === 0 ? "ma" : d.days === 1 ? "holnap" : d.days + " nap") + "</small></span></div>";
     }).join("") + "</div>";
     h += '<p class="note" style="margin:8px 6px 0">A határidők a szokásos menetrendet mutatják. A pontos dátumokat és teendőket nézd meg a nav.gov.hu-n és az önkormányzatnál.</p>';
-    // settings
-    var Y = taxParams(year);
-    h += '<div class="lbl">Számítás, ' + year + '</div><div class="set">' +
-      '<label><span>Minimálbér<small>havi, Ft</small></span><input type="text" inputmode="numeric" data-taxset="minWage" value="' + num(Y.minWage) + '"></label>' +
-      '<label><span>Garantált bérminimum<small>havi, Ft (szakképzettséget igénylő munkánál)</small></span><input type="text" inputmode="numeric" data-taxset="guaranteed" value="' + num(Y.guaranteed) + '"></label>' +
-      '<label><span>Alanyi ÁFA-mentesség határa<small>éves bevétel, Ft</small></span><input type="text" inputmode="numeric" data-taxset="vatLimit" value="' + num(Y.vatLimit) + '"></label>' +
-      '<label><span>Költséghányad<small>átalányadó, %</small></span><input type="text" inputmode="numeric" data-taxset="costRatio" value="' + (T.costRatio || 45) + '"></label>' +
-      "<label><span>Emlékeztető a határidők előtt<small>ntfy, egy héttel és egy nappal előtte</small></span>" + sw("taxRemind", T.remind) + "</label></div>";
-    h += '<p class="note" style="margin:8px 6px 0">Becslés a beírt adatokból, nem adótanácsadás. Ha valamiben bizonytalan vagy, hívd a NAV-ot: 1819.</p>';
+    h += '<div class="btnrow" style="justify-content:center;margin-top:18px"><button class="btn sec" id="taxParams">Számítás beállításai</button></div>';
+    h += '<p class="note" style="margin:10px 6px 0;text-align:center">Becslés a beírt adatokból, nem adótanácsadás. Ha bizonytalan vagy, hívd a NAV-ot: 1819.</p>';
     return h;
   }
-  function taxSave(body) {
-    return api("/api/ado/beallitas", { method: "PUT", body: body }).then(function (j) { if (j.ok) { S.tax = j; toast("Mentve"); render(true); } else toast(j.error || "Nem sikerült menteni."); });
-  }
   function bindTax() {
-    $$("[data-taxset]").forEach(function (i) {
+    var a = $("#taxAdd"); if (a) a.addEventListener("click", function () { openInvoice(null); });
+    var pb = $("#taxParams"); if (pb) pb.addEventListener("click", openTaxParams);
+  }
+  function openTaxParams() {
+    var T = S.tax, year = S.taxYear, Y = taxParams(year);
+    openSheet("Számítás, " + year, '<p class="note" style="margin:0 6px 12px">Ezekből számolja az Adó fül a becslést. Januárban írd be az új évi minimálbért.</p><div class="set">' +
+      '<label><span>Minimálbér<small>havi, Ft</small></span><input type="text" inputmode="numeric" data-taxset="minWage" value="' + num(Y.minWage) + '"></label>' +
+      '<label><span>Garantált bérminimum<small>havi, Ft</small></span><input type="text" inputmode="numeric" data-taxset="guaranteed" value="' + num(Y.guaranteed) + '"></label>' +
+      '<label><span>ÁFA-mentesség határa<small>éves bevétel, Ft</small></span><input type="text" inputmode="numeric" data-taxset="vatLimit" value="' + num(Y.vatLimit) + '"></label>' +
+      '<label><span>Költséghányad<small>átalányadó, %</small></span><input type="text" inputmode="numeric" data-taxset="costRatio" value="' + (T.costRatio || 45) + '"></label>' +
+      "<label><span>Emlékeztető a határidők előtt<small>ntfy, egy héttel és egy nappal előtte</small></span>" + sw("taxRemind", T.remind) + "</label></div>");
+    $$("#shBody [data-taxset]").forEach(function (i) {
       i.addEventListener("change", function () {
         var k = i.getAttribute("data-taxset"), v = parseInt(i.value.replace(/\D/g, ""), 10) || 0, b = {};
         b[k] = v; if (k !== "costRatio") b.year = String(S.taxYear);
-        taxSave(b);
+        api("/api/ado/beallitas", { method: "PUT", body: b }).then(function (r) { if (r.ok) { S.tax = r; toast("Mentve"); } else toast(r.error || "Nem sikerült menteni."); });
       });
     });
-    var r = $("#taxRemind"); if (r) r.addEventListener("change", function () { taxSave({ remind: r.checked }); });
-    var a = $("#taxAdd"); if (a) a.addEventListener("click", function () { openInvoice(null); });
+    $("#taxRemind").addEventListener("change", function (e) { api("/api/ado/beallitas", { method: "PUT", body: { remind: e.target.checked } }).then(function (r) { if (r.ok) { S.tax = r; toast("Mentve"); } }); });
   }
   function openInvoice(id) {
     var T = S.tax, inv = id ? T.invoices.filter(function (i) { return i.id === id; })[0] : null;
@@ -889,7 +927,7 @@
     openSheet(p.name, '<div class="set">' +
       '<label class="stack"><span>Név</span><input type="text" id="tpName" value="' + esc(p.name) + '" maxlength="60"></label>' +
       '<label class="stack"><span>Egyéni vállalkozó bejelentésének napja<small>Üresen hagyva: még nincs bejelentve</small></span><input type="date" id="tpReg" value="' + esc(p.registered) + '"></label>' +
-      "<label><span>Kiegészítő tevékenység<small>Nappali tagozatos diák, vagy legalább heti 36 órás munkaviszony mellett. Erősítsd meg a NAV-nál.</small></span>" + sw("tpSide", p.side) + "</label>" +
+      "<label><span>Mellékállású<small>Nappali tagozatos diák, vagy legalább heti 36 órás munkaviszony mellett: nincs minimum járulék (Tbj. 42. § (2)). Erősítsd meg a NAV-nál.</small></span>" + sw("tpSide", p.side) + "</label>" +
       "<label><span>Garantált bérminimum alapján<small>Főállásnál, ha a munka szakképzettséget igényel</small></span>" + sw("tpSkilled", p.skilled) + "</label>" +
       "</div>");
     var save = function (b) { api("/api/ado/szemely/" + encodeURIComponent(p.id), { method: "PUT", body: b }).then(function (j) { if (j.ok) { S.tax = j; toast("Mentve"); } else toast(j.error || "Nem sikerült menteni."); }); };

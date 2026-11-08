@@ -9,6 +9,8 @@
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var mq = function (q) { return window.matchMedia(q); };
   var reduced = mq("(prefers-reduced-motion: reduce)").matches;
+  // Phones get lighter motion: 2D only, no blur, no scroll-linked 3D (smooth on older iPhones too).
+  var phone = mq("(max-width: 699px)").matches;
   var finePointer = mq("(hover: hover) and (pointer: fine)").matches;
   var desktop = mq("(min-width: 900px)");
   var fmt = function (n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, " "); };
@@ -224,6 +226,14 @@
       heroWord.appendChild(plain);
       return;
     }
+    if (phone) {
+      // one element per word, opacity + a short slide: cheap for the phone's GPU
+      var lite = document.createElement("span"); lite.className = "serif"; lite.textContent = w;
+      heroWord.appendChild(lite);
+      lite.animate([{ opacity: 0, transform: "translateY(.3em)" }, { opacity: 1, transform: "none" }], { duration: 520, delay: 120, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
+      old.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(-.3em)" }], { duration: 300, easing: "ease-in", fill: "forwards" }).onfinish = function () { old.remove(); };
+      return;
+    }
     var neu = charSpans(w);
     heroWord.appendChild(neu);
     $$(".ch", neu).forEach(function (c, i) {
@@ -253,7 +263,7 @@
       setWord(DEMOS[di].word);
       var neu = heroScreen.__ps;
       if (old && old.animate && !reduced) {
-        neu.animate([{ opacity: 0, transform: "scale(1.04)" }, { opacity: 1, transform: "none" }], { duration: 700, easing: "cubic-bezier(.22,1,.36,1)" });
+        neu.animate(phone ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: "scale(1.04)" }, { opacity: 1, transform: "none" }], { duration: phone ? 500 : 700, easing: "cubic-bezier(.22,1,.36,1)" });
         old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: "forwards" }).onfinish = function () { old.remove(); };
       } else if (old) old.remove();
     };

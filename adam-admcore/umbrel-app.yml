@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: Zala Studio (zalastudio.hu)
-version: "3.1.3"
+version: "3.1.4"
 tagline: Zala Studio – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -33,4 +33,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  A weboldalon már nem szerepelnek nevek: a kapcsolat résznél a Zala Studio logója látható, a láblécben és a GYIK-ben csak Zalaszentgrót. A név csak az impresszumban, az ÁSZF-ben és az adatvédelmi tájékoztatóban maradt, mert ott a törvény előírja.
+  Az e-mail-cím mindenhol info@zalastudio.hu lett (kapcsolat, lábléc, impresszum, ÁSZF, adatvédelem, fizetési oldal).

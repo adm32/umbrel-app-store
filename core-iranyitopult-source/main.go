@@ -49,7 +49,7 @@ import (
 	"unicode/utf8"
 )
 
-const version = "1.4.1"
+const version = "1.5.0"
 
 //go:embed web
 var webFS embed.FS
@@ -760,6 +760,10 @@ func api(w http.ResponseWriter, r *http.Request, p string) {
 		sendJSON(w, 403, map[string]any{"ok": false, "error": "Hiányzó fejléc."})
 		return
 	}
+	if p == "/api/ado" || strings.HasPrefix(p, "/api/ado/") {
+		taxAPI(w, r, p)
+		return
+	}
 	switch {
 	case p == "/api/me" && r.Method == "GET":
 		sendJSON(w, 200, map[string]any{"ok": true, "version": version, "labels": L, "prices": prices, "setup": setupPrices})
@@ -1105,7 +1109,9 @@ func api(w http.ResponseWriter, r *http.Request, p string) {
 		mu.Lock()
 		s := settings
 		s.NtfyToken, s.StripeKey, s.StripeWebhook = "", "", ""
-		b, _ := json.MarshalIndent(map[string]any{"version": version, "exported": nowISO(), "leads": leads, "settings": s}, "", " ")
+		taxMu.Lock()
+		b, _ := json.MarshalIndent(map[string]any{"version": version, "exported": nowISO(), "leads": leads, "settings": s, "ado": taxData}, "", " ")
+		taxMu.Unlock()
 		mu.Unlock()
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		w.Header().Set("Content-Disposition", `attachment; filename="zalastudio-mentes-`+time.Now().Format("2006-01-02")+`.json"`)
@@ -1300,6 +1306,8 @@ func main() {
 	}
 	readJSON("settings.json", &settings)
 	readJSON("jelszo.json", &auth)
+	loadTax()
+	go taxLoop()
 	if auth.Hash != "" && auth.Algo != "pbkdf2" {
 		log.Print("Régi jelszóformátum: az Irányítópult kéri a jelszó újbóli beállítását (otthonról).")
 	}

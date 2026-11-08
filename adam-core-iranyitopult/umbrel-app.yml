@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-core-iranyitopult
 category: automation
 name: Zala Studio Irányítópult
-version: "1.4.1"
+version: "1.5.0"
 tagline: Érdeklődők és látogatók az admcore.hu-ról, értesítéssel
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-core-iranyitopult/icon.svg
 description: >-
@@ -33,4 +33,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Új név: Zala Studio Irányítópult. Az SMS- és e-mail-sablonok aláírása „Zala Studio · admcore.hu”. Ha később a zalastudio.hu is él, a weboldal-figyelő magától átáll rá.
+  Új „Adó” fül: bevételi nyilvántartás személyenként (Orosz Ádám, Kánya Márk), letölthető CSV-ben; becsült SZJA, TB-járulék és szocho átalányadóval (kiegészítő vagy főállású); figyeli az adómentes részt, az alanyi ÁFA-mentesség és az átalányadó határát; a szokásos adóhatáridők listája, és ntfy-emlékeztető egy héttel és egy nappal előtte. A számítás becslés, a NAV-nál érdemes megerősíteni.

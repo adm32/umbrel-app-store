@@ -236,7 +236,7 @@ textarea.inp{min-height:110px;resize:vertical;line-height:1.45}
   .segwrap{display:none}
   .ttl{padding-bottom:12px}
   main{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
-  .tabbar{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;z-index:30;padding:6px 6px calc(6px + env(safe-area-inset-bottom));background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-top:.5px solid var(--sep)}
+  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:30;padding:6px 6px calc(6px + env(safe-area-inset-bottom));background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-top:.5px solid var(--sep)}
   .tabbar button{display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 2px;font-size:11px;font-weight:600;color:var(--label3);position:relative;min-height:48px;transition:color .2s,transform .15s}
   .tabbar button:active{transform:scale(.92)}
   .tabbar button[aria-selected=true]{color:var(--tint)}
@@ -309,6 +309,20 @@ textarea.inp{min-height:110px;resize:vertical;line-height:1.45}
 .billrow{cursor:default}
 .sbtn.small{height:34px;padding:0 12px;font-size:14px;box-shadow:none;background:var(--fill2);border-radius:17px}
 @media (max-width:380px){.frow{grid-template-columns:1fr}}
+/* Adó */
+.warnbox{margin-bottom:12px;background:color-mix(in srgb,var(--orange) 12%,var(--card));font-size:14.5px;line-height:1.45;color:var(--label2)}
+.warnbox b{display:block;color:var(--label);font-size:15.5px;margin-bottom:3px}
+.taxp__head{display:flex;align-items:center;gap:8px;width:100%;text-align:left;margin:-4px 0 6px;min-height:36px;flex-wrap:wrap}
+.taxp__head b{font-size:18px;font-weight:700}
+.taxp__head .chev{width:18px;height:18px;color:var(--label3);stroke-width:2.4}
+.taxp__head .sp{flex:1}
+.taxp__big{font-size:30px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:2px}
+.taxp__big small{font-size:14px;font-weight:600;color:var(--label2);margin-left:6px;letter-spacing:0}
+.taxsum{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-top:14px;padding-top:12px;border-top:.5px solid var(--sep);font-size:14.5px;color:var(--label2)}
+.taxsum b{font-size:20px;color:var(--label);font-variant-numeric:tabular-nums}
+.note.warn{color:var(--orange)}
+.row .t span.wrap2{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.row .amt{font-size:15.5px;font-variant-numeric:tabular-nums}
 .quiet .view,.quiet .bars i,.quiet .hbar u i{animation:none!important}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
@@ -329,6 +343,7 @@ textarea.inp{min-height:110px;resize:vertical;line-height:1.45}
       <button role="tab" data-tab="attekintes" aria-selected="true">Áttekintés</button>
       <button role="tab" data-tab="erdeklodok" aria-selected="false">Érdeklődők<span class="badge" id="badgeNew" hidden>0</span></button>
       <button role="tab" data-tab="latogatok" aria-selected="false">Látogatók</button>
+      <button role="tab" data-tab="ado" aria-selected="false">Adó</button>
       <button role="tab" data-tab="beallitasok" aria-selected="false">Beállítások</button>
     </div>
   </div>
@@ -340,6 +355,7 @@ textarea.inp{min-height:110px;resize:vertical;line-height:1.45}
   <button role="tab" data-tab="attekintes" aria-selected="true"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg>Áttekintés</button>
   <button role="tab" data-tab="erdeklodok" aria-selected="false"><svg class="i" viewBox="0 0 24 24"><path d="M4 13l2.5-7.5h11L20 13v5.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5z"/><path d="M4 13h4.5l1 2.5h5l1-2.5H20"/></svg>Érdeklődők<span class="badge" id="badgeNew2" hidden>0</span></button>
   <button role="tab" data-tab="latogatok" aria-selected="false"><svg class="i" viewBox="0 0 24 24"><path d="M4 19V11M10 19V5M16 19v-6M22 19H2"/></svg>Látogatók</button>
+  <button role="tab" data-tab="ado" aria-selected="false"><svg class="i" viewBox="0 0 24 24"><path d="M6 3.5h12v17l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg>Adó</button>
   <button role="tab" data-tab="beallitasok" aria-selected="false"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Beállítások</button>
 </nav>
 

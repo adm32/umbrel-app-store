@@ -25,7 +25,7 @@ description: >-
   A Csaszko Barbershop weboldal (adam-csaszko) ezen az appon keresztül fogad
   foglalásokat. Telepítsd mindkettőt. Kis Go program, külső függőség nélkül.
 developer: Adam
-website: https://zalastudio.hu
+website: https://admcore.hu
 dependencies: []
 repo: https://github.com/adm32/umbrel-app-store
 support: https://github.com/adm32/umbrel-app-store/issues

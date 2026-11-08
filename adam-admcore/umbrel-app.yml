@@ -1,12 +1,12 @@
 manifestVersion: 1
 id: adam-admcore
 category: social
-name: Zala Studio (zalastudio.hu)
-version: "3.0.0"
+name: Zala Studio (admcore.hu)
+version: "3.0.1"
 tagline: Zala Studio – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
-  The zalastudio.hu website (formerly admcore.hu): phone-first one-pager with a dark hero and a live demo phone,
+  The Zala Studio website (on admcore.hu until zalastudio.hu is set up): phone-first one-pager with a dark hero and a live demo phone,
   a step-by-step website planner (visitors design their site and request a
   free demo), portfolio, prices, FAQ, impresszum and privacy policy.
   Hungarian, no cookies, fonts served locally.
@@ -17,11 +17,11 @@ description: >-
   minute. The site also counts visitors without cookies for the Irányítópult.
 
 
-  To put it on zalastudio.hu, point a Cloudflare Tunnel public hostname at
-  http://<umbrel-ip>:4760. Once the first visit arrives on zalastudio.hu,
-  admcore.hu and www.zalastudio.hu redirect there automatically.
+  To put it online, point a Cloudflare Tunnel public hostname (admcore.hu,
+  later zalastudio.hu) at http://<umbrel-ip>:4760. Once the first visit
+  arrives on zalastudio.hu, admcore.hu redirects there automatically.
 developer: Adam
-website: https://zalastudio.hu
+website: https://admcore.hu
 dependencies: []
 repo: https://github.com/adm32/umbrel-app-store
 support: https://github.com/adm32/umbrel-app-store/issues
@@ -33,4 +33,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Új név és arculat: Zala Studio (zalastudio.hu). Új logó és ikonok, letisztultabb főoldal sötét, mozgó nyitóképpel és kevesebb apró szöveggel; Kánya Márk (Lenti) is szerepel az oldalon. Fizetés banki átutalással (ÁSZF és adatvédelem frissítve). Az admcore.hu magától a zalastudio.hu-ra irányít, amint az első látogató megérkezik az új domainre.
+  A címek, a megosztási kép és az e-mail-cím (info@admcore.hu) egyelőre az admcore.hu-t használják, amíg a zalastudio.hu nincs beállítva. Az előző verzióból: új név és arculat (Zala Studio), új logó és ikonok, letisztultabb főoldal, Kánya Márk az oldalon, fizetés átutalással.

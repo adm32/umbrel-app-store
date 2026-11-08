@@ -1,4 +1,4 @@
-// Payment pages on zalastudio.hu (switched off while the Irányítópult has payments disabled). The website holds no Stripe key: it asks the Irányítópult
+// Payment pages on admcore.hu (switched off while the Irányítópult has payments disabled). The website holds no Stripe key: it asks the Irányítópult
 // (internal port) for the payment details, and the Irányítópult creates the Stripe Checkout page.
 package main
 
@@ -123,7 +123,7 @@ func stateMessage(w http.ResponseWriter, info payInfo) {
 		payMessage(w, 200, "Ez az előfizetés már él", "Köszönjük, a fizetés korábban megtörtént. A kártyádat és a számláidat itt kezelheted:", true,
 			`<a class="btn btn--ghost" href="/elofizetes">Előfizetés kezelése</a>`)
 	default:
-		payMessage(w, 410, "Ez a fizetési link lejárt", "Kérj új linket: hívj minket a <a href=\"tel:+36203282840\">+36 20 328 2840</a> számon, vagy írj az <a href=\"mailto:info@zalastudio.hu\">info@zalastudio.hu</a> címre.", false, "")
+		payMessage(w, 410, "Ez a fizetési link lejárt", "Kérj új linket: hívj minket a <a href=\"tel:+36203282840\">+36 20 328 2840</a> számon, vagy írj az <a href=\"mailto:info@admcore.hu\">info@admcore.hu</a> címre.", false, "")
 	}
 }
 
@@ -267,5 +267,5 @@ func portalRedirect(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(303)
 		return
 	}
-	payMessage(w, 200, "Előfizetés kezelése", "Kártyacseréhez, számlamásolathoz vagy bármilyen kérdéshez hívj minket a <a href=\"tel:+36203282840\">+36 20 328 2840</a> számon, vagy írj az <a href=\"mailto:info@zalastudio.hu\">info@zalastudio.hu</a> címre.", false, "")
+	payMessage(w, 200, "Előfizetés kezelése", "Kártyacseréhez, számlamásolathoz vagy bármilyen kérdéshez hívj minket a <a href=\"tel:+36203282840\">+36 20 328 2840</a> számon, vagy írj az <a href=\"mailto:info@admcore.hu\">info@admcore.hu</a> címre.", false, "")
 }

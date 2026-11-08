@@ -4,4 +4,4 @@ Disallow: /koszonom.html
 Disallow: /fizetes/
 Disallow: /elofizetes
 
-Sitemap: https://zalastudio.hu/sitemap.xml
+Sitemap: https://admcore.hu/sitemap.xml

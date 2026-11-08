@@ -49,7 +49,7 @@ import (
 	"unicode/utf8"
 )
 
-const version = "1.4.0"
+const version = "1.4.1"
 
 //go:embed web
 var webFS embed.FS
@@ -182,7 +182,7 @@ type Auth struct {
 var (
 	mu       sync.Mutex
 	leads    []*Lead
-	settings = Settings{NotifyLeads: true, NotifyDown: true, NotifyPay: true, SiteURL: "https://zalastudio.hu", Spots: 5, VatMode: "brutto"}
+	settings = Settings{NotifyLeads: true, NotifyDown: true, NotifyPay: true, SiteURL: "https://admcore.hu", Spots: 5, VatMode: "brutto"}
 	auth     Auth
 )
 
@@ -421,8 +421,10 @@ func moveToNewDomain(cur string) bool {
 	if err != nil {
 		return false
 	}
-	r.Body.Close()
-	return r.StatusCode == 200
+	defer r.Body.Close()
+	// Only our own website answers exactly "ok" (a parked domain may answer 200 to anything).
+	b, _ := io.ReadAll(io.LimitReader(r.Body, 64))
+	return r.StatusCode == 200 && strings.TrimSpace(string(b)) == "ok"
 }
 
 func check() {

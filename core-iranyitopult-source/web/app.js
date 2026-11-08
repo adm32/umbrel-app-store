@@ -1,4 +1,4 @@
-/* Zala Studio Irányítópult – client. No dependencies; uses preview.js (shared with zalastudio.hu) for the design previews. */
+/* Zala Studio Irányítópult – client. No dependencies; uses preview.js (shared with the Zala Studio website) for the design previews. */
 (function () {
   "use strict";
   var P = window.CorePreview || null;
@@ -225,7 +225,7 @@
     if (bill.length) h += '<div class="hdr"><h2>Kiszámlázandó</h2><span class="sp"></span><a href="/api/payments.csv" download>Táblázat</a></div><div class="list">' + bill.slice(0, 8).map(billRow).join("") + "</div>" + (bill.length > 8 ? '<p class="note" style="margin:8px 4px 0">És még ' + (bill.length - 8) + " befizetés. A táblázatban mind benne van.</p>" : "");
     h += '<div class="hdr"><h2>Legutóbbi érdeklődők</h2><span class="sp"></span><button data-go="osszes">Összes</button></div>';
     h += S.leads.length ? '<div class="list">' + S.leads.slice(0, 5).map(leadRow).join("") + "</div>"
-      : '<div class="card empty"><b>Még nincs érdeklődő</b>Ha valaki kitölti a tervezőt a zalastudio.hu-n, itt jelenik meg, és értesítést is kapsz róla.</div>';
+      : '<div class="card empty"><b>Még nincs érdeklődő</b>Ha valaki kitölti a tervezőt az admcore.hu-n, itt jelenik meg, és értesítést is kapsz róla.</div>';
     h += '<div class="cols c2" style="margin-top:12px">';
     h += '<div class="card"><div class="hdr" style="margin:0 0 4px"><h2 style="font-size:17px">Látogatók, 14 nap</h2><span class="sp"></span><span class="note" style="margin:0">' + num(r14.uv) + " fő</span></div>" + (S.stats && S.stats.ok === false ? '<p class="note">' + esc(S.stats.error) + "</p>" : barsHTML(14)) + "</div>";
     h += '<div class="card"><div class="hdr" style="margin:0 0 4px"><h2 style="font-size:17px">Tervező, 30 nap</h2><span class="sp"></span><span class="note" style="margin:0">' + conv.toFixed(1).replace(".", ",") + "% konverzió</span></div>" + funnelHTML(r30) + "</div>";
@@ -285,18 +285,18 @@
       '<label><span>Árak a weboldalon<small>' + esc(si.vatNote || "") + '</small></span><select class="selr" id="sVat"><option value="brutto"' + (s.vatMode === "brutto" ? " selected" : "") + '>Bruttó</option><option value="netto"' + (s.vatMode === "netto" ? " selected" : "") + '>Nettó + ÁFA</option><option value="mentes"' + (s.vatMode === "mentes" ? " selected" : "") + ">ÁFA nélkül</option></select></label>" + '</div>';
     if (PAYMENTS) {
     var hk = si.hook || {};
-    var site = (s.siteUrl || "https://zalastudio.hu").replace(/\/$/, "");
+    var site = (s.siteUrl || "https://admcore.hu").replace(/\/$/, "");
     h += '<div class="lbl">Fizetés (Stripe)' + (si.keySet ? (si.live ? ' <span class="tag-live">ÉLES</span>' : ' <span class="tag-test">TESZT</span>') : "") + '</div><div class="set">' +
       '<label class="stack"><span>Titkos kulcs<small>Stripe → Fejlesztők → API-kulcsok. Teszteléshez az sk_test_ kezdetűt.</small></span><input type="password" id="sKey" value="' + esc(s.stripeKey) + '" placeholder="sk_test_…" autocomplete="off" spellcheck="false"></label>' +
       '<label class="stack"><span>Webhook aláíró kulcs<small>Webhook végpont: <b class="mono">' + esc(site) + '/stripe/webhook</b></small></span><input type="password" id="sHook" value="' + esc(s.stripeWebhook) + '" placeholder="whsec_…" autocomplete="off" spellcheck="false"></label>' +
-      '<label class="stack"><span>Ügyfélportál linkje<small>Stripe → Beállítások → Számlázás → Ügyfélportál. Ide visz a zalastudio.hu/elofizetes.</small></span><input type="url" id="sPortal" value="' + esc(s.portalUrl) + '" placeholder="https://billing.stripe.com/p/login/…" inputmode="url" autocomplete="off"></label>' +
+      '<label class="stack"><span>Ügyfélportál linkje<small>Stripe → Beállítások → Számlázás → Ügyfélportál. Ide visz az admcore.hu/elofizetes.</small></span><input type="url" id="sPortal" value="' + esc(s.portalUrl) + '" placeholder="https://billing.stripe.com/p/login/…" inputmode="url" autocomplete="off"></label>' +
       "<label><span>Értesítés befizetésről és sikertelen fizetésről</span>" + sw("sPay", s.notifyPay) + "</label>" +
       '<div class="stat-li"><i class="dot ' + (hk.at ? (hk.error ? "r" : "g") : "") + '"></i><span>Webhook<small>' + (hk.at ? (hk.error ? esc(hk.error) : "Utoljára: " + esc(hk.type) + " · " + ago(hk.at)) : "Még nem jött üzenet a Stripe-tól") + "</small></span></div>" +
       '</div><div class="btnrow"><button class="btn sec" id="bStripe"' + (si.keySet ? "" : " disabled") + '>Kapcsolat ellenőrzése</button><a class="btn sec" href="/api/payments.csv" download>Befizetések (CSV)</a></div>';
     }
     h += '<div class="lbl">Induló kedvezmény</div><div class="set"><div class="li"><span>Szabad helyek<small>A weboldal ennyit mutat. 0-nál eltűnik a kedvezmény.</small></span><span class="stepper" style="flex:none"><button id="spMinus" aria-label="Kevesebb">−</button><b id="spVal">' + (s.spots ?? 5) + '</b><button id="spPlus" aria-label="Több">+</button></span></div></div>';
     h += '<div class="lbl">Címek</div><div class="set">' +
-      '<label class="stack"><span>Weboldal<small>Ezt figyeli az Irányítópult</small></span><input type="url" id="sSite" value="' + esc(s.siteUrl) + '" placeholder="https://zalastudio.hu"></label>' +
+      '<label class="stack"><span>Weboldal<small>Ezt figyeli az Irányítópult</small></span><input type="url" id="sSite" value="' + esc(s.siteUrl) + '" placeholder="https://admcore.hu"></label>' +
       '<label class="stack"><span>Irányítópult címe<small>Ha kívülről is eléred, az értesítés ide visz</small></span><input type="url" id="sDash" value="' + esc(s.dashUrl) + '" placeholder="nem kötelező"></label></div>';
     h += '<div class="lbl">Állapot</div><div class="set">' +
       '<div class="stat-li"><i class="dot ' + dotc(st.public.ok) + '"></i><span>Nyilvános elérés' + (s.siteUrl ? " (" + esc(s.siteUrl.replace(/^https?:\/\//, "")) + ")" : "") + "<small>" + (st.public.ok ? "Elérhető, " + st.public.ms + " ms" : st.public.ok === false ? esc(st.public.error) : "Még nem ellenőrizte") + (st.public.at ? " · " + ago(st.public.at) : "") + "</small></span></div>" +
@@ -407,7 +407,7 @@
     var hi = firstName(l.name) ? "Szia " + firstName(l.name) + "!" : "Szia!";
     var smsBody = l.demoUrl ? hi + " Elkészült a(z) " + (l.business || "vállalkozásod") + " weboldalának bemutatója: " + l.demoUrl + " – Orosz Ádám, Zala Studio, +36 20 328 2840" : hi + " Orosz Ádám vagyok a Zala Studiótól, a weboldal miatt írok. Mikor tudnánk pár percet beszélni? +36 20 328 2840";
     var mailSubj = "Weboldal bemutató – " + (l.business || l.name);
-    var mailBody = hi + "\n\nKöszönöm az érdeklődésed. " + (l.demoUrl ? "Elkészült a bemutató, itt nézheted meg a telefonodon: " + l.demoUrl : "Hamarosan elkészül a bemutató, és elküldöm a linkjét.") + "\n\nÜdv:\nOrosz Ádám\nZala Studio · zalastudio.hu\n+36 20 328 2840";
+    var mailBody = hi + "\n\nKöszönöm az érdeklődésed. " + (l.demoUrl ? "Elkészült a bemutató, itt nézheted meg a telefonodon: " + l.demoUrl : "Hamarosan elkészül a bemutató, és elküldöm a linkjét.") + "\n\nÜdv:\nOrosz Ádám\nZala Studio · admcore.hu\n+36 20 328 2840";
     var h = '<div class="hero2">' + avatar(l, true) + "<div><h3>" + esc(l.business || l.name) + "</h3><p>" + esc([l.name, l.city].filter(Boolean).join(" · ")) + "</p></div></div>";
     h += '<div class="acts">' +
       '<a class="act" href="' + telHref(l.phone) + '" aria-disabled="' + !l.phone + '">' + ICON(I.phone) + "Hívás</a>" +
@@ -511,7 +511,7 @@
     });
   }
   /* ---------- payments ---------- */
-  function siteBase() { return ((S.settings && S.settings.siteUrl) || "https://zalastudio.hu").replace(/\/$/, ""); }
+  function siteBase() { return ((S.settings && S.settings.siteUrl) || "https://admcore.hu").replace(/\/$/, ""); }
   function payLink(p) { return siteBase() + "/fizetes/" + p.code; }
   function suggest(plan, iv) {
     var m = S.prices[plan] || 0, st = S.setup[plan] || [0, 0];
@@ -630,7 +630,7 @@
     var smsTxt = hi + " Itt tudod elindítani a(z) " + who + " előfizetését (" + num(p.amount) + " Ft/" + (p.interval === "year" ? "év" : "hó") + "): " + link + " – Orosz Ádám, Zala Studio, +36 20 328 2840";
     var sms = $("#pySms", body); if (sms) sms.href = "sms:" + String(l.phone || "").replace(/[^\d+]/g, "") + "?&body=" + encodeURIComponent(smsTxt);
     var mail = $("#pyMail", body);
-    if (mail) mail.href = "mailto:" + encodeURIComponent(l.email || "") + "?subject=" + encodeURIComponent("Előfizetés indítása – " + who) + "&body=" + encodeURIComponent(hi + "\n\nKöszönöm, hogy minket választottál. Ezen a linken tudod elindítani az előfizetést, bankkártyával, Apple Pay-jel vagy Google Pay-jel:\n" + link + "\n\n" + (p.setup ? "Most " + num(p.amount + p.setup) + " Ft-ot fizetsz (benne az egyszeri beállítás), utána " : "Utána ") + (p.interval === "year" ? "évente " : "havonta ") + num(p.amount) + " Ft-ot vonunk le automatikusan. Minden befizetésről számlát küldünk.\n\nÜdv:\nOrosz Ádám\nZala Studio · zalastudio.hu\n+36 20 328 2840");
+    if (mail) mail.href = "mailto:" + encodeURIComponent(l.email || "") + "?subject=" + encodeURIComponent("Előfizetés indítása – " + who) + "&body=" + encodeURIComponent(hi + "\n\nKöszönöm, hogy minket választottál. Ezen a linken tudod elindítani az előfizetést, bankkártyával, Apple Pay-jel vagy Google Pay-jel:\n" + link + "\n\n" + (p.setup ? "Most " + num(p.amount + p.setup) + " Ft-ot fizetsz (benne az egyszeri beállítás), utána " : "Utána ") + (p.interval === "year" ? "évente " : "havonta ") + num(p.amount) + " Ft-ot vonunk le automatikusan. Minden befizetésről számlát küldünk.\n\nÜdv:\nOrosz Ádám\nZala Studio · admcore.hu\n+36 20 328 2840");
     var cp = $("#pyCopy", body);
     if (cp) cp.addEventListener("click", function () {
       var done = function () { haptic(); toast("Link kimásolva"); };

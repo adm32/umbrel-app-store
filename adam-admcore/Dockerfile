@@ -1,4 +1,4 @@
-# Zala Studio (zalastudio.hu) – Umbrel / Docker image.
+# Zala Studio (admcore.hu, later zalastudio.hu) – Umbrel / Docker image.
 # Copies the prebuilt static program (the website is compiled into it),
 # so the image builds on the Umbrel itself without internet.
 FROM scratch

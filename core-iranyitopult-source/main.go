@@ -1,4 +1,4 @@
-// core Irányítópult – requests (leads) and visitor statistics for admcore.hu.
+// Zala Studio Irányítópult – requests (leads) and visitor statistics for zalastudio.hu (formerly admcore.hu).
 //
 // A single static Go program (like the Vadvirág apps): small, fast, and it uses a few MB of memory.
 // The web interface is compiled into the program.
@@ -49,7 +49,7 @@ import (
 	"unicode/utf8"
 )
 
-const version = "1.2.0"
+const version = "1.4.0"
 
 //go:embed web
 var webFS embed.FS
@@ -182,7 +182,7 @@ type Auth struct {
 var (
 	mu       sync.Mutex
 	leads    []*Lead
-	settings = Settings{NotifyLeads: true, NotifyDown: true, NotifyPay: true, SiteURL: "https://admcore.hu", Spots: 5, VatMode: "brutto"}
+	settings = Settings{NotifyLeads: true, NotifyDown: true, NotifyPay: true, SiteURL: "https://zalastudio.hu", Spots: 5, VatMode: "brutto"}
 	auth     Auth
 )
 
@@ -406,6 +406,25 @@ var (
 
 func bp(b bool) *bool { return &b }
 
+// The website moved from admcore.hu to zalastudio.hu. While the saved address is still the old
+// one, the monitor tries the new one, and switches over once it answers (DNS and tunnel ready).
+const newSiteURL = "https://zalastudio.hu"
+
+func moveToNewDomain(cur string) bool {
+	c := strings.TrimRight(strings.ToLower(cur), "/")
+	if c != "https://admcore.hu" && c != "https://www.admcore.hu" {
+		return false
+	}
+	req, _ := http.NewRequest("GET", newSiteURL+"/healthz", nil)
+	req.Header.Set("User-Agent", "zalastudio-iranyitopult-monitor")
+	r, err := httpc.Do(req)
+	if err != nil {
+		return false
+	}
+	r.Body.Close()
+	return r.StatusCode == 200
+}
+
 func check() {
 	checkMu.Lock()
 	defer checkMu.Unlock()
@@ -430,9 +449,17 @@ func check() {
 	if s.SiteURL == "" {
 		return
 	}
+	if moveToNewDomain(s.SiteURL) {
+		mu.Lock()
+		settings.SiteURL = newSiteURL
+		writeJSON("settings.json", settings)
+		s = settings
+		mu.Unlock()
+		log.Print("site monitor: moved to ", newSiteURL)
+	}
 	t0 := time.Now()
 	req, _ := http.NewRequest("GET", strings.TrimRight(s.SiteURL, "/")+"/healthz", nil)
-	req.Header.Set("User-Agent", "core-iranyitopult-monitor")
+	req.Header.Set("User-Agent", "zalastudio-iranyitopult-monitor")
 	pub.At = nowISO()
 	if r, err := httpc.Do(req); err == nil {
 		r.Body.Close()
@@ -462,7 +489,7 @@ func check() {
 		pub.Fails++
 		if pub.Fails >= 2 && !pub.Alerted && s.NotifyDown {
 			pub.Alerted = true
-			go ntfy(ntfyMsg{Title: "A weboldal nem érhető el", Message: s.SiteURL + "\n" + pub.Error + "\nNézd meg a Cloudflare Tunnel appot és a core appot az Umbrelen.", Tags: []string{"warning"}, Priority: 5})
+			go ntfy(ntfyMsg{Title: "A weboldal nem érhető el", Message: s.SiteURL + "\n" + pub.Error + "\nNézd meg a Cloudflare Tunnel appot és a Zala Studio appot az Umbrelen.", Tags: []string{"warning"}, Priority: 5})
 		}
 	}
 	stMu.Lock()
@@ -1020,7 +1047,7 @@ func api(w http.ResponseWriter, r *http.Request, p string) {
 		}
 		sendJSON(w, 200, map[string]any{"ok": true, "synced": synced, "settings": s, "stripe": si})
 	case p == "/api/test-ntfy" && r.Method == "POST":
-		if err := ntfy(ntfyMsg{Title: "core Irányítópult", Message: "Működik! Innen kapod majd az új érdeklődőket.", Tags: []string{"tada"}, Priority: 3}); err != nil {
+		if err := ntfy(ntfyMsg{Title: "Zala Studio Irányítópult", Message: "Működik! Innen kapod majd az új érdeklődőket.", Tags: []string{"tada"}, Priority: 3}); err != nil {
 			sendJSON(w, 502, map[string]any{"ok": false, "error": err.Error()})
 			return
 		}
@@ -1079,7 +1106,7 @@ func api(w http.ResponseWriter, r *http.Request, p string) {
 		b, _ := json.MarshalIndent(map[string]any{"version": version, "exported": nowISO(), "leads": leads, "settings": s}, "", " ")
 		mu.Unlock()
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		w.Header().Set("Content-Disposition", `attachment; filename="core-mentes-`+time.Now().Format("2006-01-02")+`.json"`)
+		w.Header().Set("Content-Disposition", `attachment; filename="zalastudio-mentes-`+time.Now().Format("2006-01-02")+`.json"`)
 		w.Write(b)
 	default:
 		sendJSON(w, 404, map[string]any{"ok": false, "error": "Nincs ilyen végpont."})
@@ -1291,6 +1318,6 @@ func main() {
 		log.Fatal(srv.ListenAndServe())
 	}()
 	srv := &http.Server{Addr: ":" + port, Handler: http.HandlerFunc(handler), ReadHeaderTimeout: 10 * time.Second, ReadTimeout: 30 * time.Second, WriteTimeout: 30 * time.Second, IdleTimeout: 120 * time.Second}
-	log.Printf("core Irányítópult %s on :%s", version, port)
+	log.Printf("Zala Studio Irányítópult %s on :%s", version, port)
 	log.Fatal(srv.ListenAndServe())
 }

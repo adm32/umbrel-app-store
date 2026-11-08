@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-csaszko
 category: social
 name: Csaszko Barbershop
-version: "2.1.2"
+version: "2.1.3"
 tagline: A Csaszko Barbershop weboldala, Zalaszentgrót
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-csaszko/icon.svg
 description: >-
@@ -20,7 +20,7 @@ description: >-
   To publish it, point a Cloudflare Tunnel public hostname (for example
   csaszko.admcore.hu) at http://<umbrel-ip>:4770.
 developer: Adam
-website: https://admcore.hu
+website: https://zalastudio.hu
 dependencies: []
 repo: https://github.com/adm32/umbrel-app-store
 support: https://github.com/adm32/umbrel-app-store/issues
@@ -32,4 +32,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  A Csaszko logó a fejlécben (kis jel) és az oldal alján (teljes kerek logó).
+  Az oldal alján a „Weboldal:” jelzés mostantól a Zala Studio logója, és a zalastudio.hu-ra visz.

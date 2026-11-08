@@ -1,12 +1,12 @@
 manifestVersion: 1
 id: adam-core-iranyitopult
 category: automation
-name: core Irányítópult
-version: "1.3.1"
-tagline: Érdeklődők és látogatók az admcore.hu-ról, értesítéssel
+name: Zala Studio Irányítópult
+version: "1.4.0"
+tagline: Érdeklődők és látogatók a zalastudio.hu-ról, értesítéssel
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-core-iranyitopult/icon.svg
 description: >-
-  A core webstúdió irányítópultja. Minden kérés, amit valaki az admcore.hu
+  A Zala Studio irányítópultja. Minden kérés, amit valaki a zalastudio.hu
   weboldaltervezőjében küld, ide érkezik: látod, mit tervezett (élő
   előnézettel), milyen csomagot választott, és egy koppintással felhívhatod,
   SMS-t vagy e-mailt küldhetsz neki. Állapotok (Új, Felhívtam, Bemutató készül,
@@ -19,9 +19,9 @@ description: >-
 
 
   Saját jelszó védi, az első jelszót otthonról kell beállítani. Kell hozzá a
-  "core (admcore.hu)" app is.
+  "Zala Studio (zalastudio.hu)" app is.
 developer: Adam
-website: https://admcore.hu
+website: https://zalastudio.hu
 dependencies: []
 repo: https://github.com/adm32/umbrel-app-store
 support: https://github.com/adm32/umbrel-app-store/issues
@@ -33,4 +33,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Az ügyfeleknek szóló SMS- és e-mail-sablonok tegeződnek, és Orosz Ádám aláírásával mennek. Új ár: Rendelés & Foglalás 12 990 Ft/hó, beállítás 79 000 helyett 39 500 Ft.
+  Új név: Zala Studio Irányítópult. Az SMS- és e-mail-sablonok aláírása Zala Studio (zalastudio.hu). A weboldal-figyelő magától átáll a zalastudio.hu-ra, amint az új domain válaszol.

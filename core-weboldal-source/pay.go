@@ -1,4 +1,4 @@
-// Payment pages on admcore.hu. The website holds no Stripe key: it asks the Irányítópult
+// Payment pages on zalastudio.hu (switched off while the Irányítópult has payments disabled). The website holds no Stripe key: it asks the Irányítópult
 // (internal port) for the payment details, and the Irányítópult creates the Stripe Checkout page.
 package main
 
@@ -56,18 +56,18 @@ func payShell(w http.ResponseWriter, code int, title, inner string) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>`+html.EscapeString(title)+` – core</title>
+<title>`+html.EscapeString(title)+` – Zala Studio</title>
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#FBF7F1" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#15110E" media="(prefers-color-scheme: dark)">
-<link rel="icon" href="/favicon-warm.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/apple-touch-icon-warm.png">
-<link rel="stylesheet" href="/assets/css/site.css?v=8">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/css/site.css?v=10">
 </head>
 <body class="paypage">
 <header class="head is-scrolled">
   <div class="wrap head__in">
-    <a class="brand" href="/" aria-label="core – főoldal"><img src="/assets/logo/core-mark.svg?v=7" alt="" width="36" height="36"><b>core</b></a>
+    <a class="brand" href="/" aria-label="Zala Studio – főoldal"><img src="/assets/logo/zala-mark.svg" alt="" width="36" height="36"><b>zala<span class="serif">studio</span></b></a>
     <a class="back" href="tel:+36203282840">+36 20 328 2840</a>
   </div>
 </header>
@@ -123,7 +123,7 @@ func stateMessage(w http.ResponseWriter, info payInfo) {
 		payMessage(w, 200, "Ez az előfizetés már él", "Köszönjük, a fizetés korábban megtörtént. A kártyádat és a számláidat itt kezelheted:", true,
 			`<a class="btn btn--ghost" href="/elofizetes">Előfizetés kezelése</a>`)
 	default:
-		payMessage(w, 410, "Ez a fizetési link lejárt", "Kérj új linket: hívj minket a <a href=\"tel:+36203282840\">+36 20 328 2840</a> számon, vagy írj az <a href=\"mailto:info@admcore.hu\">info@admcore.hu</a> címre.", false, "")
+		payMessage(w, 410, "Ez a fizetési link lejárt", "Kérj új linket: hívj minket a <a href=\"tel:+36203282840\">+36 20 328 2840</a> számon, vagy írj az <a href=\"mailto:info@zalastudio.hu\">info@zalastudio.hu</a> címre.", false, "")
 	}
 }
 
@@ -139,7 +139,7 @@ func payForm(w http.ResponseWriter, code int, info payInfo, errMsg string) {
 		b.WriteString(`<p class="pay__test">Teszt mód: ezen az oldalon nem történik valódi terhelés.</p>`)
 	}
 	b.WriteString(`<p class="eyebrow">Előfizetés indítása</p><h1>` + html.EscapeString(info.Business) + `</h1>`)
-	plan := "core weboldal"
+	plan := "Zala Studio weboldal"
 	if info.PlanName != "" {
 		plan += " · " + info.PlanName + " csomag"
 	}
@@ -166,7 +166,7 @@ func payForm(w http.ResponseWriter, code int, info payInfo, errMsg string) {
 	b.WriteString(`<label class="pay__ok"><input type="checkbox" name="elfogadom" value="igen" required><span>Elolvastam és elfogadom az <a href="/aszf.html" target="_blank" rel="noopener">általános szerződési feltételeket</a>, és hozzájárulok, hogy a díjat ` + adv + ` automatikusan levonják a kártyámról.</span></label>`)
 	b.WriteString(`<button class="btn btn--primary btn--lg pay__go" type="submit"><span>Tovább a biztonságos fizetéshez</span>` + arrowSVG + `</button>`)
 	b.WriteString(`<p class="pay__safe">` + lockSVG + `<span>A fizetés a Stripe oldalán történik. A kártyaadataidat mi nem látjuk és nem tároljuk.</span></p></form>`)
-	b.WriteString(`<p class="pay__fine">Szolgáltató: Orosz Ádám (core webstúdió) · <a href="/aszf.html">ÁSZF</a> · <a href="/adatvedelem.html">Adatvédelem</a> · Kérdésed van? <a href="tel:+36203282840">+36 20 328 2840</a></p></article>`)
+	b.WriteString(`<p class="pay__fine">Szolgáltató: Orosz Ádám (Zala Studio) · <a href="/aszf.html">ÁSZF</a> · <a href="/adatvedelem.html">Adatvédelem</a> · Kérdésed van? <a href="tel:+36203282840">+36 20 328 2840</a></p></article>`)
 	payShell(w, code, "Előfizetés indítása", b.String())
 }
 
@@ -267,5 +267,5 @@ func portalRedirect(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(303)
 		return
 	}
-	payMessage(w, 200, "Előfizetés kezelése", "Kártyacseréhez, számlamásolathoz vagy bármilyen kérdéshez hívj minket a <a href=\"tel:+36203282840\">+36 20 328 2840</a> számon, vagy írj az <a href=\"mailto:info@admcore.hu\">info@admcore.hu</a> címre.", false, "")
+	payMessage(w, 200, "Előfizetés kezelése", "Kártyacseréhez, számlamásolathoz vagy bármilyen kérdéshez hívj minket a <a href=\"tel:+36203282840\">+36 20 328 2840</a> számon, vagy írj az <a href=\"mailto:info@zalastudio.hu\">info@zalastudio.hu</a> címre.", false, "")
 }

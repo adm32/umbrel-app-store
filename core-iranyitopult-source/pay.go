@@ -1,10 +1,10 @@
-// Stripe: payment links for clients (admcore.hu/fizetes/KOD), monthly or yearly subscriptions,
+// Stripe: payment links for clients (zalastudio.hu/fizetes/KOD), monthly or yearly subscriptions,
 // and webhooks that keep the dashboard up to date.
 //
 // No Stripe library: a few form-encoded HTTPS calls keep the program small.
 // The website app forwards two things here over the internal port:
 //
-//	GET/POST /pay/{code}  the customer opened / accepted the payment page on admcore.hu
+//	GET/POST /pay/{code}  the customer opened / accepted the payment page on zalastudio.hu
 //	POST     /stripe      a webhook from Stripe (verified here with the signing secret)
 package main
 
@@ -197,9 +197,9 @@ func unixISO(f float64) string {
 }
 
 func createSession(l Lead, p Payment, site string) (id, link string, err error) {
-	planName := "core weboldal"
+	planName := "Zala Studio weboldal"
 	if n := L["csomag"][p.Plan]; n != "" {
-		planName = "core weboldal – " + n + " csomag"
+		planName = "Zala Studio weboldal – " + n + " csomag"
 	}
 	adv, _ := intervalWord(p.Interval)
 	f := url.Values{}
@@ -622,7 +622,7 @@ func internalPay(w http.ResponseWriter, r *http.Request, code string) {
 		sendJSON(w, 200, map[string]any{"ok": true, "url": p.SessionURL})
 		return
 	}
-	site := strings.TrimRight(firstNonEmpty(s.SiteURL, "https://admcore.hu"), "/")
+	site := strings.TrimRight(firstNonEmpty(s.SiteURL, "https://zalastudio.hu"), "/")
 	id, link, err := createSession(lc, p, site)
 	if err != nil {
 		sendJSON(w, 502, map[string]any{"ok": false, "error": err.Error()})
@@ -667,7 +667,7 @@ func internalStripe(w http.ResponseWriter, r *http.Request) {
 
 // ---------- dashboard API ----------
 
-// paymentsEnabled switches online payment (Stripe payment links, the admcore.hu/fizetes pages)
+// paymentsEnabled switches online payment (Stripe payment links, the zalastudio.hu/fizetes pages)
 // on or off. Off for now: the dashboard hides everything about payments, and no new payment
 // can start. Set to true (and PAYMENTS in web/app.js) to bring it back; saved data is kept.
 const paymentsEnabled = false

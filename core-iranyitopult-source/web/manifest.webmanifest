@@ -1,6 +1,6 @@
 {
-  "name": "core Irányítópult",
-  "short_name": "core",
+  "name": "Zala Studio Irányítópult",
+  "short_name": "Irányítópult",
   "lang": "hu",
   "start_url": "/",
   "display": "standalone",

@@ -1,26 +1,27 @@
 manifestVersion: 1
 id: adam-admcore
 category: social
-name: core (admcore.hu)
-version: "2.2.5"
-tagline: core webstúdió – weboldalak vállalkozásoknak
+name: Zala Studio (zalastudio.hu)
+version: "3.0.0"
+tagline: Zala Studio – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
-  The admcore.hu website: warm, phone-first one-pager with a live demo phone,
+  The zalastudio.hu website (formerly admcore.hu): phone-first one-pager with a dark hero and a live demo phone,
   a step-by-step website planner (visitors design their site and request a
   free demo), portfolio, prices, FAQ, impresszum and privacy policy.
   Hungarian, no cookies, fonts served locally.
 
 
-  Requests from the planner go to the "core Irányítópult" app (install it
+  Requests from the planner go to the "Zala Studio Irányítópult" app (install it
   too). Until it is reachable they wait in this app and are retried every
   minute. The site also counts visitors without cookies for the Irányítópult.
 
 
-  To put it on admcore.hu, point a Cloudflare Tunnel public hostname at
-  http://<umbrel-ip>:4760.
+  To put it on zalastudio.hu, point a Cloudflare Tunnel public hostname at
+  http://<umbrel-ip>:4760. Once the first visit arrives on zalastudio.hu,
+  admcore.hu and www.zalastudio.hu redirect there automatically.
 developer: Adam
-website: https://admcore.hu
+website: https://zalastudio.hu
 dependencies: []
 repo: https://github.com/adm32/umbrel-app-store
 support: https://github.com/adm32/umbrel-app-store/issues
@@ -32,4 +33,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  A Tiguan Gasztro Kft. adatai lekerültek az oldalról (impresszum, ÁSZF, adatvédelem, lábléc, fizetési oldal); a szolgáltató egyelőre Orosz Ádám (core webstúdió).
+  Új név és arculat: Zala Studio (zalastudio.hu). Új logó és ikonok, letisztultabb főoldal sötét, mozgó nyitóképpel és kevesebb apró szöveggel; Kánya Márk (Lenti) is szerepel az oldalon. Fizetés banki átutalással (ÁSZF és adatvédelem frissítve). Az admcore.hu magától a zalastudio.hu-ra irányít, amint az első látogató megérkezik az új domainre.

@@ -1,4 +1,4 @@
-/* core – admcore.hu
+/* Zala Studio – zalastudio.hu
    Interactions: reveals, header, dock, pricing, hero demo, and the step-by-step planner.
    No dependencies. The page is fully usable without this file (see .no-js). */
 (function () {
@@ -77,12 +77,19 @@
     }, { threshold: 0 });
     [heroCta, hearth, foot].forEach(function (el) { if (el) dio.observe(el); });
   }
+  // The header is light-on-dark while it is over the dark hero, and switches to the page colours after it.
+  var heroEl = $(".hero");
+  function headState() {
+    head.classList.toggle("is-scrolled", window.scrollY > 8);
+    if (heroEl) head.classList.toggle("on-hero", heroEl.getBoundingClientRect().bottom > head.offsetHeight + 4);
+  }
   var ticking = false;
   window.addEventListener("scroll", function () {
     if (ticking) return; ticking = true;
-    requestAnimationFrame(function () { ticking = false; head.classList.toggle("is-scrolled", window.scrollY > 8); });
+    requestAnimationFrame(function () { ticking = false; headState(); });
   }, { passive: true });
-  head.classList.toggle("is-scrolled", window.scrollY > 8);
+  window.addEventListener("resize", headState);
+  headState();
 
   /* ---------- Pricing: accordion on phones, monthly / yearly ---------- */
   var plans = $$(".plan");
@@ -170,13 +177,27 @@
 
   /* ---------- Hero demo phone ---------- */
   var heroScreen = $("#heroScreen"), heroDevice = $("#heroDevice");
+  // Each demo comes with the word the headline ends on: "Weboldal az éttermednek." and so on.
   var DEMOS = [
-    { type: "etterem", style: "meleg", features: ["rendeles", "galeria"] },
-    { type: "szepseg", style: "lagy", features: ["arlista", "foglalas", "galeria"] },
-    { type: "szaki", style: "friss", features: ["arlista", "ajanlat", "galeria"] },
-    { type: "szallas", style: "termeszetes", features: ["foglalas", "galeria", "nyelv"] },
-    { type: "egyeb", style: "elegans", features: ["arlista", "ajanlat"] }
+    { type: "etterem", style: "meleg", features: ["rendeles", "galeria"], word: "az éttermednek." },
+    { type: "szepseg", style: "lagy", features: ["arlista", "foglalas", "galeria"], word: "a szalonodnak." },
+    { type: "szaki", style: "friss", features: ["arlista", "ajanlat", "galeria"], word: "a cégednek." },
+    { type: "szallas", style: "termeszetes", features: ["foglalas", "galeria", "nyelv"], word: "a szállásodnak." },
+    { type: "bolt", style: "termeszetes", features: ["arlista", "galeria", "kozosseg"], word: "a boltodnak." },
+    { type: "egyeb", style: "elegans", features: ["arlista", "ajanlat"], word: "az irodádnak." }
   ];
+  var heroWord = $("#heroWord");
+  function setWord(w) {
+    if (!heroWord) return;
+    var old = heroWord.firstElementChild;
+    var neu = document.createElement("span");
+    neu.className = "serif"; neu.textContent = w;
+    heroWord.appendChild(neu);
+    if (old && old.animate && !reduced) {
+      neu.animate([{ opacity: 0, transform: "translateY(.45em)", filter: "blur(6px)" }, { opacity: 1, transform: "none", filter: "blur(0)" }], { duration: 650, easing: "cubic-bezier(.22,1,.36,1)" });
+      old.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(-.45em)", filter: "blur(6px)" }], { duration: 450, easing: "ease-in", fill: "forwards" }).onfinish = function () { old.remove(); };
+    } else if (old) old.remove();
+  }
   if (heroScreen) {
     var di = 0, dtimer = null, dvisible = true;
     render(heroScreen, DEMOS[0]);
@@ -185,6 +206,7 @@
       var old = heroScreen.__ps;
       heroScreen.__ps = null; heroScreen.__sig = null;
       render(heroScreen, DEMOS[di]);
+      setWord(DEMOS[di].word);
       var neu = heroScreen.__ps;
       if (old && old.animate && !reduced) {
         neu.animate([{ opacity: 0, transform: "scale(1.04)" }, { opacity: 1, transform: "none" }], { duration: 700, easing: "cubic-bezier(.22,1,.36,1)" });
@@ -192,7 +214,7 @@
       } else if (old) old.remove();
     };
     var loop = function () { clearTimeout(dtimer); if (!reduced && dvisible && !document.hidden && !plOpen) dtimer = setTimeout(function () { nextDemo(); loop(); }, 3600); };
-    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { dvisible = es[0].isIntersecting; loop(); }, { threshold: 0.3 }).observe(heroScreen);
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { dvisible = es[0].isIntersecting; loop(); }, { threshold: 0.25 }).observe($(".hero") || heroScreen);
     document.addEventListener("visibilitychange", loop);
     loop();
     if (finePointer && !reduced) {

@@ -1,4 +1,4 @@
-// core (admcore.hu) – web server for Umbrel.
+// Zala Studio (zalastudio.hu, formerly admcore.hu) – web server for Umbrel.
 //
 // A single static Go program (like the Vadvirág apps). The website files are compiled into it.
 //
@@ -16,9 +16,13 @@
 //
 // Internal (port 9095, only reachable from other containers on the Umbrel, never published):
 //
-//	GET  /stats               aggregated statistics (no personal data) for the core Irányítópult app
+//	GET  /stats               aggregated statistics (no personal data) for the Irányítópult app
 //	GET  /health              status of the outbox
 //	POST /config              { spots, vat, portal } – set by the Irányítópult
+//
+// Page visits on the old address (admcore.hu) and on www.zalastudio.hu get a permanent redirect
+// to https://zalastudio.hu (SITE_URL) – from the first visit that arrives on zalastudio.hu on.
+// POST requests (webhooks, forms) are served on every address.
 //
 // Requests are saved to DATA_DIR/outbox.json first, then handed to the Irányítópult (DASH_INGEST).
 // Until that succeeds they stay in the outbox and are retried every minute. If the Irányítópult
@@ -50,6 +54,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"syscall"
 	"time"
 	_ "time/tzdata"
@@ -65,9 +70,25 @@ var (
 	internalPort = env("INTERNAL_PORT", "9095")
 	dashIngest   = env("DASH_INGEST", "http://adam-core-iranyitopult_web_1:9097/ingest")
 	appVersion   = env("APP_VERSION", "")
-	budapest, _  = time.LoadLocation("Europe/Budapest")
-	httpc        = &http.Client{Timeout: 10 * time.Second}
+	siteURL      = strings.TrimRight(env("SITE_URL", "https://zalastudio.hu"), "/")
+	oldHosts     = hostSet(env("OLD_HOSTS", "admcore.hu,www.admcore.hu,www.zalastudio.hu"))
+	newHost      = strings.TrimPrefix(strings.TrimPrefix(siteURL, "https://"), "http://")
+	// Old addresses are only redirected once a visit has arrived on the new domain, so updating
+	// the app before zalastudio.hu is set up in Cloudflare never sends visitors to a dead address.
+	newHostSeen atomic.Bool
+	budapest, _ = time.LoadLocation("Europe/Budapest")
+	httpc       = &http.Client{Timeout: 10 * time.Second}
 )
+
+func hostSet(list string) map[string]bool {
+	m := map[string]bool{}
+	for _, h := range strings.Split(list, ",") {
+		if h = strings.ToLower(strings.TrimSpace(h)); h != "" {
+			m[h] = true
+		}
+	}
+	return m
+}
 
 func env(k, d string) string {
 	if v := os.Getenv(k); v != "" {
@@ -347,7 +368,7 @@ var refRules = []struct {
 	{regexp.MustCompile(`duckduckgo\.com$`), "DuckDuckGo"},
 	{regexp.MustCompile(`tiktok\.com$`), "TikTok"},
 	{regexp.MustCompile(`youtube\.com$`), "YouTube"},
-	{regexp.MustCompile(`admcore\.hu$`), "Közvetlen"},
+	{regexp.MustCompile(`zalastudio\.hu$|admcore\.hu$`), "Közvetlen"},
 }
 
 func refName(host string) string {
@@ -525,7 +546,7 @@ func saveOutbox() error { return writeJSON("outbox.json", outbox) }
 
 func errorPage(msg string) string {
 	esc := strings.NewReplacer("<", "", ">", "", "&", "")
-	return `<!doctype html><html lang="hu"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nem sikerült elküldeni</title><link rel="stylesheet" href="/assets/css/site.css?v=9"><main class="doc"><div class="wrap"><div class="doc__card center-card"><h1>Nem sikerült elküldeni</h1><p>` + esc.Replace(msg) + `</p><p>Hívj minket: <a href="tel:+36203282840">+36 20 328 2840</a></p><a class="btn btn--primary" href="/#tervezes">Vissza</a></div></div></main></html>`
+	return `<!doctype html><html lang="hu"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nem sikerült elküldeni</title><link rel="stylesheet" href="/assets/css/site.css?v=10"><main class="doc"><div class="wrap"><div class="doc__card center-card"><h1>Nem sikerült elküldeni</h1><p>` + esc.Replace(msg) + `</p><p>Hívj minket: <a href="tel:+36203282840">+36 20 328 2840</a></p><a class="btn btn--primary" href="/#tervezes">Vissza</a></div></div></main></html>`
 }
 
 func handleLead(w http.ResponseWriter, r *http.Request) {
@@ -759,6 +780,22 @@ func public(w http.ResponseWriter, r *http.Request) {
 	}()
 	secHeaders(w)
 	p := r.URL.Path
+	if r.Method == "GET" || r.Method == "HEAD" {
+		host := strings.ToLower(r.Host)
+		if h, _, err := net.SplitHostPort(host); err == nil {
+			host = h
+		}
+		if host == newHost && !newHostSeen.Load() {
+			// The new domain reaches this app, so it is safe to send the old address there.
+			newHostSeen.Store(true)
+			os.WriteFile(filepath.Join(dataDir, "uj-domain.txt"), []byte(newHost+" "+time.Now().Format(time.RFC3339)+"\n"), 0o600)
+			log.Print("new domain is live: ", newHost, " – old addresses now redirect here")
+		}
+		if oldHosts[host] && p != "/healthz" && newHostSeen.Load() {
+			http.Redirect(w, r, siteURL+r.URL.RequestURI(), http.StatusMovedPermanently)
+			return
+		}
+	}
 	switch p {
 	case "/api/ajanlatkeres":
 		if r.Method != "POST" {
@@ -892,6 +929,9 @@ func main() {
 		seen[s] = true
 	}
 	readJSON("outbox.json", &outbox)
+	if _, err := os.Stat(filepath.Join(dataDir, "uj-domain.txt")); err == nil {
+		newHostSeen.Store(true)
+	}
 
 	go func() {
 		time.Sleep(3 * time.Second)
@@ -905,7 +945,7 @@ func main() {
 	}()
 	go func() {
 		srv := &http.Server{Addr: ":" + internalPort, Handler: http.HandlerFunc(internal), ReadTimeout: 10 * time.Second, WriteTimeout: 10 * time.Second}
-		log.Print("core: internal data on :", internalPort)
+		log.Print("zalastudio: internal data on :", internalPort)
 		log.Fatal(srv.ListenAndServe())
 	}()
 	go func() {
@@ -918,6 +958,6 @@ func main() {
 		os.Exit(0)
 	}()
 	srv := &http.Server{Addr: ":" + port, Handler: http.HandlerFunc(public), ReadHeaderTimeout: 10 * time.Second, ReadTimeout: 20 * time.Second, WriteTimeout: 30 * time.Second, IdleTimeout: 120 * time.Second}
-	log.Printf("core: website %s on :%s", appVersion, port)
+	log.Printf("zalastudio: website %s on :%s", appVersion, port)
 	log.Fatal(srv.ListenAndServe())
 }

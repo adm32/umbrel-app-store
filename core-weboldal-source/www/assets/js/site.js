@@ -187,16 +187,60 @@
     { type: "egyeb", style: "elegans", features: ["arlista", "ajanlat"], word: "az irodádnak." }
   ];
   var heroWord = $("#heroWord");
+  // The headline word is built from letter spans, so it can flip in letter by letter.
+  function charSpans(word, cls, offset) {
+    var wrap = document.createElement("span");
+    wrap.className = "serif";
+    word.split("").forEach(function (c, i) {
+      var s = document.createElement("span");
+      s.className = "ch" + (cls ? " " + cls : "");
+      s.textContent = c === " " ? "\u00a0" : c;
+      s.style.setProperty("--c", i + (offset || 0));
+      wrap.appendChild(s);
+    });
+    return wrap;
+  }
+  if (heroWord && !reduced) {
+    // Entrance: "Weboldal" letters rise in, then the first word follows.
+    var lead = heroWord.previousSibling;
+    if (lead && lead.nodeType === 3 && lead.textContent.trim()) {
+      var txt = lead.textContent.trim(), frag = document.createDocumentFragment();
+      txt.split("").forEach(function (c, i) {
+        var s = document.createElement("span"); s.className = "ch ch-in"; s.textContent = c; s.style.setProperty("--c", i); frag.appendChild(s);
+      });
+      frag.appendChild(document.createTextNode(" "));
+      lead.parentNode.replaceChild(frag, lead);
+    }
+    var first = heroWord.textContent.trim();
+    heroWord.textContent = "";
+    heroWord.appendChild(charSpans(first, "ch-in", 6));
+  }
   function setWord(w) {
     if (!heroWord) return;
     var old = heroWord.firstElementChild;
-    var neu = document.createElement("span");
-    neu.className = "serif"; neu.textContent = w;
+    if (reduced || !old || !old.animate) {
+      heroWord.textContent = "";
+      var plain = document.createElement("span"); plain.className = "serif"; plain.textContent = w;
+      heroWord.appendChild(plain);
+      return;
+    }
+    var neu = charSpans(w);
     heroWord.appendChild(neu);
-    if (old && old.animate && !reduced) {
-      neu.animate([{ opacity: 0, transform: "translateY(.45em)", filter: "blur(6px)" }, { opacity: 1, transform: "none", filter: "blur(0)" }], { duration: 650, easing: "cubic-bezier(.22,1,.36,1)" });
-      old.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(-.45em)", filter: "blur(6px)" }], { duration: 450, easing: "ease-in", fill: "forwards" }).onfinish = function () { old.remove(); };
-    } else if (old) old.remove();
+    $$(".ch", neu).forEach(function (c, i) {
+      c.animate([
+        { opacity: 0, transform: "translateY(.6em) rotateX(-90deg)", filter: "blur(5px)" },
+        { opacity: 1, transform: "none", filter: "blur(0)" }
+      ], { duration: 760, delay: 160 + i * 34, easing: "cubic-bezier(.2,1.35,.4,1)", fill: "backwards" });
+    });
+    var oc = $$(".ch", old), last = null;
+    if (!oc.length) oc = [old];
+    oc.forEach(function (c, i) {
+      last = c.animate([
+        { opacity: 1, transform: "none", filter: "blur(0)" },
+        { opacity: 0, transform: "translateY(-.5em) rotateX(80deg)", filter: "blur(5px)" }
+      ], { duration: 360, delay: i * 16, easing: "cubic-bezier(.5,0,.75,0)", fill: "forwards" });
+    });
+    if (last) last.onfinish = function () { old.remove(); };
   }
   if (heroScreen) {
     var di = 0, dtimer = null, dvisible = true;

@@ -19,7 +19,7 @@ services:
     environment:
       DATA_DIR: /data
       TZ: Europe/Budapest
-      APP_VERSION: "3.0.2"
+      APP_VERSION: "3.1.0"
       # Where new requests are handed over (the core Irányítópult app, internal port only)
       DASH_INGEST: http://adam-core-iranyitopult_web_1:9097/ingest
     volumes:

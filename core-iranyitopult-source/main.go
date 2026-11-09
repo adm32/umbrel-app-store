@@ -49,7 +49,7 @@ import (
 	"unicode/utf8"
 )
 
-const version = "1.6.0"
+const version = "1.6.1"
 
 //go:embed web
 var webFS embed.FS

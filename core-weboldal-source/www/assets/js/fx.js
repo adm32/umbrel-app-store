@@ -138,16 +138,39 @@
     once.observe(plans);
   }
 
+  /* ---------- Phones and tablets: a ripple where you tap a button or link ---------- */
+  if (!finePointer) {
+    var TAP = 'a, button, label, summary, input, select, [role="button"], [data-planner], .chip, .opt';
+    document.addEventListener("click", function (e) {
+      if (!e.isTrusted || (e.clientX === 0 && e.clientY === 0)) return; // keyboard "clicks" have no position
+      var t = e.target.closest && e.target.closest(TAP);
+      if (!t) return;
+      var host = t.closest("dialog[open]") || document.body;
+      var r = document.createElement("span");
+      r.className = "tap"; r.setAttribute("aria-hidden", "true");
+      r.style.left = e.clientX + "px"; r.style.top = e.clientY + "px";
+      host.appendChild(r);
+      var an = r.animate([
+        { transform: "translate(-50%,-50%) scale(.25)", opacity: 0.9 },
+        { transform: "translate(-50%,-50%) scale(1)", opacity: 0 }
+      ], { duration: 520, easing: "cubic-bezier(.22,1,.36,1)" });
+      an.onfinish = function () { r.remove(); };
+      setTimeout(function () { if (r.parentNode) r.remove(); }, 900);
+      // a tiny buzz on Android for the main buttons (iPhones ignore this)
+      if (navigator.vibrate && t.matches(".btn, [data-planner], button")) { try { navigator.vibrate(8); } catch (x) { /* ignore */ } }
+    }, true);
+  }
+
   if (!finePointer) return;
 
   /* ---------- Desktop only: pointer effects ---------- */
-  // a small glow on the cursor with a short tail that follows it and fades
+  // a short white tail that follows the cursor and fades (no dot on the cursor itself)
   (function () {
     var cv = document.createElement("canvas"), cx = cv.getContext("2d");
     if (!cx) return;
     cv.className = "trail"; cv.setAttribute("aria-hidden", "true");
     document.body.appendChild(cv);
-    var dpr = 1, W = 0, H = 0, pts = [], head = null, on = false, raf = 0, LIFE = 280;
+    var dpr = 1, W = 0, H = 0, pts = [], raf = 0, LIFE = 300;
     function size() {
       dpr = Math.min(2, window.devicePixelRatio || 1); W = window.innerWidth; H = window.innerHeight;
       cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0); kick();
@@ -158,20 +181,18 @@
       var now = performance.now();
       while (pts.length && now - pts[0].t > LIFE) pts.shift();
       cx.clearRect(0, 0, W, H);
-      if (!on || !head) return;
-      // tail: segments get thinner and fainter towards the end
+      if (pts.length < 2) return;
+      cx.lineCap = "round";
+      // a faint shadow keeps the white tail visible on the light parts of the page
+      cx.shadowColor = "rgba(60,30,10,.28)"; cx.shadowBlur = 4;
       for (var i = 1; i < pts.length; i++) {
         var a = pts[i - 1], b = pts[i], k = 1 - (now - b.t) / LIFE;
         if (k <= 0) continue;
-        cx.strokeStyle = "rgba(238,125,70," + (k * 0.55).toFixed(3) + ")";
-        cx.lineWidth = 1 + k * 5; cx.lineCap = "round";
+        cx.strokeStyle = "rgba(255,255,255," + (k * 0.85).toFixed(3) + ")";
+        cx.lineWidth = 0.8 + k * 4.2;
         cx.beginPath(); cx.moveTo(a.x, a.y); cx.lineTo(b.x, b.y); cx.stroke();
       }
-      // head: a soft glow with a bright centre
-      var g = cx.createRadialGradient(head.x, head.y, 0, head.x, head.y, 16);
-      g.addColorStop(0, "rgba(248,180,76,.55)"); g.addColorStop(.35, "rgba(238,125,70,.28)"); g.addColorStop(1, "rgba(238,125,70,0)");
-      cx.fillStyle = g; cx.beginPath(); cx.arc(head.x, head.y, 16, 0, 6.2832); cx.fill();
-      if (pts.length > 1) kick(); // keep animating until the tail has faded
+      kick(); // until the tail has faded
     }
     document.addEventListener("pointermove", function (e) {
       if (e.pointerType && e.pointerType !== "mouse") return;
@@ -180,10 +201,11 @@
       var now = performance.now();
       list.forEach(function (c) { pts.push({ x: c.clientX, y: c.clientY, t: Math.min(now, c.timeStamp || now) }); });
       if (pts.length > 80) pts.splice(0, pts.length - 80);
-      head = { x: e.clientX, y: e.clientY }; on = true; kick();
+      kick();
     }, { passive: true });
-    document.addEventListener("mouseout", function (e) { if (!e.relatedTarget) { on = false; pts = []; kick(); } });
-    window.addEventListener("blur", function () { on = false; pts = []; kick(); });
+    var clear = function () { pts = []; kick(); };
+    document.addEventListener("mouseout", function (e) { if (!e.relatedTarget) clear(); });
+    window.addEventListener("blur", clear);
     window.addEventListener("resize", size);
     size();
   })();

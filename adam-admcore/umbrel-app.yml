@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: Zala Studio (zalastudio.hu)
-version: "3.2.1"
+version: "3.2.2"
 tagline: Zala Studio – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -33,4 +33,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Számítógépen a nyitókép nagy, kurzort követő fénye helyett most egy kis izzó pont követi az egeret, rövid, elhalványuló csóvával – az egész oldalon. Telefonon és tableten nincs változás.
+  A telefonszám mindenhonnan lekerült: a hívás gombok helyén e-mail gomb van (fejléc, alsó sáv), a hibaüzenetek, a fizetési oldalak, az impresszum és az ÁSZF az info@zalastudio.hu címet adják meg. Számítógépen a kurzor csóvája fehér, a pont nélkül. Telefonon és tableten a gombok és linkek koppintásra finom hullámmal válaszolnak (Androidon egy pici rezgéssel). „Zala vármegye” helyett „Zala megye”.

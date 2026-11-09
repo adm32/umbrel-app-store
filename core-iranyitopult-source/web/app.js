@@ -472,9 +472,9 @@
   function leadHTML(l) {
     var t = P && P.TYPES[l.type], st = P && P.STYLES[l.style];
     var hi = firstName(l.name) ? "Szia " + firstName(l.name) + "!" : "Szia!";
-    var smsBody = l.demoUrl ? hi + " Elkészült a(z) " + (l.business || "vállalkozásod") + " weboldalának bemutatója: " + l.demoUrl + " – Orosz Ádám, Zala Studio, +36 20 328 2840" : hi + " Orosz Ádám vagyok a Zala Studiótól, a weboldal miatt írok. Mikor tudnánk pár percet beszélni? +36 20 328 2840";
+    var smsBody = l.demoUrl ? hi + " Elkészült a(z) " + (l.business || "vállalkozásod") + " weboldalának bemutatója: " + l.demoUrl + " – Orosz Ádám, Zala Studio" : hi + " Orosz Ádám vagyok a Zala Studiótól, a weboldal miatt írok. Mikor tudnánk pár percet beszélni?";
     var mailSubj = "Weboldal bemutató – " + (l.business || l.name);
-    var mailBody = hi + "\n\nKöszönöm az érdeklődésed. " + (l.demoUrl ? "Elkészült a bemutató, itt nézheted meg a telefonodon: " + l.demoUrl : "Hamarosan elkészül a bemutató, és elküldöm a linkjét.") + "\n\nÜdv:\nOrosz Ádám\nZala Studio · zalastudio.hu\n+36 20 328 2840";
+    var mailBody = hi + "\n\nKöszönöm az érdeklődésed. " + (l.demoUrl ? "Elkészült a bemutató, itt nézheted meg a telefonodon: " + l.demoUrl : "Hamarosan elkészül a bemutató, és elküldöm a linkjét.") + "\n\nÜdv:\nOrosz Ádám\nZala Studio · zalastudio.hu";
     var h = '<div class="hero2">' + avatar(l, true) + "<div><h3>" + esc(l.business || l.name) + "</h3><p>" + esc([l.name, l.city].filter(Boolean).join(" · ")) + "</p></div></div>";
     h += '<div class="acts">' +
       '<a class="act" href="' + telHref(l.phone) + '" aria-disabled="' + !l.phone + '">' + ICON(I.phone) + "Hívás</a>" +
@@ -695,10 +695,10 @@
     if (!p) return;
     var link = p.code ? payLink(p) : "", who = l.business || "a weboldal";
     var hi = firstName(l.name) ? "Szia " + firstName(l.name) + "!" : "Szia!";
-    var smsTxt = hi + " Itt tudod elindítani a(z) " + who + " előfizetését (" + num(p.amount) + " Ft/" + (p.interval === "year" ? "év" : "hó") + "): " + link + " – Orosz Ádám, Zala Studio, +36 20 328 2840";
+    var smsTxt = hi + " Itt tudod elindítani a(z) " + who + " előfizetését (" + num(p.amount) + " Ft/" + (p.interval === "year" ? "év" : "hó") + "): " + link + " – Orosz Ádám, Zala Studio";
     var sms = $("#pySms", body); if (sms) sms.href = "sms:" + String(l.phone || "").replace(/[^\d+]/g, "") + "?&body=" + encodeURIComponent(smsTxt);
     var mail = $("#pyMail", body);
-    if (mail) mail.href = "mailto:" + encodeURIComponent(l.email || "") + "?subject=" + encodeURIComponent("Előfizetés indítása – " + who) + "&body=" + encodeURIComponent(hi + "\n\nKöszönöm, hogy minket választottál. Ezen a linken tudod elindítani az előfizetést, bankkártyával, Apple Pay-jel vagy Google Pay-jel:\n" + link + "\n\n" + (p.setup ? "Most " + num(p.amount + p.setup) + " Ft-ot fizetsz (benne az egyszeri beállítás), utána " : "Utána ") + (p.interval === "year" ? "évente " : "havonta ") + num(p.amount) + " Ft-ot vonunk le automatikusan. Minden befizetésről számlát küldünk.\n\nÜdv:\nOrosz Ádám\nZala Studio · zalastudio.hu\n+36 20 328 2840");
+    if (mail) mail.href = "mailto:" + encodeURIComponent(l.email || "") + "?subject=" + encodeURIComponent("Előfizetés indítása – " + who) + "&body=" + encodeURIComponent(hi + "\n\nKöszönöm, hogy minket választottál. Ezen a linken tudod elindítani az előfizetést, bankkártyával, Apple Pay-jel vagy Google Pay-jel:\n" + link + "\n\n" + (p.setup ? "Most " + num(p.amount + p.setup) + " Ft-ot fizetsz (benne az egyszeri beállítás), utána " : "Utána ") + (p.interval === "year" ? "évente " : "havonta ") + num(p.amount) + " Ft-ot vonunk le automatikusan. Minden befizetésről számlát küldünk.\n\nÜdv:\nOrosz Ádám\nZala Studio · zalastudio.hu");
     var cp = $("#pyCopy", body);
     if (cp) cp.addEventListener("click", function () {
       var done = function () { haptic(); toast("Link kimásolva"); };

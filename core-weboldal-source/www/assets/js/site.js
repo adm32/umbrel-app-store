@@ -594,7 +594,7 @@
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && j.ok, msg: j.message }; }); })
       .then(function (res) {
         clearTimeout(timer); sending = false; el.next.classList.remove("is-loading"); el.next.disabled = false;
-        if (!res.ok) { el.errContact.textContent = (res.msg || "Most nem sikerült elküldeni.") + " Hívj minket: +36 20 328 2840."; return; }
+        if (!res.ok) { el.errContact.textContent = (res.msg || "Most nem sikerült elküldeni.") + " Írj nekünk: info@zalastudio.hu."; return; }
         track("cfg_sent", { plan: data.csomag });
         store.del(DRAFT);
         var first = nev.split(/\s+/).pop();
@@ -604,7 +604,7 @@
       })
       .catch(function () {
         clearTimeout(timer); sending = false; el.next.classList.remove("is-loading"); el.next.disabled = false;
-        el.errContact.textContent = "Nem sikerült elküldeni. Ellenőrizd az internetkapcsolatot, vagy hívj minket: +36 20 328 2840.";
+        el.errContact.textContent = "Nem sikerült elküldeni. Ellenőrizd az internetkapcsolatot, vagy írj nekünk: info@zalastudio.hu.";
       });
   }
   function confetti() {

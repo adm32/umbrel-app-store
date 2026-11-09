@@ -62,13 +62,13 @@ func payShell(w http.ResponseWriter, code int, title, inner string) {
 <meta name="theme-color" content="#15110E" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/site.css?v=17">
+<link rel="stylesheet" href="/assets/css/site.css?v=19">
 </head>
 <body class="paypage">
 <header class="head is-scrolled">
   <div class="wrap head__in">
     <a class="brand" href="/" aria-label="Zala Studio – főoldal"><img src="/assets/logo/zala-mark.svg" alt="" width="36" height="36"><b>zala<span class="serif">studio</span></b></a>
-    <a class="back" href="tel:+36203282840">+36 20 328 2840</a>
+    <a class="back" href="mailto:info@zalastudio.hu">info@zalastudio.hu</a>
   </div>
 </header>
 <main class="doc"><div class="wrap">`+inner+`</div></main>
@@ -123,7 +123,7 @@ func stateMessage(w http.ResponseWriter, info payInfo) {
 		payMessage(w, 200, "Ez az előfizetés már él", "Köszönjük, a fizetés korábban megtörtént. A kártyádat és a számláidat itt kezelheted:", true,
 			`<a class="btn btn--ghost" href="/elofizetes">Előfizetés kezelése</a>`)
 	default:
-		payMessage(w, 410, "Ez a fizetési link lejárt", "Kérj új linket: hívj minket a <a href=\"tel:+36203282840\">+36 20 328 2840</a> számon, vagy írj az <a href=\"mailto:info@zalastudio.hu\">info@zalastudio.hu</a> címre.", false, "")
+		payMessage(w, 410, "Ez a fizetési link lejárt", "Kérj új linket: írj az <a href=\"mailto:info@zalastudio.hu\">info@zalastudio.hu</a> címre.", false, "")
 	}
 }
 
@@ -166,7 +166,7 @@ func payForm(w http.ResponseWriter, code int, info payInfo, errMsg string) {
 	b.WriteString(`<label class="pay__ok"><input type="checkbox" name="elfogadom" value="igen" required><span>Elolvastam és elfogadom az <a href="/aszf.html" target="_blank" rel="noopener">általános szerződési feltételeket</a>, és hozzájárulok, hogy a díjat ` + adv + ` automatikusan levonják a kártyámról.</span></label>`)
 	b.WriteString(`<button class="btn btn--primary btn--lg pay__go" type="submit"><span>Tovább a biztonságos fizetéshez</span>` + arrowSVG + `</button>`)
 	b.WriteString(`<p class="pay__safe">` + lockSVG + `<span>A fizetés a Stripe oldalán történik. A kártyaadataidat mi nem látjuk és nem tároljuk.</span></p></form>`)
-	b.WriteString(`<p class="pay__fine">Szolgáltató: Zala Studio (<a href="/adatvedelem.html#impresszum">impresszum</a>) · <a href="/aszf.html">ÁSZF</a> · <a href="/adatvedelem.html">Adatvédelem</a> · Kérdésed van? <a href="tel:+36203282840">+36 20 328 2840</a></p></article>`)
+	b.WriteString(`<p class="pay__fine">Szolgáltató: Zala Studio (<a href="/adatvedelem.html#impresszum">impresszum</a>) · <a href="/aszf.html">ÁSZF</a> · <a href="/adatvedelem.html">Adatvédelem</a> · Kérdésed van? <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a></p></article>`)
 	payShell(w, code, "Előfizetés indítása", b.String())
 }
 
@@ -177,7 +177,7 @@ func payPage(w http.ResponseWriter, r *http.Request, rest string) {
 	}
 	code := strings.ToUpper(strings.TrimSpace(rest))
 	if !payCodeRe.MatchString(code) {
-		payMessage(w, 404, "A fizetési link nem érvényes", "Ellenőrizd, hogy a teljes linket nyitottad-e meg. Ha nem megy, hívj minket: <a href=\"tel:+36203282840\">+36 20 328 2840</a>.", false, "")
+		payMessage(w, 404, "A fizetési link nem érvényes", "Ellenőrizd, hogy a teljes linket nyitottad-e meg. Ha nem megy, írj nekünk: <a href=\"mailto:info@zalastudio.hu\">info@zalastudio.hu</a>.", false, "")
 		return
 	}
 	if r.Method != "GET" && r.Method != "HEAD" && r.Method != "POST" {
@@ -191,11 +191,11 @@ func payPage(w http.ResponseWriter, r *http.Request, rest string) {
 	}
 	st, info, err := dashPay("GET", code, nil)
 	if err != nil || st >= 500 {
-		payMessage(w, 503, "A fizetés most nem érhető el", "Próbáld újra néhány perc múlva, vagy hívj minket: <a href=\"tel:+36203282840\">+36 20 328 2840</a>.", false, "")
+		payMessage(w, 503, "A fizetés most nem érhető el", "Próbáld újra néhány perc múlva, vagy írj nekünk: <a href=\"mailto:info@zalastudio.hu\">info@zalastudio.hu</a>.", false, "")
 		return
 	}
 	if st == 404 {
-		payMessage(w, 404, "A fizetési link nem érvényes", "Lehet, hogy már visszavontuk, vagy elírás van benne. Hívj minket, és küldünk újat: <a href=\"tel:+36203282840\">+36 20 328 2840</a>.", false, "")
+		payMessage(w, 404, "A fizetési link nem érvényes", "Lehet, hogy már visszavontuk, vagy elírás van benne. Írj nekünk, és küldünk újat: <a href=\"mailto:info@zalastudio.hu\">info@zalastudio.hu</a>.", false, "")
 		return
 	}
 	if info.State != "pending" {
@@ -222,7 +222,7 @@ func payPage(w http.ResponseWriter, r *http.Request, rest string) {
 	u, perr := url.Parse(res.URL)
 	if err != nil || st != 200 || !res.OK || perr != nil || (u.Scheme != "https" && u.Scheme != "http") {
 		log.Printf("pay %s: checkout failed (%d) %s", code, st, res.Error)
-		payForm(w, 502, info, "A fizetési oldal most nem nyílt meg. Próbáld újra pár perc múlva, vagy hívj minket.")
+		payForm(w, 502, info, "A fizetési oldal most nem nyílt meg. Próbáld újra pár perc múlva, vagy írj nekünk: info@zalastudio.hu.")
 		return
 	}
 	w.Header().Set("Location", res.URL)
@@ -267,5 +267,5 @@ func portalRedirect(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(303)
 		return
 	}
-	payMessage(w, 200, "Előfizetés kezelése", "Kártyacseréhez, számlamásolathoz vagy bármilyen kérdéshez hívj minket a <a href=\"tel:+36203282840\">+36 20 328 2840</a> számon, vagy írj az <a href=\"mailto:info@zalastudio.hu\">info@zalastudio.hu</a> címre.", false, "")
+	payMessage(w, 200, "Előfizetés kezelése", "Kártyacseréhez, számlamásolathoz vagy bármilyen kérdéshez írj az <a href=\"mailto:info@zalastudio.hu\">info@zalastudio.hu</a> címre.", false, "")
 }

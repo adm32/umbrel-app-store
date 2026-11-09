@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-core-iranyitopult
 category: automation
 name: Zala Studio Irányítópult
-version: "1.6.0"
+version: "1.6.1"
 tagline: Érdeklődők és látogatók a zalastudio.hu-ról, értesítéssel
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-core-iranyitopult/icon.svg
 description: >-
@@ -33,4 +33,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Ha egy érdeklődő elfogadta a weboldal sütijét, a lapján új „Az oldalon” rész mutatja, mikor járt ott először, honnan jött, hányszor látogatott vissza, és lépésről lépésre mit nézett meg a kérés előtt. A Látogatók fülön új kártya: hányan fogadták el vagy utasították el a sütit, és hányan térnek vissza. Ehhez a Zala Studio weboldal app 3.2.0-s verziója kell.
+  Az ügyfeleknek küldött SMS- és e-mail-sablonokból (bemutató, előfizetés) lekerült a telefonszám.

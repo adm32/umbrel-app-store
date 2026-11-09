@@ -141,12 +141,52 @@
   if (!finePointer) return;
 
   /* ---------- Desktop only: pointer effects ---------- */
-  // glow that follows the cursor in the hero
-  if (hero) hero.addEventListener("pointermove", function (e) {
-    var r = hero.getBoundingClientRect();
-    hero.style.setProperty("--hx", (e.clientX - r.left) + "px");
-    hero.style.setProperty("--hy", (e.clientY - r.top) + "px");
-  });
+  // a small glow on the cursor with a short tail that follows it and fades
+  (function () {
+    var cv = document.createElement("canvas"), cx = cv.getContext("2d");
+    if (!cx) return;
+    cv.className = "trail"; cv.setAttribute("aria-hidden", "true");
+    document.body.appendChild(cv);
+    var dpr = 1, W = 0, H = 0, pts = [], head = null, on = false, raf = 0, LIFE = 280;
+    function size() {
+      dpr = Math.min(2, window.devicePixelRatio || 1); W = window.innerWidth; H = window.innerHeight;
+      cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0); kick();
+    }
+    function kick() { if (!raf) raf = requestAnimationFrame(draw); }
+    function draw() {
+      raf = 0;
+      var now = performance.now();
+      while (pts.length && now - pts[0].t > LIFE) pts.shift();
+      cx.clearRect(0, 0, W, H);
+      if (!on || !head) return;
+      // tail: segments get thinner and fainter towards the end
+      for (var i = 1; i < pts.length; i++) {
+        var a = pts[i - 1], b = pts[i], k = 1 - (now - b.t) / LIFE;
+        if (k <= 0) continue;
+        cx.strokeStyle = "rgba(238,125,70," + (k * 0.55).toFixed(3) + ")";
+        cx.lineWidth = 1 + k * 5; cx.lineCap = "round";
+        cx.beginPath(); cx.moveTo(a.x, a.y); cx.lineTo(b.x, b.y); cx.stroke();
+      }
+      // head: a soft glow with a bright centre
+      var g = cx.createRadialGradient(head.x, head.y, 0, head.x, head.y, 16);
+      g.addColorStop(0, "rgba(248,180,76,.55)"); g.addColorStop(.35, "rgba(238,125,70,.28)"); g.addColorStop(1, "rgba(238,125,70,0)");
+      cx.fillStyle = g; cx.beginPath(); cx.arc(head.x, head.y, 16, 0, 6.2832); cx.fill();
+      if (pts.length > 1) kick(); // keep animating until the tail has faded
+    }
+    document.addEventListener("pointermove", function (e) {
+      if (e.pointerType && e.pointerType !== "mouse") return;
+      var list = e.getCoalescedEvents ? e.getCoalescedEvents() : [];
+      if (!list.length) list = [e];
+      var now = performance.now();
+      list.forEach(function (c) { pts.push({ x: c.clientX, y: c.clientY, t: Math.min(now, c.timeStamp || now) }); });
+      if (pts.length > 80) pts.splice(0, pts.length - 80);
+      head = { x: e.clientX, y: e.clientY }; on = true; kick();
+    }, { passive: true });
+    document.addEventListener("mouseout", function (e) { if (!e.relatedTarget) { on = false; pts = []; kick(); } });
+    window.addEventListener("blur", function () { on = false; pts = []; kick(); });
+    window.addEventListener("resize", size);
+    size();
+  })();
   // glow inside the perk tiles
   $$(".perk").forEach(function (c) {
     c.addEventListener("pointermove", function (e) {

@@ -172,7 +172,7 @@
     if (!cx) return;
     cv.className = "trail"; cv.setAttribute("aria-hidden", "true");
     document.body.appendChild(cv);
-    var dpr = 1, W = 0, H = 0, pts = [], raf = 0, LIFE = 320, WIDTH = 3.2, ALPHA = 0.3;
+    var dpr = 1, W = 0, H = 0, pts = [], raf = 0, LIFE = 280, WIDTH = 2.6, ALPHA = 0.22;
     function size() {
       dpr = Math.min(2, window.devicePixelRatio || 1); W = window.innerWidth; H = window.innerHeight;
       cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0); kick();
@@ -223,7 +223,6 @@
       g.addColorStop(0, "rgba(255,255,255,0)");
       g.addColorStop(1, "rgba(255,255,255," + (ALPHA * (0.5 + 0.5 * fresh)).toFixed(3) + ")");
       cx.fillStyle = g;
-      cx.shadowColor = "rgba(60,30,10,.12)"; cx.shadowBlur = 3; // just enough to see it on light parts
       cx.fill();
       kick(); // until the tail has faded
     }

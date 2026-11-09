@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: Zala Studio (zalastudio.hu)
-version: "3.2.3"
+version: "3.2.4"
 tagline: Zala Studio – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -33,4 +33,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  A kurzor csóvája simább és visszafogottabb lett: egyetlen, folyamatosan elvékonyodó, halvány fehér ív, töréspontok nélkül.
+  A kurzor csóvája még visszafogottabb: vékonyabb, halványabb, és „világosító” módban keveredik az oldallal, így a sötét részeken finom fénycsíkként látszik, a világos részeken pedig szinte beleolvad.

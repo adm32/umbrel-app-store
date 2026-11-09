@@ -185,12 +185,10 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .orb--b { width: 95vmax; height: 95vmax; right: -50vmax; top: 18%; background: radial-gradient(closest-side, rgba(242, 178, 89, .3), rgba(242, 178, 89, 0)); animation: orbB 19s ease-in-out infinite alternate; }
 @keyframes orbA { to { transform: translate(16vmax, 12vmax) scale(1.08); } }
 @keyframes orbB { to { transform: translate(-12vmax, -14vmax) scale(.9); } }
-/* the Zala river from the logo: slow waves across the hero */
-.waves { position: absolute; left: 0; bottom: 4%; width: 200%; height: 200px; fill: none; stroke-width: 1.5; animation: flow 28s linear infinite; }
-.waves path { vector-effect: non-scaling-stroke; stroke: rgba(246, 164, 111, .26); }
-.waves path:nth-child(2) { stroke: rgba(246, 164, 111, .16); }
-.waves path:nth-child(3) { stroke: rgba(246, 164, 111, .09); }
-@keyframes flow { to { transform: translateX(-50%); } }
+/* the Zala river from the logo: a canvas current of fine strands and glints (assets/js/fx.js) */
+.river { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 46%; min-height: 240px; opacity: 0; transition: opacity 1.6s var(--ease);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 30%, #000 72%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 30%, #000 72%, transparent); }
+.river.is-on { opacity: 1; }
 
 .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 30px; align-items: center; }
 .hero__copy, .stage { min-width: 0; }
@@ -888,7 +886,7 @@ textarea.inp { min-height: 100px; resize: vertical; line-height: 1.5; }
 /* Phones: the same look with lighter motion (2D only, no blur, nothing moving behind the text) */
 @media (max-width: 699px) {
   .orb { animation: none; will-change: auto; }
-  .waves { display: none; }
+  .river { top: 90px; bottom: auto; height: 380px; min-height: 0; }
   .ch-in { animation-name: chInLite; animation-duration: .7s; animation-timing-function: cubic-bezier(.22, 1, .36, 1); animation-delay: calc(var(--c) * 30ms + 80ms); }
   .rot { perspective: none; }
   .device { transform: none; }

@@ -36,6 +36,105 @@
     splitWords(h);
   });
 
+  /* ---------- The river (hero background) ----------
+     The Zala from the logo, drawn as a living current: a band of fine strands that meander,
+     widen and narrow, with small glints drifting downstream. One canvas, one rAF loop; it
+     sleeps while the hero is off screen or the tab is hidden. Phones draw fewer strands at
+     30 fps. */
+  (function () {
+    var cv = document.getElementById("river");
+    if (!cv || !cv.getContext) return;
+    var cx = cv.getContext("2d"), W = 0, H = 0, dpr = 1, visible = true, raf = 0, last = 0, t0 = performance.now();
+    var N = phone ? 15 : 24;            // strands
+    var STEP = phone ? 14 : 10;         // px between points along a strand
+    var FPS = phone ? 30 : 60;
+    var strands = [], glints = [];
+    for (var i = 0; i < N; i++) {
+      var u = i / (N - 1) * 2 - 1;      // -1 … 1 across the band
+      strands.push({ u: u, ph: Math.random() * 6.28, k: 0.006 + Math.random() * 0.006, sp: 0.25 + Math.random() * 0.35, amp: 2 + Math.random() * 5,
+        a: (phone ? 1.6 : 1.25) * (0.05 + 0.2 * Math.pow(1 - Math.abs(u), 1.6)) });
+    }
+    function newGlint(g, anywhere) {
+      g.s = Math.floor(Math.random() * N); g.x = anywhere ? Math.random() * W : -20 - Math.random() * W * 0.3;
+      g.v = 18 + Math.random() * 30; g.r = 0.8 + Math.random() * 1.6; g.tw = Math.random() * 6.28; g.life = 0.6 + Math.random() * 0.4;
+      return g;
+    }
+    function size() {
+      var r = cv.getBoundingClientRect();
+      dpr = Math.min(phone ? 1.5 : 2, window.devicePixelRatio || 1);
+      W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var n = phone ? 16 : 34;
+      glints = []; for (var j = 0; j < n; j++) glints.push(newGlint({}, true));
+    }
+    // centre line and half-width of the river at x, time t (seconds)
+    function centre(x, t) {
+      return H * 0.52 + H * 0.16 * Math.sin(x * 0.0042 + t * 0.12) + H * 0.07 * Math.sin(x * 0.011 - t * 0.21 + 1.7);
+    }
+    function half(x, t) {
+      return H * (0.13 + 0.07 * Math.sin(x * 0.0035 - t * 0.09 + 0.6) + 0.03 * Math.sin(x * 0.013 + t * 0.17));
+    }
+    function y(s, x, t) {
+      return centre(x, t) + s.u * half(x, t) + s.amp * Math.sin(x * s.k + t * s.sp + s.ph);
+    }
+    function frame(now) {
+      raf = 0;
+      if (!visible || document.hidden) return;
+      raf = requestAnimationFrame(frame);
+      if (now - last < 1000 / FPS - 2) return;
+      var dt = Math.min(0.1, (now - (last || now)) / 1000); last = now;
+      var t = (now - t0) / 1000;
+      cx.clearRect(0, 0, W, H);
+      cx.globalCompositeOperation = "lighter";
+      // one warm gradient that fades out at both ends of the screen
+      var gr = cx.createLinearGradient(0, 0, W, 0);
+      gr.addColorStop(0, "rgba(246,164,111,0)");
+      gr.addColorStop(0.18, "rgba(246,164,111,1)");
+      gr.addColorStop(0.55, "rgba(248,186,104,1)");
+      gr.addColorStop(0.85, "rgba(238,125,70,1)");
+      gr.addColorStop(1, "rgba(238,125,70,0)");
+      cx.strokeStyle = gr; cx.lineCap = "round"; cx.lineJoin = "round";
+      for (var i = 0; i < N; i++) {
+        var s = strands[i];
+        cx.globalAlpha = s.a * (0.85 + 0.15 * Math.sin(t * 0.8 + s.ph)); // a slow shimmer
+        cx.lineWidth = Math.abs(s.u) < 0.25 ? 1.3 : 0.9;
+        cx.beginPath();
+        var x = -STEP, py = y(s, x, t);
+        cx.moveTo(x, py);
+        for (x = 0; x <= W + STEP; x += STEP) {
+          var ny = y(s, x, t), mx = x - STEP / 2;
+          cx.quadraticCurveTo(x - STEP, py, mx, (py + ny) / 2); // smooth through midpoints
+          py = ny;
+        }
+        cx.lineTo(W + STEP, py);
+        cx.stroke();
+      }
+      // glints: tiny lights carried by the current, twinkling
+      for (var g = 0; g < glints.length; g++) {
+        var q = glints[g];
+        q.x += q.v * dt * (0.8 + 0.4 * (1 - Math.abs(strands[q.s].u)));
+        if (q.x > W + 20) newGlint(q, false);
+        var gy = y(strands[q.s], q.x, t), edge = Math.min(1, q.x / (W * 0.15), (W - q.x) / (W * 0.15));
+        var al = Math.max(0, edge) * q.life * (0.35 + 0.65 * Math.abs(Math.sin(t * 1.6 + q.tw)));
+        if (al <= 0.01) continue;
+        var rg = cx.createRadialGradient(q.x, gy, 0, q.x, gy, q.r * 5);
+        rg.addColorStop(0, "rgba(255,236,210," + (al * 0.9).toFixed(3) + ")");
+        rg.addColorStop(0.3, "rgba(248,186,104," + (al * 0.35).toFixed(3) + ")");
+        rg.addColorStop(1, "rgba(248,186,104,0)");
+        cx.globalAlpha = 1; cx.fillStyle = rg;
+        cx.beginPath(); cx.arc(q.x, gy, q.r * 5, 0, 6.2832); cx.fill();
+      }
+      cx.globalAlpha = 1; cx.globalCompositeOperation = "source-over";
+    }
+    function start() { if (!raf && visible && !document.hidden) { last = 0; raf = requestAnimationFrame(frame); } }
+    size();
+    window.addEventListener("resize", function () { size(); start(); });
+    document.addEventListener("visibilitychange", start);
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; start(); }).observe(cv);
+    start();
+    requestAnimationFrame(function () { cv.classList.add("is-on"); });
+  })();
+
   /* ---------- Elements the scroll loop works on ---------- */
   var head = $("#head"), progress = $("#progress");
   var hero = $(".hero"), heroBg = $(".hero__bg"), heroCopy = $(".hero__copy"), device = $("#heroDevice");

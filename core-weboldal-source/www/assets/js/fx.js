@@ -164,34 +164,67 @@
   if (!finePointer) return;
 
   /* ---------- Desktop only: pointer effects ---------- */
-  // a short white tail that follows the cursor and fades (no dot on the cursor itself)
+  // a short, soft white tail that follows the cursor and fades (no dot on the cursor itself).
+  // The mouse points are smoothed with a Catmull-Rom spline and drawn as one tapered ribbon,
+  // so the tail bends smoothly instead of in straight pieces.
   (function () {
     var cv = document.createElement("canvas"), cx = cv.getContext("2d");
     if (!cx) return;
     cv.className = "trail"; cv.setAttribute("aria-hidden", "true");
     document.body.appendChild(cv);
-    var dpr = 1, W = 0, H = 0, pts = [], raf = 0, LIFE = 300;
+    var dpr = 1, W = 0, H = 0, pts = [], raf = 0, LIFE = 320, WIDTH = 3.2, ALPHA = 0.3;
     function size() {
       dpr = Math.min(2, window.devicePixelRatio || 1); W = window.innerWidth; H = window.innerHeight;
       cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0); kick();
     }
     function kick() { if (!raf) raf = requestAnimationFrame(draw); }
+    // Catmull-Rom: many small points between the recorded ones
+    function smooth(p) {
+      var out = [];
+      for (var i = 0; i < p.length - 1; i++) {
+        var p0 = p[i - 1] || p[i], p1 = p[i], p2 = p[i + 1], p3 = p[i + 2] || p2;
+        var n = Math.max(2, Math.min(14, Math.ceil(Math.hypot(p2.x - p1.x, p2.y - p1.y) / 2.5)));
+        for (var j = 0; j < n; j++) {
+          var t = j / n, t2 = t * t, t3 = t2 * t;
+          out.push({
+            x: 0.5 * (2 * p1.x + (-p0.x + p2.x) * t + (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t2 + (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t3),
+            y: 0.5 * (2 * p1.y + (-p0.y + p2.y) * t + (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t2 + (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t3)
+          });
+        }
+      }
+      out.push(p[p.length - 1]);
+      return out;
+    }
     function draw() {
       raf = 0;
       var now = performance.now();
       while (pts.length && now - pts[0].t > LIFE) pts.shift();
       cx.clearRect(0, 0, W, H);
-      if (pts.length < 2) return;
-      cx.lineCap = "round";
-      // a faint shadow keeps the white tail visible on the light parts of the page
-      cx.shadowColor = "rgba(60,30,10,.28)"; cx.shadowBlur = 4;
-      for (var i = 1; i < pts.length; i++) {
-        var a = pts[i - 1], b = pts[i], k = 1 - (now - b.t) / LIFE;
-        if (k <= 0) continue;
-        cx.strokeStyle = "rgba(255,255,255," + (k * 0.85).toFixed(3) + ")";
-        cx.lineWidth = 0.8 + k * 4.2;
-        cx.beginPath(); cx.moveTo(a.x, a.y); cx.lineTo(b.x, b.y); cx.stroke();
+      if (pts.length < 2) { if (pts.length) kick(); return; }
+      var s = smooth(pts), n = s.length, L = [], R = [];
+      // the tail gets shorter as it ages: newest point is the head, width tapers to 0 at the end
+      var fresh = Math.max(0, 1 - (now - pts[pts.length - 1].t) / LIFE);
+      for (var i = 0; i < n; i++) {
+        var a = s[Math.max(0, i - 1)], b = s[Math.min(n - 1, i + 1)];
+        var tx = b.x - a.x, ty = b.y - a.y, len = Math.hypot(tx, ty) || 1;
+        var w = WIDTH * 0.5 * Math.pow(i / (n - 1), 1.3) * (0.4 + 0.6 * fresh);
+        var nx = -ty / len * w, ny = tx / len * w;
+        L.push([s[i].x + nx, s[i].y + ny]); R.push([s[i].x - nx, s[i].y - ny]);
       }
+      cx.beginPath();
+      cx.moveTo(L[0][0], L[0][1]);
+      for (i = 1; i < n; i++) cx.lineTo(L[i][0], L[i][1]);
+      var h = s[n - 1], hw = Math.hypot(L[n - 1][0] - h.x, L[n - 1][1] - h.y);
+      var ang = Math.atan2(L[n - 1][1] - h.y, L[n - 1][0] - h.x);
+      cx.arc(h.x, h.y, hw, ang, ang + Math.PI, true); // rounded head
+      for (i = n - 1; i >= 0; i--) cx.lineTo(R[i][0], R[i][1]);
+      cx.closePath();
+      var g = cx.createLinearGradient(s[0].x, s[0].y, h.x, h.y);
+      g.addColorStop(0, "rgba(255,255,255,0)");
+      g.addColorStop(1, "rgba(255,255,255," + (ALPHA * (0.5 + 0.5 * fresh)).toFixed(3) + ")");
+      cx.fillStyle = g;
+      cx.shadowColor = "rgba(60,30,10,.12)"; cx.shadowBlur = 3; // just enough to see it on light parts
+      cx.fill();
       kick(); // until the tail has faded
     }
     document.addEventListener("pointermove", function (e) {
@@ -199,8 +232,12 @@
       var list = e.getCoalescedEvents ? e.getCoalescedEvents() : [];
       if (!list.length) list = [e];
       var now = performance.now();
-      list.forEach(function (c) { pts.push({ x: c.clientX, y: c.clientY, t: Math.min(now, c.timeStamp || now) }); });
-      if (pts.length > 80) pts.splice(0, pts.length - 80);
+      list.forEach(function (c) {
+        var last = pts[pts.length - 1];
+        if (last && Math.hypot(c.clientX - last.x, c.clientY - last.y) < 1.5) { last.t = Math.min(now, c.timeStamp || now); return; }
+        pts.push({ x: c.clientX, y: c.clientY, t: Math.min(now, c.timeStamp || now) });
+      });
+      if (pts.length > 60) pts.splice(0, pts.length - 60);
       kick();
     }, { passive: true });
     var clear = function () { pts = []; kick(); };

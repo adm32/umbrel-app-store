@@ -24,12 +24,12 @@
 <link rel="manifest" href="site.webmanifest">
 <link rel="preload" href="assets/fonts/geist.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="assets/fonts/instrument-serif-italic.woff" as="font" type="font/woff" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=25">
-<script src="assets/js/boot.js?v=25"></script>
-<script src="assets/js/preview.js?v=25" defer></script>
-<script src="assets/js/site.js?v=25" defer></script>
-<script src="/assets/js/consent.js?v=25" defer></script>
-<script src="assets/js/fx.js?v=25" defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=28">
+<script src="assets/js/boot.js?v=28"></script>
+<script src="assets/js/preview.js?v=28" defer></script>
+<script src="assets/js/site.js?v=28" defer></script>
+<script src="/assets/js/consent.js?v=28" defer></script>
+<script src="assets/js/fx.js?v=28" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -112,7 +112,7 @@
         <h1 class="enter" style="--i:0"><span class="sr">Weboldal a vállalkozásodnak.</span><span aria-hidden="true">Weboldal <span class="rot" id="heroWord"><span class="serif">az éttermednek.</span></span></span></h1>
         <p class="hero__lead enter" style="--i:1"><b>Előbb látod, utána fizetsz.</b> Ingyen elkészítjük a bemutatót. Ha tetszik, pár nap alatt élesítjük.</p>
         <div class="hero__cta enter" style="--i:2">
-          <a class="btn btn--primary btn--lg btn--shine" data-magnet href="#tervezes" data-planner data-src="hero"><span>Kérem az ingyenes bemutatót</span><svg><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--primary btn--lg btn--shine" href="#tervezes" data-planner data-src="hero"><span>Kérem az ingyenes bemutatót</span><svg><use href="#i-arrow"/></svg></a>
           <a class="btn btn--glass btn--lg hero__more" href="#munkaink">Munkáink</a>
         </div>
       </div>
@@ -330,7 +330,7 @@
             <h2 id="tervezes-h">Lásd a saját oldalad, <span class="serif">még ezen a héten.</span></h2>
             <p>Két perc, kötelezettség nélkül.</p>
             <div class="hearth__cta">
-              <a class="btn btn--primary btn--lg btn--shine" data-magnet href="#tervezes" data-planner data-src="also"><span>Tervezés indítása</span><svg><use href="#i-arrow"/></svg></a>
+              <a class="btn btn--primary btn--lg btn--shine" href="#tervezes" data-planner data-src="also"><span>Tervezés indítása</span><svg><use href="#i-arrow"/></svg></a>
             </div>
 
             <!-- Shown only when JavaScript is off -->
@@ -402,8 +402,7 @@
   <div class="wrap">
     <div class="foot__top">
       <a class="foot__brand" href="#top" aria-label="Zala Studio – az oldal teteje">
-        <img class="foot__logo foot__logo--light" src="assets/logo/zala-logo-light.svg" alt="Zala Studio" width="230" height="50">
-        <img class="foot__logo foot__logo--dark" src="assets/logo/zala-logo-dark.svg" alt="Zala Studio" width="230" height="50">
+        <picture><source srcset="assets/logo/zala-logo-dark.svg" media="(prefers-color-scheme: dark)"><img class="foot__logo" src="assets/logo/zala-logo-light.svg" alt="Zala Studio" width="230" height="50" loading="lazy" decoding="async"></picture>
       </a>
       <p>Weboldalak vállalkozásoknak, Zalaszentgrótról.</p>
     </div>

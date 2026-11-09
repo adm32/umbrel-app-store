@@ -32,6 +32,7 @@ package main
 
 import (
 	"bytes"
+	"compress/gzip"
 	"crypto/rand"
 	"crypto/sha256"
 	"embed"
@@ -212,6 +213,7 @@ type file struct {
 	data  []byte
 	etag  string
 	ctype string
+	gz    []byte // gzip version of text files (made once at start), nil when not worth it
 }
 
 var files = map[string]*file{}
@@ -245,7 +247,17 @@ func loadFiles() {
 		if ct == "" {
 			ct = "application/octet-stream"
 		}
-		files[strings.TrimPrefix(p, "www")] = &file{data: b, etag: `"` + hex.EncodeToString(sum[:8]) + `"`, ctype: ct}
+		f := &file{data: b, etag: `"` + hex.EncodeToString(sum[:8]) + `"`, ctype: ct}
+		if len(b) > 1024 && (strings.HasPrefix(ct, "text/") || strings.Contains(ct, "json") || strings.Contains(ct, "xml") || strings.Contains(ct, "svg")) {
+			var buf bytes.Buffer
+			zw, _ := gzip.NewWriterLevel(&buf, gzip.BestCompression)
+			zw.Write(b)
+			zw.Close()
+			if buf.Len() < len(b)*9/10 {
+				f.gz = buf.Bytes()
+			}
+		}
+		files[strings.TrimPrefix(p, "www")] = f
 		return nil
 	})
 }
@@ -261,17 +273,30 @@ func cacheFor(p string) string {
 	return "no-cache"
 }
 func serveFile(w http.ResponseWriter, r *http.Request, p string, f *file, code int) {
-	w.Header().Set("Content-Type", f.ctype)
-	w.Header().Set("Cache-Control", cacheFor(p))
-	w.Header().Set("ETag", f.etag)
-	if code == 200 && r.Header.Get("If-None-Match") == f.etag {
+	h := w.Header()
+	h.Set("Content-Type", f.ctype)
+	cc := cacheFor(p)
+	if strings.HasPrefix(p, "/assets/") && strings.HasPrefix(r.URL.RawQuery, "v=") {
+		cc = "public, max-age=31536000, immutable" // the ?v= changes with every release
+	}
+	h.Set("Cache-Control", cc)
+	body, etag := f.data, f.etag
+	if f.gz != nil {
+		h.Set("Vary", "Accept-Encoding")
+		if strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
+			body, etag = f.gz, strings.TrimSuffix(f.etag, `"`)+`-gz"`
+			h.Set("Content-Encoding", "gzip")
+		}
+	}
+	h.Set("ETag", etag)
+	if code == 200 && r.Header.Get("If-None-Match") == etag {
 		w.WriteHeader(304)
 		return
 	}
-	w.Header().Set("Content-Length", strconv.Itoa(len(f.data)))
+	h.Set("Content-Length", strconv.Itoa(len(body)))
 	w.WriteHeader(code)
 	if r.Method != "HEAD" {
-		w.Write(f.data)
+		w.Write(body)
 	}
 }
 func notFound(w http.ResponseWriter, r *http.Request) {
@@ -557,7 +582,7 @@ func saveOutbox() error { return writeJSON("outbox.json", outbox) }
 
 func errorPage(msg string) string {
 	esc := strings.NewReplacer("<", "", ">", "", "&", "")
-	return `<!doctype html><html lang="hu"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nem sikerült elküldeni</title><link rel="stylesheet" href="/assets/css/site.css?v=25"><main class="doc"><div class="wrap"><div class="doc__card center-card"><h1>Nem sikerült elküldeni</h1><p>` + esc.Replace(msg) + `</p><p>Írj nekünk: <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a></p><a class="btn btn--primary" href="/#tervezes">Vissza</a></div></div></main></html>`
+	return `<!doctype html><html lang="hu"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nem sikerült elküldeni</title><link rel="stylesheet" href="/assets/css/site.css?v=28"><main class="doc"><div class="wrap"><div class="doc__card center-card"><h1>Nem sikerült elküldeni</h1><p>` + esc.Replace(msg) + `</p><p>Írj nekünk: <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a></p><a class="btn btn--primary" href="/#tervezes">Vissza</a></div></div></main></html>`
 }
 
 func handleLead(w http.ResponseWriter, r *http.Request) {

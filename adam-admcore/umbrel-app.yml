@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: Zala Studio (zalastudio.hu)
-version: "3.4.0"
+version: "3.4.1"
 tagline: Zala Studio – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -33,4 +33,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Gyorsabb, simább oldal. Telefonon kb. harmadannyi a háttérmunka, görgetés közben fele annyi: a folyó kevesebb képkockával és olcsóbb rajzolással fut, a nem látható animációk megállnak, a görgetési effektek nem mérik újra az oldalt minden képkockánál. A gombok animációja gyors és könnyű lett (nincs lassan „utánamenő” gomb és árnyék-animáció). Androidon a nyitókép telefonján is lehet görgetni. A kurzor csóvája helyett kattintáskor kis hullám jelenik meg. A szöveges fájlokat a szerver tömörítve küldi, a verziózott fájlokat a böngésző egy évig megtartja, a logók kisebbek, és a láblécben csak egy logó töltődik le. Régi, már nem használt kód törölve.
+  iPhone-on a folyó nem villan el és a fénypontjai nem ugrálnak görgetés közben: eddig minden alkalommal újraindult, amikor a Safari címsora összement vagy kinyílt. Telefonon is 30 képkocka/másodperccel fut, simábban.

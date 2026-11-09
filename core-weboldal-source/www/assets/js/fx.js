@@ -47,7 +47,7 @@
     var cx = cv.getContext("2d"), W = 0, H = 0, dpr = 1, visible = true, raf = 0, last = 0, t0 = performance.now();
     var N = phone ? 13 : 20;            // strands
     var STEP = phone ? 22 : 18;         // px between points along a strand (curves smooth between them)
-    var FPS = phone ? 24 : 30;          // the river moves slowly: more frames would only cost battery
+    var FPS = 30;          // the river moves slowly: more frames would only cost battery
     var strands = [], glints = [], grad = null;
     for (var i = 0; i < N; i++) {
       var u = i / (N - 1) * 2 - 1;      // -1 … 1 across the band
@@ -67,10 +67,15 @@
       g.v = 18 + Math.random() * 30; g.r = 0.8 + Math.random() * 1.6; g.tw = Math.random() * 6.28; g.life = 0.6 + Math.random() * 0.4;
       return g;
     }
+    // Only when the river's own size changes. iOS Safari fires "resize" every time its address
+    // bar grows or shrinks during a scroll; resetting then made the river blink and the glints jump.
     function size() {
       var r = cv.getBoundingClientRect();
+      var w = Math.max(1, Math.round(r.width)), h = Math.max(1, Math.round(r.height));
+      if (w === W && h === H) return false;
+      var widthChanged = Math.abs(w - W) > 40;
       dpr = 1; // soft strands don't need retina pixels: a quarter of the work on phones
-      W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
+      W = w; H = h;
       cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cx.setTransform(dpr, 0, 0, dpr, 0, 0);
       // one warm gradient that fades out at both ends of the screen
       grad = cx.createLinearGradient(0, 0, W, 0);
@@ -79,8 +84,11 @@
       grad.addColorStop(0.55, "rgba(248,186,104,1)");
       grad.addColorStop(0.85, "rgba(238,125,70,1)");
       grad.addColorStop(1, "rgba(238,125,70,0)");
-      var n = phone ? 12 : 24;
-      glints = []; for (var j = 0; j < n; j++) glints.push(newGlint({}, true));
+      if (!glints.length || widthChanged) {
+        var n = phone ? 12 : 24;
+        glints = []; for (var j = 0; j < n; j++) glints.push(newGlint({}, true));
+      }
+      return true;
     }
     // centre line and half-width of the river at x, time t (seconds)
     function centre(x, t) {
@@ -97,6 +105,9 @@
       if (!visible || document.hidden) return;
       raf = requestAnimationFrame(frame);
       if (now - last < 1000 / FPS - 2) return;
+      paint(now);
+    }
+    function paint(now) {
       var dt = Math.min(0.1, (now - (last || now)) / 1000); last = now;
       var t = (now - t0) / 1000;
       cx.clearRect(0, 0, W, H);
@@ -132,7 +143,7 @@
     }
     function start() { if (!raf && visible && !document.hidden) { last = 0; raf = requestAnimationFrame(frame); } }
     size();
-    window.addEventListener("resize", function () { size(); start(); });
+    window.addEventListener("resize", function () { if (size()) paint(performance.now()); start(); });
     document.addEventListener("visibilitychange", start);
     if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; start(); }).observe(cv);
     start();

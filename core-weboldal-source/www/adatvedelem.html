@@ -11,7 +11,8 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="assets/css/site.css?v=15">
+<link rel="stylesheet" href="assets/css/site.css?v=16">
+<script src="/assets/js/consent.js?v=16" defer></script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
@@ -39,6 +40,7 @@
         <a href="#impresszum">Impresszum</a>
         <a href="#adatkezeles">Adatkezelés</a>
         <a href="#statisztika">Statisztika</a>
+        <a href="#sutik">Sütik</a>
         <a href="#jogok">A jogaid</a>
       </nav>
 
@@ -66,6 +68,7 @@
         <li><strong>Cél:</strong> hogy felvegyük veled a kapcsolatot, elkészítsük a bemutatót és az ajánlatot.</li>
         <li><strong>Jogalap:</strong> szerződés megkötését megelőző lépések a kérésedre (GDPR 6. cikk (1) bekezdés b) pont).</li>
         <li><strong>Tárolás:</strong> a kérés a szolgáltató saját szerverére kerül, nem külső felhőszolgáltatóhoz. Amíg a tervezőt töltöd, a válaszaidat a böngésződ ideiglenesen megjegyzi, hogy később folytathasd. Ez a te eszközödön marad, és küldés után törlődik.</li>
+        <li><strong>Ha engedélyezted a sütit:</strong> a kéréshez hozzácsatoljuk, hogyan találtál ránk: mikor jártál itt először, honnan érkeztél (például Google), hányszor látogattál vissza, és mely oldalakat, tervezőlépéseket nézted meg. Süti nélkül ez nem kerül a kéréshez.</li>
         <li><strong>Megőrzés:</strong> ha nem jön létre szerződés, legfeljebb 12 hónapig, utána töröljük. Ha létrejön, a szerződés ideje alatt és azt követően az általános elévülési időig (5 év).</li>
       </ul>
 
@@ -78,9 +81,10 @@
 
       <h3 id="statisztika">3. Látogatottsági statisztika</h3>
       <ul>
-        <li>A weboldal saját maga számolja, hány látogatója van, sütik nélkül. Nem tárolunk IP-címet, és nem követünk más oldalakon.</li>
+        <li>A weboldal saját maga számolja, hány látogatója van. Nem tárolunk IP-címet, és nem követünk más oldalakon.</li>
         <li>A látogatókat egy naponta cserélődő, visszafejthetetlen kóddal különböztetjük meg, így csak összesített számokat látunk (például hányan jártak itt egy napon, telefonról vagy számítógépről, a Google-ből vagy a Facebookról érkeztek-e, és hányan nyitották meg a tervezőt).</li>
         <li><strong>Jogalap:</strong> jogos érdek a weboldal fejlesztéséhez (GDPR 6. cikk (1) f) pont). A napi összesítéseket legfeljebb 13 hónapig őrizzük.</li>
+        <li>Ha a sütit engedélyezed, ezen felül a <a href="#sutik">Sütik</a> részben leírt adatokat is rögzítjük.</li>
       </ul>
 
       <h3>4. A weboldal működése</h3>
@@ -96,7 +100,19 @@
       <p>A Cloudflare és a Google az EU–USA adatvédelmi keretrendszer (Data Privacy Framework) alapján, illetve az Európai Bizottság általános szerződési feltételeivel biztosítja az adatok megfelelő védelmét, ha azok az Európai Unión kívülre kerülnek.</p>
 
       <h2 id="sutik">Sütik</h2>
-      <p>Ez az oldal nem használ sütiket, és nem tartalmaz reklám- vagy követőkódot (például Facebook-pixelt vagy Google Analyticset). A betűtípusok is erről a szerverről töltődnek be, nem a Google-től. Ezért nincs sütifigyelmeztetés sem.</p>
+      <p>Az oldal csak akkor használ látogatói sütit, ha az első látogatáskor megjelenő ablakban a „Rendben” gombot választod. Reklám- vagy követőkódot (például Facebook-pixelt vagy Google Analyticset) nem használunk, és a betűtípusok is erről a szerverről töltődnek be, nem a Google-től.</p>
+      <dl class="kv">
+        <div><dt>zs_c</dt><dd>Megjegyzi, mit választottál a süti-ablakban, hogy ne kérdezzük újra minden oldalon. A működéshez szükséges, ezért hozzájárulás nélkül is beállítjuk, amikor választasz. Lejárat: 12 hónap.</dd></div>
+        <div><dt>zs_id</dt><dd>Véletlenszerű azonosító, csak a hozzájárulásoddal. Ebből látjuk, ha visszatérsz. Lejárat: 13 hónap.</dd></div>
+      </dl>
+      <h3>Mit rögzítünk a sütivel</h3>
+      <ul>
+        <li><strong>Adatok:</strong> az első és a legutóbbi látogatás ideje, hogy honnan érkeztél először (például Google vagy Facebook), az első megnyitott oldal, az eszköz típusa (telefon, tablet, számítógép), a látogatások és oldalmegtekintések száma, valamint a megnézett oldalak és a tervezőben tett lépések időponttal (legfeljebb az utolsó 60).</li>
+        <li><strong>Cél:</strong> hogy lássuk, mennyien térnek vissza, és mi hasznos az oldalon; ha ajánlatot kérsz, hogy tudjuk, hogyan találtál ránk.</li>
+        <li><strong>Jogalap:</strong> a hozzájárulásod (GDPR 6. cikk (1) a) pont, az elektronikus hírközlésről szóló 2003. évi C. törvény 155. § (4) bekezdése).</li>
+        <li><strong>Tárolás és megőrzés:</strong> csak a saját szerverünkön, az utolsó látogatástól számított legfeljebb 13 hónapig. Senkinek nem adjuk át.</li>
+        <li><strong>Visszavonás:</strong> bármikor, ugyanolyan egyszerűen, mint a megadás: <button class="foot__ck" type="button" data-cookie-settings>Süti-beállítások</button> (minden oldal alján is megtalálod), majd „Nem kérem”. Ekkor az azonosítót és a hozzá tartozó adatokat töröljük. A böngésződben a sütiket magad is törölheted.</li>
+      </ul>
 
       <h2 id="jogok">A jogaid</h2>
       <p>Bármikor kérheted, hogy:</p>
@@ -117,7 +133,7 @@
 
 <footer class="foot foot--plain">
   <div class="wrap">
-    <div class="foot__bottom" style="margin-top:0;border-top:0;padding-top:0"><span>© 2026 Zala Studio</span><span>Sütik és követőkódok nélkül.</span><a class="back" href="index.html">Vissza a főoldalra</a></div>
+    <div class="foot__bottom" style="margin-top:0;border-top:0;padding-top:0"><span>© 2026 Zala Studio</span><button class="foot__ck" type="button" data-cookie-settings>Süti-beállítások</button><a class="back" href="index.html">Vissza a főoldalra</a></div>
   </div>
 </footer>
 </body>

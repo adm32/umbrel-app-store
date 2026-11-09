@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: Zala Studio (zalastudio.hu)
-version: "3.1.5"
+version: "3.2.0"
 tagline: Zala Studio – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -33,4 +33,4 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Telefonon javítva a nyitókép mintatelefonja: a keret jobb széle már nem vágódik le, és a példaoldalak váltásakor a régi és az új oldal nem csúszik egymásra (előbb eltűnik a régi, aztán jön az új). Az e-mail-cím mindenhol info@zalastudio.hu.
+  Süti-ablak: a látogató eldöntheti, hogy megjegyezhetjük-e („Rendben” vagy „Nem kérem”). Hozzájárulás esetén egy látogatói azonosító süti látja, ha valaki visszatér, és hogy mit nézett meg; ha bemutatót kér, ez a kéréssel együtt megjelenik az Irányítópultban. „Nem kérem” esetén nincs süti, a választás bármikor módosítható a „Süti-beállítások” linkkel minden oldal alján. Az adatvédelmi tájékoztató ennek megfelelően frissült.

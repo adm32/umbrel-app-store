@@ -142,10 +142,10 @@
   }
   function sum(n) {
     var days = (S.stats && S.stats.days) || {}, keys = dayKeys(n);
-    var r = { pv: 0, uv: 0, dev: {}, ref: {}, ev: {}, src: {} };
+    var r = { pv: 0, uv: 0, ck: 0, ret: 0, dev: {}, ref: {}, ev: {}, src: {} };
     keys.forEach(function (k) {
       var d = days[k]; if (!d) return;
-      r.pv += d.pv || 0; r.uv += d.uv || 0;
+      r.pv += d.pv || 0; r.uv += d.uv || 0; r.ck += d.ck || 0; r.ret += d.ret || 0;
       ["dev", "ref", "ev", "src"].forEach(function (g) { for (var x in (d[g] || {})) r[g][x] = (r[g][x] || 0) + d[g][x]; });
     });
     return r;
@@ -168,6 +168,46 @@
     return entries.map(function (e, i) {
       return '<div class="hbar"><span>' + esc(labels ? labels[e[0]] || e[0] : e[0]) + "</span><b>" + num(e[1]) + "<small>" + Math.round(e[1] / tot * 100) + '%</small></b><u><i style="width:' + (e[1] / max * 100) + "%;animation-delay:" + i * 60 + 'ms"></i></u></div>';
     }).join("");
+  }
+  var srcLabels = { hero: "Nyitóoldal gomb", fejlec: "Fejléc gomb", telefon: "Telefon alatti gomb", also: "Alsó sáv", dokk: "Mobil alsó gomb", lablec: "Lábléc", link: "Közvetlen link", "ar-nevjegy": "Ár: Névjegy", "ar-vallalkozas": "Ár: Vállalkozás", "ar-rendeles": "Ár: Rendelés", "ar-premium": "Ár: Prémium" };
+  function cookieHTML(m) {
+    var yes = m.ev.consent_yes || 0, no = m.ev.consent_no || 0, asked = yes + no, v = (S.stats && S.stats.visitors) || {};
+    var h = '<div class="hbar"><span>Elfogadta a sütit</span><b>' + num(yes) + "<small>" + (asked ? Math.round(yes / asked * 100) : 0) + '%</small></b><u><i style="width:' + (asked ? yes / asked * 100 : 0) + '%"></i></u></div>' +
+      '<div class="hbar"><span>Nem kérte</span><b>' + num(no) + "<small>" + (asked ? Math.round(no / asked * 100) : 0) + '%</small></b><u><i style="width:' + (asked ? no / asked * 100 : 0) + '%;background:var(--label3)"></i></u></div>';
+    h += '<dl class="kv" style="margin-top:10px"><dt>Egy korábbi nap után visszajött</dt><dd>' + num(m.ret) + "</dd><dt>Ismert látogatók</dt><dd>" + num(v.active30 || 0) + " (" + num(v.returning30 || 0) + " jött vissza)</dd></dl>";
+    return h + '<p class="note">Csak azokat látja, akik elfogadták a sütit. Ha ők kérnek bemutatót, az érdeklődőnél látod, hogyan találtak rád.</p>';
+  }
+  var PAGE_LAB = { "/": "Főoldal", "/index.html": "Főoldal", "/aszf.html": "ÁSZF", "/adatvedelem.html": "Adatvédelem", "/koszonom.html": "Köszönőoldal" };
+  var STEP_LAB = { type: "típus", name: "név és település", features: "funkciók", style: "stílus", situation: "jelenlegi oldal", contact: "elérhetőség", done: "kész" };
+  function shortTime(iso) {
+    var d = new Date(iso);
+    return isNaN(d) ? "" : d.toLocaleDateString("hu-HU", { month: "short", day: "numeric" }) + " " + d.toLocaleTimeString("hu-HU", { hour: "2-digit", minute: "2-digit" });
+  }
+  function stepText(s) {
+    switch (s.t) {
+      case "visit": return "<b>Látogatás</b>" + (s.v ? " · " + esc(s.v) : "");
+      case "pv": return "Megnézte: " + esc(PAGE_LAB[s.v] || s.v);
+      case "cfg_open": return "Megnyitotta a tervezőt" + (s.v ? " (" + esc(srcLabels[s.v] || s.v) + ")" : "");
+      case "cfg_step": return "Tervező: " + esc(STEP_LAB[s.v] || s.v);
+      case "cfg_preview": return "Megnézte az előnézetet";
+      case "cfg_sent": return "Elküldte a tervet";
+      case "call": return "A hívás gombra koppintott";
+      case "mail": return "Az e-mail gombra koppintott";
+      case "lead": return "<b>Elküldte a kérést</b>";
+    }
+    return esc(s.t);
+  }
+  function journeyHTML(j) {
+    if (!j) return "";
+    var days = j.first ? Math.floor((Date.now() - new Date(j.first)) / 864e5) : 0;
+    var h = '<div class="lbl">Az oldalon</div><div class="card"><dl class="kv">' +
+      "<dt>Először</dt><dd>" + (j.first ? fullDate(j.first) + (days > 0 ? " (" + days + " napja)" : "") : "–") + "</dd>" +
+      "<dt>Honnan</dt><dd>" + esc(j.source || "–") + "</dd>" +
+      "<dt>Látogatás</dt><dd>" + num(j.visits) + "×, " + num(j.views) + " oldalmegtekintés" + (j.device ? " · " + esc({ mobil: "telefon", asztali: "számítógép", tablet: "tablet" }[j.device] || j.device) : "") + "</dd></dl>";
+    if (j.trail && j.trail.length) h += '<ul class="timeline jtl">' + j.trail.slice().reverse().map(function (s) {
+      return '<li class="jt-' + esc(s.t) + '"><span>' + stepText(s) + "</span><span>" + shortTime(s.at) + "</span></li>";
+    }).join("") + "</ul>";
+    return h + "</div>";
   }
   function funnelHTML(r) {
     var steps = [
@@ -265,9 +305,9 @@
     h += '<div class="card"><h2 style="font-size:17px;margin-bottom:6px">Kattintások</h2>' + hbars(clicks, 0, 5) + "</div>";
     h += "</div>";
     h += '<div class="cols c2" style="margin-top:12px"><div class="card"><h2 style="font-size:17px;margin-bottom:6px">Tervező tölcsér, 30 nap</h2>' + funnelHTML(m) + "</div>";
-    var srcLabels = { hero: "Nyitóoldal gomb", fejlec: "Fejléc gomb", telefon: "Telefon alatti gomb", also: "Alsó sáv", dokk: "Mobil alsó gomb", lablec: "Lábléc", link: "Közvetlen link", "ar-nevjegy": "Ár: Névjegy", "ar-vallalkozas": "Ár: Vállalkozás", "ar-rendeles": "Ár: Rendelés", "ar-premium": "Ár: Prémium" };
     h += '<div class="card"><h2 style="font-size:17px;margin-bottom:6px">Melyik gombbal nyitották meg</h2>' + hbars(m.src, 0, 8, srcLabels) + "</div></div>";
-    h += '<p class="note" style="margin:14px 4px 0">A számlálás sütik nélkül működik: a weboldal nem tárol IP-címet, a látogatót csak egy naponta cserélődő, visszafejthetetlen kóddal különbözteti meg.</p>';
+    h += '<div class="card" style="margin-top:12px"><h2 style="font-size:17px;margin-bottom:6px">Sütik és visszatérők, 30 nap</h2>' + cookieHTML(m) + "</div>";
+    h += '<p class="note" style="margin:14px 4px 0">A napi számok mindenkit tartalmaznak: a weboldal nem tárol IP-címet, a látogatókat egy naponta cserélődő, visszafejthetetlen kóddal különbözteti meg. Visszatérőt és útvonalat csak annál lát, aki elfogadta a sütit.</p>';
     return h;
   }
   function sw(id, on) { return '<span class="sw"><input type="checkbox" id="' + id + '"' + (on ? " checked" : "") + '><i></i></span>'; }
@@ -463,6 +503,7 @@
       "<dt>Beérkezett</dt><dd>" + fullDate(l.created) + "</dd>" +
       "<dt>Honnan</dt><dd>" + (l.source === "kezi" ? "Kézzel felvéve" : l.source === "tervezo" ? "Tervező" + (l.device ? ", " + (l.device === "mobil" ? "telefonról" : "számítógépről") : "") : "Egyszerű űrlap") + "</dd></dl></div>";
     if (l.message) h += '<div class="lbl">Üzenet</div><div class="msg">' + esc(l.message) + "</div>";
+    h += journeyHTML(l.journey);
     h += '<div class="lbl">Bemutató linkje <em id="demoSaved">Mentve</em></div><div class="inrow"><input class="inp" id="demoUrl" type="url" inputmode="url" placeholder="pl. ' + esc((P ? P.slug(l.business || l.name) : "nev")) + '.admcore.hu" value="' + esc(l.demoUrl) + '"><a class="sbtn" id="demoOpen" style="display:grid;place-items:center" target="_blank" rel="noopener noreferrer" href="' + esc(l.demoUrl ? (/^https?:/.test(l.demoUrl) ? l.demoUrl : "https://" + l.demoUrl) : "#") + '">Megnyitás</a></div>';
     h += '<div class="lbl">Jegyzet <em id="noteSaved">Mentve</em></div><textarea class="inp" id="note" placeholder="Pl. kedden hívni, fotókat küld e-mailben…">' + esc(l.note) + "</textarea>";
     h += '<div class="lbl">Előzmények</div><div class="card"><ul class="timeline">' + (l.history || []).slice().reverse().map(function (x) {

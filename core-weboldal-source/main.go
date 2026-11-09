@@ -6,7 +6,8 @@
 //
 //	GET  /...                 the website
 //	POST /api/ajanlatkeres    request from the planner (JSON) or the no-JS form (urlencoded)
-//	POST /api/e               cookieless page statistics (counts only)
+//	POST /api/e               page statistics (counts; with cookie consent also a per-visitor record, see cookies.go)
+//	POST /api/consent         the visitor's cookie choice from the banner
 //	GET  /api/info            { spots, vat } – remaining launch-discount places, VAT wording
 //	GET  /fizetes/{kod}       payment page for a client (link sent from the Irányítópult)
 //	POST /fizetes/{kod}       accepts the terms, then redirects to Stripe Checkout
@@ -292,7 +293,7 @@ var (
 	}{Spots: 5, Vat: "brutto"}
 )
 
-// ---------- statistics (no cookies, no IP addresses stored) ----------
+// ---------- statistics (no IP addresses stored; cookies only with consent, see cookies.go) ----------
 
 type day struct {
 	PV    int            `json:"pv"`
@@ -302,6 +303,8 @@ type day struct {
 	Pages map[string]int `json:"pages"`
 	Ev    map[string]int `json:"ev"`
 	Src   map[string]int `json:"src"`
+	Ck    int            `json:"ck"`  // visitors who accepted cookies
+	Ret   int            `json:"ret"` // of those, the ones who were here on an earlier day
 }
 type statsFile struct {
 	Days map[string]*day `json:"days"`
@@ -408,12 +411,19 @@ func handleEvent(w http.ResponseWriter, r *http.Request) {
 	h := sha256.Sum256([]byte(salt() + "|" + ip + "|" + ua))
 	visitor := hex.EncodeToString(h[:8])
 	live[visitor] = time.Now()
+	known, returning := trackVisitor(r, e.T, firstNonEmpty(e.P, "/"), e.R, e.S, e.Src)
 	switch e.T {
 	case "pv":
 		d.PV++
 		if !seen[visitor] {
 			seen[visitor] = true
 			d.UV++
+			if known {
+				d.Ck++
+				if returning {
+					d.Ret++
+				}
+			}
 			dev := "asztali"
 			if tabletRe.MatchString(ua) || (androidRe.MatchString(ua) && !mobiRe.MatchString(ua)) {
 				dev = "tablet"
@@ -520,6 +530,7 @@ type Lead struct {
 	CallTime    string   `json:"callTime"`
 	Message     string   `json:"message"`
 	Device      string   `json:"device"`
+	Journey     *Journey `json:"journey,omitempty"`
 }
 type outItem struct {
 	Lead     Lead `json:"lead"`
@@ -546,7 +557,7 @@ func saveOutbox() error { return writeJSON("outbox.json", outbox) }
 
 func errorPage(msg string) string {
 	esc := strings.NewReplacer("<", "", ">", "", "&", "")
-	return `<!doctype html><html lang="hu"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nem sikerült elküldeni</title><link rel="stylesheet" href="/assets/css/site.css?v=15"><main class="doc"><div class="wrap"><div class="doc__card center-card"><h1>Nem sikerült elküldeni</h1><p>` + esc.Replace(msg) + `</p><p>Hívj minket: <a href="tel:+36203282840">+36 20 328 2840</a></p><a class="btn btn--primary" href="/#tervezes">Vissza</a></div></div></main></html>`
+	return `<!doctype html><html lang="hu"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nem sikerült elküldeni</title><link rel="stylesheet" href="/assets/css/site.css?v=16"><main class="doc"><div class="wrap"><div class="doc__card center-card"><h1>Nem sikerült elküldeni</h1><p>` + esc.Replace(msg) + `</p><p>Hívj minket: <a href="tel:+36203282840">+36 20 328 2840</a></p><a class="btn btn--primary" href="/#tervezes">Vissza</a></div></div></main></html>`
 }
 
 func handleLead(w http.ResponseWriter, r *http.Request) {
@@ -651,6 +662,7 @@ func handleLead(w http.ResponseWriter, r *http.Request) {
 		reply(422, "Add meg a vállalkozás nevét.")
 		return
 	}
+	l.Journey = journeyFor(r)
 	obMu.Lock()
 	outbox = append(outbox, &outItem{Lead: l})
 	err = saveOutbox()
@@ -805,6 +817,14 @@ func public(w http.ResponseWriter, r *http.Request) {
 		}
 		handleLead(w, r)
 		return
+	case "/api/consent":
+		if r.Method != "POST" {
+			w.Header().Set("Allow", "POST")
+			w.WriteHeader(405)
+			return
+		}
+		handleConsent(w, r)
+		return
 	case "/api/e":
 		if r.Method != "POST" {
 			w.Header().Set("Allow", "POST")
@@ -861,7 +881,8 @@ func internal(w http.ResponseWriter, r *http.Request) {
 	case r.URL.Path == "/stats" && r.Method == "GET":
 		stMu.Lock()
 		saveStats()
-		b, _ := json.Marshal(map[string]any{"days": stats.Days, "live": liveCount(), "today": dayKey(time.Now()), "spots": config.Spots})
+		saveVisitors()
+		b, _ := json.Marshal(map[string]any{"days": stats.Days, "live": liveCount(), "today": dayKey(time.Now()), "spots": config.Spots, "visitors": visitorSummary()})
 		stMu.Unlock()
 		w.Header().Set("Content-Type", "application/json")
 		w.Write(b)
@@ -928,6 +949,10 @@ func main() {
 	for _, s := range stats.Seen {
 		seen[s] = true
 	}
+	readJSON("visitors.json", &visitors)
+	if visitors == nil {
+		visitors = map[string]*Visitor{}
+	}
 	readJSON("outbox.json", &outbox)
 	if _, err := os.Stat(filepath.Join(dataDir, "uj-domain.txt")); err == nil {
 		newHostSeen.Store(true)
@@ -940,6 +965,7 @@ func main() {
 			flush()
 			stMu.Lock()
 			saveStats()
+			saveVisitors()
 			stMu.Unlock()
 		}
 	}()
@@ -954,6 +980,7 @@ func main() {
 		<-c
 		stMu.Lock()
 		saveStats()
+		saveVisitors()
 		stMu.Unlock()
 		os.Exit(0)
 	}()

@@ -564,6 +564,26 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   transform: translateY(110%); transition: transform .6s var(--spring);
 }
 .dock.is-on { transform: none; }
+
+/* ---------- Cookie banner (assets/js/consent.js) ---------- */
+.ck {
+  position: fixed; z-index: 60; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom));
+  max-width: 440px; padding: 16px 16px 14px; border-radius: 22px;
+  background: var(--card); color: var(--ink); box-shadow: var(--shadow-lg), 0 0 0 1px var(--line) inset;
+  font-size: 15px; line-height: 1.45;
+  opacity: 0; transform: translateY(16px); transition: opacity .3s var(--ease), transform .5s var(--ease);
+}
+.ck.is-in { opacity: 1; transform: none; }
+.ck p { margin: 0 0 12px; color: var(--ink-2); }
+.ck b { color: var(--ink); font-weight: 650; }
+.ck em { font-style: normal; color: var(--ink); }
+.ck a { color: var(--accent-text); font-weight: 600; }
+.ck__btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ck__b { --h: 46px; padding: 0 12px; font-size: 15.5px; background: var(--bg-2); color: var(--ink); box-shadow: 0 0 0 1px var(--line-2) inset; }
+.ck__b:hover { background: color-mix(in srgb, var(--ink) 8%, var(--bg-2)); }
+@media (min-width: 700px) { .ck { left: 20px; right: auto; bottom: 20px; } }
+@media (prefers-reduced-motion: reduce) { .ck { transition: none; transform: none; } }
+.foot__ck { background: none; border: 0; padding: 0; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
 .dock .btn--primary { flex: 1; }
 .dock__call { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: var(--card); box-shadow: 0 0 0 1.5px var(--line-2) inset; color: var(--ink); flex: none; transition: transform .4s var(--spring); }
 .dock__call:active { transform: scale(.92); }

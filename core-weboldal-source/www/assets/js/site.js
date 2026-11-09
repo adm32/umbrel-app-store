@@ -21,7 +21,7 @@
     del: function (k) { try { localStorage.removeItem(k); } catch (e) { /* ignore */ } }
   };
 
-  /* ---------- Cookieless statistics (counts only, see adatvedelem.html) ---------- */
+  /* ---------- Statistics (counts; per visitor only with cookie consent, see consent.js and adatvedelem.html) ---------- */
   var seenSteps = {};
   function track(t, extra) {
     try {

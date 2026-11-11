@@ -2,7 +2,7 @@
 :root {
   --cream: #F4F2EE; --sheet: #FFFFFF; --sage-100: #EEEBE4; --sage-300: #CFC8BB;
   --moss: #5E5A52; --forest: #111111; --pine: #111111; --ink: #161616; --soft: #4A463F;
-  --line: rgba(0, 0, 0, .13); --gold: #CDA75E; --gold-ink: #8A6A22;
+  --line: rgba(0, 0, 0, .13); --gold: #CDA75E;
   --ok: #2F6B4F; --warn: #8A5A12; --warn-bg: #F6E9CF; --bad: #9B2C2C; --bad-bg: #F5DEDB;
   --r: 10px;
 }

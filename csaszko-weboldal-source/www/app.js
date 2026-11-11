@@ -102,7 +102,7 @@
   function renderBoard() {
     $("#board").innerHTML = cfg.services.map(function (s) {
       var meta = (s.note ? s.note + ", " : "") + s.minutes + " perc";
-      return '<li><span class="nm">' + esc(s.name) + "<small>" + esc(meta) + "</small></span>" +
+      return '<li><span class="nm">' + esc(s.name) + "<small>" + esc(meta) + '</small></span><span class="dots" aria-hidden="true"></span>' +
         (s.price == null ? '<span class="pr is-tbd">kérdezd</span>' : '<span class="pr">' + ft(s.price) + "</span>") + "</li>";
     }).join("");
     var first = cfg.services[0];
@@ -414,4 +414,25 @@
     var ids = [cfg.services[0].id]; if (sel.svc && ids.indexOf(sel.svc) < 0) ids.push(sel.svc);
     Promise.all(ids.map(loadAvail)).then(function () { renderNext(); if (!form.hidden) { renderDays(); renderTimes(); summary(); } }).catch(function () {});
   }, 120000);
+
+  /* ---------- motion: sections rise in, the pole turns, the booking bar follows on phones ---------- */
+  if ("IntersectionObserver" in window && !PREVIEW) {
+    var rise = document.querySelectorAll(".split > section, .info > section, .gallery, .insta, .sign");
+    document.documentElement.classList.add("js");
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -8% 0px" });
+    rise.forEach(function (el) { el.classList.add("rv"); io.observe(el); });
+    setTimeout(function () { rise.forEach(function (el) { el.classList.add("in"); }); }, 4000); // never leave anything hidden
+
+    var stripe = document.querySelector(".stripe");
+    if (stripe) new IntersectionObserver(function (es) { stripe.classList.toggle("is-turning", es[0].isIntersecting); }).observe(stripe);
+
+    var bar = $("#bookbar"), seen = { cta: true, form: false, foot: false };
+    var sync = function () { bar.classList.toggle("is-on", !seen.cta && !seen.form && !seen.foot); };
+    [[".cta", "cta"], ["#foglalas", "form"], [".foot", "foot"]].forEach(function (p) {
+      var el = document.querySelector(p[0]);
+      if (el) new IntersectionObserver(function (es) { seen[p[1]] = es[0].isIntersecting; sync(); }).observe(el);
+    });
+  }
 })();

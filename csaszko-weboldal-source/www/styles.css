@@ -36,7 +36,12 @@ h2, h3 {
   margin: 0; font-family: var(--f-text); font-stretch: 75%; font-weight: 750;
   line-height: 1; letter-spacing: -.01em; text-wrap: balance;
 }
-h2 { font-size: clamp(2.1rem, 7vw, 2.8rem); }
+h2 { font-size: clamp(2.1rem, 7vw, 2.8rem); display: grid; gap: 14px; justify-items: start; }
+/* every heading ends in a short piece of the barber pole */
+h2::after {
+  content: ""; width: 54px; height: 5px; border-radius: 3px;
+  background: repeating-linear-gradient(-60deg, var(--pole) 0 6px, var(--text) 6px 12px, var(--gold) 12px 18px, var(--text) 18px 24px);
+}
 h3 { font-size: 1.7rem; }
 :focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; border-radius: 6px; }
 
@@ -83,7 +88,13 @@ h3 { font-size: 1.7rem; }
 @media (max-width: 419px) { .top__name span { display: none; } }
 
 /* ---------- hero ---------- */
-.hero { display: grid; gap: 22px; padding-block: 30px 52px; }
+.hero { display: grid; gap: 22px; padding-block: 30px 52px; position: relative; isolation: isolate; }
+/* a warm light from the top corner, like a shop lamp */
+.hero::before {
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  inset: -90px -30vw auto -30vw; height: 560px;
+  background: radial-gradient(46% 62% at 72% 0%, rgba(205, 167, 94, .17), transparent 72%);
+}
 .hero > * { min-width: 0; }
 .name {
   margin: 0; display: grid; gap: .04em;
@@ -93,12 +104,20 @@ h3 { font-size: 1.7rem; }
   --w: min(calc(100vw - 36px), 1088px);
 }
 .name__a { font-size: calc(var(--w) / 3.95); margin-left: -.03em; }
-.name__b { font-size: calc(var(--w) / 5.68); margin-left: -.02em; color: var(--gold); }
+.name__b {
+  font-size: calc(var(--w) / 5.68); margin-left: -.02em; color: var(--gold);
+  background: linear-gradient(180deg, var(--gold-hi) 8%, var(--gold) 52%, #A8843F 96%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
 .stripe {
   height: 8px; border-radius: 4px;
   background: repeating-linear-gradient(-60deg, var(--pole) 0 10px, var(--text) 10px 20px, var(--gold) 20px 30px, var(--text) 30px 40px);
   opacity: .92;
 }
+/* the pole turns slowly while it is on screen (40px pattern at 60° repeats every 46.19px sideways) */
+.stripe.is-turning { animation: stripe 3.2s linear infinite; }
+@keyframes stripe { to { background-position: 46.19px 0; } }
+@media (prefers-reduced-motion: reduce) { .stripe.is-turning { animation: none; } }
 .sub { color: var(--muted); font-size: 1.12rem; max-width: 36ch; }
 
 .hero__row { display: grid; gap: 22px; margin-top: 6px; }
@@ -153,18 +172,37 @@ h3 { font-size: 1.7rem; }
 .prices h2, .booking h2 { margin-bottom: 20px; }
 
 .board { list-style: none; margin: 0; padding: 0; }
-.board li {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 4px 16px;
-  padding-block: 15px; border-bottom: 1px solid var(--line);
-}
-.board li:first-child { border-top: 1px solid var(--line); }
+/* a price list the way a barber writes it: name, dots, price */
+.board li { display: grid; grid-template-columns: auto minmax(20px, 1fr) auto; align-items: baseline; gap: 4px 12px; padding-block: 13px; }
+.board .dots { align-self: start; height: 0; margin-top: 1em; border-top: 2px dotted #4A443C; }
 .board .nm { font-weight: 650; font-size: 1.1rem; }
 .board .nm small { display: block; font-weight: 400; font-size: .9rem; color: var(--muted); margin-top: 2px; }
-.board .dots { display: none; }
 .board .pr { font-stretch: 80%; font-weight: 700; font-size: 1.3rem; color: var(--gold); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .board .pr.is-tbd { color: var(--muted); font-size: 1rem; font-weight: 500; }
 
-.booking { min-width: 0; }
+.booking {
+  min-width: 0; padding: 24px 16px 22px; border-radius: 24px;
+  background: #0B0B0B; border: 1px solid var(--line);
+  box-shadow: 0 40px 90px -50px rgba(205, 167, 94, .35);
+}
+@media (min-width: 860px) { .booking { padding: 36px; border-radius: 28px; } }
+
+/* phones: the booking button follows you once the one in the hero is out of sight */
+.bookbar {
+  position: fixed; z-index: 8; left: 16px; right: 16px; bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  min-height: 54px; border-radius: 999px; display: grid; place-items: center;
+  background: var(--gold); color: #000; font-weight: 700; font-size: 1.05rem; text-decoration: none;
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, .9), 0 0 0 1px rgba(0, 0, 0, .4);
+  transform: translateY(160%); transition: transform .45s cubic-bezier(.2, .8, .2, 1); will-change: transform;
+}
+.bookbar.is-on { transform: none; }
+@media (min-width: 860px) { .bookbar { display: none; } }
+@media (prefers-reduced-motion: reduce) { .bookbar { transition: none; } }
+
+/* sections arrive with a short rise (only when the script runs) */
+.js .rv { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .7s cubic-bezier(.2, .8, .2, 1); }
+.js .rv.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .js .rv { opacity: 1; transform: none; transition: none; } }
 #book { display: grid; gap: 28px; }
 fieldset { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: 12px; }
 legend { padding: 0; margin-bottom: 12px; font-weight: 650; font-size: 1.08rem; display: flex; align-items: center; gap: 10px; }

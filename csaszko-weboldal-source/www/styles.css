@@ -1,7 +1,7 @@
 /* Layout: a black poster hero, with the name set huge in condensed type over a thin barber-pole stripe, the live
    open/next-times line and two actions; then prices beside the booking form, then three short info blocks.
    Everything left-aligned on one grid; gold only marks what is active or tappable. */
-@font-face { font-family: "Archivo"; src: url(fonts/archivo-var.woff) format("woff"); font-weight: 400 750; font-stretch: 75% 100%; font-display: swap; }
+@font-face { font-family: "Archivo"; src: url(fonts/archivo-var.woff2) format("woff2"), url(fonts/archivo-var.woff) format("woff"); font-weight: 400 750; font-stretch: 75% 100%; font-display: swap; }
 
 :root {
   --bg: #000000;       /* page */
@@ -289,7 +289,7 @@ address { font-style: normal; display: grid; gap: 2px; }
 /* ---------- instagram ---------- */
 .insta { display: grid; gap: 18px; padding-block: 44px 60px; border-top: 1px solid var(--line); }
 .insta__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; }
-.insta__handle { color: var(--gold); font-weight: 650; text-decoration: none; overflow-wrap: anywhere; }
+.insta__handle { display: inline-block; padding: 8px 0; color: var(--gold); font-weight: 650; text-decoration: none; overflow-wrap: anywhere; }
 .insta__handle:hover { text-decoration: underline; text-underline-offset: 3px; }
 /* full rows only: 3 × 3 on phones, 4 × 2 on tablets, 6 × 2 on wide screens */
 .insta__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
@@ -318,7 +318,7 @@ address { font-style: normal; display: grid; gap: 2px; }
 /* spam trap, never visible */
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
-.foot .foot__core { display: inline-flex; align-items: center; gap: 10px; color: var(--muted); text-decoration: none; }
+.foot .foot__core { display: inline-flex; align-items: center; gap: 10px; min-height: 40px; color: var(--muted); text-decoration: none; }
 .foot__core img { display: block; height: 24px; width: auto; }
 .foot__core:hover span { color: var(--text); }
 .offline { margin: -8px 0 18px; padding: 12px 14px; border-radius: var(--radius); background: var(--surface); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--error) 55%, transparent); color: var(--text); }

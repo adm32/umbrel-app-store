@@ -166,6 +166,8 @@
   function renderNext() {
     var s = cfg.services[0], n = now();
     if (!s) { $("#next").hidden = true; return; }
+    // the real free times are still on their way: keep what is shown, so the page doesn't jump
+    if (live && !avail[s.id]) return;
     for (var i = firstOffset(); i < firstOffset() + DAYS_SHOWN; i++) {
       var k = addDays(n.day, i), slots = slotsFor(k, s.id);
       if (!slots.length) continue;

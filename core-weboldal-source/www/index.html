@@ -22,14 +22,14 @@
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<link rel="preload" href="assets/fonts/geist.woff" as="font" type="font/woff" crossorigin>
-<link rel="preload" href="assets/fonts/instrument-serif-italic.woff" as="font" type="font/woff" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=29">
-<script src="assets/js/boot.js?v=29"></script>
-<script src="assets/js/preview.js?v=29" defer></script>
-<script src="assets/js/site.js?v=29" defer></script>
-<script src="/assets/js/consent.js?v=29" defer></script>
-<script src="assets/js/fx.js?v=29" defer></script>
+<link rel="preload" href="assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css?v=30">
+<script src="assets/js/boot.js?v=30"></script>
+<script src="assets/js/preview.js?v=30" defer></script>
+<script src="assets/js/site.js?v=30" defer></script>
+<script src="/assets/js/consent.js?v=30" defer></script>
+<script src="assets/js/fx.js?v=30" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -132,13 +132,24 @@
     </div>
   </section>
 
-
+  <!-- ============ FACTS ============ -->
+  <section class="facts" aria-label="Röviden">
+    <div class="wrap">
+      <ul class="facts__grid rv">
+        <li><b>0 <span class="serif">Ft</span></b><span>a bemutató, kötelezettség nélkül</span></li>
+        <li><b>1 <span class="serif">munkanap</span></b><span>ennyin belül jelentkezünk</span></li>
+        <li><b>Pár <span class="serif">nap</span></b><span>és megnézheted a bemutatót</span></li>
+        <li><b>3 <span class="serif">élő oldal</span></b><span>étterem, szalon, borbély</span></li>
+      </ul>
+    </div>
+  </section>
 
   <!-- ============ WORK ============ -->
   <section class="sec" id="munkaink" aria-labelledby="munkaink-h">
     <div class="wrap">
       <header class="sec__head rv">
-        <h2 id="munkaink-h">Munkáink</h2>
+        <h2 id="munkaink-h">Munkáink, <span class="serif">élőben.</span></h2>
+        <p class="sec__sub">Valódi vállalkozások működő oldalai. Koppints rá, és nézd meg.</p>
       </header>
       <div class="works">
         <a class="work rv" href="https://vadviragetterem.com" target="_blank" rel="noopener">
@@ -398,21 +409,32 @@
   </section>
 </main>
 
-<footer class="foot">
+<footer class="foot foot--rich">
   <div class="wrap">
-    <div class="foot__top">
-      <a class="foot__brand" href="#top" aria-label="Zala Studio – az oldal teteje">
-        <picture><source srcset="assets/logo/zala-logo-dark.svg" media="(prefers-color-scheme: dark)"><img class="foot__logo" src="assets/logo/zala-logo-light.svg" alt="Zala Studio" width="230" height="50" loading="lazy" decoding="async"></picture>
-      </a>
-      <p>Weboldalak vállalkozásoknak, Zalaszentgrótról.</p>
+    <div class="foot__grid">
+      <div class="foot__about">
+        <a class="foot__brand" href="#top" aria-label="Zala Studio – az oldal teteje">
+          <img class="foot__logo" src="assets/logo/zala-logo-dark.svg" alt="Zala Studio" width="230" height="50" loading="lazy" decoding="async">
+        </a>
+        <p>Weboldalak vállalkozásoknak, Zalaszentgrótról. Az egész országban dolgozunk.</p>
+        <a class="btn btn--primary foot__cta" href="#tervezes" data-planner data-src="lablec"><span>Ingyenes bemutató</span><svg><use href="#i-arrow"/></svg></a>
+      </div>
+      <nav class="foot__col" aria-label="Az oldal részei">
+        <h3>Oldal</h3>
+        <a href="#munkaink">Munkáink</a>
+        <a href="#folyamat">Hogyan működik</a>
+        <a href="#arak">Árak</a>
+        <a href="#kerdesek">Kérdések</a>
+      </nav>
+      <nav class="foot__col" aria-label="Kapcsolat és jogi információk">
+        <h3>Kapcsolat</h3>
+        <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a>
+        <a href="adatvedelem.html#impresszum">Impresszum</a>
+        <a href="adatvedelem.html#adatkezeles">Adatvédelem</a>
+        <a href="aszf.html">ÁSZF</a>
+      </nav>
     </div>
-    <nav class="foot__links" aria-label="Lábléc">
-      <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a>
-      <a href="adatvedelem.html#impresszum">Impresszum</a>
-      <a href="adatvedelem.html#adatkezeles">Adatvédelem</a>
-      <a href="aszf.html">ÁSZF</a>
-    </nav>
-    <p class="foot__bottom">© 2026 Zala Studio · <button class="foot__ck" type="button" data-cookie-settings>Süti-beállítások</button></p>
+    <p class="foot__bottom"><span>© 2026 Zala Studio</span><button class="foot__ck" type="button" data-cookie-settings>Süti-beállítások</button></p>
   </div>
 </footer>
 

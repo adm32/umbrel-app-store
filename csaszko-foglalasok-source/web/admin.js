@@ -79,7 +79,7 @@
     badge.textContent = pending.length;
     badge.hidden = !pending.length;
     document.title = (pending.length ? '(' + pending.length + ') ' : '') + 'Csaszko · Foglalások';
-    $('[data-mail-banner]').hidden = S.mailConfigured || S.ntfyConfigured;
+    $('[data-mail-banner]').hidden = S.mailConfigured || S.ntfyConfigured || tab !== 'requests'; // only where new requests arrive
     $$('[data-tab]').forEach(function (b) { b.setAttribute('aria-selected', String(b.getAttribute('data-tab') === tab)); });
     $$('[data-view]').forEach(function (v) { v.hidden = v.getAttribute('data-view') !== tab; });
     $('[data-fab]').hidden = tab === 'settings';

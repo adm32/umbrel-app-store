@@ -469,7 +469,7 @@
     else if (i === el.consent) clearBad();
   });
   var bindText = function (input, key, live) {
-    input.addEventListener("input", function () { S[key] = input.value; if (live) paint(); else save(); var f = input.closest(".fld"); if (f) f.classList.remove("is-bad"); });
+    input.addEventListener("input", function () { S[key] = input.value; if (live) paint(); else save(); var f = input.closest(".fld"); if (f && f.classList.contains("is-bad")) { f.classList.remove("is-bad"); el.errName.textContent = ""; el.errContact.textContent = ""; } });
   };
   bindText(el.biz, "biz", true); bindText(el.city, "city", true); bindText(el.url, "url");
   bindText(el.name, "nev"); bindText(el.tel, "tel"); bindText(el.mail, "email"); bindText(el.msg, "msg");

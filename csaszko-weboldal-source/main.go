@@ -132,7 +132,10 @@ func static(w http.ResponseWriter, r *http.Request) {
 	h.Set("Content-Type", f.ctype)
 	h.Set("ETag", f.etag)
 	h.Set("Vary", "Accept-Encoding")
-	if f.long || (r.URL.Query().Get("v") != "" && p != "/index.html") {
+	if r.URL.Query().Get("v") != "" && p != "/index.html" {
+		// styles.css?v=<hash> and app.js?v=<hash>: the address changes with the content
+		h.Set("Cache-Control", "public, max-age=31536000, immutable")
+	} else if f.long {
 		h.Set("Cache-Control", "public, max-age=604800")
 	} else {
 		h.Set("Cache-Control", "no-cache") // always revalidate (cheap 304), so an update shows at once

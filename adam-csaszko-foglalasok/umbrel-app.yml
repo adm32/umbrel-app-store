@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-csaszko-foglalasok
 category: productivity
 name: Csaszko Foglalások
-version: "2.3.0"
+version: "3.0.0"
 tagline: Időpontfoglalások kezelése a Csaszko Barbershop weboldalához
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-csaszko-foglalasok/icon.svg
 description: >-
@@ -37,4 +37,6 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  Instagram a weboldalon: a Beállításoknál megadott tokennel az app óránként letölti a legutóbbi posztokat, és maga adja át a képeket a weboldalnak. A token hetente magától megújul.
+  3.0.0 – gyorsabb kezelőfelület. Az app fájljai tömörítve érkeznek (kb. negyedakkora letöltés), és
+  ha nem változtak, a telefon nem tölti le őket újra. Az „értesítés nincs beállítva” figyelmeztetés
+  mostantól csak a Foglalások fülön látszik, a többi fülön nem foglalja a helyet.

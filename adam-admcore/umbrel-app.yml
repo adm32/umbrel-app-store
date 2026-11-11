@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: Zala Studio (zalastudio.hu)
-version: "3.4.1"
+version: "4.0.0"
 tagline: Zala Studio – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -33,4 +33,8 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  iPhone-on a folyó nem villan el és a fénypontjai nem ugrálnak görgetés közben: eddig minden alkalommal újraindult, amikor a Safari címsora összement vagy kinyílt. Telefonon is 30 képkocka/másodperccel fut, simábban.
+  4.0.0 – finomítás az egész oldalon. Új „röviden” sáv a nyitókép alatt (0 Ft bemutató, 1 munkanapon
+  belüli válasz, pár nap alatt kész, 3 élő oldal), új, sötét lábléc menüvel és bemutató gombbal, a
+  Munkáink rész rövid bevezetőt kapott. A betűk kisebb fájlból töltődnek (WOFF2), így az első megnyitás
+  gyorsabb. Javítás: a tervezőben a hibaüzenet eltűnik, amint elkezdesz gépelni. Jobb kontraszt az
+  áthúzott áraknál, nagyobb koppintható terület a süti-beállításoknál.

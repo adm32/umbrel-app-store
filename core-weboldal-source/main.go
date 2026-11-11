@@ -237,6 +237,8 @@ func loadFiles() {
 			ct = "application/manifest+json"
 		case ".woff":
 			ct = "font/woff"
+		case ".woff2":
+			ct = "font/woff2"
 		case ".txt":
 			ct = "text/plain; charset=utf-8"
 		case ".xml":

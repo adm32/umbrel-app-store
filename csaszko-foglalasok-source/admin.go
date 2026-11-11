@@ -38,16 +38,12 @@ func serveStatic(w http.ResponseWriter, r *http.Request, p string) {
 	if ct == "" {
 		ct = "application/octet-stream"
 	}
-	h.Set("Content-Type", ct)
-	h.Set("Cache-Control", "no-cache")
 	h.Set("X-Content-Type-Options", "nosniff")
 	h.Set("Referrer-Policy", "no-referrer")
 	h.Set("X-Frame-Options", "SAMEORIGIN")
 	h.Set("Content-Security-Policy", "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'")
-	w.WriteHeader(200)
-	if r.Method != "HEAD" {
-		w.Write(data)
-	}
+	// no-cache + ETag: the browser asks every time, but an unchanged file is a 304
+	sendStatic(w, r, rel, data, ct, "no-cache")
 }
 
 func remoteEnabled() bool { return settings.Remote != nil && settings.Remote.Hash != "" }

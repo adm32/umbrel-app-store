@@ -17,6 +17,7 @@ package main
 
 import (
 	"bytes"
+	"compress/gzip"
 	"crypto/hmac"
 	"crypto/pbkdf2"
 	"crypto/rand"
@@ -49,7 +50,7 @@ import (
 	"unicode/utf8"
 )
 
-const version = "1.6.1"
+const version = "2.0.0"
 
 //go:embed web
 var webFS embed.FS
@@ -693,7 +694,7 @@ func redirect(w http.ResponseWriter, to string) {
 
 var tplVar = regexp.MustCompile(`\{\{\w+\}\}`)
 
-func page(w http.ResponseWriter, code int, file string, vars map[string]string) {
+func page(w http.ResponseWriter, r *http.Request, code int, file string, vars map[string]string) {
 	b, _ := webFS.ReadFile("web/" + file)
 	s := string(b)
 	// Script and style links carry the running version, so a phone never mixes a new page with an old cached script.
@@ -705,6 +706,14 @@ func page(w http.ResponseWriter, code int, file string, vars map[string]string) 
 	s = tplVar.ReplaceAllString(s, "")
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.Header().Set("Cache-Control", "no-store")
+	if code == 200 && strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
+		w.Header().Set("Content-Encoding", "gzip")
+		w.Header().Add("Vary", "Accept-Encoding")
+		zw := gzip.NewWriter(w)
+		io.WriteString(zw, s)
+		zw.Close()
+		return
+	}
 	w.WriteHeader(code)
 	io.WriteString(w, s)
 }
@@ -728,13 +737,8 @@ func serveStatic(w http.ResponseWriter, r *http.Request, p string) bool {
 		return false
 	}
 	name := "web" + path.Clean(p)
-	f, err := webFS.Open(name)
-	if err != nil {
-		return false
-	}
-	defer f.Close()
-	st, err := f.Stat()
-	if err != nil || st.IsDir() {
+	data, err := webFS.ReadFile(name)
+	if err != nil { // missing, or a folder
 		return false
 	}
 	ct := mime.TypeByExtension(path.Ext(p))
@@ -743,18 +747,20 @@ func serveStatic(w http.ResponseWriter, r *http.Request, p string) bool {
 		ct = "application/manifest+json"
 	case ".woff":
 		ct = "font/woff"
+	case ".woff2":
+		ct = "font/woff2"
 	case ".js":
 		ct = "text/javascript; charset=utf-8"
 	case ".css":
 		ct = "text/css; charset=utf-8"
 	}
-	w.Header().Set("Content-Type", ct)
-	if strings.HasPrefix(p, "/fonts/") {
-		w.Header().Set("Cache-Control", "public, max-age=31536000, immutable")
-	} else {
-		w.Header().Set("Cache-Control", "no-cache")
+	// Fonts never change; scripts and styles are asked for as name?v=<version>, so their address
+	// changes with every update. Both may stay in the browser for good. The rest is revalidated.
+	cache := "no-cache"
+	if strings.HasPrefix(p, "/fonts/") || r.URL.Query().Get("v") != "" {
+		cache = "public, max-age=31536000, immutable"
 	}
-	http.ServeContent(w, r, p, startTime, f.(io.ReadSeeker))
+	sendStatic(w, r, name, data, ct, cache)
 	return true
 }
 
@@ -1239,29 +1245,29 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		if fromInternet(r) {
-			page(w, 403, "setup.html", map[string]string{"error": "Biztonsági okból az első jelszót otthonról kell beállítani: nyisd meg az appot az Umbrel kezdőképernyőjéről vagy Tailscale-en keresztül.", "disabled": "disabled"})
+			page(w, r, 403, "setup.html", map[string]string{"error": "Biztonsági okból az első jelszót otthonról kell beállítani: nyisd meg az appot az Umbrel kezdőképernyőjéről vagy Tailscale-en keresztül.", "disabled": "disabled"})
 			return
 		}
 		if r.Method == "POST" {
 			f := formValues(r)
 			a, b := f.Get("jelszo"), f.Get("jelszo2")
 			if utf8.RuneCountInString(a) < 8 {
-				page(w, 422, "setup.html", map[string]string{"error": "A jelszó legalább 8 karakter legyen."})
+				page(w, r, 422, "setup.html", map[string]string{"error": "A jelszó legalább 8 karakter legyen."})
 				return
 			}
 			if a != b {
-				page(w, 422, "setup.html", map[string]string{"error": "A két jelszó nem egyezik."})
+				page(w, r, 422, "setup.html", map[string]string{"error": "A két jelszó nem egyezik."})
 				return
 			}
 			if err := setPassword(a); err != nil {
-				page(w, 500, "setup.html", map[string]string{"error": "Nem sikerült menteni. Ellenőrizd az app adatmappáját."})
+				page(w, r, 500, "setup.html", map[string]string{"error": "Nem sikerült menteni. Ellenőrizd az app adatmappáját."})
 				return
 			}
 			setSession(w, r)
 			redirect(w, "/")
 			return
 		}
-		page(w, 200, "setup.html", nil)
+		page(w, r, 200, "setup.html", nil)
 		return
 	}
 	if !hasPassword() {
@@ -1276,13 +1282,13 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "POST" {
 			ip := clientIP(r)
 			if !loginAllowed(ip) {
-				page(w, 429, "login.html", map[string]string{"error": "Túl sok próbálkozás. Várj 15 percet."})
+				page(w, r, 429, "login.html", map[string]string{"error": "Túl sok próbálkozás. Várj 15 percet."})
 				return
 			}
 			if !checkPassword(formValues(r).Get("jelszo")) {
 				failLogin(ip)
 				time.Sleep(600 * time.Millisecond)
-				page(w, 200, "login.html", map[string]string{"error": "Hibás jelszó."})
+				page(w, r, 200, "login.html", map[string]string{"error": "Hibás jelszó."})
 				return
 			}
 			failMu.Lock()
@@ -1296,7 +1302,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			redirect(w, "/")
 			return
 		}
-		page(w, 200, "login.html", nil)
+		page(w, r, 200, "login.html", nil)
 		return
 	}
 	if p == "/logout" && r.Method == "POST" {
@@ -1317,7 +1323,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if p == "/" || p == "/index.html" {
-		page(w, 200, "index.html", nil)
+		page(w, r, 200, "index.html", nil)
 		return
 	}
 	http.NotFound(w, r)

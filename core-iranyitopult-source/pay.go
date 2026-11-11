@@ -67,12 +67,6 @@ type Payment struct {
 func (p *Payment) running() bool {
 	return p != nil && (p.State == "active" || p.State == "past_due" || p.State == "canceling")
 }
-func (p *Payment) monthly() int {
-	if p.Interval == "year" {
-		return p.Amount / 12
-	}
-	return p.Amount
-}
 
 var (
 	codeRe    = regexp.MustCompile(`^[A-HJ-NP-Z2-9]{10}$`)
@@ -574,11 +568,6 @@ func budapestTZ() *time.Location {
 }
 
 // ---------- internal endpoints (called by the website app) ----------
-
-var payLimit = struct {
-	sync.Mutex
-	m map[string][]time.Time
-}{m: map[string][]time.Time{}}
 
 func internalPay(w http.ResponseWriter, r *http.Request, code string) {
 	if !paymentsEnabled || !codeRe.MatchString(code) { // payment pages answer "not found" while payments are off

@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: Zala Studio (zalastudio.hu)
-version: "4.0.0"
+version: "5.0.0"
 tagline: Zala Studio – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -33,8 +33,8 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
-  4.0.0 – finomítás az egész oldalon. Új „röviden” sáv a nyitókép alatt (0 Ft bemutató, 1 munkanapon
-  belüli válasz, pár nap alatt kész, 3 élő oldal), új, sötét lábléc menüvel és bemutató gombbal, a
-  Munkáink rész rövid bevezetőt kapott. A betűk kisebb fájlból töltődnek (WOFF2), így az első megnyitás
-  gyorsabb. Javítás: a tervezőben a hibaüzenet eltűnik, amint elkezdesz gépelni. Jobb kontraszt az
-  áthúzott áraknál, nagyobb koppintható terület a süti-beállításoknál.
+  5.0.0 – megújult megjelenés. A Munkáink telefonon lapozható sor (a következő kártya bekukucskál),
+  gépen három egyforma kártya, mindegyiken címkével (Étterem, Szépségszalon, Borbély). A három lépés
+  idővonal lett, az ingyenes lépéseken „Ingyenes” jelzéssel. A Kérdések gépen kéthasábos: bal oldalt a
+  cím és az e-mail-cím, jobb oldalt a kérdések. A régi lábléc stílusai és a nem használt színváltozók
+  kikerültek a kódból.

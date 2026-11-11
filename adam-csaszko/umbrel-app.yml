@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-csaszko
 category: social
 name: Csaszko Barbershop
-version: "3.0.0"
+version: "4.0.0"
 tagline: A Csaszko Barbershop weboldala, Zalaszentgrót
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-csaszko/icon.svg
 description: >-
@@ -32,6 +32,9 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
+  4.0.0 – szebb megjelenés, ugyanaz a stílus. Arany átmenetes név, meleg fény a nyitóképen, forgó borbélyoszlop-csík,
+  pontsorral összekötött árlista, külön kártyán a foglalás, és telefonon egy lebegő „Időpontot foglalok” gomb.
+  A szakaszok finoman beúsznak görgetéskor.
   3.0.0 – gyorsabb és nyugodtabb oldal. A betűk kisebb fájlból töltődnek (WOFF2), a stíluslap és a
   program egy évig a böngészőben marad (a címük változik, ha frissül). Javítás: a nyitóképen a szabad
   időpontok betöltésekor már nem ugrik meg az oldal. Nagyobb koppintható terület az Instagram-névnél

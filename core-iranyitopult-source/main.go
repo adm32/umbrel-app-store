@@ -50,7 +50,7 @@ import (
 	"unicode/utf8"
 )
 
-const version = "2.0.0"
+const version = "2.0.1"
 
 //go:embed web
 var webFS embed.FS
@@ -228,7 +228,7 @@ type Auth struct {
 var (
 	mu       sync.Mutex
 	leads    []*Lead
-	settings = Settings{NotifyLeads: true, NotifyDown: true, NotifyPay: true, SiteURL: "https://zalastudio.hu", Spots: 5, VatMode: "brutto"}
+	settings = Settings{NotifyLeads: true, NotifyDown: true, NotifyPay: true, SiteURL: "https://zalastudio.hu", Spots: 5, VatMode: "mentes"}
 	auth     Auth
 )
 

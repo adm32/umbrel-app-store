@@ -74,7 +74,7 @@ func loadTax() {
 	if !readJSON("ado.json", &taxData) || len(taxData.People) == 0 {
 		taxData = TaxData{
 			People: []TaxPerson{
-				{ID: "adam", Name: "Orosz Ádám", Side: true},
+				{ID: "adam", Name: "Orosz Ádám", Registered: "2026-11-12", Side: true},
 			},
 			Invoices:  []TaxInvoice{},
 			CostRatio: 45,
@@ -491,7 +491,7 @@ func dropRemovedPeople() {
 	}
 	taxData.People, taxData.Invoices = keep, inv
 	if len(taxData.People) == 0 {
-		taxData.People = []TaxPerson{{ID: "adam", Name: "Orosz Ádám", Side: true}}
+		taxData.People = []TaxPerson{{ID: "adam", Name: "Orosz Ádám", Registered: "2026-11-12", Side: true}}
 	}
 	writeJSON("ado.json", taxData)
 	log.Print("ado: removed person mark (", len(gone), " entries backed up)")

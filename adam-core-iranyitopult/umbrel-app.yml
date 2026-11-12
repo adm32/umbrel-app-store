@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-core-iranyitopult
 category: automation
 name: Zala Studio Irányítópult
-version: "2.0.0"
+version: "2.0.1"
 tagline: Érdeklődők és látogatók a zalastudio.hu-ról, értesítéssel
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-core-iranyitopult/icon.svg
 description: >-
@@ -33,6 +33,7 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
+  2.0.1 – új telepítésnél alapból „ÁFA nélkül” az árak beállítása, és az Adó fülön a vállalkozás kezdete 2026. 11. 12.
   2.0.0 – gyorsabb megnyitás. Az app programja tömörítve érkezik (85 kB helyett kb. 26 kB), és a
   következő frissítésig a telefonon marad. Az oldal maga is tömörítve jön, a betűk kisebb fájlból
   töltődnek. A nem használt kódrészek kikerültek.

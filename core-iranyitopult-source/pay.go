@@ -657,9 +657,9 @@ func internalStripe(w http.ResponseWriter, r *http.Request) {
 // ---------- dashboard API ----------
 
 // paymentsEnabled switches online payment (Stripe payment links, the zalastudio.hu/fizetes pages)
-// on or off. Off for now: the dashboard hides everything about payments, and no new payment
+// on or off. When off, the dashboard hides everything about payments, and no new payment
 // can start. Set to true (and PAYMENTS in web/app.js) to bring it back; saved data is kept.
-const paymentsEnabled = false
+const paymentsEnabled = true
 
 func paymentsOff(w http.ResponseWriter) bool {
 	if paymentsEnabled {

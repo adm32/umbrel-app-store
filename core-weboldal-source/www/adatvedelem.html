@@ -74,12 +74,21 @@
 
       <h3>2. Szerződés és számlázás</h3>
       <ul>
-        <li><strong>Kezelt adatok:</strong> név vagy cégnév, cím, adószám, a szerződés és a számlák adatai, a befizetések (banki átutalások) időpontja és összege.</li>
+        <li><strong>Kezelt adatok:</strong> név vagy cégnév, cím, adószám, a szerződés és a számlák adatai, a befizetések időpontja és összege.</li>
         <li><strong>Jogalap:</strong> a szerződés teljesítése (GDPR 6. cikk (1) b) pont), a számlák megőrzése pedig jogi kötelezettség (GDPR 6. cikk (1) c) pont, a számvitelről szóló 2000. évi C. törvény 169. §).</li>
         <li><strong>Megőrzés:</strong> a számviteli bizonylatokat 8 évig őrizzük meg.</li>
       </ul>
 
-      <h3 id="statisztika">3. Látogatottsági statisztika</h3>
+      <h3 id="fizetes">3. Kártyás fizetés és előfizetés</h3>
+      <ul>
+        <li><strong>Kezelt adatok:</strong> név, e-mail-cím, számlázási cím, adószám (ha megadod), a választott csomag és díj, a befizetések időpontja és összege, valamint annak időpontja, hogy a fizetési oldalon elfogadtad a feltételeket és az ismétlődő terhelést (ehhez az IP-címből és a böngésző adataiból képzett, visszafejthetetlen rövid kódot tárolunk, magát az IP-címet nem).</li>
+        <li><strong>Kártyaadatok:</strong> a bankkártya adatait kizárólag a Stripe kezeli. Mi a kártyaszámot nem látjuk és nem tároljuk, csak azt, hogy a fizetés sikerült-e.</li>
+        <li><strong>Cél:</strong> a havi vagy éves díj automatikus beszedése, a befizetések nyilvántartása és a számlázás.</li>
+        <li><strong>Jogalap:</strong> a szerződés teljesítése (GDPR 6. cikk (1) b) pont), a befizetések és számlák megőrzése jogi kötelezettség (GDPR 6. cikk (1) c) pont).</li>
+        <li><strong>Megőrzés:</strong> a szerződés ideje alatt, a számviteli bizonylatokat pedig 8 évig.</li>
+      </ul>
+
+      <h3 id="statisztika">4. Látogatottsági statisztika</h3>
       <ul>
         <li>A weboldal saját maga számolja, hány látogatója van. Nem tárolunk IP-címet, és nem követünk más oldalakon.</li>
         <li>A látogatókat egy naponta cserélődő, visszafejthetetlen kóddal különböztetjük meg, így csak összesített számokat látunk (például hányan jártak itt egy napon, telefonról vagy számítógépről, a Google-ből vagy a Facebookról érkeztek-e, és hányan nyitották meg a tervezőt).</li>
@@ -87,7 +96,7 @@
         <li>Ha a sütit engedélyezed, ezen felül a <a href="#sutik">Sütik</a> részben leírt adatokat is rögzítjük.</li>
       </ul>
 
-      <h3>4. A weboldal működése</h3>
+      <h3>5. A weboldal működése</h3>
       <p>A Cloudflare a biztonságos működéshez rövid ideig technikai adatokat (IP-cím, böngésző típusa, időpont) kezel, például a túlterheléses támadások kiszűréséhez. Jogalap: jogos érdek az oldal védelméhez (GDPR 6. cikk (1) f) pont).</p>
 
       <h3>Kik férnek hozzá az adatokhoz</h3>
@@ -96,8 +105,10 @@
         <li><strong>Cloudflare, Inc.</strong> (USA): a forgalom továbbítása és védelme, e-mail-továbbítás.</li>
         <li><strong>ntfy.sh</strong> push-értesítési szolgáltatás: egy új kérésről rövid értesítést kapunk a telefonunkra. Az értesítést legfeljebb 12 óráig tárolja.</li>
         <li><strong>Google Ireland Ltd.</strong> (Gmail): az e-mailes levelezéshez.</li>
+        <li><strong>Stripe Payments Europe, Ltd.</strong> (1 Grand Canal Street Lower, Grand Canal Dock, Dublin, D02 H210, Írország): bankkártyás és Apple Pay / Google Pay fizetés, az ismétlődő díjak beszedése. A Stripe a fizetési adatokat saját adatkezelőként is kezeli a pénzforgalmi és csalásmegelőzési szabályok szerint: <a href="https://stripe.com/hu/privacy" rel="noopener">stripe.com/hu/privacy</a>.</li>
+        <li><strong>KBOSS.hu Kft.</strong> (Számlázz.hu, 1031 Budapest, Záhony utca 7.): a számlák kiállítása, megküldése és megőrzése, valamint a számlaadatok továbbítása a NAV-nak.</li>
       </ul>
-      <p>A Cloudflare és a Google az EU–USA adatvédelmi keretrendszer (Data Privacy Framework) alapján, illetve az Európai Bizottság általános szerződési feltételeivel biztosítja az adatok megfelelő védelmét, ha azok az Európai Unión kívülre kerülnek.</p>
+      <p>A Cloudflare, a Google és a Stripe az EU–USA adatvédelmi keretrendszer (Data Privacy Framework) alapján, illetve az Európai Bizottság általános szerződési feltételeivel biztosítja az adatok megfelelő védelmét, ha azok az Európai Unión kívülre kerülnek.</p>
 
       <h2 id="sutik">Sütik</h2>
       <p>Az oldal csak akkor használ látogatói sütit, ha az első látogatáskor megjelenő ablakban a „Rendben” gombot választod. Reklám- vagy követőkódot (például Facebook-pixelt vagy Google Analyticset) nem használunk, és a betűtípusok is erről a szerverről töltődnek be, nem a Google-től.</p>

@@ -31,8 +31,8 @@
 
   /* ---------- state ---------- */
   var S = { leads: [], L: null, prices: {}, setup: {}, stats: null, status: null, settings: null, stripe: null, tab: "attekintes", filter: "nyitott", q: "", open: null, known: null };
-  // Online payment is switched off for now (also paymentsEnabled in pay.go): every payment part is hidden.
-  var PAYMENTS = false;
+  // Online payment on/off (also paymentsEnabled in pay.go). Off hides every payment part.
+  var PAYMENTS = true;
   var PAY_STATE = { pending: "Fizetésre vár", active: "Aktív előfizetés", past_due: "Sikertelen fizetés", canceling: "Lemondva", canceled: "Megszűnt" };
   var PAY_EVENT = { elindult: "Előfizetés elindult", fizetve: "Befizetés", sikertelen: "Sikertelen levonás", lemondva: "Lemondva, az időszak végén megszűnik", visszavonva: "Lemondás visszavonva", megszunt: "Megszűnt" };
   var RUNNING = function (p) { return !!p && (p.state === "active" || p.state === "past_due" || p.state === "canceling"); };
@@ -262,7 +262,7 @@
         : kpi("var(--green)", I.check, "Megrendelt havidíj", num(mrr) + "<small>Ft</small>", won.length + " ügyfél", "megrendelte")) + "</div>";
     if (failing.length) h += '<div class="hdr"><h2>Sikertelen fizetés</h2></div><div class="list">' + failing.map(leadRow).join("") + "</div>";
     var bill = PAYMENTS ? toBill() : [];
-    if (bill.length) h += '<div class="hdr"><h2>Kiszámlázandó</h2><span class="sp"></span><a href="/api/payments.csv" download>Táblázat</a></div><div class="list">' + bill.slice(0, 8).map(billRow).join("") + "</div>" + (bill.length > 8 ? '<p class="note" style="margin:8px 4px 0">És még ' + (bill.length - 8) + " befizetés. A táblázatban mind benne van.</p>" : "");
+    if (bill.length) h += '<div class="hdr"><h2>Kiszámlázandó</h2><span class="sp"></span><a href="https://www.szamlazz.hu/szamla/" target="_blank" rel="noopener">Számlázz.hu</a><a href="/api/payments.csv" download>Táblázat</a></div><div class="list">' + bill.slice(0, 8).map(billRow).join("") + "</div>" + (bill.length > 8 ? '<p class="note" style="margin:8px 4px 0">És még ' + (bill.length - 8) + " befizetés. A táblázatban mind benne van.</p>" : "");
     h += '<div class="hdr"><h2>Legutóbbi érdeklődők</h2><span class="sp"></span><button data-go="osszes">Összes</button></div>';
     h += S.leads.length ? '<div class="list">' + S.leads.slice(0, 5).map(leadRow).join("") + "</div>"
       : '<div class="card empty"><b>Még nincs érdeklődő</b>Ha valaki kitölti a tervezőt a zalastudio.hu-n, itt jelenik meg, és értesítést is kapsz róla.</div>';

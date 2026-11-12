@@ -1,4 +1,4 @@
-// Payment pages on admcore.hu (switched off while the Irányítópult has payments disabled). The website holds no Stripe key: it asks the Irányítópult
+// Payment pages on zalastudio.hu (they answer "not found" while the Irányítópult has payments disabled). The website holds no Stripe key: it asks the Irányítópult
 // (internal port) for the payment details, and the Irányítópult creates the Stripe Checkout page.
 package main
 

@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: Zala Studio (zalastudio.hu)
-version: "5.1.1"
+version: "5.2.0"
 tagline: Zala Studio – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -33,6 +33,12 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
+  5.2.0 – letisztultabb, gyorsabb oldal. Kikerültek a csak díszítő mozgások (csillogó gombok, forgó
+  keret az ajánlott csomagon, lebegő fények), a hero gyorsabban betölt. Konkrétabb címek (pl. „Havonta
+  3 490 Ft-tól. Minden benne.”), az „Ez minden oldalban benne van” rész új elrendezést kapott: a fő
+  előny nagyobb, és egy valódi részletet mutat a Vadvirág oldalából. Erősebb szövegkontraszt, egységes
+  ikonok és betűméretek, az árak egymás alatt, egy vonalban. Fizetéskor és az „Előfizetés kezelése”
+  linknél látszik, hogy a Stripe oldala töltődik, a gomb nem nyomható meg kétszer.
   5.1.1 – a Google pontosabban felismeri a márkanevet (Zala Studio, ZalaStudio, zalastudio).
   5.1.0 – újra van kártyás fizetés. Az ügyfél választhat: bankkártya (Stripe, automatikus havi vagy éves levonás) vagy banki átutalás. Az ÁSZF és az adatkezelési tájékoztató ezzel bővült (Stripe, Számlázz.hu), a láblécben újra ott az „Előfizetés kezelése”.
   5.0.1 – a vállalkozás adatai (székhely, nyilvántartási szám, adószám) az impresszumban és az ÁSZF-ben. Az árak ÁFA nélküli végösszegek (alanyi adómentes).

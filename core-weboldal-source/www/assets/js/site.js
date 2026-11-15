@@ -9,9 +9,6 @@
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var mq = function (q) { return window.matchMedia(q); };
   var reduced = mq("(prefers-reduced-motion: reduce)").matches;
-  // Phones get lighter motion: 2D only, no blur, no scroll-linked 3D (smooth on older iPhones too).
-  var phone = mq("(max-width: 699px)").matches;
-  var finePointer = mq("(hover: hover) and (pointer: fine)").matches;
   var desktop = mq("(min-width: 900px)");
   var fmt = function (n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, " "); };
   var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
@@ -147,6 +144,7 @@
         var b = $(".amt b", p), s = $(".amt span", p), pd = $(".perday b", p);
         var v = parseInt(b.getAttribute("data-" + billing), 10);
         roll(b, v); s.textContent = s.getAttribute("data-" + billing);
+        var amt = b.parentNode; amt.classList.remove("is-new"); void amt.offsetWidth; amt.classList.add("is-new");
         if (pd) pd.textContent = fmt(v / (billing === "y" ? 365 : 30)) + " Ft";
       });
     });
@@ -178,7 +176,7 @@
     }).catch(function () { /* keep defaults */ });
 
   /* ---------- Hero demo phone ---------- */
-  var heroScreen = $("#heroScreen"), heroDevice = $("#heroDevice");
+  var heroScreen = $("#heroScreen");
   // Each demo comes with the word the headline ends on: "Weboldal az éttermednek." and so on.
   var DEMOS = [
     { type: "etterem", style: "meleg", features: ["rendeles", "galeria"], word: "az éttermednek." },
@@ -189,68 +187,15 @@
     { type: "egyeb", style: "elegans", features: ["arlista", "ajanlat"], word: "az irodádnak." }
   ];
   var heroWord = $("#heroWord");
-  // The headline word is built from letter spans, so it can flip in letter by letter.
-  function charSpans(word, cls, offset) {
-    var wrap = document.createElement("span");
-    wrap.className = "serif";
-    word.split("").forEach(function (c, i) {
-      var s = document.createElement("span");
-      s.className = "ch" + (cls ? " " + cls : "");
-      s.textContent = c === " " ? "\u00a0" : c;
-      s.style.setProperty("--c", i + (offset || 0));
-      wrap.appendChild(s);
-    });
-    return wrap;
-  }
-  if (heroWord && !reduced) {
-    // Entrance: "Weboldal" letters rise in, then the first word follows.
-    var lead = heroWord.previousSibling;
-    if (lead && lead.nodeType === 3 && lead.textContent.trim()) {
-      var txt = lead.textContent.trim(), frag = document.createDocumentFragment();
-      txt.split("").forEach(function (c, i) {
-        var s = document.createElement("span"); s.className = "ch ch-in"; s.textContent = c; s.style.setProperty("--c", i); frag.appendChild(s);
-      });
-      frag.appendChild(document.createTextNode(" "));
-      lead.parentNode.replaceChild(frag, lead);
-    }
-    var first = heroWord.textContent.trim();
-    heroWord.textContent = "";
-    heroWord.appendChild(charSpans(first, "ch-in", 6));
-  }
   function setWord(w) {
     if (!heroWord) return;
     var old = heroWord.firstElementChild;
-    if (reduced || !old || !old.animate) {
-      heroWord.textContent = "";
-      var plain = document.createElement("span"); plain.className = "serif"; plain.textContent = w;
-      heroWord.appendChild(plain);
-      return;
-    }
-    if (phone) {
-      // one element per word, opacity + a short slide: cheap for the phone's GPU
-      var lite = document.createElement("span"); lite.className = "serif"; lite.textContent = w;
-      heroWord.appendChild(lite);
-      lite.animate([{ opacity: 0, transform: "translateY(.3em)" }, { opacity: 1, transform: "none" }], { duration: 520, delay: 120, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
-      old.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(-.3em)" }], { duration: 300, easing: "ease-in", fill: "forwards" }).onfinish = function () { old.remove(); };
-      return;
-    }
-    var neu = charSpans(w);
+    var neu = document.createElement("span"); neu.className = "serif"; neu.textContent = w;
     heroWord.appendChild(neu);
-    $$(".ch", neu).forEach(function (c, i) {
-      c.animate([
-        { opacity: 0, transform: "translateY(.6em) rotateX(-90deg)", filter: "blur(5px)" },
-        { opacity: 1, transform: "none", filter: "blur(0)" }
-      ], { duration: 760, delay: 160 + i * 34, easing: "cubic-bezier(.2,1.35,.4,1)", fill: "backwards" });
-    });
-    var oc = $$(".ch", old), last = null;
-    if (!oc.length) oc = [old];
-    oc.forEach(function (c, i) {
-      last = c.animate([
-        { opacity: 1, transform: "none", filter: "blur(0)" },
-        { opacity: 0, transform: "translateY(-.5em) rotateX(80deg)", filter: "blur(5px)" }
-      ], { duration: 360, delay: i * 16, easing: "cubic-bezier(.5,0,.75,0)", fill: "forwards" });
-    });
-    if (last) last.onfinish = function () { old.remove(); };
+    if (reduced || !old || !old.animate) { if (old) old.remove(); return; }
+    // the new word slides up as the old one leaves: you can see the headline change
+    neu.animate([{ opacity: 0, transform: "translateY(.3em)" }, { opacity: 1, transform: "none" }], { duration: 520, delay: 120, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
+    old.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(-.3em)" }], { duration: 300, easing: "ease-in", fill: "forwards" }).onfinish = function () { old.remove(); };
   }
   if (heroScreen) {
     var di = 0, dtimer = null, dvisible = true;
@@ -263,31 +208,31 @@
       setWord(DEMOS[di].word);
       var neu = heroScreen.__ps;
       if (old && old.animate && !reduced) {
-        if (phone) {
-          // Phones: the old screen fades out first, then the new one fades in, so the two never overlap.
-          old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: "ease-in", fill: "forwards" }).onfinish = function () { old.remove(); };
-          neu.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 380, delay: 200, easing: "ease-out", fill: "backwards" });
-          setTimeout(function () { if (old.parentNode) old.remove(); }, 1000);
-        } else {
-          neu.animate([{ opacity: 0, transform: "scale(1.04)" }, { opacity: 1, transform: "none" }], { duration: 700, easing: "cubic-bezier(.22,1,.36,1)" });
-          old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: "forwards" }).onfinish = function () { old.remove(); };
-        }
+        // the old screen fades out first, then the new one fades in, so the two never overlap
+        old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: "ease-in", fill: "forwards" }).onfinish = function () { old.remove(); };
+        neu.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 380, delay: 200, easing: "ease-out", fill: "backwards" });
+        setTimeout(function () { if (old.parentNode) old.remove(); }, 1000);
       } else if (old) old.remove();
     };
     var loop = function () { clearTimeout(dtimer); if (!reduced && dvisible && !document.hidden && !plOpen) dtimer = setTimeout(function () { nextDemo(); loop(); }, 3600); };
     if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { dvisible = es[0].isIntersecting; loop(); }, { threshold: 0.25 }).observe($(".hero") || heroScreen);
     document.addEventListener("visibilitychange", loop);
     loop();
-    if (finePointer && !reduced) {
-      var stage = $(".stage");
-      stage.addEventListener("pointermove", function (e) {
-        var b = heroDevice.getBoundingClientRect();
-        heroDevice.style.setProperty("--ry", (((e.clientX - b.left) / b.width - 0.5) * 10).toFixed(2) + "deg");
-        heroDevice.style.setProperty("--rx", ((-(e.clientY - b.top) / b.height + 0.5) * 7).toFixed(2) + "deg");
-      });
-      stage.addEventListener("pointerleave", function () { heroDevice.style.setProperty("--ry", "0deg"); heroDevice.style.setProperty("--rx", "0deg"); });
-    }
   }
+
+  /* ---------- Links that leave for Stripe take a moment: show that they work ---------- */
+  $$('a[href="/elofizetes"]').forEach(function (a) {
+    a.addEventListener("click", function () {
+      a.classList.add("is-busy"); a.setAttribute("aria-busy", "true");
+      a.textContent = "Megnyitás…";
+      setTimeout(function () { a.classList.remove("is-busy"); a.removeAttribute("aria-busy"); a.textContent = "Előfizetés kezelése"; }, 8000);
+    });
+  });
+  // coming back with the browser's back button: the link is ready again
+  window.addEventListener("pageshow", function (e) {
+    if (!e.persisted) return;
+    $$('a[href="/elofizetes"].is-busy').forEach(function (a) { a.classList.remove("is-busy"); a.removeAttribute("aria-busy"); a.textContent = "Előfizetés kezelése"; });
+  });
 
   /* =========================================================
      Planner
@@ -316,7 +261,7 @@
   function opt(name, type, value, inner, cls) {
     return '<label class="opt ' + (cls || "") + '"><input type="' + type + '" name="' + name + '" value="' + value + '"><span class="opt__box">' + inner + "</span></label>";
   }
-  var tick = '<span class="opt__tick">' + svg("check", 3) + "</span>";
+  var tick = '<span class="opt__tick">' + svg("check", 2.6) + "</span>";
   $("#optTypes").innerHTML = TYPE_ORDER.map(function (k) {
     return opt("tipus", "radio", k, '<span class="opt__ico">' + svg(TYPES[k].icon) + '</span><span class="opt__txt"><b>' + esc(TYPES[k].label) + "</b></span>" + tick, "opt--type");
   }).join("");
@@ -600,28 +545,12 @@
         var first = nev.split(/\s+/).pop();
         $("#doneTitle").innerHTML = "Köszönjük, " + esc(first) + '! <span class="serif">Megkaptuk.</span>';
         setStep(STEPS.length - 1, 1);
-        confetti();
+        haptic();
       })
       .catch(function () {
         clearTimeout(timer); sending = false; el.next.classList.remove("is-loading"); el.next.disabled = false;
         el.errContact.textContent = "Nem sikerült elküldeni. Ellenőrizd az internetkapcsolatot, vagy írj nekünk: info@zalastudio.hu.";
       });
-  }
-  function confetti() {
-    if (reduced) return;
-    var box = $("#confetti"); box.innerHTML = "";
-    var cols = ["#C2501F", "#EFA640", "#4F7A4A", "#F6A46F", "#B4597A"];
-    for (var i = 0; i < 34; i++) {
-      var c = document.createElement("i");
-      var a = Math.random() * Math.PI * 2, d = 120 + Math.random() * 180;
-      c.style.background = cols[i % cols.length];
-      c.style.setProperty("--x", Math.cos(a) * d + "px");
-      c.style.setProperty("--y", Math.sin(a) * d * 0.8 + 120 + "px");
-      c.style.setProperty("--r", (Math.random() * 720 - 360) + "deg");
-      c.style.animationDelay = Math.random() * 120 + "ms";
-      box.appendChild(c);
-    }
-    haptic();
   }
 
   // Phones with a back gesture: keep the planner state in sync with the URL.

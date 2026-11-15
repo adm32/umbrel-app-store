@@ -49,7 +49,7 @@ func payShell(w http.ResponseWriter, code int, title, inner string) {
 	h.Set("Cache-Control", "no-store")
 	h.Set("X-Robots-Tag", "noindex")
 	// The form posts here and is then redirected to Stripe's checkout page.
-	h.Set("Content-Security-Policy", "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'none'; connect-src 'self'; font-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self' "+checkoutOrigin+"; object-src 'none'")
+	h.Set("Content-Security-Policy", "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; font-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self' "+checkoutOrigin+"; object-src 'none'")
 	w.WriteHeader(code)
 	io.WriteString(w, `<!doctype html>
 <html lang="hu">
@@ -62,7 +62,8 @@ func payShell(w http.ResponseWriter, code int, title, inner string) {
 <meta name="theme-color" content="#15110E" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/site.css?v=29">
+<link rel="stylesheet" href="/assets/css/site.css?v=32">
+<script src="/assets/js/pay.js?v=32" defer></script>
 </head>
 <body class="paypage">
 <header class="head is-scrolled">
@@ -164,7 +165,7 @@ func payForm(w http.ResponseWriter, code int, info payInfo, errMsg string) {
 		b.WriteString(`<p class="pay__err" role="alert">` + html.EscapeString(errMsg) + `</p>`)
 	}
 	b.WriteString(`<label class="pay__ok"><input type="checkbox" name="elfogadom" value="igen" required><span>Elolvastam és elfogadom az <a href="/aszf.html" target="_blank" rel="noopener">általános szerződési feltételeket</a>, és hozzájárulok, hogy a díjat ` + adv + ` automatikusan levonják a kártyámról.</span></label>`)
-	b.WriteString(`<button class="btn btn--primary btn--lg pay__go" type="submit"><span>Tovább a biztonságos fizetéshez</span>` + arrowSVG + `</button>`)
+	b.WriteString(`<button class="btn btn--primary btn--lg pay__go" type="submit"><span>Tovább a biztonságos fizetéshez</span><span class="spinner" aria-hidden="true"></span>` + arrowSVG + `</button>`)
 	b.WriteString(`<p class="pay__safe">` + lockSVG + `<span>A fizetés a Stripe oldalán történik. A kártyaadataidat mi nem látjuk és nem tároljuk.</span></p></form>`)
 	b.WriteString(`<p class="pay__fine">Szolgáltató: Zala Studio (<a href="/adatvedelem.html#impresszum">impresszum</a>) · <a href="/aszf.html">ÁSZF</a> · <a href="/adatvedelem.html">Adatvédelem</a> · Kérdésed van? <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a></p></article>`)
 	payShell(w, code, "Előfizetés indítása", b.String())

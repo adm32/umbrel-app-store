@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: Zala Studio (zalastudio.hu)
-version: "5.2.0"
+version: "5.2.1"
 tagline: Zala Studio – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -33,6 +33,7 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
+  5.2.1 – Facebook- és TikTok-link a láblécben (Kapcsolat), és a Google is tudja, hogy ezek a Zala Studio oldalai.
   5.2.0 – letisztultabb, gyorsabb oldal. Kikerültek a csak díszítő mozgások (csillogó gombok, forgó
   keret az ajánlott csomagon, lebegő fények), a hero gyorsabban betölt. Konkrétabb címek (pl. „Havonta
   3 490 Ft-tól. Minden benne.”), az „Ez minden oldalban benne van” rész új elrendezést kapott: a fő

@@ -42,7 +42,7 @@
     STYLES = P.STYLES, STYLE_ORDER = P.STYLE_ORDER, SITUATIONS = P.SITUATIONS, TIMINGS = P.TIMINGS, CALLS = P.CALLS,
     PLANS = P.PLANS, PLAN_ORDER = P.PLAN_ORDER, recommend = P.recommend, render = P.render;
   var spots = 5;
-  var billing = "m";
+  var billing = "m", billSwitches = 0;
 
   /* ---------- Reveals ---------- */
   var rv = $$(".rv");
@@ -62,6 +62,7 @@
     if (!dock) return;
     var on = !vis.hero && !vis.hearth && !vis.foot && !plOpen;
     dock.classList.toggle("is-on", on);
+    if (on && !dock.__seen) { dock.__seen = true; setTimeout(function () { dock.classList.add("seen"); }, 600); }
     dock.setAttribute("aria-hidden", on ? "false" : "true");
     $$("a", dock).forEach(function (a) { a.tabIndex = on ? 0 : -1; });
   }
@@ -139,12 +140,13 @@
   $$('input[name="bill"]').forEach(function (r) {
     r.addEventListener("change", function () {
       if (!r.checked) return;
-      billing = r.value;
+      billing = r.value; billSwitches++;
       $$(".plan").forEach(function (p) {
         var b = $(".amt b", p), s = $(".amt span", p), pd = $(".perday b", p);
         var v = parseInt(b.getAttribute("data-" + billing), 10);
         roll(b, v); s.textContent = s.getAttribute("data-" + billing);
-        var amt = b.parentNode; amt.classList.remove("is-new"); void amt.offsetWidth; amt.classList.add("is-new");
+        var amt = b.parentNode; amt.classList.remove("is-new");
+        if (billSwitches < 3) { void amt.offsetWidth; amt.classList.add("is-new"); } // frequency decay
         if (pd) pd.textContent = fmt(v / (billing === "y" ? 365 : 30)) + " Ft";
       });
     });
@@ -194,8 +196,8 @@
     heroWord.appendChild(neu);
     if (reduced || !old || !old.animate) { if (old) old.remove(); return; }
     // the new word slides up as the old one leaves: you can see the headline change
-    neu.animate([{ opacity: 0, transform: "translateY(.3em)" }, { opacity: 1, transform: "none" }], { duration: 520, delay: 120, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
-    old.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(-.3em)" }], { duration: 300, easing: "ease-in", fill: "forwards" }).onfinish = function () { old.remove(); };
+    neu.animate([{ opacity: 0, transform: "translateY(.3em)" }, { opacity: 1, transform: "none" }], { duration: 300, delay: 100, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
+    old.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(-.3em)" }], { duration: 200, easing: "ease-in", fill: "forwards" }).onfinish = function () { old.remove(); };
   }
   if (heroScreen) {
     var di = 0, dtimer = null, dvisible = true;
@@ -209,12 +211,14 @@
       var neu = heroScreen.__ps;
       if (old && old.animate && !reduced) {
         // the old screen fades out first, then the new one fades in, so the two never overlap
-        old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: "ease-in", fill: "forwards" }).onfinish = function () { old.remove(); };
-        neu.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 380, delay: 200, easing: "ease-out", fill: "backwards" });
+        old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 180, easing: "ease-in", fill: "forwards" }).onfinish = function () { old.remove(); };
+        neu.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260, delay: 160, easing: "ease-out", fill: "backwards" });
         setTimeout(function () { if (old.parentNode) old.remove(); }, 1000);
       } else if (old) old.remove();
     };
-    var loop = function () { clearTimeout(dtimer); if (!reduced && dvisible && !document.hidden && !plOpen) dtimer = setTimeout(function () { nextDemo(); loop(); }, 3600); };
+    // two full rounds, then it rests on the first one: something that moves forever stops being noticed
+    var swaps = 0;
+    var loop = function () { clearTimeout(dtimer); if (!reduced && dvisible && !document.hidden && !plOpen && swaps < DEMOS.length * 2) dtimer = setTimeout(function () { swaps++; nextDemo(); loop(); }, 3600); };
     if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { dvisible = es[0].isIntersecting; loop(); }, { threshold: 0.25 }).observe($(".hero") || heroScreen);
     document.addEventListener("visibilitychange", loop);
     loop();
@@ -265,9 +269,18 @@
   $("#optTypes").innerHTML = TYPE_ORDER.map(function (k) {
     return opt("tipus", "radio", k, '<span class="opt__ico">' + svg(TYPES[k].icon) + '</span><span class="opt__txt"><b>' + esc(TYPES[k].label) + "</b></span>" + tick, "opt--type");
   }).join("");
+  // Hick's law: fewer choices at once. The usual extras are shown; the rarer ones (and any of them
+  // already ticked for this kind of business) wait behind one button.
+  var MORE = ["tobb", "kozosseg", "kezeles"];
   $("#optFeatures").innerHTML = FEATURES.map(function (f) {
-    return opt("funkcio", "checkbox", f.id, '<span class="opt__ico">' + svg(f.icon) + '</span><span class="opt__txt"><b>' + esc(f.label) + "</b>" + (f.sub ? "<small>" + esc(f.sub) + "</small>" : "") + "</span>" + tick);
+    return opt("funkcio", "checkbox", f.id, '<span class="opt__ico">' + svg(f.icon) + '</span><span class="opt__txt"><b>' + esc(f.label) + "</b>" + (f.sub ? "<small>" + esc(f.sub) + "</small>" : "") + "</span>" + tick, MORE.indexOf(f.id) > -1 ? "opt--more" : "");
   }).join("");
+  (function () {
+    var box = $("#optFeatures"), btn = document.createElement("button");
+    btn.type = "button"; btn.className = "opts__more"; btn.innerHTML = '<svg aria-hidden="true"><use href="#i-plus"/></svg><span>További lehetőségek</span>';
+    box.classList.add("is-short"); box.parentNode.insertBefore(btn, box.nextSibling);
+    btn.addEventListener("click", function () { box.classList.remove("is-short"); var f = $(".opt--more input", box); if (f) f.focus({ preventScroll: true }); });
+  })();
   $("#optStyles").innerHTML = STYLE_ORDER.map(function (k) {
     var s = STYLES[k];
     var sw = '<span class="swatch" style="background:' + s.bg + '"><i style="background:' + s.p + '"></i><u style="background:' + s.ink + ';opacity:.5"></u></span>';
@@ -340,8 +353,10 @@
   }
 
   /* -- step navigation -- */
+  var stepMoves = 0;
   function setStep(i, dir) {
     stepIdx = Math.max(0, Math.min(STEPS.length - 1, i));
+    if (++stepMoves > 4) dlg.classList.add("is-quick");
     var name = STEPS[stepIdx];
     $$(".pl__step", el.form).forEach(function (s) {
       var on = s.getAttribute("data-step") === name;
@@ -418,6 +433,34 @@
   };
   bindText(el.biz, "biz", true); bindText(el.city, "city", true); bindText(el.url, "url");
   bindText(el.name, "nev"); bindText(el.tel, "tel"); bindText(el.mail, "email"); bindText(el.msg, "msg");
+
+  /* -- Postel's law: take whatever people type, give back a tidy version when they leave the field -- */
+  // Hungarian numbers in any common form (06 30…, +36 30…, 0036…, 30/123-4567) become "+36 30 123 4567";
+  // anything else (a foreign number) stays as it was typed.
+  function cleanPhone(v) {
+    var t = v.trim(), d = t.replace(/\D/g, ""), n = null;
+    if (!t) return t;
+    if (/^00/.test(d)) d = d.slice(2);
+    if (/^(36|06)/.test(d) && (d.length === 10 || d.length === 11)) n = d.slice(2);
+    else if ((d.length === 8 || d.length === 9) && t.charAt(0) !== "+") n = d;
+    if (!n) return t.replace(/\s+/g, " ");
+    if (n.charAt(0) === "1" && n.length === 8) return "+36 1 " + n.slice(1, 4) + " " + n.slice(4); // Budapest
+    return "+36 " + n.slice(0, 2) + " " + n.slice(2, 5) + " " + n.slice(5);                         // Miller: in chunks
+  }
+  var cleanText = function (v) { return v.replace(/\s+/g, " ").trim(); };
+  var cleanMail = function (v) { return v.replace(/\s+/g, "").toLowerCase(); };
+  var cleanCity = function (v) { v = cleanText(v); return v.charAt(0).toLocaleUpperCase("hu") + v.slice(1); };
+  var cleanUrl = function (v) { v = v.trim(); return v && !/^[a-z][a-z0-9+.-]*:\/\//i.test(v) && /\./.test(v) && !/\s/.test(v) ? "https://" + v : v; };
+  function tidy(input, key, fn) {
+    input.addEventListener("blur", function () {
+      var v = fn(input.value);
+      if (v === input.value) return;
+      input.value = v; S[key] = v; save();
+      if (key === "biz" || key === "city") paint();
+    });
+  }
+  tidy(el.tel, "tel", cleanPhone); tidy(el.mail, "email", cleanMail); tidy(el.url, "url", cleanUrl);
+  tidy(el.biz, "biz", cleanText); tidy(el.city, "city", cleanCity); tidy(el.name, "nev", cleanText);
   el.form.addEventListener("keydown", function (e) {
     if (e.key !== "Enter" || e.target.tagName === "TEXTAREA" || e.isComposing) return;
     e.preventDefault();
@@ -519,6 +562,7 @@
   /* -- submit -- */
   function submit() {
     if (sending) return;
+    el.tel.value = S.tel = cleanPhone(S.tel); el.mail.value = S.email = cleanMail(S.email); el.name.value = S.nev = cleanText(S.nev);
     var nev = S.nev.trim(), tel = S.tel.trim(), mail = S.email.trim();
     if (nev.length < 2) { bad($("#fldName"), el.errContact, "Add meg a neved."); el.name.focus(); return; }
     if (!tel && !mail) { bad($("#fldTel"), el.errContact, "Adj meg egy telefonszámot vagy e-mail-címet, hogy elküldhessük a bemutatót."); el.tel.focus(); return; }

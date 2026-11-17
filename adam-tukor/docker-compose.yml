@@ -13,7 +13,7 @@ services:
     stop_grace_period: 5s
     environment:
       TZ: Europe/Budapest
-      APP_VERSION: "1.0.2"
+      APP_VERSION: "1.0.3"
       DATA_DIR: /data
       APPS_DIR: /app-data
       UI_PORT: "4790"

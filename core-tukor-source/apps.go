@@ -37,8 +37,58 @@ var (
 	reVersion = regexp.MustCompile(`(?m)^version:\s*"?([^"\n]+?)"?\s*$`)
 	rePort    = regexp.MustCompile(`(?m)^port:\s*(\d+)\s*$`)
 	// "- "4773:8082"" style host port mappings in docker-compose.yml
-	reMapped = regexp.MustCompile(`(?m)^\s*-\s*"?(?:[\d.]+:)?(\d{2,5}):\d{2,5}(?:/tcp)?"?\s*(?:#.*)?$`)
+	reMapped = regexp.MustCompile(`(?m)^\s*-\s*['"]?(?:[\d.]+:)?(\d{2,5}):\d{2,5}(?:/tcp)?['"]?\s*(?:#.*)?$`)
+	// long syntax: "published: 4773"
+	rePublished = regexp.MustCompile(`(?m)^\s*-?\s*published:\s*['"]?(\d{2,5})['"]?\s*$`)
 )
+
+// Ports Docker says each app publishes (compose project = app id), remembered so an app keeps
+// its routes while it is stopped. Filled by refreshEndpoints.
+var (
+	knownMu    sync.Mutex
+	knownPorts = map[string]map[int]bool{}
+)
+
+func rememberPorts(m map[string][]int) bool {
+	knownMu.Lock()
+	defer knownMu.Unlock()
+	changed := false
+	for app, ps := range m {
+		if knownPorts[app] == nil {
+			knownPorts[app] = map[int]bool{}
+		}
+		for _, p := range ps {
+			if !knownPorts[app][p] {
+				knownPorts[app][p] = true
+				changed = true
+			}
+		}
+	}
+	return changed
+}
+
+func knownFor(app string) []int {
+	knownMu.Lock()
+	defer knownMu.Unlock()
+	var out []int
+	for p := range knownPorts[app] {
+		out = append(out, p)
+	}
+	return out
+}
+
+func knownSnapshot() map[string][]int {
+	knownMu.Lock()
+	defer knownMu.Unlock()
+	out := map[string][]int{}
+	for app, ps := range knownPorts {
+		for p := range ps {
+			out[app] = append(out[app], p)
+		}
+		sort.Ints(out[app])
+	}
+	return out
+}
 
 func scanApps() map[string]LocalApp {
 	out := map[string]LocalApp{}
@@ -68,10 +118,15 @@ func scanApps() map[string]LocalApp {
 			seen[p] = true
 		}
 		if comp, err := os.ReadFile(filepath.Join(dir, "docker-compose.yml")); err == nil {
-			for _, m := range reMapped.FindAllSubmatch(comp, -1) {
-				p, _ := strconv.Atoi(string(m[1]))
-				seen[p] = true
+			for _, re := range []*regexp.Regexp{reMapped, rePublished} {
+				for _, m := range re.FindAllSubmatch(comp, -1) {
+					p, _ := strconv.Atoi(string(m[1]))
+					seen[p] = true
+				}
 			}
+		}
+		for _, p := range knownFor(a.ID) {
+			seen[p] = true
 		}
 		for p := range seen {
 			if p > 0 && p+portShift < 65536 {
@@ -313,8 +368,9 @@ type controller interface {
 	Stop(app string) error
 	Start(app string) error
 	Running(app string) (bool, error)
-	// Endpoints maps published host ports to "containerIP:port" (nil if unknown).
-	Endpoints() map[int]string
+	// Endpoints maps published host ports to "containerIP:port" (nil if unknown), and lists the
+	// published host ports of each app.
+	Endpoints() (map[int]string, map[string][]int)
 }
 
 func newController() controller {
@@ -336,9 +392,9 @@ type execCtl struct{ cmd string }
 func (e execCtl) run(op, app string) ([]byte, error) {
 	return exec.Command(e.cmd, op, app).CombinedOutput()
 }
-func (e execCtl) Stop(app string) error     { _, err := e.run("stop", app); return err }
-func (e execCtl) Start(app string) error    { _, err := e.run("start", app); return err }
-func (e execCtl) Endpoints() map[int]string { return nil }
+func (e execCtl) Stop(app string) error                         { _, err := e.run("stop", app); return err }
+func (e execCtl) Start(app string) error                        { _, err := e.run("start", app); return err }
+func (e execCtl) Endpoints() (map[int]string, map[string][]int) { return nil, nil }
 
 func (e execCtl) Running(app string) (bool, error) {
 	out, err := e.run("running", app)
@@ -425,17 +481,18 @@ func (d *dockerCtl) Start(app string) error {
 // Endpoints: for every running container, its published TCP ports -> container address.
 // Going straight to the container avoids Docker's port forwarding on 127.0.0.1, which does
 // not answer on umbrelOS for ports an app publishes itself (e.g. "4773:8082").
-func (d *dockerCtl) Endpoints() map[int]string {
+func (d *dockerCtl) Endpoints() (map[int]string, map[string][]int) {
 	resp, err := d.client.Get("http://docker/containers/json")
 	if err != nil {
-		return nil
+		return nil, nil
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil
+		return nil, nil
 	}
 	var cs []struct {
-		Ports []struct {
+		Labels map[string]string `json:"Labels"`
+		Ports  []struct {
 			PrivatePort int    `json:"PrivatePort"`
 			PublicPort  int    `json:"PublicPort"`
 			Type        string `json:"Type"`
@@ -447,10 +504,18 @@ func (d *dockerCtl) Endpoints() map[int]string {
 		} `json:"NetworkSettings"`
 	}
 	if json.NewDecoder(resp.Body).Decode(&cs) != nil {
-		return nil
+		return nil, nil
 	}
 	out := map[int]string{}
+	byApp := map[string][]int{}
 	for _, c := range cs {
+		if app := c.Labels["com.docker.compose.project"]; app != "" {
+			for _, p := range c.Ports {
+				if p.Type == "tcp" && p.PublicPort > 0 {
+					byApp[app] = append(byApp[app], p.PublicPort)
+				}
+			}
+		}
 		var nets []string
 		for name := range c.NetworkSettings.Networks {
 			nets = append(nets, name)
@@ -472,7 +537,7 @@ func (d *dockerCtl) Endpoints() map[int]string {
 			}
 		}
 	}
-	return out
+	return out, byApp
 }
 
 func (d *dockerCtl) Running(app string) (bool, error) {

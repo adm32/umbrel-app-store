@@ -88,7 +88,8 @@ type Config struct {
 	Peer     string            `json:"peer"` // standby: main server "ip:apiport"
 	Apps     map[string]string `json:"apps"` // main server: app id -> "sync" | "forward" | "off"
 	Extra    []int             `json:"extra_ports"`
-	Auto     bool              `json:"auto"` // standby: take over automatically
+	Auto     bool              `json:"auto"`                  // standby: take over automatically
+	Ports    map[string][]int  `json:"known_ports,omitempty"` // ports Docker showed per app
 }
 
 type Route struct {
@@ -177,6 +178,7 @@ func main() {
 	if n.st.Writes == nil {
 		n.st.Writes = map[int64]int{}
 	}
+	rememberPorts(n.cfg.Ports)
 	if n.cfg.Role == "standby" && n.st.Mode == "" {
 		n.st.Mode = "forward"
 	}
@@ -184,6 +186,7 @@ func main() {
 
 	go n.serveUI()
 	go n.serveAPI()
+	n.refreshEndpoints() // learn the published ports before the first listeners open
 	go n.routeLoop()
 	go n.endpointLoop()
 	go n.healthLoop()

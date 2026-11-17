@@ -103,10 +103,17 @@ func (n *Node) endpointLoop() {
 }
 
 func (n *Node) refreshEndpoints() {
-	eps := n.ctl.Endpoints()
+	eps, byApp := n.ctl.Endpoints()
 	n.mu.Lock()
 	n.endpoints = eps
 	n.mu.Unlock()
+	if rememberPorts(byApp) {
+		n.mu.Lock()
+		n.cfg.Ports = knownSnapshot()
+		n.mu.Unlock()
+		n.save()
+		go n.refreshRoutes() // open the new ports right away
+	}
 }
 
 // localAddrLocked: where this machine's own app answers for a port (n.mu held).

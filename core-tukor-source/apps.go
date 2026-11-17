@@ -313,6 +313,8 @@ type controller interface {
 	Stop(app string) error
 	Start(app string) error
 	Running(app string) (bool, error)
+	// Endpoints maps published host ports to "containerIP:port" (nil if unknown).
+	Endpoints() map[int]string
 }
 
 func newController() controller {
@@ -334,8 +336,10 @@ type execCtl struct{ cmd string }
 func (e execCtl) run(op, app string) ([]byte, error) {
 	return exec.Command(e.cmd, op, app).CombinedOutput()
 }
-func (e execCtl) Stop(app string) error  { _, err := e.run("stop", app); return err }
-func (e execCtl) Start(app string) error { _, err := e.run("start", app); return err }
+func (e execCtl) Stop(app string) error     { _, err := e.run("stop", app); return err }
+func (e execCtl) Start(app string) error    { _, err := e.run("start", app); return err }
+func (e execCtl) Endpoints() map[int]string { return nil }
+
 func (e execCtl) Running(app string) (bool, error) {
 	out, err := e.run("running", app)
 	return strings.TrimSpace(string(out)) == "yes", err
@@ -418,6 +422,59 @@ func (d *dockerCtl) Start(app string) error {
 	return nil
 }
 
+// Endpoints: for every running container, its published TCP ports -> container address.
+// Going straight to the container avoids Docker's port forwarding on 127.0.0.1, which does
+// not answer on umbrelOS for ports an app publishes itself (e.g. "4773:8082").
+func (d *dockerCtl) Endpoints() map[int]string {
+	resp, err := d.client.Get("http://docker/containers/json")
+	if err != nil {
+		return nil
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		return nil
+	}
+	var cs []struct {
+		Ports []struct {
+			PrivatePort int    `json:"PrivatePort"`
+			PublicPort  int    `json:"PublicPort"`
+			Type        string `json:"Type"`
+		} `json:"Ports"`
+		NetworkSettings struct {
+			Networks map[string]struct {
+				IPAddress string `json:"IPAddress"`
+			} `json:"Networks"`
+		} `json:"NetworkSettings"`
+	}
+	if json.NewDecoder(resp.Body).Decode(&cs) != nil {
+		return nil
+	}
+	out := map[int]string{}
+	for _, c := range cs {
+		var nets []string
+		for name := range c.NetworkSettings.Networks {
+			nets = append(nets, name)
+		}
+		sort.Strings(nets)
+		ip := ""
+		for _, name := range nets {
+			if a := c.NetworkSettings.Networks[name].IPAddress; a != "" {
+				ip = a
+				break
+			}
+		}
+		if ip == "" {
+			continue
+		}
+		for _, p := range c.Ports {
+			if p.Type == "tcp" && p.PublicPort > 0 && p.PrivatePort > 0 {
+				out[p.PublicPort] = net.JoinHostPort(ip, strconv.Itoa(p.PrivatePort))
+			}
+		}
+	}
+	return out
+}
+
 func (d *dockerCtl) Running(app string) (bool, error) {
 	cs, err := d.list(app)
 	if err != nil {
@@ -433,11 +490,14 @@ func (d *dockerCtl) Running(app string) (bool, error) {
 
 // waitUp waits until the app answers on its port with something other than a gateway error
 // (Umbrel's app_proxy answers even while the app itself is still starting).
-func waitUp(port int, limit time.Duration) bool {
+func waitUp(addr string, limit time.Duration) bool {
 	cl := &http.Client{Timeout: 3 * time.Second, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}
 	end := time.Now().Add(limit)
 	for time.Now().Before(end) {
-		resp, err := cl.Get(fmt.Sprintf("http://127.0.0.1:%d/", port+localShift))
+		if addr == "" {
+			return false
+		}
+		resp, err := cl.Get("http://" + addr + "/")
 		if err == nil {
 			resp.Body.Close()
 			if resp.StatusCode < 500 {

@@ -94,6 +94,35 @@ func (n *Node) listen(port int) {
 	}
 }
 
+// endpointLoop keeps the container addresses of the published ports fresh.
+func (n *Node) endpointLoop() {
+	for {
+		n.refreshEndpoints()
+		time.Sleep(5 * time.Second)
+	}
+}
+
+func (n *Node) refreshEndpoints() {
+	eps := n.ctl.Endpoints()
+	n.mu.Lock()
+	n.endpoints = eps
+	n.mu.Unlock()
+}
+
+// localAddrLocked: where this machine's own app answers for a port (n.mu held).
+func (n *Node) localAddrLocked(port int) string {
+	if a, ok := n.endpoints[port]; ok {
+		return a
+	}
+	return fmt.Sprintf("127.0.0.1:%d", port+localShift)
+}
+
+func (n *Node) localAddr(port int) string {
+	n.mu.Lock()
+	defer n.mu.Unlock()
+	return n.localAddrLocked(port)
+}
+
 func (n *Node) route(port int) (Route, bool) {
 	for _, r := range n.st.Routes {
 		if r.Port == port {
@@ -105,43 +134,49 @@ func (n *Node) route(port int) (Route, bool) {
 
 // target decides where one request goes: "host:port", or "" with a reason for the wait page.
 func (n *Node) target(port int, hop bool) (string, string) {
+	t, why, _ := n.targetEx(port, hop)
+	return t, why
+}
+
+// targetEx also tells whether the target is this machine's own app.
+func (n *Node) targetEx(port int, hop bool) (string, string, bool) {
 	n.mu.Lock()
 	defer n.mu.Unlock()
 	r, ok := n.route(port)
 	if !ok {
-		return "", "missing"
+		return "", "missing", false
 	}
-	local := fmt.Sprintf("127.0.0.1:%d", port+localShift)
+	local := n.localAddrLocked(port)
 	if n.cfg.Role == "primary" {
 		if r.Mode == "sync" && !hop && time.Since(n.st.StandbySeen) < reportFresh {
 			switch n.st.StandbyMode {
 			case "active": // the standby holds the newest data until it hands it back
-				return fmt.Sprintf("%s:%d", n.st.StandbyIP, port+n.st.StandbyOffset), ""
+				return fmt.Sprintf("%s:%d", n.st.StandbyIP, port+n.st.StandbyOffset), "", false
 			case "returning":
-				return "", "busy"
+				return "", "busy", false
 			}
 		}
-		return local, ""
+		return local, "", true
 	}
 	// standby
 	peerHost, _, _ := net.SplitHostPort(n.cfg.Peer)
 	toPeer := fmt.Sprintf("%s:%d", peerHost, port+n.st.PeerOffset)
 	if r.Mode == "forward" {
 		if hop {
-			return "", "busy"
+			return "", "busy", false
 		}
-		return toPeer, ""
+		return toPeer, "", false
 	}
 	switch n.st.Mode {
 	case "active":
-		return local, ""
+		return local, "", true
 	case "returning":
-		return "", "busy"
+		return "", "busy", false
 	}
 	if hop || n.cfg.Peer == "" { // never bounce a request back to the main server
-		return "", "busy"
+		return "", "busy", false
 	}
-	return toPeer, ""
+	return toPeer, "", false
 }
 
 var transport = &http.Transport{
@@ -173,6 +208,9 @@ func proxyTo(target string) *httputil.ReverseProxy {
 		Transport: transport,
 		ErrorLog:  log.New(io.Discard, "", 0),
 		ErrorHandler: func(w http.ResponseWriter, r *http.Request, err error) {
+			if n != nil {
+				go n.refreshEndpoints() // a restarted container may have a new address
+			}
 			waitPage(w, r)
 		},
 	}
@@ -187,10 +225,10 @@ func isWrite(m string) bool {
 func (n *Node) proxyHandler(port int) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		hop := r.Header.Get("X-Tukor-Hop") != ""
-		target, why := n.target(port, hop)
+		target, why, isLocal := n.targetEx(port, hop)
 		n.mu.Lock()
 		n.hits[port]++
-		if target != "" && strings.HasPrefix(target, "127.0.0.1:") && n.cfg.Role == "primary" && isWrite(r.Method) {
+		if isLocal && n.cfg.Role == "primary" && isWrite(r.Method) {
 			n.st.Writes[time.Now().Unix()/60]++
 		}
 		n.mu.Unlock()
@@ -202,7 +240,9 @@ func (n *Node) proxyHandler(port int) http.Handler {
 			waitPage(w, r)
 			return
 		}
-		if !strings.HasPrefix(target, "127.0.0.1:") {
+		if isLocal {
+			r.Header.Del("X-Tukor-Hop")
+		} else {
 			r.Header.Set("X-Tukor-Hop", "1")
 		}
 		proxyTo(target).ServeHTTP(w, r)

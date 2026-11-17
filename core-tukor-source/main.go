@@ -151,6 +151,7 @@ type Node struct {
 	busy        string // running failover / failback
 	listening   map[int]bool
 	hits        map[int]int64
+	endpoints   map[int]string
 	syncNow     chan struct{}
 	sessions    map[string]time.Time
 	loginFails  int
@@ -184,6 +185,7 @@ func main() {
 	go n.serveUI()
 	go n.serveAPI()
 	go n.routeLoop()
+	go n.endpointLoop()
 	go n.healthLoop()
 	go n.syncLoop()
 	go n.saveLoop()

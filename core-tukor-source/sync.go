@@ -225,7 +225,8 @@ func (n *Node) failover(reason string, manual bool) {
 	}
 	n.mu.Unlock()
 	for _, p := range ports {
-		waitUp(p, 45*time.Second)
+		n.refreshEndpoints() // the started containers have new addresses
+		waitUp(n.localAddr(p), 45*time.Second)
 	}
 	n.mu.Lock()
 	n.st.Mode = "active"

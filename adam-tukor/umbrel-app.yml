@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-tukor
 category: networking
 name: Tükör
-version: "1.0.1"
+version: "1.0.2"
 tagline: Tartalék szerver, ami átveszi az oldalakat, ha a fő leáll
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-tukor/icon.svg
 description: >-
@@ -40,6 +40,7 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
+  1.0.2 – javítva: az Esszencia és a Császkó kezelő oldala nem töltött be a Tükörön át (az appok saját portját most a Docker címén éri el).
   1.0.1 – javítva: az „Átvétel most” és az „Új kód” gomb a megerősítés után nem csinált semmit.
   1.0.0 – első kiadás. Két Umbrel együtt: a tartalék 15 másodpercenként átmásolja az oldalak adatait
   (beállítások és Stripe-kulcsok is), minden kérést a fő szervernek ad tovább, és ha a fő ~30

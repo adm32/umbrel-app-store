@@ -123,6 +123,7 @@ async function api(path,body){
 }
 function shake(el){el.classList.remove("shake");void el.offsetWidth;el.classList.add("shake")}
 async function act(btn,path,body,errEl){
+  btn=btn||document.createElement("button");
   btn.classList.add("is-busy");
   try{await api(path,body);if(errEl)errEl.textContent="";await refresh()}
   catch(e){if(errEl){errEl.textContent=e.message;shake(errEl.closest("form,.card")||btn)}else alert(e.message)}
@@ -187,7 +188,7 @@ function renderPrimary(){
     pair.innerHTML=`<h2>Párosító kód</h2><p class="lead">Ezt írd be a tartalék szerver Tükrébe. Tartsd titokban: aki ismeri, az a tartalékon keresztül eléri az oldalak adatait.</p>`+(S.code?`<div class="code" id="code">${esc(S.code)}</div><div class="row"><button class="acc" id="copy">Másolás</button><button class="ghost" id="newsec">Új kód</button></div>`:`<p class="note">A kód akkor jelenik meg, ha a Tailscale fut ezen a gépen.</p>`);
     if(S.code){
       $("#copy").onclick=async e=>{const b=e.currentTarget;try{await navigator.clipboard.writeText(S.code);b.textContent="Másolva ✓"}catch(_){const r=document.createRange();r.selectNodeContents($("#code"));getSelection().removeAllRanges();getSelection().addRange(r);b.textContent="Kijelölve, másold ki"}setTimeout(()=>b.textContent="Másolás",1800)};
-      $("#newsec").onclick=async e=>{if(await ask("Új párosító kód?","A régi kód azonnal megszűnik, a tartalékon újra be kell írni.","Új kód"))act(e.currentTarget,"newsecret",{})};
+      $("#newsec").onclick=async e=>{const b=e.currentTarget;if(await ask("Új párosító kód?","A régi kód azonnal megszűnik, a tartalékon újra be kell írni.","Új kód"))act(b,"newsecret",{})};
     }
   }
   const apps=S.apps||[];
@@ -250,7 +251,7 @@ function renderStandby(){
    <div class="row" style="margin-top:12px">${m==="forward"?`<button class="ghost" id="sync" ${S.paired?"":"disabled"}>Szinkronizálás most</button><button class="danger" id="fo" ${S.paired&&!busy?"":"disabled"}>Átvétel most</button>`:""}${m==="active"?`<button class="acc" id="fb" ${S.peer_ok&&!busy?"":"disabled"}>Visszaadás most</button>`:""}</div>`;
   $("#auto").onchange=e=>act(e.target,"auto",{on:e.target.checked});
   if($("#sync"))$("#sync").onclick=e=>act(e.currentTarget,"sync",{});
-  if($("#fo"))$("#fo").onclick=async e=>{if(await ask("Átveszed az oldalakat?","Ezen a gépen elindulnak az appok, és minden kérés ide fut be, amíg vissza nem adod. Teszteléshez is jó.","Átvétel"))act(e.currentTarget,"failover",{})};
+  if($("#fo"))$("#fo").onclick=async e=>{const b=e.currentTarget;if(await ask("Átveszed az oldalakat?","Ezen a gépen elindulnak az appok, és minden kérés ide fut be, amíg vissza nem adod. Teszteléshez is jó.","Átvétel"))act(b,"failover",{})};
   if($("#fb"))$("#fb").onclick=e=>act(e.currentTarget,"failback",{});
   const apps=S.apps||[];
   $("#apps").innerHTML=apps.length?apps.map(x=>{let st;if(!x.installed)st=x.mode==="sync"?'<span class="pill bad">nincs telepítve</span>':'<span class="pill">csak továbbítás</span>';else if(x.local_version!==x.version)st=`<span class="pill warn">verzió: itt ${esc(x.local_version)}, főn ${esc(x.version)} – nyomj Update-et</span>`;else st=x.mode==="sync"?'<span class="pill ok">rendben</span>':'<span class="pill">csak továbbítás</span>';return `<div class="item"><div class="grow"><div class="name">${esc(x.name)}</div><div class="meta"><span class="mono">${esc(x.id)}</span>${x.mode==="sync"?" · "+x.files+" fájl, "+size(x.size):""}</div></div>${st}</div>`}).join(""):`<p class="muted">${S.paired?"Az első szinkron után itt látod az appokat.":"Párosítás után jelennek meg."}</p>`;

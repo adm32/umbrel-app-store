@@ -1,0 +1,42 @@
+manifestVersion: 1
+id: adam-tv-remote
+category: media
+name: TV Remote
+version: "1.0.0"
+tagline: Control the living-room Samsung TV from your phone
+icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-tv-remote/icon.svg
+description: >-
+  A touch remote for the living-room Samsung TV (UE46F5500, 2013 F-series),
+  served as an Umbrel tile you can open from any phone on the network.
+
+
+  Holds one warm connection to the TV's legacy remote protocol (port 55000) and
+  reuses it, so after the first press every key lands almost instantly. Includes
+  power, source, menu/home, a D-pad, volume and channel, mute, playback transport
+  and a number pad.
+
+
+  Power-off uses the TV's own key; power-on sends a Wake-on-LAN packet to the TV
+  (works only if "Network Standby" / WoL is enabled in the TV's menu, and is
+  best-effort over the Umbrel's bridge network).
+
+
+  The TV's address, name and MAC are set with environment variables in
+  docker-compose.yml (TV_HOST, TV_PORT, TV_NAME, TV_MAC). Give the TV a DHCP
+  reservation so its IP doesn't change.
+releaseNotes: >-
+  First release. Legacy Samsung remote over a persistent connection, mobile glass
+  UI, Wake-on-LAN power-on, and a small HTTP API (POST /api/key/KEY_*,
+  POST /api/power-on, GET /api/status).
+developer: Adam
+website: https://github.com/adm32/umbrel-app-store
+dependencies: []
+repo: https://github.com/adm32/umbrel-app-store
+support: https://github.com/adm32/umbrel-app-store/issues
+port: 8188
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+submitter: Adam
+submission: https://github.com/adm32/umbrel-app-store

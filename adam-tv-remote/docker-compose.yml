@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      # <app-id>_<service>_1
+      APP_HOST: adam-tv-remote_web_1
+      APP_PORT: 3000
+      # A TV remote on the LAN — skip the Umbrel login so the phone opens it instantly.
+      PROXY_AUTH_ADD: "false"
+
+  web:
+    build:
+      context: ${APP_DATA_DIR}
+    # Build the image on the Umbrel itself (no registry needed), like the other apps here.
+    pull_policy: build
+    restart: on-failure
+    stop_grace_period: 5s
+    environment:
+      PORT: 3000
+      TV_HOST: "10.0.0.157"          # the Samsung UE46F5500 (give it a DHCP reservation)
+      TV_PORT: "55000"
+      TV_NAME: "iPhone Remote"        # shown in the TV's "Allow device?" dialog
+      TV_MAC: "0c:89:10:84:7b:df"     # for Wake-on-LAN power-on

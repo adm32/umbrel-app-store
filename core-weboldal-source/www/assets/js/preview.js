@@ -55,7 +55,7 @@
     { id: "nyelv", label: "Német és angol nyelv", icon: "globe" },
     { id: "tobb", label: "Több aloldal", sub: "Például Rólunk, Szolgáltatások", icon: "pages" },
     { id: "kozosseg", label: "Facebook és Instagram", sub: "A legújabb bejegyzések az oldalon", icon: "heart" },
-    { id: "kezeles", label: "Intézzetek el mindent ti", sub: "Google- és Facebook-kezelés, korlátlan módosítás", icon: "crown" }
+    { id: "kezeles", label: "Intézzetek el mindent ti", sub: "Facebook-kezelés, korlátlan módosítás", icon: "crown" }
   ];
   var FEAT = {}; FEATURES.forEach(function (f) { FEAT[f.id] = f; });
 

@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tükör</title>
+<link rel="icon" href="/icon.svg">
+<style>
+:root{--bg:#F6F3EE;--card:#fff;--ink:#2A221C;--ink2:#6B6057;--line:#E8E0D6;--acc:#B84A1C;--acc-ink:#A23F17;--ok:#2F7D4F;--ok-bg:#E7F3EC;--warn:#94600F;--warn-bg:#FBF1DE;--bad:#B3261E;--bad-bg:#FBE9E7;--r:14px;--t:.2s;--ease:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:20px 16px 64px}
+header{display:flex;align-items:center;gap:12px;margin:4px 0 20px}
+header img{width:36px;height:36px;border-radius:9px}
+header h1{font-size:19px;margin:0;letter-spacing:-.01em}
+header .sub{color:var(--ink2);font-size:13px}
+header .grow{flex:1}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin:0 0 14px}
+.card h2{font-size:15px;margin:0 0 4px}
+.card .lead{color:var(--ink2);margin:0 0 14px;font-size:14px}
+.hero{display:flex;gap:14px;align-items:flex-start;padding:20px}
+.dot{flex:none;width:14px;height:14px;border-radius:50%;margin-top:6px;background:var(--ink2);position:relative}
+.dot.ok{background:var(--ok)}.dot.warn{background:#D69A2D}.dot.bad{background:var(--bad)}
+.dot.pulse::after{content:"";position:absolute;inset:0;border-radius:50%;background:inherit;animation:ring .7s var(--ease) 1}
+@keyframes ring{from{transform:scale(1);opacity:.6}to{transform:scale(2.6);opacity:0}}
+.hero h2{font-size:21px;margin:0 0 2px;letter-spacing:-.01em}
+.hero p{margin:0;color:var(--ink2)}
+.meter{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:12px;max-width:320px}
+.meter i{display:block;height:100%;background:var(--acc);transition:width .3s var(--ease)}
+.grid{display:grid;gap:14px}
+@media(min-width:760px){.grid.two{grid-template-columns:1fr 1fr}}
+.stat{display:flex;flex-direction:column;gap:2px}
+.stat b{font-size:13px;color:var(--ink2);font-weight:500}
+.stat span{font-size:16px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+button,.btn{font:inherit;font-weight:600;border:0;border-radius:10px;min-height:44px;padding:10px 16px;cursor:pointer;background:var(--ink);color:#fff;transition:transform .12s var(--ease),background var(--t),opacity var(--t);display:inline-flex;align-items:center;justify-content:center;gap:8px}
+button:active{transform:scale(.96)}
+button.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+button.ghost:hover{box-shadow:inset 0 0 0 1px var(--ink2)}
+button.acc{background:var(--acc)}
+button.danger{background:var(--bad)}
+button[disabled]{opacity:.5;cursor:default}
+button.is-busy{pointer-events:none;opacity:.85}
+button.is-busy::before{content:"";width:14px;height:14px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(1turn)}}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input[type=password],input[type=text],textarea{font:inherit;width:100%;min-height:44px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);transition:border-color var(--t),box-shadow var(--t)}
+textarea{min-height:76px;resize:vertical;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px}
+input:focus,textarea:focus{outline:0;border-color:var(--acc);box-shadow:0 0 0 3px rgba(184,74,28,.15)}
+label.fld{display:block;margin:0 0 12px}
+label.fld span{display:block;font-size:13px;color:var(--ink2);margin:0 0 4px}
+.err{color:var(--bad);font-size:14px;margin:8px 0 0;min-height:1em}
+.shake{animation:shake .32s var(--ease)}
+@keyframes shake{0%,100%{transform:none}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(2px)}}
+.choices{display:grid;gap:10px;margin:0 0 14px}
+@media(min-width:600px){.choices{grid-template-columns:1fr 1fr}}
+.choice{display:block;border:1px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;transition:border-color var(--t),box-shadow var(--t),transform .12s var(--ease)}
+.choice:active{transform:scale(.98)}
+.choice input{position:absolute;opacity:0}
+.choice b{display:block}
+.choice small{color:var(--ink2)}
+.choice:has(input:checked){border-color:var(--acc);box-shadow:0 0 0 3px rgba(184,74,28,.15)}
+.code{font:600 17px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.03em;background:#FBF8F4;border:1px dashed #D9CFC4;border-radius:10px;padding:12px 14px;word-break:break-all;margin:0 0 12px}
+.list{display:flex;flex-direction:column}
+.item{display:flex;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line);flex-wrap:wrap}
+.item:first-child{border-top:0;padding-top:0}
+.item .grow{flex:1;min-width:180px}
+.item .name{font-weight:600}
+.item .meta{color:var(--ink2);font-size:13px}
+.seg{display:inline-flex;background:#F1ECE5;border-radius:10px;padding:3px}
+.seg button{background:transparent;color:var(--ink2);min-height:38px;padding:6px 10px;font-size:13px;border-radius:8px;position:relative}
+.seg button::after{content:"";position:absolute;inset:-3px 0}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;background:#F1ECE5;color:var(--ink2)}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}.pill.warn{background:var(--warn-bg);color:var(--warn)}.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td code{word-break:break-all}
+@media(max-width:560px){.tw table,.tw tbody,.tw tr,.tw td{display:block}.tw th{display:none}.tw tr{padding:10px 0;border-top:1px solid var(--line)}.tw tr:first-child{border-top:0}.tw td{border:0;padding:2px 0}}
+th,td{text-align:left;padding:9px 8px 9px 0;border-top:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--ink2);font-size:12px;border-top:0}
+td code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}
+.ev{display:flex;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.ev:first-child{border-top:0}
+.ev time{flex:none;color:var(--ink2);font-variant-numeric:tabular-nums;width:92px;font-size:13px}
+.ev.bad span{color:var(--bad)}.ev.warn span{color:var(--warn)}.ev.ok span{color:var(--ok)}
+.toggle{display:flex;align-items:center;gap:12px;min-height:44px;cursor:pointer}
+.toggle input{appearance:none;width:44px;height:26px;border-radius:13px;background:#D9CFC4;position:relative;cursor:pointer;transition:background var(--t);flex:none;margin:0}
+.toggle input::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform var(--t) var(--ease)}
+.toggle input:checked{background:var(--ok)}
+.toggle input:checked::after{transform:translateX(18px)}
+.note{background:var(--warn-bg);color:var(--warn);border-radius:10px;padding:10px 12px;font-size:14px;margin:0 0 12px}
+.note.bad{background:var(--bad-bg);color:var(--bad)}
+.center{min-height:80vh;display:grid;place-items:center}
+.narrow{width:100%;max-width:420px}
+dialog{border:0;border-radius:var(--r);padding:20px;max-width:400px;width:calc(100% - 32px);box-shadow:0 20px 60px rgba(0,0,0,.25)}
+dialog::backdrop{background:rgba(23,17,13,.4)}
+dialog[open]{animation:pop .2s var(--ease)}
+@keyframes pop{from{transform:scale(.96);opacity:0}}
+.copied{color:var(--ok)}
+.hidden{display:none!important}
+small.muted,.muted{color:var(--ink2)}
+a{color:var(--acc-ink)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main id="app"><div class="center"><p class="muted">Betöltés…</p></div></main>
+
+<dialog id="confirm"><h2 id="cTitle" style="margin:0 0 6px;font-size:17px"></h2><p id="cText" class="muted" style="margin:0 0 16px"></p><div class="row" style="justify-content:flex-end"><button class="ghost" id="cNo">Mégse</button><button class="danger" id="cYes">Igen</button></div></dialog>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let S=null, built="", lastMode="", lastState="";
+
+async function api(path,body){
+  const r=await fetch("/ui/"+path,{method:body===undefined?"GET":"POST",headers:{"Content-Type":"application/json","X-Tukor":"1"},body:body===undefined?undefined:JSON.stringify(body)});
+  let j={};try{j=await r.json()}catch(e){}
+  if(!r.ok) throw new Error(j.error||("Hiba: "+r.status));
+  return j;
+}
+function shake(el){el.classList.remove("shake");void el.offsetWidth;el.classList.add("shake")}
+async function act(btn,path,body,errEl){
+  btn.classList.add("is-busy");
+  try{await api(path,body);if(errEl)errEl.textContent="";await refresh()}
+  catch(e){if(errEl){errEl.textContent=e.message;shake(errEl.closest("form,.card")||btn)}else alert(e.message)}
+  finally{btn.classList.remove("is-busy")}
+}
+function ask(title,text,yes){return new Promise(res=>{const d=$("#confirm");$("#cTitle").textContent=title;$("#cText").textContent=text;$("#cYes").textContent=yes||"Igen";d.showModal();$("#cYes").onclick=()=>{d.close();res(true)};$("#cNo").onclick=()=>{d.close();res(false)}})}
+function since(s){if(s<0)return "még soha";if(s<10)return "épp most";if(s<60)return s+" mp-e";if(s<3600)return Math.round(s/60)+" perce";if(s<86400)return Math.round(s/3600)+" órája";return Math.round(s/86400)+" napja"}
+function size(b){if(b<1024)return b+" B";if(b<1048576)return (b/1024).toFixed(0)+" KB";return (b/1048576).toFixed(1)+" MB"}
+function t(ts){const d=new Date(ts);const now=new Date();const same=d.toDateString()===now.toDateString();return same?d.toLocaleTimeString("hu-HU",{hour:"2-digit",minute:"2-digit",second:"2-digit"}):d.toLocaleDateString("hu-HU",{month:"short",day:"numeric"})+" "+d.toLocaleTimeString("hu-HU",{hour:"2-digit",minute:"2-digit"})}
+function heroDot(cls,key){const pulse=lastState&&lastState!==key;lastState=key;return `<span class="dot ${cls}${pulse?" pulse":""}"></span>`}
+
+function headerHTML(){return `<header><img src="/icon.svg" alt=""><div class="grow"><h1>Tükör</h1><div class="sub">${S.role==="primary"?"Fő szerver":S.role==="standby"?"Tartalék szerver":"Beállítás"} · ${esc(S.version)}</div></div>${S.logged_in?'<button class="ghost" id="logout">Kilépés</button>':""}</header>`}
+
+function viewSetup(){
+  $("#app").innerHTML=`<div class="center"><form class="card narrow" id="f">
+  <div class="row" style="margin:0 0 14px"><img src="/icon.svg" alt="" width="40" height="40" style="border-radius:10px"><div><h2 style="font-size:18px;margin:0">Tükör beállítása</h2><div class="muted" style="font-size:13px">Melyik gép ez?</div></div></div>
+  <div class="choices">
+   <label class="choice"><input type="radio" name="role" value="primary"><b>Fő szerver</b><small>Itt futnak élesben az oldalak.</small></label>
+   <label class="choice"><input type="radio" name="role" value="standby"><b>Tartalék szerver</b><small>Másolatot tart, és átveszi az oldalakat, ha a fő leáll.</small></label>
+  </div>
+  <label class="fld"><span>Jelszó ehhez a felülethez (legalább 8 karakter)</span><input type="password" name="pw" autocomplete="new-password" required></label>
+  <button class="acc" style="width:100%">Mentés</button><p class="err" id="e"></p></form></div>`;
+  $("#f").onsubmit=e=>{e.preventDefault();const f=e.target;act(f.querySelector("button"),"setup",{role:(f.role.value||""),password:f.pw.value},$("#e"))};
+}
+function viewLogin(){
+  $("#app").innerHTML=`<div class="center"><form class="card narrow" id="f">
+  <div class="row" style="margin:0 0 14px"><img src="/icon.svg" alt="" width="40" height="40" style="border-radius:10px"><div><h2 style="font-size:18px;margin:0">Tükör</h2><div class="muted" style="font-size:13px">${S.role==="primary"?"Fő szerver":"Tartalék szerver"}</div></div></div>
+  <label class="fld"><span>Jelszó</span><input type="password" name="pw" autocomplete="current-password" autofocus required></label>
+  <button class="acc" style="width:100%">Belépés</button><p class="err" id="e"></p></form></div>`;
+  $("#f").onsubmit=e=>{e.preventDefault();act(e.target.querySelector("button"),"login",{password:e.target.pw.value},$("#e"))};
+}
+
+// ---------- main server ----------
+function buildPrimary(){
+  $("#app").innerHTML=headerHTML()+`
+  <section class="card hero" id="hero"></section>
+  <section class="card" id="pair"></section>
+  <section class="card"><h2>Appok</h2><p class="lead"><b>Szinkron</b>: a tartalék másolatot tart róla és átveszi. <b>Csak továbbítás</b>: a tartalék mindig ide küldi, nem veszi át. <b>Ki</b>: a Tükör nem foglalkozik vele.</p><div class="list" id="apps"></div></section>
+  <section class="card"><h2>Cloudflare Tunnel címek</h2><p class="lead">A Cloudflare-ben (Zero Trust → Networks → Tunnels → a tunneled → Public Hostnames) minden hostname a Tükörre mutasson. A régi port elé kerül egy „1”, a gép neve pedig <code class="mono">host.docker.internal</code> – így ugyanaz a beállítás mindkét gépen működik.</p><div id="routes"></div>
+   <form id="xf" style="margin-top:14px"><label class="fld"><span>Egyéb portok csak továbbításra (pl. Jellyfin), vesszővel</span><input type="text" name="ports" inputmode="numeric" placeholder="pl. 8096"></label><button class="ghost">Mentés</button><p class="err" id="xe"></p></form></section>
+  <section class="card hidden" id="conf"></section>
+  <section class="card"><h2>Napló</h2><div id="ev"></div></section>
+  <section class="card"><h2>Jelszó módosítása</h2><form id="pf" class="grid two"><label class="fld"><span>Régi jelszó</span><input type="password" name="old" autocomplete="current-password"></label><label class="fld"><span>Új jelszó</span><input type="password" name="nw" autocomplete="new-password"></label><div><button class="ghost">Mentés</button><p class="err" id="pe"></p></div></form></section>`;
+  $("#xf").ports.value=(S.extra||[]).join(", ");
+  $("#xf").onsubmit=e=>{e.preventDefault();act(e.target.querySelector("button"),"extra",{ports:e.target.ports.value},$("#xe"))};
+  bindCommon();
+}
+function renderPrimary(){
+  const sb=S.standby||{};
+  const fresh=sb.seen_ago>=0&&sb.seen_ago<20;
+  let cls="",key,title,text;
+  if(!S.ts_ip){cls="bad";key="nots";title="Nincs Tailscale";text="Telepítsd és jelentkezz be a Tailscale appba ezen az Umbrelen, nélküle a tartalék nem éri el ezt a gépet."}
+  else if(sb.seen_ago<0){cls="";key="none";title="Még nincs tartalék";text="Telepítsd a Tükört a tartalék gépre is, és írd be ott a lenti párosító kódot."}
+  else if(!fresh){cls="warn";key="lost";title="A tartalék nem jelentkezik";text="Utoljára "+since(sb.seen_ago)+" kapcsolódott. Az oldalak innen futnak tovább."}
+  else if(sb.mode==="active"){cls="bad";key="active";title="A tartalék viszi az oldalakat";text="Amíg vissza nem adja, az ide érkező kéréseket is neki továbbítom."}
+  else if(sb.mode==="returning"){cls="warn";key="ret";title="Visszaadás folyamatban";text="A tartalék épp visszaküldi a közben változott adatokat."}
+  else {cls="ok";key="ok";title="Minden rendben";text="A tartalék kapcsolódva van, szinkronban tart"+(sb.pull_ago>=0?" (utolsó szinkron: "+since(sb.pull_ago)+")":"")+". Minden ide fut be."}
+  $("#hero").innerHTML=heroDot(cls,key)+`<div><h2>${esc(title)}</h2><p>${esc(text)}</p><div class="stats" style="margin-top:14px"><div class="stat"><b>Tailscale cím</b><span class="mono">${esc(S.ts_ip||"–")}</span></div><div class="stat"><b>Tartalék</b><span>${sb.seen_ago<0?"–":esc(sb.ip)+" · "+since(sb.seen_ago)}</span></div><div class="stat"><b>Látogatói módosítás (24 óra)</b><span>${S.writes_24h}</span></div></div></div>`;
+  const pair=$("#pair");
+  if(!pair.dataset.code||pair.dataset.code!==S.code){
+    pair.dataset.code=S.code;
+    pair.innerHTML=`<h2>Párosító kód</h2><p class="lead">Ezt írd be a tartalék szerver Tükrébe. Tartsd titokban: aki ismeri, az a tartalékon keresztül eléri az oldalak adatait.</p>`+(S.code?`<div class="code" id="code">${esc(S.code)}</div><div class="row"><button class="acc" id="copy">Másolás</button><button class="ghost" id="newsec">Új kód</button></div>`:`<p class="note">A kód akkor jelenik meg, ha a Tailscale fut ezen a gépen.</p>`);
+    if(S.code){
+      $("#copy").onclick=async e=>{const b=e.currentTarget;try{await navigator.clipboard.writeText(S.code);b.textContent="Másolva ✓"}catch(_){const r=document.createRange();r.selectNodeContents($("#code"));getSelection().removeAllRanges();getSelection().addRange(r);b.textContent="Kijelölve, másold ki"}setTimeout(()=>b.textContent="Másolás",1800)};
+      $("#newsec").onclick=async e=>{if(await ask("Új párosító kód?","A régi kód azonnal megszűnik, a tartalékon újra be kell írni.","Új kód"))act(e.currentTarget,"newsecret",{})};
+    }
+  }
+  const apps=S.apps||[];
+  $("#apps").innerHTML=apps.length?apps.map(a=>`<div class="item"><div class="grow"><div class="name">${esc(a.name)}</div><div class="meta"><span class="mono">${esc(a.id)}</span> · ${esc(a.version||"")}${a.ports&&a.ports.length?" · port "+a.ports.join(", "):""}</div></div><div class="seg" data-id="${esc(a.id)}">${[["sync","Szinkron"],["forward","Csak továbbítás"],["off","Ki"]].map(([m,l])=>`<button data-m="${m}" class="${a.mode===m?"on":""}">${l}</button>`).join("")}</div></div>`).join(""):`<p class="muted">Nincs telepített app.</p>`;
+  document.querySelectorAll("#apps .seg button").forEach(b=>b.onclick=()=>{const id=b.parentElement.dataset.id;b.parentElement.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));act(b,"app",{id,mode:b.dataset.m})});
+  renderRoutes();renderConflicts();renderEvents();
+}
+function renderRoutes(){
+  const rs=S.routes||[];
+  if(!rs.length){$("#routes").innerHTML=`<p class="muted">Nincs továbbított port.</p>`;return}
+  const names={};(S.apps||[]).forEach(a=>names[a.id]=a.name);
+  $("#routes").innerHTML=`<div class="tw"><table><tr><th>App</th><th>Régi cím</th><th>Új cím a Cloudflare-ben</th><th>Forgalom</th></tr>`+rs.map(r=>{const h=(S.hits||{})[r.port]||0;return `<tr><td>${esc(names[r.app]||r.app||"Egyéb")}${r.mode==="forward"?' <span class="pill">csak továbbítás</span>':""}</td><td><code>…:${r.port}</code></td><td><code>http://host.docker.internal:${r.port+S.offset}</code></td><td>${h?`<span class="pill ok">✓ ${h}</span>`:'<span class="pill">még nincs</span>'}</td></tr>`}).join("")+`</table></div><p class="muted" style="font-size:13px;margin:10px 0 0">A „Forgalom” oszlopban látod, melyik cím kap már kéréseket a Tükörön keresztül. Ha minden kitöltött sor zöld, a Cloudflare beállítás kész.</p>`;
+}
+function renderConflicts(){
+  const c=S.conflicts||[];const el=$("#conf");
+  el.classList.toggle("hidden",!c.length);
+  if(!c.length)return;
+  el.innerHTML=`<h2>Ütközések</h2><p class="lead">Ezek a fájlok mindkét gépen megváltoztak, amíg a tartalék vitte az oldalakat. Ha közben látogató nem járt a fő szerveren, a tartalék változata nyert (az egész kiesést lefedi); ha járt, a fő szerveré. A másik változatot a fő szerver Tükör-mappájában elmentettem (app-data/adam-tukor/data/…), ha kellene belőle valami.</p><div class="tw"><table><tr><th>Idő</th><th>Fájl</th><th>Megtartva</th><th>A másik változat</th></tr>${c.map(x=>`<tr><td>${t(x.time)}</td><td><code>${esc(x.app)}/${esc(x.path)}</code></td><td>${x.kept==="tartalék"?"tartalékét":"fő szerverét"}</td><td><code>${esc(x.saved)}</code></td></tr>`).join("")}</table></div><div class="row" style="margin-top:12px"><button class="ghost" id="cc">Átnéztem, törlöm a listát</button></div>`;
+  $("#cc").onclick=e=>act(e.currentTarget,"clear-conflicts",{});
+}
+let allEv=false;
+function renderEvents(){
+  const all=S.events||[];const ev=allEv?all:all.slice(0,10);
+  $("#ev").innerHTML=(ev.length?ev.map(e=>`<div class="ev ${esc(e.level)}"><time>${t(e.time)}</time><span>${esc(e.text)}</span></div>`).join(""):`<p class="muted">Még nincs bejegyzés.</p>`)+(all.length>10?`<button class="ghost" id="evMore" style="margin-top:10px">${allEv?"Kevesebb":"Korábbiak ("+(all.length-10)+")"}</button>`:"");
+  if($("#evMore"))$("#evMore").onclick=()=>{allEv=!allEv;renderEvents()};
+}
+function bindCommon(){
+  $("#logout").onclick=e=>act(e.currentTarget,"logout",{}).then(()=>{built=""});
+  $("#pf").onsubmit=e=>{e.preventDefault();const f=e.target;act(f.querySelector("button"),"password",{old:f.old.value,new:f.nw.value},$("#pe")).then(()=>{if(!$("#pe").textContent){f.reset();$("#pe").innerHTML='<span class="copied">Elmentve.</span>'}})};
+}
+
+// ---------- standby ----------
+function buildStandby(){
+  $("#app").innerHTML=headerHTML()+`
+  <section class="card hero" id="hero"></section>
+  <section class="card" id="actions"></section>
+  <section class="card"><h2>Párosítás</h2><p class="lead" id="pairLead"></p><form id="pairF"><label class="fld"><span>Párosító kód (a fő szerver Tükréből)</span><textarea name="code" placeholder="100.x.x.x ABCD-EFGH-…" spellcheck="false" autocapitalize="characters"></textarea></label><button class="acc">Párosítás</button><p class="err" id="pairE"></p></form></section>
+  <section class="card"><h2>Appok</h2><p class="lead">Ugyanazokat az appokat telepítsd ide is, ugyanabból az app store-ból. Amíg a fő szerver fut, ezek itt leállítva várnak, és a Tükör 15 másodpercenként frissíti az adataikat.</p><div class="list" id="apps"></div></section>
+  <section class="card hidden" id="conf"></section>
+  <section class="card"><h2>Napló</h2><div id="ev"></div></section>
+  <section class="card"><h2>Jelszó módosítása</h2><form id="pf" class="grid two"><label class="fld"><span>Régi jelszó</span><input type="password" name="old" autocomplete="current-password"></label><label class="fld"><span>Új jelszó</span><input type="password" name="nw" autocomplete="new-password"></label><div><button class="ghost">Mentés</button><p class="err" id="pe"></p></div></form></section>`;
+  $("#pairF").onsubmit=e=>{e.preventDefault();act(e.target.querySelector("button"),"pair",{code:e.target.code.value},$("#pairE")).then(()=>{if(!$("#pairE").textContent)e.target.code.value=""})};
+  bindCommon();
+}
+function renderStandby(){
+  const m=S.mode, busy=S.busy;
+  let cls,key,title,text,meter="";
+  if(!S.paired){cls="";key="unpaired";title="Nincs párosítva";text="Másold ide a fő szerver Tükréből a párosító kódot."}
+  else if(busy==="failover"||(m==="returning"&&busy!=="failback"&&!S.peer_ok)){cls="warn";key="starting";title="Átvétel folyamatban";text="Indulnak az appok ezen a gépen…"}
+  else if(m==="returning"){cls="warn";key="ret";title="Visszaadás folyamatban";text="Visszaküldöm a közben változott adatokat a fő szervernek."}
+  else if(m==="active"){cls="bad";key="active";title="Ez a gép viszi az oldalakat";text="Átvéve: "+since(S.failover_ago)+"."+(S.manual?"":S.peer_ok?" A fő szerver újra elérhető, "+Math.min(S.streak,S.return_after)+"/"+S.return_after+" sikeres ellenőrzés után visszaadom.":" A fő szerver még nem érhető el.")+(S.manual?" Kézi átvétel: a „Visszaadás most” gombbal adhatod vissza.":S.auto?"":" Az automatikus visszaadás ki van kapcsolva.")
+    ;if(S.peer_ok&&S.auto&&!S.manual)meter=`<div class="meter"><i style="width:${Math.min(100,S.streak/S.return_after*100)}%"></i></div>`}
+  else if(!S.peer_ok){cls="warn";key="lost";title="Nem érem el a fő szervert";text=(S.peer_err||"")+(S.auto?" Ha "+Math.round(S.fail_after*S.health_s)+" másodpercig így marad, átveszem az oldalakat.":" Az automatikus átvétel ki van kapcsolva.");if(S.auto)meter=`<div class="meter"><i style="width:${Math.min(100,S.fails/S.fail_after*100)}%"></i></div>`}
+  else {cls="ok";key="ok";title="Továbbít, szinkronban";text="Minden kérést a fő szervernek adok tovább. Utolsó szinkron: "+since(S.sync_ago)+"."}
+  $("#hero").innerHTML=heroDot(cls,key)+`<div style="flex:1"><h2>${esc(title)}</h2><p>${esc(text)}</p>${meter}${S.sync_err?`<p class="note" style="margin:12px 0 0">${esc(S.sync_err)}</p>`:""}<div class="stats" style="margin-top:14px"><div class="stat"><b>Fő szerver</b><span class="mono">${esc(S.peer||"–")}</span></div><div class="stat"><b>Ez a gép (Tailscale)</b><span class="mono">${esc(S.ts_ip||"nincs Tailscale")}</span></div><div class="stat"><b>Átmásolva eddig</b><span>${S.sync_files} fájl · ${size(S.sync_bytes)}</span></div><div class="stat"><b>Napi mentés</b><span>${esc(S.last_backup||"–")}</span></div></div></div>`;
+  $("#pairLead").textContent=S.paired?"Párosítva: "+S.peer+(S.peer_version?" (Tükör "+S.peer_version+")":"")+". Új kódot csak akkor írj be, ha a fő szerveren újat készítettél.":"A fő szerver Tükrében a „Párosító kód” résznél találod. Bárhogy bemásolhatod, a szóközök és kötőjelek nem számítanak.";
+  const a=$("#actions");
+  a.innerHTML=`<h2>Kezelés</h2><p class="lead">Átvételkor ezen a gépen indulnak el az appok, és a fő szerverre érkező kéréseket is ide küldöm, amíg vissza nem adom.</p>
+   <label class="toggle"><input type="checkbox" id="auto" ${S.auto?"checked":""}><span><b>Automatikus átvétel és visszaadás</b><br><small class="muted">Ha a fő szerver ~30 mp-ig nem érhető el, átveszem; ha 1 percig újra elérhető, visszaadom.</small></span></label>
+   <div class="row" style="margin-top:12px">${m==="forward"?`<button class="ghost" id="sync" ${S.paired?"":"disabled"}>Szinkronizálás most</button><button class="danger" id="fo" ${S.paired&&!busy?"":"disabled"}>Átvétel most</button>`:""}${m==="active"?`<button class="acc" id="fb" ${S.peer_ok&&!busy?"":"disabled"}>Visszaadás most</button>`:""}</div>`;
+  $("#auto").onchange=e=>act(e.target,"auto",{on:e.target.checked});
+  if($("#sync"))$("#sync").onclick=e=>act(e.currentTarget,"sync",{});
+  if($("#fo"))$("#fo").onclick=async e=>{if(await ask("Átveszed az oldalakat?","Ezen a gépen elindulnak az appok, és minden kérés ide fut be, amíg vissza nem adod. Teszteléshez is jó.","Átvétel"))act(e.currentTarget,"failover",{})};
+  if($("#fb"))$("#fb").onclick=e=>act(e.currentTarget,"failback",{});
+  const apps=S.apps||[];
+  $("#apps").innerHTML=apps.length?apps.map(x=>{let st;if(!x.installed)st=x.mode==="sync"?'<span class="pill bad">nincs telepítve</span>':'<span class="pill">csak továbbítás</span>';else if(x.local_version!==x.version)st=`<span class="pill warn">verzió: itt ${esc(x.local_version)}, főn ${esc(x.version)} – nyomj Update-et</span>`;else st=x.mode==="sync"?'<span class="pill ok">rendben</span>':'<span class="pill">csak továbbítás</span>';return `<div class="item"><div class="grow"><div class="name">${esc(x.name)}</div><div class="meta"><span class="mono">${esc(x.id)}</span>${x.mode==="sync"?" · "+x.files+" fájl, "+size(x.size):""}</div></div>${st}</div>`}).join(""):`<p class="muted">${S.paired?"Az első szinkron után itt látod az appokat.":"Párosítás után jelennek meg."}</p>`;
+  renderConflicts();renderEvents();
+}
+
+async function refresh(){
+  try{S=await api("status")}catch(e){return}
+  const view=!S.configured?"setup":!S.logged_in?"login":S.role;
+  if(view!==built){built=view;lastState="";
+    if(view==="setup")viewSetup();else if(view==="login")viewLogin();else if(view==="primary")buildPrimary();else buildStandby();}
+  if(view==="primary")renderPrimary();else if(view==="standby")renderStandby();
+}
+refresh();setInterval(()=>{if(!document.hidden&&!$("#confirm").open)refresh()},3000);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)refresh()});
+</script>
+</body>
+</html>

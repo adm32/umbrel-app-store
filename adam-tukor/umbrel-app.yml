@@ -1,0 +1,46 @@
+manifestVersion: 1
+id: adam-tukor
+category: networking
+name: Tükör
+version: "1.0.0"
+tagline: Tartalék szerver, ami átveszi az oldalakat, ha a fő leáll
+icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-tukor/icon.svg
+description: >-
+  Keeps a second Umbrel in sync with the main one and takes over the websites if the main
+  one goes offline (power cut, internet outage), then hands everything back.
+
+
+  Install it on both Umbrels and pick the role on first open: "Fő szerver" (main) or
+  "Tartalék szerver" (standby). Both need the Tailscale app in the same tailnet, the same
+  apps installed from the same app stores, and the same Cloudflare Tunnel token.
+
+
+  Every Cloudflare public hostname points at Tükör instead of the app:
+  http://host.docker.internal:1<port> (e.g. 4747 → 14747). On the main server Tükör passes
+  requests to its own apps. The standby passes every request to the main server over
+  Tailscale, keeps its own copies of the apps stopped and refreshes their data folders every
+  15 seconds (settings included, Stripe keys too). If the main server is unreachable for
+  about 30 seconds while the standby itself is online, the standby starts its copies and
+  serves the sites. When the main server is back for a minute, the standby stops its copies,
+  sends the changed files back, and goes back to forwarding. A file changed on both machines
+  is reported, and the other version is kept aside.
+
+
+  The standby also keeps a daily copy of all synced data (last 14 days).
+developer: Adam
+website: https://github.com/adm32/umbrel-app-store
+dependencies: []
+repo: https://github.com/adm32/umbrel-app-store
+support: https://github.com/adm32/umbrel-app-store/issues
+port: 4790
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+submitter: Adam
+submission: https://github.com/adm32/umbrel-app-store
+releaseNotes: >-
+  1.0.0 – első kiadás. Két Umbrel együtt: a tartalék 15 másodpercenként átmásolja az oldalak adatait
+  (beállítások és Stripe-kulcsok is), minden kérést a fő szervernek ad tovább, és ha a fő ~30
+  másodpercig nem érhető el, átveszi az oldalakat. Ha a fő visszajön, egy perc után visszaadja a
+  közben változott adatokat (rendelések, foglalások). Napi mentés a tartalékon, ütközések kijelzése.

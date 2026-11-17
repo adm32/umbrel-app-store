@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Umbrel only copies docker-compose.yml, umbrel-app.yml and hooks/ on update. This copies
+# the fresh program (bin/, Dockerfile) from the app store before every start, so an update
+# really runs the new program. data/ is never touched.
+src="${SCRIPT_APP_REPO_DIR:-}"
+dst="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [[ -z "${src}" || ! -d "${src}/bin" || "${src}" == "${dst}" ]]; then
+  exit 0
+fi
+mkdir -p "${dst}/bin" "${dst}/data"
+cp -f "${src}"/bin/tukor-linux-* "${dst}/bin/" && chmod +x "${dst}"/bin/tukor-linux-*
+for f in Dockerfile .dockerignore; do
+  [[ -f "${src}/${f}" ]] && cp -f "${src}/${f}" "${dst}/${f}"
+done
+
+echo "tukor: program files updated from ${src}"
+exit 0

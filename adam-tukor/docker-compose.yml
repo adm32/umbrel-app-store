@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  # No app_proxy: Tükör runs on the host network so it can reach every app's port and the
+  # Tailscale network (100.x). Its page has its own password.
+  web:
+    build:
+      context: ${APP_DATA_DIR}
+    # Rebuilt on every start, so after an update the new program really runs.
+    pull_policy: build
+    restart: unless-stopped
+    network_mode: host
+    stop_grace_period: 5s
+    environment:
+      TZ: Europe/Budapest
+      APP_VERSION: "1.0.0"
+      DATA_DIR: /data
+      APPS_DIR: /app-data
+      UI_PORT: "4790"
+      API_PORT: "4791"
+      PORT_OFFSET: "10000"
+    volumes:
+      - ${APP_DATA_DIR}/data:/data
+      # The other apps' folders: their data/ is synced, umbrel-app.yml tells name, version, port.
+      - ${UMBREL_ROOT}/app-data:/app-data
+      # Stops the standby's copies while it only forwards, starts them when it takes over.
+      - /var/run/docker.sock:/var/run/docker.sock

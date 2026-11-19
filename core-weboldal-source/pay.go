@@ -62,8 +62,8 @@ func payShell(w http.ResponseWriter, code int, title, inner string) {
 <meta name="theme-color" content="#15110E" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/site.css?v=34">
-<script src="/assets/js/pay.js?v=34" defer></script>
+<link rel="stylesheet" href="/assets/css/site.css?v=35">
+<script src="/assets/js/pay.js?v=35" defer></script>
 </head>
 <body class="paypage">
 <header class="head is-scrolled">
@@ -152,9 +152,8 @@ func payForm(w http.ResponseWriter, code int, info payInfo, errMsg string) {
 	}
 	b.WriteString(`<div><dt>Most fizetendő</dt><dd>` + ft(today) + ` Ft</dd></div>`)
 	b.WriteString(`<div><dt>Utána</dt><dd>` + adv + ` ` + ft(info.Amount) + ` Ft, automatikusan</dd></div></dl>`)
-	if info.Vat != "" {
-		b.WriteString(`<p class="pay__vat">` + html.EscapeString(info.Vat) + `</p>`)
-	}
+	// The business is alanyi adómentes (ÁSZF 5.), so the wording is fixed here and matches the website.
+	b.WriteString(`<p class="pay__vat">Az árak alanyi adómentes végösszegek, ÁFA-t nem tartalmaznak.</p>`)
 	b.WriteString(`<ul class="pay__list">
 <li>` + checkSVG + `<span>Bankkártya, Apple Pay vagy Google Pay</span></li>
 <li>` + checkSVG + `<span>Nem kell figyelned a határidőket, a díjat ` + adv + ` automatikusan levonjuk</span></li>
@@ -164,8 +163,17 @@ func payForm(w http.ResponseWriter, code int, info payInfo, errMsg string) {
 	if errMsg != "" {
 		b.WriteString(`<p class="pay__err" role="alert">` + html.EscapeString(errMsg) + `</p>`)
 	}
-	b.WriteString(`<label class="pay__ok"><input type="checkbox" name="elfogadom" value="igen" required><span>Elolvastam és elfogadom az <a href="/aszf.html" target="_blank" rel="noopener">általános szerződési feltételeket</a>, és hozzájárulok, hogy a díjat ` + adv + ` automatikusan levonják a kártyámról.</span></label>`)
-	b.WriteString(`<button class="btn btn--primary btn--lg pay__go" type="submit"><span>Tovább a biztonságos fizetéshez</span><span class="spinner" aria-hidden="true"></span>` + arrowSVG + `</button>`)
+	// Ptk. 6:78. § (2): the terms that differ from the usual ones are shown separately and accepted expressly.
+	b.WriteString(`<div class="pay__terms"><p><strong>Fontos feltételek, mielőtt elfogadod:</strong></p><ul>
+<li>12 hónapos kezdő időtartam: ezalatt rendes felmondással nem lehet kilépni (ÁSZF 6.).</li>
+<li>Kártyás fizetésnél a díjat ` + adv + ` automatikusan levonjuk, amíg a szerződés él (ÁSZF 5.).</li>
+<li>Ha a díj 15 napnál tovább rendezetlen, előzetes felszólítás után szüneteltethetjük az oldalt (ÁSZF 5.).</li>
+<li>A díj évente legfeljebb egyszer, csak megnevezett okból változhat; díj- vagy ÁSZF-változáskor díjmentesen felmondhatsz (ÁSZF 5. és 15.).</li>
+<li>24 hónap után a weboldal kódját átadjuk, a foglalás- és rendeléskezelő rendszer kivételével (ÁSZF 7.).</li>
+<li>Vállalkozásként a felelősségünk az utolsó 12 hónapban fizetett díjak összegéig korlátozott (ÁSZF 11.).</li>
+</ul></div>`)
+	b.WriteString(`<label class="pay__ok"><input type="checkbox" name="elfogadom" value="igen" required><span>Elolvastam és elfogadom az <a href="/aszf.html" target="_blank" rel="noopener">általános szerződési feltételeket</a>, kifejezetten a fenti kiemelt feltételeket is, és hozzájárulok, hogy a díjat ` + adv + ` automatikusan levonják a kártyámról.</span></label>`)
+	b.WriteString(`<button class="btn btn--primary btn--lg pay__go" type="submit"><span>Megrendelés és fizetés</span><span class="spinner" aria-hidden="true"></span>` + arrowSVG + `</button>`)
 	b.WriteString(`<p class="pay__safe">` + lockSVG + `<span>A fizetés a Stripe oldalán történik. A kártyaadataidat mi nem látjuk és nem tároljuk.</span></p></form>`)
 	b.WriteString(`<p class="pay__fine">Szolgáltató: Zala Studio (<a href="/adatvedelem.html#impresszum">impresszum</a>) · <a href="/aszf.html">ÁSZF</a> · <a href="/adatvedelem.html">Adatvédelem</a> · Kérdésed van? <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a></p></article>`)
 	payShell(w, code, "Előfizetés indítása", b.String())

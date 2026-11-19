@@ -99,7 +99,7 @@ func findByCode(code string) *Lead {
 func vatNote(mode string) string {
 	// Shown on the payment page, where the amounts are what the card is charged.
 	if mode == "mentes" {
-		return "Az összegek végösszegek, ÁFA-t nem számítunk fel."
+		return "Az árak alanyi adómentes végösszegek, ÁFA-t nem tartalmaznak."
 	}
 	return "Az összegek a 27% ÁFA-t tartalmazzák."
 }
@@ -442,7 +442,6 @@ func handleStripeEvent(raw []byte) error {
 	}
 	p := l.Pay
 	p.Live = ev.Livemode
-	who := firstNonEmpty(l.Business, l.Name)
 	adv, unit := intervalWord(p.Interval)
 	switch ev.Type {
 	case "checkout.session.completed":
@@ -463,7 +462,7 @@ func handleStripeEvent(raw []byte) error {
 		}
 		if addEvent(p, PayEvent{ID: str(o, "id"), At: nowISO(), Kind: "elindult"}) {
 			setStatus(l, "megrendelte")
-			notes = append(notes, notice{*l, ntfyMsg{Title: "Új előfizető: " + who, Message: fmt.Sprintf("%s – %s Ft / %s\nA fizetés sikerült, %s automatikusan terheljük.", L["csomag"][p.Plan], huNum(p.Amount), unit, adv), Tags: []string{"tada"}, Priority: 4}})
+			notes = append(notes, notice{*l, ntfyMsg{Title: "Új előfizető", Message: fmt.Sprintf("%s – %s Ft / %s\nA fizetés sikerült, %s automatikusan terheljük.", L["csomag"][p.Plan], huNum(p.Amount), unit, adv), Tags: []string{"tada"}, Priority: 4}})
 		}
 	case "invoice.paid", "invoice.payment_succeeded":
 		amount := int(num(o, "amount_paid")) / 100
@@ -492,7 +491,7 @@ func handleStripeEvent(raw []byte) error {
 					p.NextCharge = unixISO(e)
 				}
 			}
-			notes = append(notes, notice{*l, ntfyMsg{Title: "Befizetés: " + huNum(amount) + " Ft", Message: who + "\nNe felejtsd el kiállíttatni a számlát.", Tags: []string{"moneybag"}, Priority: 3}})
+			notes = append(notes, notice{*l, ntfyMsg{Title: "Befizetés: " + huNum(amount) + " Ft", Message: "Ne felejtsd el kiállíttatni a számlát.", Tags: []string{"moneybag"}, Priority: 3}})
 		}
 	case "invoice.payment_failed":
 		amount := int(num(o, "amount_due")) / 100
@@ -500,18 +499,18 @@ func handleStripeEvent(raw []byte) error {
 			if p.State != "pending" {
 				p.State = "past_due"
 			}
-			msg := who + " – " + huNum(amount) + " Ft nem sikerült levonni."
+			msg := huNum(amount) + " Ft levonása nem sikerült."
 			if next := num(o, "next_payment_attempt"); next > 0 {
 				msg += "\nA Stripe " + time.Unix(int64(next), 0).In(budapestTZ()).Format("01.02.") + "-án újrapróbálja."
 			}
-			msg += "\nÉrdemes felhívni, hogy ellenőrizze a kártyáját."
-			notes = append(notes, notice{*l, ntfyMsg{Title: "Sikertelen fizetés: " + who, Message: msg, Tags: []string{"warning"}, Priority: 5}})
+			msg += "\nA részletek az Irányítópulton; érdemes felhívni az ügyfelet."
+			notes = append(notes, notice{*l, ntfyMsg{Title: "Sikertelen fizetés", Message: msg, Tags: []string{"warning"}, Priority: 5}})
 		}
 	case "customer.subscription.created", "customer.subscription.updated", "customer.subscription.resumed":
 		prev := applySub(p, o)
 		if p.State == "canceling" && prev != "canceling" {
 			addEvent(p, PayEvent{ID: ev.ID, At: nowISO(), Kind: "lemondva"})
-			notes = append(notes, notice{*l, ntfyMsg{Title: "Lemondta: " + who, Message: "Az előfizetés a fizetett időszak végén megszűnik.", Tags: []string{"wave"}, Priority: 4}})
+			notes = append(notes, notice{*l, ntfyMsg{Title: "Egy ügyfél lemondta az előfizetést", Message: "Az előfizetés a fizetett időszak végén megszűnik.", Tags: []string{"wave"}, Priority: 4}})
 		}
 		if p.State == "active" && prev == "canceling" {
 			addEvent(p, PayEvent{ID: ev.ID, At: nowISO(), Kind: "visszavonva"})
@@ -521,7 +520,7 @@ func handleStripeEvent(raw []byte) error {
 		p.State = "canceled"
 		p.NextCharge = ""
 		if addEvent(p, PayEvent{ID: ev.ID, At: nowISO(), Kind: "megszunt"}) {
-			notes = append(notes, notice{*l, ntfyMsg{Title: "Megszűnt az előfizetés: " + who, Message: "Már nem terheljük a kártyáját. Ha az oldalt le kell kapcsolni, most tedd meg.", Tags: []string{"no_entry"}, Priority: 4}})
+			notes = append(notes, notice{*l, ntfyMsg{Title: "Megszűnt egy előfizetés", Message: "Már nem terheljük a kártyáját. Ha az oldalt le kell kapcsolni, most tedd meg.", Tags: []string{"no_entry"}, Priority: 4}})
 		}
 	}
 	l.Updated = nowISO()
@@ -541,9 +540,7 @@ func sendPayNotice(n notice) {
 		return
 	}
 	m := n.m
-	if n.l.Phone != "" && strings.HasPrefix(m.Title, "Sikertelen") {
-		m.Actions = append(m.Actions, map[string]any{"action": "view", "label": "Hívás", "url": "tel:" + notPhone.ReplaceAllString(n.l.Phone, ""), "clear": false})
-	}
+	// No phone number or name in the notice: ntfy is an outside service. The client's details open in the Irányítópult.
 	if s.DashURL != "" {
 		link := strings.TrimRight(s.DashURL, "/") + "/#lead=" + n.l.ID
 		m.Click = link

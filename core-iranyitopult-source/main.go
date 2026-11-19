@@ -50,7 +50,7 @@ import (
 	"unicode/utf8"
 )
 
-const version = "2.1.0"
+const version = "2.1.2"
 
 //go:embed web
 var webFS embed.FS
@@ -372,41 +372,11 @@ func notifyLead(l Lead) {
 	if !s.NotifyLeads || s.NtfyURL == "" {
 		return
 	}
-	var lines []string
-	head := l.Name
-	if l.Business != "" {
-		head += " · " + l.Business
-	}
-	if l.City != "" {
-		head += " (" + l.City + ")"
-	}
-	lines = append(lines, head)
-	add := func(cond bool, s string) {
-		if cond {
-			lines = append(lines, s)
-		}
-	}
-	add(l.Phone != "", "Telefon: "+l.Phone)
-	add(l.Email != "", "E-mail: "+l.Email)
-	if l.Plan != "" {
-		lines = append(lines, "Csomag: "+L["csomag"][l.Plan]+" – "+huNum(prices[l.Plan])+" Ft/hó")
-	}
-	if len(l.Features) > 0 {
-		var f []string
-		for _, x := range l.Features {
-			f = append(f, L["funkciok"][x])
-		}
-		lines = append(lines, "Kér: "+strings.Join(f, ", "))
-	}
-	add(l.Timing != "", "Mikorra: "+L["mikorra"][l.Timing])
-	add(l.CallTime != "", "Hívható: "+L["hivhato"][l.CallTime])
-	add(l.Message != "", "„"+cut(l.Message, 300)+"”")
-	m := ntfyMsg{Title: "Új érdeklődő: " + firstNonEmpty(l.Business, l.Name), Message: strings.Join(lines, "\n"), Tags: []string{"house"}, Priority: 4}
+	// No personal data goes to ntfy (an outside service): only that a request came in.
+	// The details are in the Irányítópult, behind its own password.
+	m := ntfyMsg{Title: "Új ajánlatkérés", Message: "Új ajánlatkérés érkezett a zalastudio.hu-ról.", Tags: []string{"house"}, Priority: 4}
 	if l.Timing == "surgos" {
 		m.Priority = 5
-	}
-	if l.Phone != "" {
-		m.Actions = append(m.Actions, map[string]any{"action": "view", "label": "Hívás", "url": "tel:" + notPhone.ReplaceAllString(l.Phone, ""), "clear": false})
 	}
 	if s.DashURL != "" {
 		link := strings.TrimRight(s.DashURL, "/") + "/#lead=" + l.ID

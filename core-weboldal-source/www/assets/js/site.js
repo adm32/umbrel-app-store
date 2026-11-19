@@ -152,12 +152,12 @@
     });
   });
 
-  /* ---------- VAT wording: chosen in the Irányítópult ---------- */
-  var VAT = { brutto: "Az árak bruttó árak, az ÁFA-t tartalmazzák.", netto: "Az árak nettó árak, + 27% ÁFA.", mentes: "Az árak végösszegek, ÁFA-t nem számítunk fel." };
+  /* ---------- VAT wording: the business is alanyi adómentes (ÁSZF 5.), so the text is fixed in the HTML ---------- */
 
   /* ---------- Launch discount: remaining places come from the server ---------- */
   function applySpots(n) {
     spots = n;
+    $$("[data-spots-n]").forEach(function (el) { el.textContent = String(n); });
     $$("[data-spots]").forEach(function (el) {
       var badge = el.closest(".badge");
       if (n > 0) el.textContent = (badge ? "még " : "Még ") + n + " hely";
@@ -174,7 +174,6 @@
   fetch("/api/info", { headers: { Accept: "application/json" } }).then(function (r) { return r.ok ? r.json() : null; })
     .then(function (j) {
       if (j && typeof j.spots === "number") applySpots(j.spots);
-      if (j && VAT[j.vat]) $$("[data-vat]").forEach(function (el) { el.textContent = VAT[j.vat]; });
     }).catch(function () { /* keep defaults */ });
 
   /* ---------- Hero demo phone ---------- */
@@ -291,8 +290,10 @@
   }).join("");
   $("#optTiming").innerHTML = TIMINGS.map(function (x) { return opt("mikorra", "radio", x.id, esc(x.label), "opt--chip"); }).join("");
   $("#optCall").innerHTML = CALLS.map(function (x) { return opt("hivhato", "radio", x.id, esc(x.label), "opt--chip"); }).join("");
+  // One-time setup fee next to each package, so there is no hidden cost (launch price while places last).
+  function setupText(p) { return fmt(spots > 0 ? p.now : p.setup) + " Ft" + (p.from ? "-tól" : "") + " beáll."; }
   $("#optPlans").innerHTML = PLAN_ORDER.map(function (k) {
-    return opt("csomag", "radio", k, esc(PLANS[k].short) + "<small>" + fmt(PLANS[k].m) + "</small>", "");
+    return opt("csomag", "radio", k, esc(PLANS[k].short) + "<small>" + fmt(PLANS[k].m) + " Ft/hó</small><small data-setup=\"" + k + "\">+ " + setupText(PLANS[k]) + "</small>", "");
   }).join("");
   $("#optPlans").classList.add("mini-plans");
 
@@ -339,9 +340,8 @@
     $("#recPrice").textContent = fmt(billing === "y" ? p.y : p.m);
     $("#rec .amt span").textContent = billing === "y" ? "Ft / év" : "Ft / hó";
     $("#recWhy").textContent = k === rec ? p.why : "Bármikor válthatsz másik csomagra.";
-    $("#recSetup").innerHTML = spots > 0
-      ? "Beállítás: <s>" + fmt(p.setup) + " Ft</s> <strong>" + fmt(p.now) + " Ft" + (p.from ? "-tól" : "") + "</strong> <em>−50%</em>"
-      : "Beállítás: <strong>" + fmt(p.setup) + " Ft" + (p.from ? "-tól" : "") + "</strong>";
+    $("#recSetup").innerHTML = (spots > 0 ? "Bevezető beállítási díj (egyszeri): <strong>" + fmt(p.now) : "Egyszeri beállítási díj: <strong>" + fmt(p.setup)) + " Ft" + (p.from ? "-tól" : "") + "</strong>";
+    $$("#optPlans [data-setup]").forEach(function (el) { el.textContent = "+ " + setupText(PLANS[el.getAttribute("data-setup")]); });
     $$('input[name="csomag"]').forEach(function (i) { i.checked = i.value === k; });
     var t = S.type ? TYPES[S.type] : null, st = STYLES[S.style || (t && t.style)];
     var bits = [];

@@ -54,7 +54,7 @@
     { id: "rendeles", label: "Online rendelés", sub: "Étlapról vagy kisebb kínálatból", icon: "cart" },
     { id: "nyelv", label: "Német és angol nyelv", icon: "globe" },
     { id: "tobb", label: "Több aloldal", sub: "Például Rólunk, Szolgáltatások", icon: "pages" },
-    { id: "kozosseg", label: "Facebook és Instagram", sub: "A legújabb bejegyzések az oldalon", icon: "heart" },
+    { id: "kozosseg", label: "Facebook- és Instagram-linkek", sub: "Megosztás és követés gombok", icon: "heart" },
     { id: "kezeles", label: "Korlátlan módosítás", sub: "Bármit kérsz, 1\u00a0munkanapon belül", icon: "crown" }
   ];
   var FEAT = {}; FEATURES.forEach(function (f) { FEAT[f.id] = f; });
@@ -125,7 +125,7 @@
     if (has("galeria")) h += sec("galeria", "<h4>" + esc(t.galT) + '</h4><div class="ps-gal"><i></i><i></i><i></i></div>');
     if (has("ajanlat")) h += sec("ajanlat", '<h4>Kérjen ajánlatot</h4><div class="ps-field">Név</div><div class="ps-field">Telefonszám</div><span class="ps-btn">Ajánlatot kérek</span>');
     if (has("tobb")) h += sec("tobb", '<h4>Rólunk</h4><ul class="ps-list"><li><span>Csapatunk</span><b>›</b></li><li><span>Szolgáltatásaink</span><b>›</b></li></ul>');
-    if (has("kozosseg")) h += sec("kozosseg", '<h4>Kövessen minket</h4><div class="ps-social"><span>' + svg("heart") + "Facebook</span><span>" + svg("image") + "Instagram</span></div>");
+    if (has("kozosseg")) h += sec("kozosseg", '<h4>Kövess minket</h4><div class="ps-social"><span>' + svg("heart") + "Facebook</span><span>" + svg("image") + "Instagram</span></div>");
     if (has("kezeles")) h += sec("kezeles", '<h4>Friss hírek <small>Ma</small></h4><ul class="ps-list"><li><span>Új szezonális kínálat</span><b>›</b></li><li><span>Ünnepi nyitvatartás</span><b>›</b></li></ul>');
     h += '<div class="ps-map"><span data-ps="city">' + esc(city) + "</span></div>";
     h += '<p class="ps-foot">© 2026 <span data-ps="name2">' + esc(name) + "</span></p>";

@@ -518,7 +518,7 @@ func liveCount() int {
 
 var labels = map[string]map[string]string{
 	"tipus":    {"etterem": "Étterem, kávézó", "szepseg": "Szépség, egészség", "szaki": "Szaki, építőipar", "szallas": "Szállás, vendégház", "bolt": "Üzlet, bolt", "egyeb": "Egyéb szolgáltatás"},
-	"funkciok": {"arlista": "Árlista vagy étlap", "galeria": "Képgaléria", "ajanlat": "Ajánlatkérő űrlap", "foglalas": "Online időpontfoglalás", "rendeles": "Online rendelés", "nyelv": "Német és angol nyelv", "tobb": "Több aloldal", "kozosseg": "Facebook és Instagram", "kezeles": "Teljes körű kezelés"},
+	"funkciok": {"arlista": "Árlista vagy étlap", "galeria": "Képgaléria", "ajanlat": "Ajánlatkérő űrlap", "foglalas": "Online időpontfoglalás", "rendeles": "Online rendelés", "nyelv": "Német és angol nyelv", "tobb": "Több aloldal", "kozosseg": "Facebook és Instagram", "kezeles": "Korlátlan módosítás"},
 	"stilus":   {"meleg": "Meleg, barátságos", "lagy": "Lágy, elegáns", "termeszetes": "Természetes", "friss": "Friss, modern", "elegans": "Prémium, sötét"},
 	"helyzet":  {"nincs": "Még nincs weboldala", "facebook": "Csak Facebook-oldala van", "regi": "Van, de megújítaná"},
 	"mikorra":  {"surgos": "Minél előbb", "honap": "1–2 hónapon belül", "erdeklodik": "Csak tájékozódik"},
@@ -584,7 +584,7 @@ func saveOutbox() error { return writeJSON("outbox.json", outbox) }
 
 func errorPage(msg string) string {
 	esc := strings.NewReplacer("<", "", ">", "", "&", "")
-	return `<!doctype html><html lang="hu"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nem sikerült elküldeni</title><link rel="stylesheet" href="/assets/css/site.css?v=33"><main class="doc"><div class="wrap"><div class="doc__card center-card"><h1>Nem sikerült elküldeni</h1><p>` + esc.Replace(msg) + `</p><p>Írj nekünk: <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a></p><a class="btn btn--primary" href="/#tervezes">Vissza</a></div></div></main></html>`
+	return `<!doctype html><html lang="hu"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nem sikerült elküldeni</title><link rel="stylesheet" href="/assets/css/site.css?v=34"><main class="doc"><div class="wrap"><div class="doc__card center-card"><h1>Nem sikerült elküldeni</h1><p>` + esc.Replace(msg) + `</p><p>Írj nekünk: <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a></p><a class="btn btn--primary" href="/#tervezes">Vissza</a></div></div></main></html>`
 }
 
 func handleLead(w http.ResponseWriter, r *http.Request) {

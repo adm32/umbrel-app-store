@@ -50,12 +50,12 @@
     { id: "arlista", label: "Árlista vagy étlap", icon: "list" },
     { id: "galeria", label: "Képgaléria", icon: "image" },
     { id: "ajanlat", label: "Ajánlatkérő űrlap", icon: "form" },
-    { id: "foglalas", label: "Online időpontfoglalás", icon: "cal" },
-    { id: "rendeles", label: "Online rendelés", icon: "cart" },
+    { id: "foglalas", label: "Online időpontfoglalás", sub: "Valódi szabad időpontokkal", icon: "cal" },
+    { id: "rendeles", label: "Online rendelés", sub: "Étlapról vagy kisebb kínálatból", icon: "cart" },
     { id: "nyelv", label: "Német és angol nyelv", icon: "globe" },
     { id: "tobb", label: "Több aloldal", sub: "Például Rólunk, Szolgáltatások", icon: "pages" },
     { id: "kozosseg", label: "Facebook és Instagram", sub: "A legújabb bejegyzések az oldalon", icon: "heart" },
-    { id: "kezeles", label: "Intézzetek el mindent ti", sub: "Google- és Facebook-kezelés, korlátlan módosítás", icon: "crown" }
+    { id: "kezeles", label: "Korlátlan módosítás", sub: "Bármit kérsz, 1\u00a0munkanapon belül", icon: "crown" }
   ];
   var FEAT = {}; FEATURES.forEach(function (f) { FEAT[f.id] = f; });
 
@@ -79,8 +79,8 @@
   var PLANS = {
     nevjegy: { name: "Névjegy", short: "Névjegy", m: 3490, y: 34900, setup: 19900, now: 9950, from: false, why: "Egy átlátható, egyoldalas oldal mindent tud, amit kiválasztottál." },
     vallalkozas: { name: "Vállalkozás", short: "Vállalk.", m: 6990, y: 69900, setup: 39900, now: 19950, from: false, why: "A galériához, a több oldalhoz és a nyelvekhez ez a csomag való." },
-    rendeles: { name: "Rendelés & Foglalás", short: "Rendelés", m: 12990, y: 129900, setup: 79000, now: 39500, from: true, why: "Az online rendeléshez vagy foglaláshoz kezelőprogram és értesítés is jár." },
-    premium: { name: "Prémium Partner", short: "Prémium", m: 39990, y: 399900, setup: 349000, now: 174500, from: false, why: "Te a vevőkkel foglalkozol, minden mást mi intézünk." }
+    rendeles: { name: "Rendelés & Foglalás", short: "Rendelés", m: 12990, y: 129900, setup: 79000, now: 39500, from: true, why: "Az online rendeléshez és foglaláshoz kezelőprogram és értesítés is jár." },
+    premium: { name: "Prémium Partner", short: "Prémium", m: 39990, y: 399900, setup: 349000, now: 174500, from: false, why: "Bármit kérsz, egy munkanapon belül átírjuk, és havonta jelentést kapsz." }
   };
   var PLAN_ORDER = ["nevjegy", "vallalkozas", "rendeles", "premium"];
 

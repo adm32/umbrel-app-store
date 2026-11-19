@@ -153,7 +153,7 @@
   });
 
   /* ---------- VAT wording: chosen in the Irányítópult ---------- */
-  var VAT = { brutto: "Az árak bruttó árak, az ÁFA-t tartalmazzák.", netto: "Az árak nettó árak, + 27% ÁFA.", mentes: "Az árak végösszegek, ÁFA-t nem tartalmaznak." };
+  var VAT = { brutto: "Az árak bruttó árak, az ÁFA-t tartalmazzák.", netto: "Az árak nettó árak, + 27% ÁFA.", mentes: "Az árak végösszegek, ÁFA-t nem számítunk fel." };
 
   /* ---------- Launch discount: remaining places come from the server ---------- */
   function applySpots(n) {

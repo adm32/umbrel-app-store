@@ -62,8 +62,8 @@ func payShell(w http.ResponseWriter, code int, title, inner string) {
 <meta name="theme-color" content="#15110E" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/site.css?v=33">
-<script src="/assets/js/pay.js?v=33" defer></script>
+<link rel="stylesheet" href="/assets/css/site.css?v=34">
+<script src="/assets/js/pay.js?v=34" defer></script>
 </head>
 <body class="paypage">
 <header class="head is-scrolled">

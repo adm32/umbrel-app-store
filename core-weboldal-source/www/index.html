@@ -24,12 +24,12 @@
 <link rel="manifest" href="site.webmanifest">
 <link rel="preload" href="assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=33">
-<script src="assets/js/boot.js?v=33"></script>
-<script src="assets/js/preview.js?v=33" defer></script>
-<script src="assets/js/site.js?v=33" defer></script>
-<script src="/assets/js/consent.js?v=33" defer></script>
-<script src="assets/js/fx.js?v=33" defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=34">
+<script src="assets/js/boot.js?v=34"></script>
+<script src="assets/js/preview.js?v=34" defer></script>
+<script src="assets/js/site.js?v=34" defer></script>
+<script src="/assets/js/consent.js?v=34" defer></script>
+<script src="assets/js/fx.js?v=34" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -48,7 +48,7 @@
   "makesOffer": [
     { "@type": "Offer", "name": "Névjegy weboldal", "price": "3490", "priceCurrency": "HUF", "description": "Havidíj, + 19 900 Ft beállítás" },
     { "@type": "Offer", "name": "Vállalkozás weboldal", "price": "6990", "priceCurrency": "HUF", "description": "Havidíj, + 39 900 Ft beállítás" },
-    { "@type": "Offer", "name": "Rendelés és foglalás", "price": "12990", "priceCurrency": "HUF", "description": "Havidíj, + 39 500 Ft-tól beállítás" },
+    { "@type": "Offer", "name": "Rendelés és foglalás", "price": "12990", "priceCurrency": "HUF", "description": "Havidíj, + 79 000 Ft-tól beállítás" },
     { "@type": "Offer", "name": "Prémium Partner", "price": "39990", "priceCurrency": "HUF", "description": "Havidíj, + 349 000 Ft beállítás" }
   ]
 }
@@ -272,7 +272,7 @@
             <ul class="ticks">
               <li><svg><use href="#i-check"/></svg>Nyitvatartás, térkép, hívás gomb</li>
               <li><svg><use href="#i-check"/></svg>Árlista és ajánlatkérő űrlap</li>
-              <li><svg><use href="#i-check"/></svg>Tárhely és mentés</li>
+              <li><svg><use href="#i-check"/></svg>Magyar nyelven, .hu domainnel</li>
               <li><svg><use href="#i-check"/></svg>Havi 30 perc módosítás</li>
             </ul>
             <a class="btn btn--ghost btn--block" href="#tervezes" data-planner data-plan="nevjegy" data-src="ar-nevjegy">Ezt választom</a>
@@ -291,7 +291,7 @@
             <ul class="ticks">
               <li><svg><use href="#i-check"/></svg>Akár 6 aloldal, 2 nyelven</li>
               <li><svg><use href="#i-check"/></svg>Galéria, árlista vagy étlap</li>
-              <li><svg><use href="#i-check"/></svg>Időpont- vagy ajánlatkérés</li>
+              <li><svg><use href="#i-check"/></svg>Ajánlat- vagy időpontkérő űrlap</li>
               <li><svg><use href="#i-check"/></svg>Havi 1 óra módosítás</li>
             </ul>
             <a class="btn btn--primary btn--block" href="#tervezes" data-planner data-plan="vallalkozas" data-src="ar-vallalkozas">Ezt választom</a>
@@ -301,26 +301,27 @@
         <article class="plan rv" style="--d:2" data-plan-card="rendeles">
           <button class="plan__top" type="button" aria-expanded="false" aria-controls="pb-3">
             <span class="plan__name">Rendelés &amp; Foglalás</span>
-            <span class="plan__desc">Online rendelés vagy időpontfoglalás.</span>
+            <span class="plan__desc">Online rendelés, foglalás vagy mindkettő.</span>
             <span class="plan__price"><span class="amt"><b data-m="12990" data-y="129900">12 990</b><span data-m="Ft / hó" data-y="Ft / év">Ft / hó</span></span></span>
             <span class="plan__chev" aria-hidden="true"><svg><use href="#i-down"/></svg></span>
           </button>
           <div class="plan__body" id="pb-3"><div class="plan__inner"><div>
             <p class="setup">Beállítás: <s>79 000 Ft</s> <strong>39 500 Ft-tól</strong> <em>−50%</em></p>
             <ul class="ticks">
-              <li><svg><use href="#i-check"/></svg>Minden, ami a Vállalkozásban</li>
-              <li><svg><use href="#i-check"/></svg>Online rendelés vagy foglalás</li>
+              <li><svg><use href="#i-check"/></svg>Minden, ami a Vállalkozásban, 3 nyelven</li>
+              <li><svg><use href="#i-check"/></svg>Online rendelés étlapról vagy kisebb kínálatból</li>
+              <li><svg><use href="#i-check"/></svg>Foglalás valódi szabad időpontokkal</li>
               <li><svg><use href="#i-check"/></svg>Kezelőprogram, értesítés a telefonodra</li>
-              <li><svg><use href="#i-check"/></svg>3–4 nyelv</li>
             </ul>
+            <p class="plan__note">A beállítás ára attól függ, rendelés, foglalás vagy mindkettő kell.</p>
             <a class="btn btn--ghost btn--block" href="#tervezes" data-planner data-plan="rendeles" data-src="ar-rendeles">Ezt választom</a>
           </div></div></div>
         </article>
 
         <article class="plan plan--vip rv" style="--d:3" data-plan-card="premium">
           <button class="plan__top" type="button" aria-expanded="false" aria-controls="pb-4">
-            <span class="plan__name">Prémium Partner <span class="plan__tag">Teljes körű</span></span>
-            <span class="plan__desc">Te a vevőkkel foglalkozol, minden mást mi.</span>
+            <span class="plan__name">Prémium Partner <span class="plan__tag">Korlátlan</span></span>
+            <span class="plan__desc">Folyamatos gondozás, havi jelentéssel.</span>
             <span class="plan__price"><span class="amt"><b data-m="39990" data-y="399900">39 990</b><span data-m="Ft / hó" data-y="Ft / év">Ft / hó</span></span></span>
             <span class="plan__chev" aria-hidden="true"><svg><use href="#i-down"/></svg></span>
           </button>
@@ -328,9 +329,10 @@
             <p class="setup">Beállítás: <s>349 000 Ft</s> <strong>174 500 Ft</strong> <em>−50%</em></p>
             <ul class="ticks">
               <li><svg><use href="#i-check"/></svg>Minden, ami a Rendelés &amp; Foglalásban</li>
-              <li><svg><use href="#i-check"/></svg>Korlátlan módosítás, akár még aznap</li>
-              <li><svg><use href="#i-check"/></svg>Facebook-oldal kezelése</li>
-              <li><svg><use href="#i-check"/></svg>Elsőbbségi telefonos elérés</li>
+              <li><svg><use href="#i-check"/></svg>Korlátlan módosítás, 1&nbsp;munkanapon belül</li>
+              <li><svg><use href="#i-check"/></svg>Havi jelentés az oldal forgalmáról</li>
+              <li><svg><use href="#i-check"/></svg>QR-kódos tábla és szórólap, nyomdakészen</li>
+              <li><svg><use href="#i-check"/></svg>4 nyelv, elsőbbségi elérés</li>
             </ul>
             <a class="btn btn--ghost btn--block" href="#tervezes" data-planner data-plan="premium" data-src="ar-premium">Ezt választom</a>
           </div></div></div>
@@ -349,7 +351,7 @@
               <div><dt>Saját .hu domain</dt><dd>benne van minden csomagban</dd></div>
               <div><dt>Más végződésű domain (pl. .com)</dt><dd>beszerzési áron</dd></div>
             </dl>
-            <p class="fine"><span data-vat>Az árak végösszegek, ÁFA-t nem tartalmaznak.</span> Minimum 12 hónap, utána egy hónapos felmondással bármikor kiléphetsz. 24 hónap után az oldal teljes kódját is megkapod.</p>
+            <p class="fine"><span data-vat>Az árak végösszegek, ÁFA-t nem számítunk fel.</span> Módosítás minden, ami a meglévő oldalon változik: szöveg, kép, ár, nyitvatartás, új aloldal. Új funkcióra külön ajánlatot adunk. Minimum 12 hónap, utána egy hónapos felmondással bármikor kiléphetsz. 24 hónap után az oldal teljes kódját is megkapod.</p>
           </div>
         </details>
       </div>
@@ -407,7 +409,11 @@
         </details>
         <details>
           <summary>Ki módosítja az oldalt később?<i aria-hidden="true"><svg><use href="#i-plus"/></svg></i></summary>
-          <div class="faq__a">Mi. Küldd el üzenetben vagy egy fotón, és a havidíjban foglalt kereten belül általában egy-két napon belül frissítjük.</div>
+          <div class="faq__a">Mi. Küldd el üzenetben vagy egy fotón, és a csomagodban foglalt kereten belül általában egy-két munkanapon belül frissítjük. Prémium csomagban korlátlanul, egy munkanapon belül.</div>
+        </details>
+        <details>
+          <summary>Készítetek webshopot?<i aria-hidden="true"><svg><use href="#i-plus"/></svg></i></summary>
+          <div class="faq__a">Jelenleg nem. Az online rendelés étlapokhoz és kisebb kínálathoz készül: kosár, kezelőprogram és értesítés a telefonodra. Több száz termékes, készletkezelős webshopot, illetve külső rendszerek (például CRM vagy számlázó) összekötését nem vállaljuk.</div>
         </details>
         <details>
           <summary>Csak Zalában dolgoztok?<i aria-hidden="true"><svg><use href="#i-plus"/></svg></i></summary>
@@ -514,7 +520,7 @@
           <p class="pl__kicker">3. lépés</p>
           <h2>Mit tudjon <span class="serif">az oldal?</span></h2>
           <p class="pl__hint">A vállalkozásodhoz illőket előre bejelöltük.</p>
-          <div class="included"><svg><use href="#i-check"/></svg><span><b>Mindig benne van</b>Hívás gomb, térkép, nyitvatartás, tárhely és mentés.</span></div>
+          <div class="included"><svg><use href="#i-check"/></svg><span><b>Mindig benne van</b>Hívás gomb, térkép, nyitvatartás, .hu domain, tárhely és mentés.</span></div>
           <div class="opts" id="optFeatures" aria-label="Funkciók"></div>
         </section>
 

@@ -482,6 +482,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .ticks { margin: 16px 0 18px; display: grid; gap: 10px; }
 .ticks li { display: flex; gap: 10px; font-size: var(--t-md); line-height: 1.4; }
 .ticks svg { width: 19px; height: 19px; color: var(--sage); flex: none; margin-top: 1px; }
+.plan__note { margin: -6px 0 18px; font-size: var(--t-xs); color: var(--ink-3); line-height: 1.45; }
 .plan--featured { box-shadow: var(--shadow), 0 0 0 2px var(--accent) inset; }
 .plan--vip .plan__tag { background: linear-gradient(120deg, #B8862E, #E9C27A); color: #2A1E0C; }
 .plan--vip { box-shadow: var(--shadow-sm), 0 0 0 1.5px color-mix(in srgb, #C9A04E 60%, transparent) inset; }
@@ -506,7 +507,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .plan__body { grid-template-rows: 1fr; flex: 1; }
   .plan__inner > div { padding: 12px 20px 20px; height: 100%; display: flex; flex-direction: column; }
   .plan__inner .btn { order: 3; margin-top: auto; }
-  .ticks { order: 2; }
+  .ticks, .plan__note { order: 2; }
   .plan--featured { transform: translateY(-10px); }
   /* the label sits on the card's top edge, so every name is one line and the prices line up */
   .plan__tag { position: absolute; top: -11px; left: 18px; box-shadow: 0 0 0 3px var(--bg-2); }

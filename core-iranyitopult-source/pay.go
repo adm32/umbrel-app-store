@@ -99,7 +99,7 @@ func findByCode(code string) *Lead {
 func vatNote(mode string) string {
 	// Shown on the payment page, where the amounts are what the card is charged.
 	if mode == "mentes" {
-		return "Az összegek végösszegek, ÁFA-t nem tartalmaznak."
+		return "Az összegek végösszegek, ÁFA-t nem számítunk fel."
 	}
 	return "Az összegek a 27% ÁFA-t tartalmazzák."
 }

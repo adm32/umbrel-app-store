@@ -111,6 +111,14 @@
     var k = b.getAttribute("data-lens");
     b.addEventListener("click", function () { setLens(k); });
   });
+  if (lensFrame) {
+    $$("[data-vv]", lensFrame).forEach(function (el) {
+      el.addEventListener("click", function () {
+        var k = el.getAttribute("data-vv");
+        if (LENS_CAPS[k]) setLens(k);
+      });
+    });
+  }
   wireTabKeys(lensBtns);
 
   function syncAllThumbs() {

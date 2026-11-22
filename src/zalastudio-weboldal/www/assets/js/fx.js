@@ -127,6 +127,91 @@
     return;
   }
 
+  /* ---------- The Zala river (hero background canvas, 30fps, dpr=1, pauses off-screen) ---------- */
+  (function () {
+    var cv = document.getElementById("river");
+    if (!cv || !cv.getContext) return;
+    var cx = cv.getContext("2d"), W = 0, H = 0, visible = true, raf = 0, last = 0, t0 = performance.now();
+    var phone = window.matchMedia && window.matchMedia("(max-width: 699px)").matches;
+    var N = phone ? 13 : 20;
+    var STEP = phone ? 22 : 18;
+    var FPS = 30;
+    var strands = [], grad = null;
+    for (var i = 0; i < N; i++) {
+      var u = i / (N - 1) * 2 - 1;
+      strands.push({
+        u: u,
+        ph: Math.random() * 6.28,
+        k: 0.006 + Math.random() * 0.006,
+        sp: 0.25 + Math.random() * 0.35,
+        amp: 2 + Math.random() * 5,
+        a: (phone ? 1.6 : 1.25) * (0.05 + 0.2 * Math.pow(1 - Math.abs(u), 1.6))
+      });
+    }
+    function size() {
+      var r = cv.getBoundingClientRect();
+      var w = Math.max(1, Math.round(r.width)), h = Math.max(1, Math.round(r.height));
+      if (w === W && h === H) return false;
+      W = w; H = h;
+      cv.width = W; cv.height = H;
+      grad = cx.createLinearGradient(0, 0, W, 0);
+      grad.addColorStop(0, "rgba(246,164,111,0)");
+      grad.addColorStop(0.18, "rgba(246,164,111,1)");
+      grad.addColorStop(0.55, "rgba(248,186,104,1)");
+      grad.addColorStop(0.85, "rgba(238,125,70,1)");
+      grad.addColorStop(1, "rgba(238,125,70,0)");
+      return true;
+    }
+    function centre(x, t) {
+      return H * 0.52 + H * 0.16 * Math.sin(x * 0.0042 + t * 0.12) + H * 0.07 * Math.sin(x * 0.011 - t * 0.21 + 1.7);
+    }
+    function half(x, t) {
+      return H * (0.13 + 0.07 * Math.sin(x * 0.0035 - t * 0.09 + 0.6) + 0.03 * Math.sin(x * 0.013 + t * 0.17));
+    }
+    function y(s, x, t) {
+      return centre(x, t) + s.u * half(x, t) + s.amp * Math.sin(x * s.k + t * s.sp + s.ph);
+    }
+    function paint(now) {
+      last = now;
+      var t = (now - t0) / 1000;
+      cx.clearRect(0, 0, W, H);
+      cx.globalCompositeOperation = "lighter";
+      cx.strokeStyle = grad; cx.lineCap = "round"; cx.lineJoin = "round";
+      for (var i = 0; i < N; i++) {
+        var s = strands[i];
+        cx.globalAlpha = s.a * (0.85 + 0.15 * Math.sin(t * 0.8 + s.ph));
+        cx.lineWidth = Math.abs(s.u) < 0.25 ? 1.3 : 0.9;
+        cx.beginPath();
+        var x = -STEP, py = y(s, x, t);
+        cx.moveTo(x, py);
+        for (x = 0; x <= W + STEP; x += STEP) {
+          var ny = y(s, x, t), mx = x - STEP / 2;
+          cx.quadraticCurveTo(x - STEP, py, mx, (py + ny) / 2);
+          py = ny;
+        }
+        cx.lineTo(W + STEP, py);
+        cx.stroke();
+      }
+      cx.globalAlpha = 1; cx.globalCompositeOperation = "source-over";
+    }
+    function frame(now) {
+      raf = 0;
+      if (!visible || document.hidden) return;
+      raf = requestAnimationFrame(frame);
+      if (now - last < 1000 / FPS - 2) return;
+      paint(now);
+    }
+    function start() { if (!raf && visible && !document.hidden) { last = 0; raf = requestAnimationFrame(frame); } }
+    size();
+    window.addEventListener("resize", function () { if (size()) paint(performance.now()); start(); }, { passive: true });
+    document.addEventListener("visibilitychange", start);
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) { visible = es[0].isIntersecting; start(); }).observe(cv);
+    }
+    start();
+    requestAnimationFrame(function () { cv.classList.add("is-on"); });
+  })();
+
   /* ---------- Manifesto word-by-word scroll illumination ---------- */
   var manifesto = $('[data-scroll="manifesto"]');
   var manifestoWords = [];

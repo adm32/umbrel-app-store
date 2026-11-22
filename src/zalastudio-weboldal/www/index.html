@@ -6,7 +6,7 @@
 <title>Zala Studio – weboldal vállalkozásoknak: előbb látod, utána fizetsz</title>
 <meta name="description" content="Ingyen elkészítjük a vállalkozásod weboldalának bemutatóját. Ha tetszik, élesítjük, ha nem, nem tartozol semmivel. Telefonra tervezett weboldalak havidíjjal, tárhellyel és karbantartással, az egész országban.">
 <link rel="canonical" href="https://zalastudio.hu/">
-<meta name="theme-color" content="#120F0D">
+<meta name="theme-color" content="#09080B">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="hu_HU">
 <meta property="og:site_name" content="Zala Studio">
@@ -23,12 +23,13 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 <link rel="preload" href="assets/fonts/schibsted-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=42">
-<script src="assets/js/boot.js?v=42"></script>
-<script src="assets/js/preview.js?v=42" defer></script>
-<script src="assets/js/site.js?v=42" defer></script>
-<script src="/assets/js/consent.js?v=42" defer></script>
-<script src="assets/js/fx.js?v=42" defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=43">
+<link rel="stylesheet" href="assets/css/home.css?v=43">
+<script src="assets/js/boot.js?v=43"></script>
+<script src="assets/js/preview.js?v=43" defer></script>
+<script src="assets/js/site.js?v=43" defer></script>
+<script src="/assets/js/consent.js?v=43" defer></script>
+<script src="assets/js/fx.js?v=43" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -63,7 +64,7 @@
 }
 </script>
 </head>
-<body>
+<body class="home">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
     <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
@@ -101,272 +102,228 @@
 
 <main id="tartalom">
 
-  <!-- ============ HERO ============ -->
+  <!-- ============ HERO: pinned night landscape over the Zala hills, 7 parallax layers (fx.js: hero) ============ -->
   <section class="hero" id="top" data-scroll="hero">
-    <div class="hero__bg" aria-hidden="true">
-      <span class="hero__glow hero__glow--a"></span>
-      <span class="hero__glow hero__glow--b"></span>
-      <canvas class="river" id="river"></canvas>
-    </div>
-
-    <div class="wrap hero__grid">
-      <div class="hero__copy">
-        <h1 class="enter" style="--i:0">
-          <span class="sr">Weboldal a vállalkozásodnak.</span>
-          <span aria-hidden="true">
-            <span class="hero__line">Weboldal</span>
-            <span class="rot" id="heroWord"><span class="serif">az éttermednek.</span></span>
-          </span>
-        </h1>
-        <p class="hero__lead enter" style="--i:1">
-          <b>Előbb látod, utána fizetsz.</b> Ingyen elkészítjük a bemutatót — ha tetszik, pár nap alatt élesítjük.
-        </p>
-        <div class="hero__cta enter" style="--i:2">
-          <a class="btn btn--primary btn--lg" href="#tervezes" data-planner data-src="hero">
-            <span>Ingyenes bemutatót kérek</span>
-            <svg><use href="#i-arrow"/></svg>
-          </a>
-          <a class="btn btn--ghost-dk btn--lg hero__more" href="#munkaink">Munkáink</a>
-        </div>
+    <div class="hero__pin">
+      <div class="hero__scene" aria-hidden="true">
+        <canvas class="stars" id="stars"></canvas>
+        <span class="sun" data-layer="sun"></span>
+        <span class="bigword" data-layer="word"><span>ZALA</span></span>
+        <svg class="hill hill--far" data-layer="far" viewBox="0 0 1440 320" preserveAspectRatio="none"><path d="M0 320L0 190Q0 190 18 187Q36 184 54 179Q72 175 90 173Q108 172 126 173Q144 175 162 176Q180 177 198 175Q216 173 234 170Q252 167 270 167Q288 167 306 171Q324 176 342 182Q360 189 378 190Q396 192 414 187Q432 183 450 174Q468 166 486 158Q504 151 522 146Q540 141 558 136Q576 132 594 125Q612 118 630 109Q648 101 666 95Q684 89 702 90Q720 91 738 98Q756 105 774 113Q792 121 810 126Q828 131 846 132Q864 133 882 134Q900 135 918 139Q936 143 954 147Q972 152 990 153Q1008 155 1026 152Q1044 149 1062 144Q1080 140 1098 139Q1116 139 1134 145Q1152 151 1170 160Q1188 169 1206 176Q1224 183 1242 186Q1260 189 1278 190Q1296 192 1314 195Q1332 198 1350 202Q1368 206 1386 207Q1404 208 1422 202L1440 197L1440 320Z"/><rect x="0" y="318" width="1440" height="2400"/></svg>
+        <canvas class="river" id="river" data-layer="river"></canvas>
+        <svg class="hill hill--mid" data-layer="mid" viewBox="0 0 1440 320" preserveAspectRatio="none"><path d="M0 320L0 223Q0 223 18 223Q36 224 54 219Q72 214 90 207Q108 201 126 195Q144 190 162 187Q180 184 198 181Q216 178 234 171Q252 165 270 155Q288 145 306 135Q324 125 342 119Q360 113 378 113Q396 113 414 118Q432 123 450 129Q468 135 486 138Q504 142 522 143Q540 145 558 148Q576 151 594 158Q612 165 630 173Q648 182 666 189Q684 196 702 198Q720 201 738 198Q756 195 774 191Q792 187 810 185Q828 184 846 186Q864 189 882 194Q900 199 918 202Q936 205 954 205Q972 206 990 206Q1008 206 1026 209Q1044 212 1062 218Q1080 225 1098 233Q1116 242 1134 248Q1152 254 1170 254Q1188 254 1206 248Q1224 243 1242 236Q1260 229 1278 223Q1296 218 1314 214Q1332 211 1350 206Q1368 202 1386 194Q1404 186 1422 175L1440 165L1440 320Z"/><rect x="0" y="318" width="1440" height="2400"/></svg>
+        <svg class="hill hill--near" data-layer="near" viewBox="0 0 1440 320" preserveAspectRatio="none"><path d="M0 320L0 208Q0 208 18 204Q36 201 54 196Q72 191 90 185Q108 179 126 174Q144 170 162 168Q180 167 198 169Q216 172 234 177Q252 182 270 187Q288 193 306 197Q324 202 342 204Q360 207 378 209Q396 212 414 215Q432 219 450 224Q468 229 486 235Q504 242 522 247Q540 252 558 254Q576 257 594 256Q612 256 630 253Q648 250 666 247Q684 244 702 243Q720 243 738 244Q756 246 774 249Q792 252 810 254Q828 256 846 256Q864 257 882 256Q900 256 918 256Q936 256 954 257Q972 259 990 263Q1008 267 1026 272Q1044 277 1062 281Q1080 285 1098 286Q1116 287 1134 284Q1152 281 1170 276Q1188 271 1206 266Q1224 261 1242 256Q1260 252 1278 249Q1296 247 1314 243Q1332 240 1350 235Q1368 231 1386 224Q1404 218 1422 210L1440 203L1440 320Z"/><rect x="0" y="318" width="1440" height="2400"/></svg>
+        <svg class="reeds" data-layer="reeds" viewBox="0 0 1440 320" preserveAspectRatio="none"><path d="M0 320Q-2 268 -3 233Q4 273 5 320ZM7 320Q-2 287 -15 265Q8 290 15 320ZM19 320Q20 248 23 200Q24 254 23 320ZM29 320Q28 290 28 270Q32 293 33 320ZM42 320Q32 288 19 266Q40 291 47 320ZM57 320Q66 260 81 220Q68 265 61 320ZM73 320Q77 284 85 259Q81 287 78 320ZM89 320Q92 289 98 267Q99 291 97 320ZM102 320Q91 289 76 268Q99 292 107 320ZM117 320Q116 283 115 257Q122 286 123 320ZM126 320Q129 251 134 205Q132 257 130 320ZM137 320Q130 250 120 203Q140 256 146 320ZM145 320Q149 248 157 200Q156 254 153 320ZM155 320Q157 265 162 227Q161 269 159 320ZM163 320Q167 250 174 202Q170 256 167 320ZM173 320Q175 255 179 211Q183 261 182 320ZM186 320Q189 269 195 234Q195 273 193 320ZM200 320Q194 265 187 228Q202 270 206 320ZM209 320Q212 274 217 243Q215 278 213 320ZM220 320Q231 253 248 207Q235 258 227 320ZM232 320Q236 259 242 217Q241 264 238 320ZM240 320Q239 284 238 259Q247 287 248 320ZM249 320Q250 267 252 231Q254 272 254 320ZM262 320Q252 290 238 269Q263 292 271 320ZM277 320Q274 249 270 201Q280 255 283 320ZM289 320Q292 247 298 198Q298 253 296 320ZM303 320Q298 288 292 266Q303 291 307 320ZM317 320Q324 288 335 266Q326 291 321 320ZM328 320Q334 244 343 192Q340 250 336 320ZM342 320Q340 271 338 238Q349 275 351 320ZM354 320Q351 292 348 272Q359 294 361 320ZM363 320Q364 246 366 196Q367 252 367 320ZM370 320Q362 277 350 247Q370 280 376 320ZM380 320Q390 263 407 224Q395 268 387 320ZM394 320Q394 287 394 264Q399 290 399 320ZM407 320Q418 251 435 204Q421 257 413 320ZM416 320Q411 260 405 219Q420 265 424 320ZM429 320Q440 266 457 229Q446 270 438 320ZM442 320Q432 275 419 245Q440 279 447 320ZM451 320Q456 281 465 255Q460 285 456 320ZM461 320Q471 292 486 273Q475 295 468 320ZM477 320Q473 279 467 251Q480 283 483 320ZM484 320Q486 282 490 256Q492 285 491 320ZM496 320Q492 246 488 196Q501 252 504 320ZM505 320Q510 254 518 209Q516 259 513 320ZM512 320Q521 258 535 216Q527 263 521 320ZM527 320Q525 263 524 224Q533 268 534 320ZM540 320Q544 285 552 261Q550 288 547 320ZM553 320Q543 289 529 267Q550 291 558 320ZM563 320Q554 259 542 218Q561 264 568 320ZM575 320Q566 247 553 198Q572 253 579 320ZM582 320Q584 250 588 202Q588 256 587 320ZM590 320Q579 265 563 228Q589 270 598 320ZM598 320Q596 277 594 248Q604 281 606 320ZM607 320Q604 244 601 193Q611 251 613 320ZM623 320Q614 265 602 228Q623 270 630 320ZM631 320Q631 256 633 212Q638 261 638 320ZM645 320Q637 269 626 235Q643 274 649 320ZM653 320Q648 267 641 231Q658 272 662 320ZM667 320Q656 281 640 254Q666 284 675 320ZM677 320Q669 253 658 207Q677 258 683 320ZM692 320Q688 291 683 271Q697 294 700 320ZM700 320Q698 273 695 241Q706 277 708 320ZM709 320Q711 266 715 229Q715 270 714 320ZM724 320Q728 254 736 210Q733 260 730 320ZM734 320Q743 246 757 196Q745 252 739 320ZM744 320Q753 262 767 223Q759 267 753 320ZM754 320Q755 278 757 249Q762 281 762 320ZM766 320Q774 291 788 271Q776 294 770 320ZM777 320Q770 257 761 214Q778 262 783 320ZM793 320Q802 266 816 230Q806 271 800 320ZM805 320Q799 265 791 228Q804 270 809 320ZM813 320Q806 275 797 245Q815 279 820 320ZM825 320Q829 277 836 248Q835 281 832 320ZM841 320Q846 293 854 274Q851 295 848 320ZM853 320Q863 244 878 192Q864 250 857 320ZM861 320Q869 263 881 225Q876 268 870 320ZM871 320Q870 256 870 213Q875 262 876 320ZM883 320Q881 286 880 263Q891 289 892 320ZM897 320Q887 262 874 223Q899 267 906 320ZM906 320Q895 280 879 253Q902 284 911 320ZM915 320Q924 248 938 199Q928 254 922 320ZM924 320Q924 246 926 196Q932 252 932 320ZM936 320Q938 281 943 255Q946 285 944 320ZM945 320Q954 292 968 272Q955 294 949 320ZM953 320Q945 253 933 207Q956 258 962 320ZM966 320Q955 278 939 250Q962 282 971 320ZM977 320Q978 277 981 247Q984 280 983 320ZM987 320Q982 248 975 199Q989 254 993 320ZM1002 320Q992 261 977 221Q999 266 1007 320ZM1014 320Q1017 258 1023 216Q1025 263 1023 320ZM1029 320Q1021 261 1009 221Q1031 266 1037 320ZM1044 320Q1045 281 1048 255Q1053 285 1052 320ZM1051 320Q1055 259 1061 218Q1059 264 1056 320ZM1058 320Q1050 281 1039 255Q1057 285 1063 320ZM1072 320Q1063 245 1051 195Q1074 252 1081 320ZM1087 320Q1093 289 1102 267Q1097 291 1093 320ZM1102 320Q1102 253 1104 207Q1110 258 1110 320ZM1110 320Q1104 250 1097 203Q1110 256 1114 320ZM1120 320Q1128 272 1141 239Q1130 276 1124 320ZM1128 320Q1130 254 1135 210Q1137 260 1135 320ZM1135 320Q1131 288 1127 266Q1139 291 1142 320ZM1151 320Q1152 254 1155 210Q1160 260 1159 320ZM1161 320Q1162 272 1165 239Q1169 276 1168 320ZM1176 320Q1170 256 1163 213Q1180 262 1184 320ZM1191 320Q1184 273 1175 241Q1194 277 1199 320ZM1205 320Q1196 283 1184 257Q1205 286 1212 320ZM1218 320Q1208 259 1194 218Q1216 264 1224 320ZM1228 320Q1222 260 1213 220Q1227 265 1232 320ZM1239 320Q1245 284 1256 259Q1249 287 1244 320ZM1251 320Q1262 282 1279 256Q1265 285 1257 320ZM1260 320Q1267 257 1279 215Q1270 263 1265 320ZM1268 320Q1260 263 1250 224Q1269 268 1275 320ZM1278 320Q1277 281 1277 254Q1286 284 1287 320ZM1293 320Q1292 262 1291 223Q1298 267 1299 320ZM1303 320Q1293 266 1280 229Q1302 270 1309 320ZM1315 320Q1317 292 1322 272Q1323 294 1321 320ZM1329 320Q1318 259 1302 218Q1329 264 1338 320ZM1342 320Q1346 268 1353 232Q1353 272 1350 320ZM1353 320Q1344 254 1332 209Q1350 259 1357 320ZM1363 320Q1358 285 1351 261Q1363 288 1367 320ZM1374 320Q1369 290 1363 269Q1375 292 1379 320ZM1383 320Q1392 260 1407 220Q1399 265 1392 320ZM1394 320Q1396 262 1400 223Q1400 267 1399 320ZM1409 320Q1415 249 1425 201Q1420 255 1416 320ZM1421 320Q1411 286 1396 263Q1419 289 1427 320ZM1430 320Q1425 260 1419 220Q1430 265 1434 320ZM1437 320Q1446 244 1460 193Q1447 251 1441 320Z"/><rect x="0" y="318" width="1440" height="2400"/></svg>
+        <span class="hero__veil" data-layer="veil"></span>
       </div>
 
-      <figure class="stage enter" style="--i:1" aria-label="Élő példa: így nézhet ki egy weboldal telefonon (kitalált adatokkal)">
-        <div class="stage__halo" aria-hidden="true"></div>
-        <div class="stage__pills" id="heroSwitch" role="tablist" aria-label="Példa vállalkozások">
-          <span class="stage__thumb" id="heroThumb" aria-hidden="true"></span>
-          <button type="button" role="tab" aria-selected="true" class="is-on" data-demo="0">Étterem</button>
-          <button type="button" role="tab" aria-selected="false" data-demo="1">Szalon</button>
-          <button type="button" role="tab" aria-selected="false" data-demo="2">Szaki</button>
-          <button type="button" role="tab" aria-selected="false" data-demo="3">Szállás</button>
-          <button type="button" role="tab" aria-selected="false" data-demo="4">Bolt</button>
-        </div>
-        <div class="stage__crop">
-          <div class="stage__tilt" id="heroTilt">
-            <div class="device" id="heroDevice">
-              <div class="device__screen" id="heroScreen" aria-hidden="true"><div class="sk"><i></i><i></i><i></i><i></i></div></div>
-            </div>
+      <div class="wrap hero__grid">
+        <div class="hero__copy" data-layer="copy">
+          <p class="hero__eyebrow enter" style="--i:0"><span class="dot" aria-hidden="true"></span>Weboldalak vállalkozásoknak</p>
+          <h1 class="enter" style="--i:1">
+            <span class="sr">Weboldal a vállalkozásodnak.</span>
+            <span aria-hidden="true">
+              <span class="hero__line">Weboldal</span>
+              <span class="rot" id="heroWord"><span class="serif">az éttermednek.</span></span>
+            </span>
+          </h1>
+          <p class="hero__lead enter" style="--i:2">
+            <b>Előbb látod, utána fizetsz.</b> Ingyen elkészítjük a bemutatót — ha tetszik, pár nap alatt élesítjük.
+          </p>
+          <div class="hero__cta enter" style="--i:3">
+            <a class="btn btn--primary btn--lg btn--glow" href="#tervezes" data-planner data-src="hero">
+              <span>Ingyenes bemutatót kérek</span>
+              <svg><use href="#i-arrow"/></svg>
+            </a>
+            <a class="btn btn--ghost-dk btn--lg hero__more" href="#munkaink">Munkáink</a>
           </div>
         </div>
-        <a class="btn btn--glass btn--sm stage__try" id="heroTry" href="#tervezes" data-planner data-src="telefon">
-          <span>Próbáld ki a saját neveddel</span>
-          <svg><use href="#i-arrow"/></svg>
-        </a>
-      </figure>
+
+        <figure class="stage" data-layer="stage" aria-label="Élő példa: így nézhet ki egy weboldal telefonon (kitalált adatokkal)">
+          <div class="stage__halo" aria-hidden="true"></div>
+          <div class="stage__pills" id="heroSwitch" role="tablist" aria-label="Példa vállalkozások">
+            <span class="stage__thumb" id="heroThumb" aria-hidden="true"></span>
+            <button type="button" role="tab" aria-selected="true" class="is-on" data-demo="0">Étterem</button>
+            <button type="button" role="tab" aria-selected="false" data-demo="1">Szalon</button>
+            <button type="button" role="tab" aria-selected="false" data-demo="2">Szaki</button>
+            <button type="button" role="tab" aria-selected="false" data-demo="3">Szállás</button>
+            <button type="button" role="tab" aria-selected="false" data-demo="4">Bolt</button>
+          </div>
+          <div class="stage__crop">
+            <div class="stage__tilt" id="heroTilt">
+              <div class="device" id="heroDevice">
+                <div class="device__screen" id="heroScreen" aria-hidden="true"><div class="sk"><i></i><i></i><i></i><i></i></div></div>
+                <span class="device__glare" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+          <a class="btn btn--glass btn--sm stage__try" id="heroTry" href="#tervezes" data-planner data-src="telefon">
+            <span>Próbáld ki a saját neveddel</span>
+            <svg><use href="#i-arrow"/></svg>
+          </a>
+        </figure>
+      </div>
+
+      <a class="hero__cue" href="#munkaink" aria-label="Tovább a munkáinkhoz" data-layer="cue"><span></span></a>
     </div>
   </section>
 
-  <!-- ============ FACTS ============ -->
+  <!-- ============ FACTS: four chunked numbers that count up (fx.js: count) ============ -->
   <section class="facts" aria-label="Röviden">
     <div class="wrap">
-      <ul class="facts__grid rv">
-        <li><b>0 <em>Ft</em></b><span>a bemutató, kötelezettség nélkül</span></li>
-        <li><b>1 <em>munkanap</em></b><span>ennyin belül jelentkezünk</span></li>
-        <li><b>Pár <em>nap</em></b><span>és megnézheted a bemutatót</span></li>
-        <li><b>3 <em>élő oldal</em></b><span>étterem, szalon, borbély</span></li>
+      <ul class="facts__grid">
+        <li class="rv"><b><span data-count="0" data-from="49990">0</span> <em>Ft</em></b><span>a bemutató, kötelezettség nélkül</span></li>
+        <li class="rv" style="--d:1"><b><span data-count="1" data-from="14">1</span> <em>munkanap</em></b><span>ennyin belül jelentkezünk</span></li>
+        <li class="rv" style="--d:2"><b>Pár <em>nap</em></b><span>és megnézheted a bemutatót</span></li>
+        <li class="rv" style="--d:3"><b><span data-count="3">3</span> <em>élő oldal</em></b><span>étterem, szalon, borbély</span></li>
       </ul>
     </div>
   </section>
 
-  <!-- ============ LIVE WORK — PARALLAX SHOWCASE (DESKTOP STICKY + MOBILE COUNTER-PARALLAX) ============ -->
-  <section class="sec worksec" id="munkaink" aria-labelledby="munkaink-h">
+  <!-- ============ MARQUEE: two giant lines that run with the scroll speed (fx.js: marquee) ============ -->
+  <div class="marq" aria-hidden="true">
+    <div class="marq__row" data-marq="1"><span>Étterem ✦ Szalon ✦ Borbély ✦ Szállás ✦ Szaki ✦ Bolt ✦ </span><span>Étterem ✦ Szalon ✦ Borbély ✦ Szállás ✦ Szaki ✦ Bolt ✦ </span></div>
+    <div class="marq__row marq__row--out" data-marq="-1"><span>Előbb látod ✦ Utána fizetsz ✦ Előbb látod ✦ Utána fizetsz ✦ </span><span>Előbb látod ✦ Utána fizetsz ✦ Előbb látod ✦ Utána fizetsz ✦ </span></div>
+  </div>
+
+  <!-- ============ WORK: horizontal pinned gallery on desktop, stacked cards on phones (fx.js: works) ============ -->
+  <section class="sec works" id="munkaink" aria-labelledby="munkaink-h">
     <div class="wrap">
       <header class="sec__head rv">
+        <p class="kicker">01 — Munkáink</p>
         <h2 id="munkaink-h">Étterem, szalon, borbély. <span class="muted">Mind élőben.</span></h2>
-        <p class="sec__sub">Valódi vállalkozások működő oldalai.</p>
+        <p class="sec__sub">Valódi vállalkozások működő oldalai. Koppints rá, és nézd meg.</p>
       </header>
     </div>
 
-    <!-- Desktop Apple Sticky Showcase -->
-    <div class="showcase" id="showcase" data-scroll="showcase" data-active="0">
-      <div class="showcase__sticky">
-        <div class="wrap showcase__grid">
-          <div class="showcase__rail">
-            <div class="rail__track" aria-hidden="true"><span class="rail__fill" id="railFill"></span></div>
-
-            <div class="rail__tabs" role="tablist" aria-label="Referencia oldalak">
-              <button class="rail__tab is-active" type="button" role="tab" aria-selected="true" data-chapter="0">Vadvirág Étterem</button>
-              <button class="rail__tab" type="button" role="tab" aria-selected="false" data-chapter="1">Esszencia Szépségműhely</button>
-              <button class="rail__tab" type="button" role="tab" aria-selected="false" data-chapter="2">Csaszko Barbershop</button>
-            </div>
-
-            <div class="rail__stories">
-              <article class="story is-active" data-story="0">
-                <p class="story__desc">Étlap három nyelven és online rendelés, közvetlenül a konyhára.</p>
-                <a class="story__link" href="https://vadviragetterem.com" target="_blank" rel="noopener">
-                  <span>vadviragetterem.com</span><svg><use href="#i-ext"/></svg>
-                </a>
-              </article>
-
-              <article class="story" data-story="1">
-                <p class="story__desc">Szalonoldal négy nyelven, kezeléslistával és online időpontkéréssel.</p>
-                <a class="story__link" href="https://esszenciakozmetika.hu" target="_blank" rel="noopener">
-                  <span>esszenciakozmetika.hu</span><svg><use href="#i-ext"/></svg>
-                </a>
-              </article>
-
-              <article class="story" data-story="2">
-                <p class="story__desc">Online foglalás valódi szabad időpontokkal és saját kezelővel.</p>
-                <a class="story__link" href="https://csaszkobarbershop.hu" target="_blank" rel="noopener">
-                  <span>csaszkobarbershop.hu</span><svg><use href="#i-ext"/></svg>
-                </a>
-              </article>
-            </div>
-          </div>
-
-          <div class="showcase__stage" aria-hidden="true">
-            <div class="backdrop backdrop--0 is-active" data-bg="0"></div>
-            <div class="backdrop backdrop--1" data-bg="1"></div>
-            <div class="backdrop backdrop--2" data-bg="2"></div>
-
-            <a class="scene scene--vadvirag is-active" data-scene="0" href="https://vadviragetterem.com" target="_blank" rel="noopener" tabindex="-1">
-              <div class="scene__phones">
-                <span class="ph ph--lead"><img src="assets/img/vadvirag-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt="A Vadvirág Étterem nyitóoldala telefonon."></span>
-                <span class="ph ph--sub"><img src="assets/img/vadvirag-etlap.webp" width="560" height="1212" loading="lazy" decoding="async" alt="A Vadvirág Étterem étlapja telefonon, kosárba tehető ételekkel."></span>
-              </div>
-            </a>
-
-            <a class="scene scene--esszencia" data-scene="1" href="https://esszenciakozmetika.hu" target="_blank" rel="noopener" tabindex="-1">
-              <div class="scene__phones">
-                <span class="ph ph--lead"><img src="assets/img/esszencia-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt="Az Esszencia Szépségműhely nyitóoldala telefonon."></span>
-                <span class="ph ph--sub"><img src="assets/img/esszencia-kezelesek.webp" width="560" height="1212" loading="lazy" decoding="async" alt="Az Esszencia Szépségműhely kezelései és árai telefonon."></span>
-              </div>
-            </a>
-
-            <a class="scene scene--dark" data-scene="2" href="https://csaszkobarbershop.hu" target="_blank" rel="noopener" tabindex="-1">
-              <div class="scene__phones">
-                <span class="ph ph--lead"><img src="assets/img/csaszko-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt="A Csaszko Barbershop nyitóoldala telefonon, a következő szabad időpontokkal."></span>
-                <span class="ph ph--sub"><img src="assets/img/csaszko-foglalas.webp" width="560" height="1212" loading="lazy" decoding="async" alt="Időpontfoglalás a Csaszko Barbershop oldalán: nap és szabad időpontok kiválasztása."></span>
-              </div>
-            </a>
+    <div class="hz" id="hz">
+      <div class="hz__pin">
+        <div class="hz__track" id="hzTrack">
+          <a class="proj proj--vv" href="https://vadviragetterem.com" target="_blank" rel="noopener">
+            <span class="proj__glow" aria-hidden="true"></span>
+            <span class="proj__phones" aria-hidden="true">
+              <span class="ph ph--a"><img src="assets/img/vadvirag-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt=""></span>
+              <span class="ph ph--b"><img src="assets/img/vadvirag-etlap.webp" width="560" height="1212" loading="lazy" decoding="async" alt=""></span>
+            </span>
+            <span class="proj__txt">
+              <span class="proj__no">01 / 03 · Étterem</span>
+              <span class="proj__name">Vadvirág Étterem</span>
+              <span class="proj__desc">Étlap három nyelven és online rendelés, közvetlenül a konyhára.</span>
+              <span class="link">vadviragetterem.com <svg><use href="#i-ext"/></svg></span>
+            </span>
+          </a>
+          <a class="proj proj--es" href="https://esszenciakozmetika.hu" target="_blank" rel="noopener">
+            <span class="proj__glow" aria-hidden="true"></span>
+            <span class="proj__phones" aria-hidden="true">
+              <span class="ph ph--a"><img src="assets/img/esszencia-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt=""></span>
+              <span class="ph ph--b"><img src="assets/img/esszencia-kezelesek.webp" width="560" height="1212" loading="lazy" decoding="async" alt=""></span>
+            </span>
+            <span class="proj__txt">
+              <span class="proj__no">02 / 03 · Szépségszalon</span>
+              <span class="proj__name">Esszencia Szépségműhely</span>
+              <span class="proj__desc">Szalonoldal négy nyelven, kezeléslistával és online időpontkéréssel.</span>
+              <span class="link">esszenciakozmetika.hu <svg><use href="#i-ext"/></svg></span>
+            </span>
+          </a>
+          <a class="proj proj--cs" href="https://csaszkobarbershop.hu" target="_blank" rel="noopener">
+            <span class="proj__glow" aria-hidden="true"></span>
+            <span class="proj__phones" aria-hidden="true">
+              <span class="ph ph--a"><img src="assets/img/csaszko-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt=""></span>
+              <span class="ph ph--b"><img src="assets/img/csaszko-foglalas.webp" width="560" height="1212" loading="lazy" decoding="async" alt=""></span>
+            </span>
+            <span class="proj__txt">
+              <span class="proj__no">03 / 03 · Borbély</span>
+              <span class="proj__name">Csaszko Barbershop</span>
+              <span class="proj__desc">Online foglalás valódi szabad időpontokkal és saját kezelővel.</span>
+              <span class="link">csaszkobarbershop.hu <svg><use href="#i-ext"/></svg></span>
+            </span>
+          </a>
+          <div class="proj proj--next">
+            <span class="proj__glow" aria-hidden="true"></span>
+            <span class="proj__txt">
+              <span class="proj__no">04 / ?</span>
+              <span class="proj__name">A következő lehet a tiéd.</span>
+              <span class="proj__desc">Két perc, néhány koppintás, és pár napon belül megnézheted a saját bemutatódat.</span>
+              <a class="btn btn--primary btn--lg" href="#tervezes" data-planner data-src="munkak"><span>Ingyenes bemutató</span><svg><use href="#i-arrow"/></svg></a>
+            </span>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Phone & reduced-motion vertical parallax showcase (phones counter-glide as you scroll!) -->
-    <div class="wrap works-mob">
-      <div class="works">
-        <a class="work rv" data-parallax-card href="https://vadviragetterem.com" target="_blank" rel="noopener">
-          <div class="work__media work__media--a">
-            <span class="ph ph--a"><img src="assets/img/vadvirag-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt="A Vadvirág Étterem nyitóoldala telefonon."></span>
-            <span class="ph ph--b"><img src="assets/img/vadvirag-etlap.webp" width="560" height="1212" loading="lazy" decoding="async" alt="A Vadvirág Étterem étlapja telefonon, kosárba tehető ételekkel."></span>
-          </div>
-          <div class="work__body">
-            <h3>Vadvirág Étterem</h3>
-            <p>Étlap három nyelven és online rendelés.</p>
-            <span class="link">vadviragetterem.com <svg><use href="#i-ext"/></svg></span>
-          </div>
-        </a>
-
-        <a class="work rv" data-parallax-card href="https://esszenciakozmetika.hu" target="_blank" rel="noopener">
-          <div class="work__media work__media--b">
-            <span class="ph ph--a"><img src="assets/img/esszencia-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt="Az Esszencia Szépségműhely nyitóoldala telefonon."></span>
-            <span class="ph ph--b"><img src="assets/img/esszencia-kezelesek.webp" width="560" height="1212" loading="lazy" decoding="async" alt="Az Esszencia Szépségműhely kezelései és árai telefonon."></span>
-          </div>
-          <div class="work__body">
-            <h3>Esszencia Szépségműhely</h3>
-            <p>Szalonoldal, online időpontkéréssel.</p>
-            <span class="link">esszenciakozmetika.hu <svg><use href="#i-ext"/></svg></span>
-          </div>
-        </a>
-
-        <a class="work rv" data-parallax-card href="https://csaszkobarbershop.hu" target="_blank" rel="noopener">
-          <div class="work__media work__media--c">
-            <span class="ph ph--a"><img src="assets/img/csaszko-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt="A Csaszko Barbershop nyitóoldala telefonon, a következő szabad időpontokkal."></span>
-            <span class="ph ph--b"><img src="assets/img/csaszko-foglalas.webp" width="560" height="1212" loading="lazy" decoding="async" alt="Időpontfoglalás a Csaszko Barbershop oldalán: nap és szabad időpontok kiválasztása."></span>
-          </div>
-          <div class="work__body">
-            <h3>Csaszko Barbershop</h3>
-            <p>Online foglalás valódi szabad időpontokkal.</p>
-            <span class="link">csaszkobarbershop.hu <svg><use href="#i-ext"/></svg></span>
-          </div>
-        </a>
-      </div>
+      <div class="hz__meter" aria-hidden="true"><span id="hzFill"></span></div>
     </div>
   </section>
 
-  <!-- ============ PERKS — MANIFESTO + PARALLAX SPOTLIGHT ============ -->
-  <section class="sec sec--tint craft" id="miert" aria-labelledby="miert-h">
+  <!-- ============ WHY: word-by-word manifesto + 3D bento (fx.js: manifesto, tilt) ============ -->
+  <section class="sec craft" id="miert" aria-labelledby="miert-h">
     <div class="wrap">
-      <div class="manifesto" data-scroll="manifesto">
-        <h2 class="manifesto__text" id="miert-h" data-scrub-words>
-          Domain, tárhely, mentés, frissítés. Nem kell intézned — mi visszük.
-        </h2>
-      </div>
+      <p class="kicker rv">02 — Miért mi</p>
+      <h2 class="manifesto" id="miert-h" data-scrub-words>Domain, tárhely, mentés, frissítés. Nem kell intézned — mi visszük.</h2>
 
-      <div class="aperture" data-scroll="aperture" id="aperture">
-        <div class="aperture__box">
-          <div class="aperture__copy">
+      <ul class="bento">
+        <li class="tile tile--big rv" data-tilt>
+          <span class="tile__spot" aria-hidden="true"></span>
+          <div class="tile__txt">
             <h3>Telefonra tervezve.</h3>
             <p>A vendég egy koppintással hív, útvonalat kér vagy rendel. Nem kell nagyítania, nem kell keresgélnie.</p>
-            <div class="lens-bar" id="lensBar" role="tablist" aria-label="Részletek kiemelése a képen">
-              <span class="lens-bar__thumb" id="lensThumb" aria-hidden="true"></span>
-              <button class="lens-bar__btn is-on" type="button" role="tab" aria-selected="true" data-lens="open">Nyitvatartás</button>
-              <button class="lens-bar__btn" type="button" role="tab" aria-selected="false" data-lens="order">Rendelés</button>
-              <button class="lens-bar__btn" type="button" role="tab" aria-selected="false" data-lens="call">Hívás</button>
-            </div>
-            <p class="lens-note" id="lensCap">Automatikusan mutatja, mikor vagytok nyitva.</p>
           </div>
-          <figure class="aperture__media">
-            <div class="aperture__frame" data-lens-active="open" id="apertureFrame">
-              <div class="aperture__pan">
-                <div class="vv" role="img" aria-label="A Vadvirág Étterem oldala telefonon: nyitvatartás, Rendelés online gomb és hívás gomb.">
-                  <p class="vv__lead">Házias ízek, tágas terasz és jó hangulat Zalaudvarnokon. Gyere el hozzánk, vagy rendelj, és kiszállítjuk.</p>
-                  <span class="vv__open" data-vv="open"><i></i>Most nyitva, 22:00-ig</span>
-                  <div class="vv__cta">
-                    <span class="vv__order" data-vv="order">Rendelés online</span>
-                    <span class="vv__call" data-vv="call" aria-hidden="true"><svg><use href="#i-phone"/></svg></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <figcaption>vadviragetterem.com telefonon</figcaption>
-          </figure>
-        </div>
-      </div>
-
-      <ul class="specs rv">
-        <li><b>Gyors <em>és biztonságos</em></b><span>Pillanatok alatt betölt, titkosított kapcsolaton.</span></li>
-        <li><b>Mindent <em>mi intézünk</em></b><span>Szólsz üzenetben, mi pedig átírjuk helyetted.</span></li>
-        <li><b>Saját <em>.hu domain</em></b><span>Minden csomagban benne van, külön díj nélkül.</span></li>
+          <div class="vv" role="img" aria-label="A Vadvirág Étterem oldala telefonon: nyitvatartás, Rendelés online gomb és hívás gomb.">
+            <p class="vv__lead">Házias ízek, tágas terasz és jó hangulat Zalaudvarnokon.</p>
+            <span class="vv__open"><i></i>Most nyitva, 22:00-ig</span>
+            <span class="vv__cta"><span class="vv__order">Rendelés online</span><span class="vv__call"><svg><use href="#i-phone"/></svg></span></span>
+            <span class="vv__tap" aria-hidden="true"></span>
+          </div>
+        </li>
+        <li class="tile rv" style="--d:1" data-tilt>
+          <span class="tile__spot" aria-hidden="true"></span>
+          <span class="tile__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg></span>
+          <h3>Gyors <em>és biztonságos</em></h3>
+          <p>Pillanatok alatt betölt, titkosított kapcsolaton.</p>
+        </li>
+        <li class="tile rv" style="--d:2" data-tilt>
+          <span class="tile__spot" aria-hidden="true"></span>
+          <span class="tile__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
+          <h3>Mindent <em>mi intézünk</em></h3>
+          <p>Szólsz üzenetben, mi pedig átírjuk helyetted.</p>
+        </li>
+        <li class="tile rv" style="--d:3" data-tilt>
+          <span class="tile__spot" aria-hidden="true"></span>
+          <span class="tile__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+          <h3>Saját <em>.hu domain</em></h3>
+          <p>Minden csomagban benne van, külön díj nélkül.</p>
+        </li>
       </ul>
     </div>
   </section>
 
-  <!-- ============ PROCESS — SCROLL-DRAWN ZALA RIVER ============ -->
-  <section class="sec" id="folyamat" aria-labelledby="folyamat-h" data-scroll="process">
+  <!-- ============ PROCESS: three steps along a glowing river drawn by the scroll (fx.js: process) ============ -->
+  <section class="sec process" id="folyamat" aria-labelledby="folyamat-h" data-scroll="process">
     <div class="wrap">
       <header class="sec__head rv">
+        <p class="kicker">03 — Folyamat</p>
         <h2 id="folyamat-h">Három lépés. <span class="muted">Kettő ingyenes.</span></h2>
       </header>
 
-      <div class="process">
-        <!-- Desktop horizontal river -->
-        <svg class="process__svg" viewBox="0 0 1120 72" fill="none" preserveAspectRatio="none" aria-hidden="true">
-          <path class="process__base" d="M 48 36 C 210 8, 350 64, 560 36 C 770 8, 910 64, 1072 36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <path class="process__draw" id="processPath" d="M 48 36 C 210 8, 350 64, 560 36 C 770 8, 910 64, 1072 36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-        </svg>
-        <!-- Mobile vertical progress line -->
-        <span class="process__vline" aria-hidden="true"><i id="processVFill"></i></span>
-
+      <div class="steps">
+        <svg class="steps__river" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true"><path d="M50 0 C 90 120, 10 260, 50 380 S 90 640, 50 760 S 10 920, 50 1000"/></svg>
+        <svg class="steps__river steps__river--on" id="stepsDraw" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="riverG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF6A2B"/><stop offset=".5" stop-color="#FFB547"/><stop offset="1" stop-color="#FF4D7E"/></linearGradient></defs><path d="M50 0 C 90 120, 10 260, 50 380 S 90 640, 50 760 S 10 920, 50 1000"/></svg>
         <ol class="how">
-          <li class="rv" data-pstep="0">
-            <span class="how__num">1</span>
-            <div>
+          <li class="step" data-pstep="0">
+            <span class="step__no" aria-hidden="true">01</span>
+            <div class="step__card">
               <h3>Megtervezed <span class="how__free">Ingyenes</span></h3>
               <p>Két perc, néhány koppintás.</p>
             </div>
           </li>
-          <li class="rv" style="--d:1" data-pstep="1">
-            <span class="how__num">2</span>
-            <div>
+          <li class="step" data-pstep="1">
+            <span class="step__no" aria-hidden="true">02</span>
+            <div class="step__card">
               <h3>Megkapod a bemutatót <span class="how__free">Ingyenes</span></h3>
               <p>Pár nap, és megnézed a telefonodon.</p>
             </div>
           </li>
-          <li class="rv" style="--d:2" data-pstep="2">
-            <span class="how__num">3</span>
-            <div>
+          <li class="step" data-pstep="2">
+            <span class="step__no" aria-hidden="true">03</span>
+            <div class="step__card">
               <h3>Ha tetszik, élesítjük</h3>
               <p>Innentől minden módosítást mi intézünk.</p>
             </div>
@@ -374,17 +331,18 @@
         </ol>
       </div>
 
-      <p class="promise rv">
+      <p class="promise rv" id="promise">
         <span class="promise__ok" aria-hidden="true"><svg><use href="#i-check"/></svg></span>
         <span>Ha nem tetszik, <strong>nem fizetsz semmit.</strong></span>
       </p>
     </div>
   </section>
 
-  <!-- ============ PRICING ============ -->
-  <section class="sec sec--tint" id="arak" aria-labelledby="arak-h">
+  <!-- ============ PRICING (markup is read by site.js: .plan, .amt b data-m/data-y, .seg) ============ -->
+  <section class="sec pricing" id="arak" aria-labelledby="arak-h">
     <div class="wrap">
       <header class="sec__head sec__head--center rv">
+        <p class="kicker">04 — Árak</p>
         <h2 id="arak-h">Havonta <span class="nowrap">3&nbsp;490 Ft-tól.</span> <span class="muted">Minden benne.</span></h2>
         <p class="sec__sub">Tárhely, mentés és módosítás. Nincs meglepetés a számlán.</p>
       </header>
@@ -495,16 +453,17 @@
     </div>
   </section>
 
-  <!-- ============ CTA / HEARTH ============ -->
+  <!-- ============ CTA: iris reveal that opens as you scroll in, embers inside (fx.js: hearth) ============ -->
   <section class="sec hearth-sec" id="tervezes" aria-labelledby="tervezes-h" data-scroll="hearth">
     <div class="wrap">
       <div class="hearth">
+        <canvas class="embers" id="embers" aria-hidden="true"></canvas>
         <div class="hearth__grid">
           <div>
             <h2 id="tervezes-h">Lásd a saját oldalad, <span class="serif">még ezen a héten.</span></h2>
             <p class="hearth__lead">Két perc, kötelezettség nélkül.</p>
             <div class="hearth__cta">
-              <a class="btn btn--primary btn--lg" href="#tervezes" data-planner data-src="also"><span>Tervezés indítása</span><svg><use href="#i-arrow"/></svg></a>
+              <a class="btn btn--primary btn--lg btn--glow" href="#tervezes" data-planner data-src="also"><span>Tervezés indítása</span><svg><use href="#i-arrow"/></svg></a>
             </div>
 
             <!-- Shown only when JavaScript is off -->
@@ -529,9 +488,10 @@
   </section>
 
   <!-- ============ FAQ ============ -->
-  <section class="sec" id="kerdesek" aria-labelledby="kerdesek-h">
+  <section class="sec faqsec" id="kerdesek" aria-labelledby="kerdesek-h">
     <div class="wrap faqwrap">
       <header class="sec__head rv">
+        <p class="kicker">05 — Kérdések</p>
         <h2 id="kerdesek-h">Amit érdemes tudni.</h2>
         <p class="sec__sub">Kérdésed van? <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a></p>
       </header>
@@ -577,7 +537,7 @@
   </section>
 </main>
 
-<footer class="foot foot--rich">
+<footer class="foot foot--rich foot--mega">
   <div class="wrap">
     <div class="foot__grid">
       <div class="foot__about">
@@ -612,7 +572,9 @@
       <button class="foot__ck" type="button" data-cookie-settings>Süti-beállítások</button>
     </p>
   </div>
+  <div class="foot__word" aria-hidden="true"><span>zalastudio</span></div>
 </footer>
+
 
 <div class="dock" id="dock" aria-hidden="true">
   <a class="dock__call" href="mailto:info@zalastudio.hu" aria-label="E-mail: info@zalastudio.hu" tabindex="-1"><svg><use href="#i-mail"/></svg></a>

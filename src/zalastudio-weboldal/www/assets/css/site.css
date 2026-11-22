@@ -281,6 +281,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .ps-item b { font-weight: 600; }
 .ps-item em { width: 20px; height: 20px; border-radius: 50%; background: var(--ps-p); color: var(--ps-on); display: grid; place-items: center; font-style: normal; font-weight: 700; font-size: 13px; line-height: 1; }
 .ps-cart { margin-top: 8px; display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-radius: 999px; background: var(--ps-ink); color: var(--ps-bg); font-weight: 600; font-size: 10.5px; }
+.ps-cta svg, .ps-cart svg { width: 1.1em; height: 1.1em; flex: none; }
+.ps-cart span:last-child { display: inline-flex; align-items: center; gap: 4px; }
 .ps-field { height: 24px; border-radius: 8px; box-shadow: 0 0 0 1px var(--ps-line) inset; margin-bottom: 5px; display: flex; align-items: center; padding: 0 9px; color: var(--ps-ink2); font-size: 10px; }
 .ps-btn { display: block; text-align: center; margin-top: 7px; padding: 7px; border-radius: 999px; background: var(--ps-p); color: var(--ps-on); font-weight: 700; font-size: 10.5px; }
 .ps-social { display: flex; gap: 6px; }

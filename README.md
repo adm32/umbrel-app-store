@@ -56,12 +56,12 @@ reinstalling the apps.
 | `www/index.html` | The whole home page: hero, work, perks, process, **packages and prices** (`#arak`), FAQ (`#kerdesek`) and the planner dialog (`#planner`) |
 | `www/assets/js/preview.js` | **Package data** (`PLANS`: prices, setup fees), planner choices (`FEATURES`, `TYPES`, `STYLES`) and the phone preview. If you change a price, change it here **and** in `index.html`. |
 | `www/assets/js/site.js` | Page behaviour: menu, monthly/yearly price switch, launch-discount counter, the planner steps and sending the request |
-| `www/assets/js/fx.js` | Home page motion: one scroll loop (pinned parallax hero, sideways work gallery, word-by-word manifesto, process river, CTA iris, footer word), canvases (stars, river, embers), custom cursor, tilt, magnetic buttons, intro curtain, confetti. Also `window.__zsMoveThumb` for site.js. |
+| `www/assets/js/fx.js` | Home page motion: one scroll loop (pinned hero with the river canvas, sideways work gallery, word-by-word manifesto, scroll-drawn process line, CTA iris, footer word), header colour over dark sections, tilt, magnetic buttons, intro curtain, confetti. Also `window.__zsMoveThumb` for site.js. |
 | `www/assets/js/consent.js` | Cookie banner |
 | `www/assets/js/boot.js` | Before first paint: `js` (script on), `mo` (motion allowed, sections may pin) and `intro-pre` (first visit of the session) |
 | `www/assets/js/pay.js` | Payment page button behaviour |
 | `www/assets/css/site.css` | Shared styles for every page: tokens, buttons, header, phone frame + preview (between `@preview-start/end`, copied to the Irányítópult), footer, dock, cookie banner, legal and payment pages, planner |
-| `www/assets/css/home.css` | Home page only (always dark): hero scene, marquee, work gallery, bento, process, pricing cards, CTA, FAQ, footer word, cursor, intro. Driven by CSS variables that fx.js sets. |
+| `www/assets/css/home.css` | Home page only: paper (light) sections with graphite `.dk` sections, brand orange used sparingly; hero river, marquee, work gallery, bento with the Vadvirág demo (uses `fonts/lora-latin.woff2` and `img/vadvirag-logo.webp`), process line, pricing cards, CTA, FAQ, footer word, intro. Driven by CSS variables that fx.js sets. |
 | `www/aszf.html`, `www/adatvedelem.html` | Terms (ÁSZF) and privacy notice/impresszum. Legal text: change only when Ádám asks. |
 | `www/koszonom.html`, `www/404.html` | Thank-you page after the no-JS form, and the not-found page |
 | `brand/` | Logo files that are **not** served (kept for later use) |

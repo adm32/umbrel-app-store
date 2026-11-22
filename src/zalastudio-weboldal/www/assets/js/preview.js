@@ -27,6 +27,7 @@
     pin: '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>',
     chat: '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
     check: '<path d="M20 6 9 17l-5-5"/>',
+    arrow: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
     lock: '<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
     rocket: '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>',
     leaf: '<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>',
@@ -113,10 +114,10 @@
     h += '<div class="ps-url">' + svg("lock", 2.6) + '<span data-ps="url">' + esc(slug(name)) + ".hu</span></div>";
     h += '<div class="ps-scroll">';
     h += '<header class="ps-head"><span class="ps-logo" data-ps="logo">' + esc(name.charAt(0).toUpperCase()) + '</span><b class="ps-name" data-ps="name">' + esc(name) + "</b>" + (has("nyelv") ? '<span class="ps-lang">HU·DE·EN</span>' : "") + '<span class="ps-burger"></span></header>';
-    h += '<div class="ps-hero"><span class="ps-open"><i></i>' + esc(t.open) + '</span><p class="ps-title">' + esc(t.title) + '</p><p class="ps-sub">' + esc(t.sub) + '</p><span class="ps-cta">' + esc(cta) + " →</span></div>";
+    h += '<div class="ps-hero"><span class="ps-open"><i></i>' + esc(t.open) + '</span><p class="ps-title">' + esc(t.title) + '</p><p class="ps-sub">' + esc(t.sub) + '</p><span class="ps-cta">' + esc(cta) + svg("arrow", 2.4) + "</span></div>";
     h += '<div class="ps-quick"><span>' + svg("phone") + "Hívás</span><span>" + svg("pin") + "Útvonal</span><span>" + svg(third[0]) + esc(third[1]) + "</span></div>";
     if (has("rendeles")) {
-      h += sec("rendeles", '<h4>Rendelés online <small>Kiszállítás</small></h4>' + t.list.slice(0, 2).map(function (r) { return '<div class="ps-item"><span>' + esc(r[0]) + "</span><b>" + esc(r[1]) + "</b><em>+</em></div>"; }).join("") + '<div class="ps-cart"><span>Kosár · 2 tétel</span><span>Tovább →</span></div>');
+      h += sec("rendeles", '<h4>Rendelés online <small>Kiszállítás</small></h4>' + t.list.slice(0, 2).map(function (r) { return '<div class="ps-item"><span>' + esc(r[0]) + "</span><b>" + esc(r[1]) + "</b><em>+</em></div>"; }).join("") + '<div class="ps-cart"><span>Kosár · 2 tétel</span><span>Tovább' + svg("arrow", 2.4) + '</span></div>');
     } else if (has("arlista")) {
       h += sec("arlista", "<h4>" + esc(t.listT) + "</h4><ul class=\"ps-list\">" + t.list.map(function (r) { return "<li><span>" + esc(r[0]) + "</span><b>" + esc(r[1]) + "</b></li>"; }).join("") + "</ul>");
     }

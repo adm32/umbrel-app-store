@@ -90,7 +90,7 @@ func saveOutbox() error { return writeJSON("outbox.json", outbox) }
 
 func errorPage(msg string) string {
 	esc := strings.NewReplacer("<", "", ">", "", "&", "")
-	return `<!doctype html><html lang="hu"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nem sikerült elküldeni</title><link rel="stylesheet" href="/assets/css/site.css?v=36"><main class="doc"><div class="wrap"><div class="doc__card center-card"><h1>Nem sikerült elküldeni</h1><p>` + esc.Replace(msg) + `</p><p>Írj nekünk: <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a></p><a class="btn btn--primary" href="/#tervezes">Vissza</a></div></div></main></html>`
+	return `<!doctype html><html lang="hu"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nem sikerült elküldeni</title><link rel="stylesheet" href="/assets/css/site.css?v=39"><main class="doc"><div class="wrap"><div class="doc__card center-card"><h1>Nem sikerült elküldeni</h1><p>` + esc.Replace(msg) + `</p><p>Írj nekünk: <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a></p><a class="btn btn--primary" href="/#tervezes">Vissza</a></div></div></main></html>`
 }
 
 func handleLead(w http.ResponseWriter, r *http.Request) {
@@ -269,7 +269,12 @@ func notifyFallback(l Lead) bool {
 	if err != nil || u.Host == "" {
 		return false
 	}
-	body, _ := json.Marshal(map[string]any{"topic": strings.TrimLeft(u.Path, "/"), "title": "Új ajánlatkérés", "message": "Új ajánlatkérés érkezett a zalastudio.hu-ról.\n(Az Irányítópult nem érhető el, a kérés a weboldal appban vár.)", "tags": []string{"house"}, "priority": 4})
+	title, msg := "Új ajánlatkérés", "Új ajánlatkérés érkezett a zalastudio.hu-ról.\n(Az Irányítópult nem érhető el, a kérés a weboldal appban vár.)"
+	if l.Entry == "elallas" {
+		title = "Új fogyasztói elállás"
+		msg = "Fogyasztói elállási nyilatkozat érkezett a zalastudio.hu/elallas oldalról.\n(Az Irányítópult nem érhető el, a nyilatkozat a weboldal appban vár.)"
+	}
+	body, _ := json.Marshal(map[string]any{"topic": strings.TrimLeft(u.Path, "/"), "title": title, "message": msg, "tags": []string{"house"}, "priority": 4})
 	req, _ := http.NewRequest("POST", u.Scheme+"://"+u.Host+"/", bytes.NewReader(body))
 	req.Header.Set("Content-Type", "application/json")
 	if tok := setting("NTFY_TOKEN", "ntfy-token.txt"); tok != "" {

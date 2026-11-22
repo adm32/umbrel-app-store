@@ -141,6 +141,8 @@
     r.addEventListener("change", function () {
       if (!r.checked) return;
       billing = r.value; billSwitches++;
+      var plansBox = $("#plans");
+      if (plansBox) plansBox.classList.toggle("is-yearly", billing === "y");
       $$(".plan").forEach(function (p) {
         var b = $(".amt b", p), s = $(".amt span", p), pd = $(".perday b", p);
         var v = parseInt(b.getAttribute("data-" + billing), 10);
@@ -169,48 +171,87 @@
       if (j && typeof j.spots === "number") applySpots(j.spots);
     }).catch(function () { /* keep defaults */ });
 
-  /* ---------- Hero demo phone ---------- */
+  /* ---------- Hero demo phone + interactive industry switcher ---------- */
   var heroScreen = $("#heroScreen");
-  // Each demo comes with the word the headline ends on: "Weboldal az éttermednek." and so on.
   var DEMOS = [
-    { type: "etterem", style: "meleg", features: ["rendeles", "galeria"], word: "az éttermednek." },
-    { type: "szepseg", style: "lagy", features: ["arlista", "foglalas", "galeria"], word: "a szalonodnak." },
-    { type: "szaki", style: "friss", features: ["arlista", "ajanlat", "galeria"], word: "a cégednek." },
-    { type: "szallas", style: "termeszetes", features: ["foglalas", "galeria", "nyelv"], word: "a szállásodnak." },
-    { type: "bolt", style: "termeszetes", features: ["arlista", "galeria", "kozosseg"], word: "a boltodnak." },
-    { type: "egyeb", style: "elegans", features: ["arlista", "ajanlat"], word: "az irodádnak." }
+    { type: "etterem", style: "meleg", features: ["rendeles", "galeria"], word: "az éttermednek.", tint: "rgba(240,139,83,.26)" },
+    { type: "szepseg", style: "lagy", features: ["arlista", "foglalas", "galeria"], word: "a szalonodnak.", tint: "rgba(208,118,154,.24)" },
+    { type: "szaki", style: "friss", features: ["arlista", "ajanlat", "galeria"], word: "a cégednek.", tint: "rgba(92,150,248,.22)" },
+    { type: "szallas", style: "termeszetes", features: ["foglalas", "galeria", "nyelv"], word: "a szállásodnak.", tint: "rgba(122,174,116,.24)" },
+    { type: "bolt", style: "termeszetes", features: ["arlista", "galeria", "kozosseg"], word: "a boltodnak.", tint: "rgba(164,186,112,.22)" },
+    { type: "egyeb", style: "elegans", features: ["arlista", "ajanlat"], word: "az irodádnak.", tint: "rgba(214,174,104,.24)" }
   ];
   var heroWord = $("#heroWord");
+  var heroTry = $("#heroTry");
+  var heroPills = $$("#heroSwitch button[data-demo]");
+  var heroStageHalo = $(".stage__halo");
+  var userPickedDemo = false;
+
   function setWord(w) {
     if (!heroWord) return;
+    while (heroWord.children.length > 1) heroWord.firstElementChild.remove();
     var old = heroWord.firstElementChild;
+    if (old && old.textContent === w) return;
     var neu = document.createElement("span"); neu.className = "serif"; neu.textContent = w;
     heroWord.appendChild(neu);
     if (reduced || !old || !old.animate) { if (old) old.remove(); return; }
-    // the new word slides up as the old one leaves: you can see the headline change
-    neu.animate([{ opacity: 0, transform: "translateY(.3em)" }, { opacity: 1, transform: "none" }], { duration: 300, delay: 100, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
-    old.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(-.3em)" }], { duration: 200, easing: "ease-in", fill: "forwards" }).onfinish = function () { old.remove(); };
+    // crisp masked vertical slide: new word glides up out of the line mask as old lifts away
+    neu.animate([{ opacity: 0, transform: "translateY(82%)" }, { opacity: 1, transform: "none" }], { duration: 280, delay: 50, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
+    old.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(-82%)" }], { duration: 200, easing: "cubic-bezier(.4,0,1,1)", fill: "forwards" }).onfinish = function () { if (old.parentNode) old.remove(); };
+    setTimeout(function () { if (old.parentNode) old.remove(); }, 450);
+  }
+  function syncHeroPills(idx) {
+    var active = null;
+    heroPills.forEach(function (b) {
+      var on = parseInt(b.getAttribute("data-demo"), 10) === idx;
+      b.classList.toggle("is-on", on);
+      b.setAttribute("aria-selected", on ? "true" : "false");
+      if (on) active = b;
+    });
+    var bar = $("#heroSwitch"), th = $("#heroThumb");
+    if (bar && th) {
+      th.style.opacity = active ? "1" : "0";
+      if (active && window.__zsMoveThumb) window.__zsMoveThumb(bar, th, active);
+    }
+    if (heroTry && DEMOS[idx]) heroTry.setAttribute("data-type", DEMOS[idx].type);
+    if (heroStageHalo && DEMOS[idx]) heroStageHalo.style.setProperty("--halo", DEMOS[idx].tint);
   }
   if (heroScreen) {
     var di = 0, dtimer = null, dvisible = true;
     render(heroScreen, DEMOS[0]);
-    var nextDemo = function () {
-      di = (di + 1) % DEMOS.length;
+    syncHeroPills(0);
+    var showDemo = function (idx) {
+      if (idx === di) return;
+      di = idx;
+      var stale = $$(".ps", heroScreen);
       var old = heroScreen.__ps;
+      stale.forEach(function (n) { if (n !== old) n.remove(); });
       heroScreen.__ps = null; heroScreen.__sig = null;
       render(heroScreen, DEMOS[di]);
       setWord(DEMOS[di].word);
+      syncHeroPills(di);
       var neu = heroScreen.__ps;
       if (old && old.animate && !reduced) {
-        // the old screen fades out first, then the new one fades in, so the two never overlap
-        old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 180, easing: "ease-in", fill: "forwards" }).onfinish = function () { old.remove(); };
-        neu.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260, delay: 160, easing: "ease-out", fill: "backwards" });
-        setTimeout(function () { if (old.parentNode) old.remove(); }, 1000);
+        old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, easing: "ease-in", fill: "forwards" }).onfinish = function () { if (old.parentNode) old.remove(); };
+        neu.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 240, delay: 110, easing: "ease-out", fill: "backwards" });
+        setTimeout(function () { if (old.parentNode) old.remove(); }, 600);
       } else if (old) old.remove();
     };
-    // two full rounds, then it rests on the first one: something that moves forever stops being noticed
+    heroPills.forEach(function (b) {
+      b.addEventListener("click", function () {
+        userPickedDemo = true;
+        clearTimeout(dtimer);
+        showDemo(parseInt(b.getAttribute("data-demo"), 10) || 0);
+      });
+    });
+    // two full rounds, then it rests on the first one; stops immediately if user picks a pill
     var swaps = 0;
-    var loop = function () { clearTimeout(dtimer); if (!reduced && dvisible && !document.hidden && !plOpen && swaps < DEMOS.length * 2) dtimer = setTimeout(function () { swaps++; nextDemo(); loop(); }, 3600); };
+    var loop = function () {
+      clearTimeout(dtimer);
+      if (!reduced && !userPickedDemo && dvisible && !document.hidden && !plOpen && swaps < DEMOS.length * 2) {
+        dtimer = setTimeout(function () { swaps++; showDemo((di + 1) % DEMOS.length); loop(); }, 3600);
+      }
+    };
     if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { dvisible = es[0].isIntersecting; loop(); }, { threshold: 0.25 }).observe($(".hero") || heroScreen);
     document.addEventListener("visibilitychange", loop);
     loop();
@@ -504,10 +545,16 @@
   }
   if (vv) { vv.addEventListener("resize", fitViewport); vv.addEventListener("scroll", fitViewport); }
 
-  function openPlanner(src, plan) {
+  function openPlanner(src, plan, preType) {
     if (plOpen || closing) return;
     var at = load();
     if (plan && PLANS[plan]) S.plan = plan;
+    if (preType && TYPES[preType] && !S.biz && at === 0) {
+      S.type = preType;
+      S.features = null;
+      S.style = null;
+      at = 1;
+    }
     S.src = src || S.src || "";
     if (!S.opened) S.opened = Date.now();
     plOpen = true; updateDock();
@@ -548,7 +595,7 @@
     else closePlanner(true);
   });
   $$("[data-planner]").forEach(function (a) {
-    a.addEventListener("click", function (e) { e.preventDefault(); openPlanner(a.getAttribute("data-src") || "", a.getAttribute("data-plan")); });
+    a.addEventListener("click", function (e) { e.preventDefault(); openPlanner(a.getAttribute("data-src") || "", a.getAttribute("data-plan"), a.getAttribute("data-type")); });
   });
   if (location.hash === "#tervezo") setTimeout(function () { try { history.replaceState(null, "", location.pathname + location.search); } catch (e) { /* ignore */ } openPlanner("link"); }, 300);
 

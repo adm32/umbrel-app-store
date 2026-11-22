@@ -52,7 +52,7 @@ reinstalling the apps.
 | `leads.go` | Planner and no-JS form requests (`POST /api/ajanlatkeres`), the outbox, handing over to the Irányítópult, ntfy fallback |
 | `stats.go` | Page statistics (`POST /api/e`) and the settings the Irányítópult pushes (`POST /config`) |
 | `cookies.go` | Cookie consent (`POST /api/consent`) and the per-visitor record that is kept only with consent |
-| `pay.go` | Payment pages `/fizetes/{kod}` and `/elofizetes`, and the Stripe webhook relay (the Irányítópult holds the keys) |
+| `pay.go` | Payment pages `/fizetes/{kod}` and `/elofizetes`, consumer withdrawal `/elallas`, and the Stripe webhook relay (the Irányítópult holds the keys) |
 | `www/index.html` | The whole home page: hero, work, perks, process, **packages and prices** (`#arak`), FAQ (`#kerdesek`) and the planner dialog (`#planner`) |
 | `www/assets/js/preview.js` | **Package data** (`PLANS`: prices, setup fees), planner choices (`FEATURES`, `TYPES`, `STYLES`) and the phone preview. If you change a price, change it here **and** in `index.html`. |
 | `www/assets/js/site.js` | Page behaviour: menu, monthly/yearly price switch, launch-discount counter, the planner steps and sending the request |

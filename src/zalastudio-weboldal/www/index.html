@@ -6,7 +6,7 @@
 <title>Zala Studio – weboldal vállalkozásoknak: előbb látod, utána fizetsz</title>
 <meta name="description" content="Ingyen elkészítjük a vállalkozásod weboldalának bemutatóját. Ha tetszik, élesítjük, ha nem, nem tartozol semmivel. Telefonra tervezett weboldalak havidíjjal, tárhellyel és karbantartással, az egész országban.">
 <link rel="canonical" href="https://zalastudio.hu/">
-<meta name="theme-color" content="#15110E">
+<meta name="theme-color" content="#120F0D">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="hu_HU">
 <meta property="og:site_name" content="Zala Studio">
@@ -22,14 +22,13 @@
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<link rel="preload" href="assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=36">
-<script src="assets/js/boot.js?v=36"></script>
-<script src="assets/js/preview.js?v=36" defer></script>
-<script src="assets/js/site.js?v=36" defer></script>
-<script src="/assets/js/consent.js?v=36" defer></script>
-<script src="assets/js/fx.js?v=36" defer></script>
+<link rel="preload" href="assets/fonts/schibsted-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css?v=39">
+<script src="assets/js/boot.js?v=39"></script>
+<script src="assets/js/preview.js?v=39" defer></script>
+<script src="assets/js/site.js?v=39" defer></script>
+<script src="/assets/js/consent.js?v=39" defer></script>
+<script src="assets/js/fx.js?v=39" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -81,28 +80,26 @@
     <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5.5c0 4.5-3 8-7 9.5-4-1.5-7-5-7-9.5V6z"/><path d="M9 12l2.2 2.2L15.5 10"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
     <symbol id="i-mobile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="3"/><path d="M10.5 18.5h3"/></symbol>
-    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
     <symbol id="i-tool" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5a4 4 0 0 0 5 5l-8.5 8.5a2.1 2.1 0 0 1-3-3l8.5-8.5a4 4 0 0 0-2-2z"/><path d="M14.5 6.5L17 4"/></symbol>
-    <symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l3 3"/></symbol>
     <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol>
     <symbol id="i-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></symbol>
     <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9s-1.2 6.4-3.6 9c-2.4-2.6-3.6-5.6-3.6-9S9.6 5.6 12 3z"/></symbol>
-    <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h16v10H9l-5 4z"/></symbol>
   </defs>
 </svg>
 <a class="skip" href="#tartalom">Ugrás a tartalomra</a>
 
 <header class="head on-hero" id="head">
+  <div class="head__bar" aria-hidden="true"><span id="scrollBar"></span></div>
   <div class="wrap head__in">
     <a class="brand" href="#top" aria-label="Zala Studio – az oldal teteje">
-      <img src="assets/logo/zala-mark.svg" alt="" width="36" height="36">
+      <img src="assets/logo/zala-mark.svg" alt="" width="32" height="32">
       <b>zala<span class="serif">studio</span></b>
     </a>
     <nav class="nav" aria-label="Fő navigáció">
-      <a href="#munkaink">Munkáink</a>
-      <a href="#folyamat">Hogyan működik</a>
-      <a href="#arak">Árak</a>
-      <a href="#kerdesek">Kérdések</a>
+      <a href="#munkaink" data-nav="munkaink">Munkáink</a>
+      <a href="#folyamat" data-nav="folyamat">Folyamat</a>
+      <a href="#arak" data-nav="arak">Árak</a>
+      <a href="#kerdesek" data-nav="kerdesek">Kérdések</a>
     </nav>
     <a class="head__call" href="mailto:info@zalastudio.hu"><svg><use href="#i-mail"/></svg>info@zalastudio.hu</a>
     <a class="btn btn--primary btn--sm head__cta" href="#tervezes" data-planner data-src="fejlec">Ingyenes bemutató</a>
@@ -113,32 +110,81 @@
 <main id="tartalom">
 
   <!-- ============ HERO ============ -->
-  <section class="hero" id="top">
+  <section class="hero" id="top" data-scroll="hero">
     <div class="hero__bg" aria-hidden="true">
-      <span class="orb orb--a"></span>
-      <span class="orb orb--b"></span>
-      <canvas class="river" id="river"></canvas>
+      <span class="hero__glow hero__glow--a"></span>
+      <span class="hero__glow hero__glow--b"></span>
+      <!-- Lightweight 3-layer SVG Zala river ribbons: 0% CPU idle, pure GPU parallax on scroll -->
+      <svg class="hero__river" viewBox="0 0 1600 320" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="rvG1" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#EA763E" stop-opacity="0"/>
+            <stop offset="28%" stop-color="#F0935A" stop-opacity=".42"/>
+            <stop offset="68%" stop-color="#E5A246" stop-opacity=".3"/>
+            <stop offset="100%" stop-color="#EA763E" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="rvG2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#E5A246" stop-opacity="0"/>
+            <stop offset="45%" stop-color="#EA763E" stop-opacity=".28"/>
+            <stop offset="100%" stop-color="#F0935A" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <g class="river__layer river__layer--a" fill="none" stroke="url(#rvG1)" stroke-linecap="round">
+          <path d="M-80 190 C 260 110, 560 270, 920 175 C 1220 96, 1420 220, 1680 155" stroke-width="1.4"/>
+          <path d="M-80 212 C 280 132, 580 288, 940 194 C 1240 118, 1440 238, 1680 176" stroke-width=".9" opacity=".65"/>
+        </g>
+        <g class="river__layer river__layer--b" fill="none" stroke="url(#rvG2)" stroke-linecap="round">
+          <path d="M-80 236 C 320 170, 620 296, 980 206 C 1280 136, 1460 256, 1680 198" stroke-width="1.1"/>
+          <path d="M-80 168 C 240 94, 540 248, 900 158 C 1200 84, 1400 202, 1680 138" stroke-width=".8" opacity=".55"/>
+        </g>
+        <g class="river__layer river__layer--c" fill="none" stroke="url(#rvG1)" stroke-linecap="round" opacity=".38">
+          <path d="M-80 258 C 360 198, 660 308, 1020 224 C 1320 160, 1480 270, 1680 216" stroke-width=".85"/>
+        </g>
+      </svg>
     </div>
+
     <div class="wrap hero__grid">
       <div class="hero__copy">
-        <h1 class="enter" style="--i:0"><span class="sr">Weboldal a vállalkozásodnak.</span><span aria-hidden="true">Weboldal <span class="rot" id="heroWord"><span class="serif">az éttermednek.</span></span></span></h1>
-        <p class="hero__lead enter" style="--i:1"><b>Előbb látod, utána fizetsz.</b> Ingyen elkészítjük a bemutatót. Ha tetszik, pár nap alatt élesítjük.</p>
+        <h1 class="enter" style="--i:0">
+          <span class="sr">Weboldal a vállalkozásodnak.</span>
+          <span aria-hidden="true">
+            <span class="hero__line">Weboldal</span>
+            <span class="rot" id="heroWord"><span class="serif">az éttermednek.</span></span>
+          </span>
+        </h1>
+        <p class="hero__lead enter" style="--i:1">
+          <b>Előbb látod, utána fizetsz.</b> Ingyen elkészítjük a bemutatót — ha tetszik, pár nap alatt élesítjük.
+        </p>
         <div class="hero__cta enter" style="--i:2">
-          <a class="btn btn--primary btn--lg" href="#tervezes" data-planner data-src="hero"><span>Kérem az ingyenes bemutatót</span><svg><use href="#i-arrow"/></svg></a>
-          <a class="btn btn--glass btn--lg hero__more" href="#munkaink">Munkáink</a>
+          <a class="btn btn--primary btn--lg" href="#tervezes" data-planner data-src="hero">
+            <span>Ingyenes bemutatót kérek</span>
+            <svg><use href="#i-arrow"/></svg>
+          </a>
+          <a class="btn btn--ghost-dk btn--lg hero__more" href="#munkaink">Munkáink</a>
         </div>
       </div>
 
-      <figure class="stage enter" style="--i:2" aria-label="Élő példa: így nézhet ki egy weboldal telefonon (kitalált adatokkal)">
-        <span class="float float--a" aria-hidden="true"><svg><use href="#i-phone"/></svg>Hívás egy koppintással</span>
-        <span class="float float--b" aria-hidden="true"><svg><use href="#i-pin"/></svg>Útvonal egy koppintással</span>
-        <span class="float float--c" aria-hidden="true"><svg><use href="#i-clock"/></svg>Mindig látszik, nyitva van-e</span>
+      <figure class="stage enter" style="--i:1" aria-label="Élő példa: így nézhet ki egy weboldal telefonon (kitalált adatokkal)">
+        <div class="stage__halo" aria-hidden="true"></div>
+        <div class="stage__pills" id="heroSwitch" role="tablist" aria-label="Példa vállalkozások">
+          <span class="stage__thumb" id="heroThumb" aria-hidden="true"></span>
+          <button type="button" role="tab" aria-selected="true" class="is-on" data-demo="0">Étterem</button>
+          <button type="button" role="tab" aria-selected="false" data-demo="1">Szalon</button>
+          <button type="button" role="tab" aria-selected="false" data-demo="2">Szaki</button>
+          <button type="button" role="tab" aria-selected="false" data-demo="3">Szállás</button>
+          <button type="button" role="tab" aria-selected="false" data-demo="4">Bolt</button>
+        </div>
         <div class="stage__crop">
-          <div class="device" id="heroDevice">
-            <div class="device__screen" id="heroScreen" aria-hidden="true"><div class="sk"><i></i><i></i><i></i><i></i></div></div>
+          <div class="stage__tilt" id="heroTilt">
+            <div class="device" id="heroDevice">
+              <div class="device__screen" id="heroScreen" aria-hidden="true"><div class="sk"><i></i><i></i><i></i><i></i></div></div>
+            </div>
           </div>
         </div>
-        <a class="btn btn--glass btn--sm stage__try" href="#tervezes" data-planner data-src="telefon"><svg><use href="#i-sparkle"/></svg><span>Próbáld ki a saját neveddel</span></a>
+        <a class="stage__try" id="heroTry" href="#tervezes" data-planner data-src="telefon">
+          <svg><use href="#i-sparkle"/></svg>
+          <span>Próbáld ki a saját neveddel</span>
+        </a>
       </figure>
     </div>
   </section>
@@ -147,27 +193,97 @@
   <section class="facts" aria-label="Röviden">
     <div class="wrap">
       <ul class="facts__grid rv">
-        <li><b>0 <span class="serif">Ft</span></b><span>a bemutató, kötelezettség nélkül</span></li>
-        <li><b>1 <span class="serif">munkanap</span></b><span>ennyin belül jelentkezünk</span></li>
-        <li><b>Pár <span class="serif">nap</span></b><span>és megnézheted a bemutatót</span></li>
-        <li><b>3 <span class="serif">élő oldal</span></b><span>étterem, szalon, borbély</span></li>
+        <li><b>0 <em>Ft</em></b><span>a bemutató, kötelezettség nélkül</span></li>
+        <li><b>1 <em>munkanap</em></b><span>ennyin belül jelentkezünk</span></li>
+        <li><b>Pár <em>nap</em></b><span>és megnézheted telefonon</span></li>
+        <li><b>3 <em>élő oldal</em></b><span>étterem, szalon, borbély</span></li>
       </ul>
     </div>
   </section>
 
-  <!-- ============ WORK ============ -->
-  <section class="sec" id="munkaink" aria-labelledby="munkaink-h">
+  <!-- ============ LIVE WORK — PARALLAX SHOWCASE (DESKTOP STICKY + MOBILE COUNTER-PARALLAX) ============ -->
+  <section class="sec worksec" id="munkaink" aria-labelledby="munkaink-h">
     <div class="wrap">
       <header class="sec__head rv">
-        <h2 id="munkaink-h">Étterem, szalon, borbély. <span class="serif">Mind élőben.</span></h2>
-        <p class="sec__sub">Valódi vállalkozások működő oldalai. Koppints rá, és nézd meg.</p>
+        <h2 id="munkaink-h">Étterem, szalon, borbély. <span class="muted">Mind élőben.</span></h2>
+        <p class="sec__sub">Valódi vállalkozások működő oldalai.</p>
       </header>
+    </div>
+
+    <!-- Desktop Apple Sticky Showcase -->
+    <div class="showcase" id="showcase" data-scroll="showcase" data-active="0">
+      <div class="showcase__sticky">
+        <div class="wrap showcase__grid">
+          <div class="showcase__rail">
+            <div class="rail__track" aria-hidden="true"><span class="rail__fill" id="railFill"></span></div>
+
+            <div class="rail__tabs" role="tablist" aria-label="Referencia oldalak">
+              <button class="rail__tab is-active" type="button" role="tab" aria-selected="true" data-chapter="0">Vadvirág Étterem</button>
+              <button class="rail__tab" type="button" role="tab" aria-selected="false" data-chapter="1">Esszencia Szépségműhely</button>
+              <button class="rail__tab" type="button" role="tab" aria-selected="false" data-chapter="2">Csaszko Barbershop</button>
+            </div>
+
+            <div class="rail__stories">
+              <article class="story is-active" data-story="0">
+                <p class="story__desc">Étlap három nyelven és online rendelés, közvetlenül a konyhára.</p>
+                <a class="story__link" href="https://vadviragetterem.com" target="_blank" rel="noopener">
+                  <span>vadviragetterem.com</span><svg><use href="#i-ext"/></svg>
+                </a>
+              </article>
+
+              <article class="story" data-story="1">
+                <p class="story__desc">Szalonoldal négy nyelven, kezeléslistával és online időpontkéréssel.</p>
+                <a class="story__link" href="https://esszenciakozmetika.hu" target="_blank" rel="noopener">
+                  <span>esszenciakozmetika.hu</span><svg><use href="#i-ext"/></svg>
+                </a>
+              </article>
+
+              <article class="story" data-story="2">
+                <p class="story__desc">Online foglalás valódi szabad időpontokkal és saját kezelővel.</p>
+                <a class="story__link" href="https://csaszkobarbershop.hu" target="_blank" rel="noopener">
+                  <span>csaszkobarbershop.hu</span><svg><use href="#i-ext"/></svg>
+                </a>
+              </article>
+            </div>
+          </div>
+
+          <div class="showcase__stage" aria-hidden="true">
+            <div class="backdrop backdrop--0 is-active" data-bg="0"></div>
+            <div class="backdrop backdrop--1" data-bg="1"></div>
+            <div class="backdrop backdrop--2" data-bg="2"></div>
+
+            <a class="scene is-active" data-scene="0" href="https://vadviragetterem.com" target="_blank" rel="noopener" tabindex="-1">
+              <div class="scene__phones">
+                <span class="ph ph--lead"><img src="assets/img/vadvirag-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt="A Vadvirág Étterem nyitóoldala telefonon."></span>
+                <span class="ph ph--sub"><img src="assets/img/vadvirag-etlap.webp" width="560" height="1212" loading="lazy" decoding="async" alt="A Vadvirág Étterem étlapja telefonon, kosárba tehető ételekkel."></span>
+              </div>
+            </a>
+
+            <a class="scene" data-scene="1" href="https://esszenciakozmetika.hu" target="_blank" rel="noopener" tabindex="-1">
+              <div class="scene__phones">
+                <span class="ph ph--lead"><img src="assets/img/esszencia-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt="Az Esszencia Szépségműhely nyitóoldala telefonon."></span>
+                <span class="ph ph--sub"><img src="assets/img/esszencia-kezelesek.webp" width="560" height="1212" loading="lazy" decoding="async" alt="Az Esszencia Szépségműhely kezelései és árai telefonon."></span>
+              </div>
+            </a>
+
+            <a class="scene scene--dark" data-scene="2" href="https://csaszkobarbershop.hu" target="_blank" rel="noopener" tabindex="-1">
+              <div class="scene__phones">
+                <span class="ph ph--lead"><img src="assets/img/csaszko-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt="A Csaszko Barbershop nyitóoldala telefonon, a következő szabad időpontokkal."></span>
+                <span class="ph ph--sub"><img src="assets/img/csaszko-foglalas.webp" width="560" height="1212" loading="lazy" decoding="async" alt="Időpontfoglalás a Csaszko Barbershop oldalán: nap és szabad időpontok kiválasztása."></span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone & reduced-motion vertical parallax showcase (phones counter-glide as you scroll!) -->
+    <div class="wrap works-mob">
       <div class="works">
-        <a class="work rv" href="https://vadviragetterem.com" target="_blank" rel="noopener">
+        <a class="work rv" data-parallax-card href="https://vadviragetterem.com" target="_blank" rel="noopener">
           <div class="work__media work__media--a">
-            <span class="work__tag">Étterem</span>
-            <span class="ph"><img src="assets/img/vadvirag-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt="A Vadvirág Étterem nyitóoldala telefonon."></span>
-            <span class="ph"><img src="assets/img/vadvirag-etlap.webp" width="560" height="1212" loading="lazy" decoding="async" alt="A Vadvirág Étterem étlapja telefonon, kosárba tehető ételekkel."></span>
+            <span class="ph ph--a"><img src="assets/img/vadvirag-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt="A Vadvirág Étterem nyitóoldala telefonon."></span>
+            <span class="ph ph--b"><img src="assets/img/vadvirag-etlap.webp" width="560" height="1212" loading="lazy" decoding="async" alt="A Vadvirág Étterem étlapja telefonon, kosárba tehető ételekkel."></span>
           </div>
           <div class="work__body">
             <h3>Vadvirág Étterem</h3>
@@ -175,27 +291,27 @@
             <span class="link">vadviragetterem.com <svg><use href="#i-ext"/></svg></span>
           </div>
         </a>
-        <a class="work rv" style="--d:1" href="https://esszenciakozmetika.hu" target="_blank" rel="noopener">
+
+        <a class="work rv" data-parallax-card href="https://esszenciakozmetika.hu" target="_blank" rel="noopener">
           <div class="work__media work__media--b">
-            <span class="work__tag">Szépségszalon</span>
-            <span class="ph"><img src="assets/img/esszencia-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt="Az Esszencia Szépségműhely nyitóoldala telefonon."></span>
-            <span class="ph"><img src="assets/img/esszencia-kezelesek.webp" width="560" height="1212" loading="lazy" decoding="async" alt="Az Esszencia Szépségműhely kezelései és árai telefonon."></span>
+            <span class="ph ph--a"><img src="assets/img/esszencia-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt="Az Esszencia Szépségműhely nyitóoldala telefonon."></span>
+            <span class="ph ph--b"><img src="assets/img/esszencia-kezelesek.webp" width="560" height="1212" loading="lazy" decoding="async" alt="Az Esszencia Szépségműhely kezelései és árai telefonon."></span>
           </div>
           <div class="work__body">
             <h3>Esszencia Szépségműhely</h3>
-            <p>Elegáns szalonoldal, online időpontkéréssel.</p>
+            <p>Szalonoldal, online időpontkéréssel.</p>
             <span class="link">esszenciakozmetika.hu <svg><use href="#i-ext"/></svg></span>
           </div>
         </a>
-        <a class="work rv" style="--d:2" href="https://csaszkobarbershop.hu" target="_blank" rel="noopener">
+
+        <a class="work rv" data-parallax-card href="https://csaszkobarbershop.hu" target="_blank" rel="noopener">
           <div class="work__media work__media--c">
-            <span class="work__tag">Borbély</span>
-            <span class="ph"><img src="assets/img/csaszko-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt="A Csaszko Barbershop nyitóoldala telefonon, a következő szabad időpontokkal."></span>
-            <span class="ph"><img src="assets/img/csaszko-foglalas.webp" width="560" height="1212" loading="lazy" decoding="async" alt="Időpontfoglalás a Csaszko Barbershop oldalán: nap és szabad időpontok kiválasztása."></span>
+            <span class="ph ph--a"><img src="assets/img/csaszko-top.webp" width="560" height="1212" loading="lazy" decoding="async" alt="A Csaszko Barbershop nyitóoldala telefonon, a következő szabad időpontokkal."></span>
+            <span class="ph ph--b"><img src="assets/img/csaszko-foglalas.webp" width="560" height="1212" loading="lazy" decoding="async" alt="Időpontfoglalás a Csaszko Barbershop oldalán: nap és szabad időpontok kiválasztása."></span>
           </div>
           <div class="work__body">
             <h3>Csaszko Barbershop</h3>
-            <p>Online foglalás valódi szabad időpontokkal, és egy app a borbélynak.</p>
+            <p>Online foglalás valódi szabad időpontokkal.</p>
             <span class="link">csaszkobarbershop.hu <svg><use href="#i-ext"/></svg></span>
           </div>
         </a>
@@ -203,43 +319,105 @@
     </div>
   </section>
 
-  <!-- ============ PERKS ============ -->
-  <section class="sec sec--tint" id="miert" aria-labelledby="miert-h">
+  <!-- ============ PERKS — MANIFESTO + PARALLAX SPOTLIGHT ============ -->
+  <section class="sec sec--tint craft" id="miert" aria-labelledby="miert-h">
     <div class="wrap">
-      <header class="sec__head rv">
-        <h2 id="miert-h">Domain, tárhely, mentés. <span class="serif">Nem kell intézned.</span></h2>
-      </header>
-      <ul class="perks">
-        <li class="perk perk--main rv">
-          <div class="perk__txt">
-            <span class="perk__ico"><svg><use href="#i-mobile"/></svg></span>
-            <h3>Telefonra tervezve</h3>
+      <div class="manifesto" data-scroll="manifesto">
+        <h2 class="manifesto__text" id="miert-h" data-scrub-words>
+          Domain, tárhely, mentés, frissítés. Nem kell intézned — mi visszük.
+        </h2>
+      </div>
+
+      <div class="aperture" data-scroll="aperture" id="aperture">
+        <div class="aperture__box">
+          <div class="aperture__copy">
+            <h3>Telefonra tervezve.</h3>
             <p>A vendég egy koppintással hív, útvonalat kér vagy rendel. Nem kell nagyítania, nem kell keresgélnie.</p>
+            <div class="lens-bar" id="lensBar" role="tablist" aria-label="Részletek kiemelése a képen">
+              <span class="lens-bar__thumb" id="lensThumb" aria-hidden="true"></span>
+              <button class="lens-bar__btn is-on" type="button" role="tab" aria-selected="true" data-lens="open">Nyitvatartás</button>
+              <button class="lens-bar__btn" type="button" role="tab" aria-selected="false" data-lens="order">Rendelés</button>
+              <button class="lens-bar__btn" type="button" role="tab" aria-selected="false" data-lens="call">Hívás</button>
+            </div>
+            <p class="lens-note" id="lensCap">Automatikusan mutatja, mikor vagytok nyitva.</p>
           </div>
-          <figure class="perk__shot">
-            <span><img src="assets/img/vadvirag-gombok.webp" width="780" height="466" loading="lazy" decoding="async" alt="A Vadvirág Étterem oldala telefonon: nyitvatartás, Rendelés online gomb és hívás gomb."></span>
-            <figcaption>Így néz ki a vadviragetterem.com telefonon.</figcaption>
+          <figure class="aperture__media">
+            <div class="aperture__frame" data-lens-active="open" id="apertureFrame">
+              <div class="aperture__pan">
+                <img src="assets/img/vadvirag-gombok.webp" width="780" height="466" loading="lazy" decoding="async" alt="A Vadvirág Étterem oldala telefonon: nyitvatartás, Rendelés online gomb és hívás gomb.">
+                <div class="lens__ring" aria-hidden="true"></div>
+              </div>
+            </div>
+            <figcaption>vadviragetterem.com telefonon</figcaption>
           </figure>
+        </div>
+      </div>
+
+      <ul class="specs">
+        <li class="spec rv">
+          <span class="spec__ico"><svg><use href="#i-lock"/></svg></span>
+          <h3>Gyors és biztonságos</h3>
+          <p>Pillanatok alatt betölt, titkosított kapcsolaton.</p>
         </li>
-        <li class="perk rv" style="--d:1"><span class="perk__ico"><svg><use href="#i-lock"/></svg></span><h3>Gyors és biztonságos</h3><p>Pillanatok alatt betölt, és titkosított kapcsolaton megy minden.</p></li>
-        <li class="perk rv" style="--d:2"><span class="perk__ico"><svg><use href="#i-tool"/></svg></span><h3>Mindent mi intézünk</h3><p>Tárhely, mentés, frissítés. Módosítást üzenetben kérsz, mi átírjuk.</p></li>
-        <li class="perk rv" style="--d:3"><span class="perk__ico"><svg><use href="#i-globe"/></svg></span><h3>A .hu domain is benne van</h3><p>Saját cím minden csomagban, külön díj nélkül.</p></li>
+        <li class="spec rv" style="--d:1">
+          <span class="spec__ico"><svg><use href="#i-tool"/></svg></span>
+          <h3>Mindent mi intézünk</h3>
+          <p>Szólsz üzenetben, mi pedig átírjuk helyetted.</p>
+        </li>
+        <li class="spec rv" style="--d:2">
+          <span class="spec__ico"><svg><use href="#i-globe"/></svg></span>
+          <h3>A .hu domain benne van</h3>
+          <p>Saját cím minden csomagban, külön díj nélkül.</p>
+        </li>
       </ul>
     </div>
   </section>
 
-  <!-- ============ HOW ============ -->
-  <section class="sec" id="folyamat" aria-labelledby="folyamat-h">
+  <!-- ============ PROCESS — SCROLL-DRAWN ZALA RIVER ============ -->
+  <section class="sec" id="folyamat" aria-labelledby="folyamat-h" data-scroll="process">
     <div class="wrap">
       <header class="sec__head rv">
-        <h2 id="folyamat-h">Három lépés. <span class="serif">Kettő ingyenes.</span></h2>
+        <h2 id="folyamat-h">Három lépés. <span class="muted">Kettő ingyenes.</span></h2>
       </header>
-      <ol class="how">
-        <li class="rv"><span class="how__n">1</span><h3>Megtervezed <span class="how__free">Ingyenes</span></h3><p>Két perc, néhány koppintás.</p></li>
-        <li class="rv" style="--d:1"><span class="how__n">2</span><h3>Megkapod a bemutatót <span class="how__free">Ingyenes</span></h3><p>Pár nap, és megnézheted a telefonodon.</p></li>
-        <li class="rv" style="--d:2"><span class="how__n">3</span><h3>Ha tetszik, élesítjük</h3><p>Innentől minden módosítást mi intézünk.</p></li>
-      </ol>
-      <p class="promise rv"><svg><use href="#i-shield"/></svg><span>Ha nem tetszik, <strong>nem fizetsz semmit.</strong></span></p>
+
+      <div class="process">
+        <!-- Desktop horizontal river -->
+        <svg class="process__svg" viewBox="0 0 1120 72" fill="none" preserveAspectRatio="none" aria-hidden="true">
+          <path class="process__base" d="M 48 36 C 210 8, 350 64, 560 36 C 770 8, 910 64, 1072 36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path class="process__draw" id="processPath" d="M 48 36 C 210 8, 350 64, 560 36 C 770 8, 910 64, 1072 36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <!-- Mobile vertical progress line -->
+        <span class="process__vline" aria-hidden="true"><i id="processVFill"></i></span>
+
+        <ol class="how">
+          <li class="rv" data-pstep="0">
+            <span class="how__num">1</span>
+            <div>
+              <h3>Megtervezed <span class="how__free">Ingyenes</span></h3>
+              <p>Két perc, néhány koppintás.</p>
+            </div>
+          </li>
+          <li class="rv" style="--d:1" data-pstep="1">
+            <span class="how__num">2</span>
+            <div>
+              <h3>Megkapod a bemutatót <span class="how__free">Ingyenes</span></h3>
+              <p>Pár nap, és megnézed a telefonodon.</p>
+            </div>
+          </li>
+          <li class="rv" style="--d:2" data-pstep="2">
+            <span class="how__num">3</span>
+            <div>
+              <h3>Ha tetszik, élesítjük</h3>
+              <p>Innentől minden módosítást mi intézünk.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <p class="promise rv">
+        <svg><use href="#i-shield"/></svg>
+        <span>Ha nem tetszik, <strong>nem fizetsz semmit.</strong></span>
+      </p>
     </div>
   </section>
 
@@ -247,7 +425,7 @@
   <section class="sec sec--tint" id="arak" aria-labelledby="arak-h">
     <div class="wrap">
       <header class="sec__head sec__head--center rv">
-        <h2 id="arak-h">Havonta <span class="nowrap">3&nbsp;490 Ft-tól.</span> <span class="serif">Minden benne.</span></h2>
+        <h2 id="arak-h">Havonta <span class="nowrap">3&nbsp;490 Ft-tól.</span> <span class="muted">Minden benne.</span></h2>
         <p class="sec__sub">Tárhely, mentés és módosítás. Nincs meglepetés a számlán.</p>
       </header>
 
@@ -262,9 +440,9 @@
       <div class="plans" id="plans">
         <article class="plan rv" data-plan-card="nevjegy">
           <button class="plan__top" type="button" aria-expanded="false" aria-controls="pb-1">
-            <span class="plan__name">Névjegy</span>
+            <span class="plan__head"><span class="plan__name">Névjegy</span></span>
             <span class="plan__desc">Egyoldalas bemutatkozó oldal.</span>
-            <span class="plan__price"><span class="amt"><b data-m="3490" data-y="34900">3 490</b><span data-m="Ft / hó" data-y="Ft / év">Ft / hó</span></span></span>
+            <span class="plan__price"><span class="amt"><b data-m="3490" data-y="34900">3 490</b><span data-m="Ft / hó" data-y="Ft / év">Ft / hó</span></span><span class="plan__save">Megtakarítás: 6&nbsp;980 Ft</span></span>
             <span class="plan__chev" aria-hidden="true"><svg><use href="#i-down"/></svg></span>
           </button>
           <div class="plan__body" id="pb-1"><div class="plan__inner"><div>
@@ -281,9 +459,9 @@
 
         <article class="plan plan--featured is-open rv" style="--d:1" data-plan-card="vallalkozas">
           <button class="plan__top" type="button" aria-expanded="true" aria-controls="pb-2">
-            <span class="plan__name">Vállalkozás <span class="plan__tag">Ajánlott</span></span>
+            <span class="plan__head"><span class="plan__name">Vállalkozás</span><span class="plan__tag">Ajánlott</span></span>
             <span class="plan__desc">Több oldal, galéria, két nyelv.</span>
-            <span class="plan__price"><span class="amt"><b data-m="6990" data-y="69900">6 990</b><span data-m="Ft / hó" data-y="Ft / év">Ft / hó</span></span></span>
+            <span class="plan__price"><span class="amt"><b data-m="6990" data-y="69900">6 990</b><span data-m="Ft / hó" data-y="Ft / év">Ft / hó</span></span><span class="plan__save">Megtakarítás: 13&nbsp;980 Ft</span></span>
             <span class="plan__chev" aria-hidden="true"><svg><use href="#i-down"/></svg></span>
           </button>
           <div class="plan__body" id="pb-2"><div class="plan__inner"><div>
@@ -300,9 +478,9 @@
 
         <article class="plan rv" style="--d:2" data-plan-card="rendeles">
           <button class="plan__top" type="button" aria-expanded="false" aria-controls="pb-3">
-            <span class="plan__name">Rendelés &amp; Foglalás</span>
+            <span class="plan__head"><span class="plan__name">Rendelés &amp; Foglalás</span></span>
             <span class="plan__desc">Online rendelés, foglalás vagy mindkettő.</span>
-            <span class="plan__price"><span class="amt"><b data-m="12990" data-y="129900">12 990</b><span data-m="Ft / hó" data-y="Ft / év">Ft / hó</span></span></span>
+            <span class="plan__price"><span class="amt"><b data-m="12990" data-y="129900">12 990</b><span data-m="Ft / hó" data-y="Ft / év">Ft / hó</span></span><span class="plan__save">Megtakarítás: 25&nbsp;980 Ft</span></span>
             <span class="plan__chev" aria-hidden="true"><svg><use href="#i-down"/></svg></span>
           </button>
           <div class="plan__body" id="pb-3"><div class="plan__inner"><div>
@@ -320,9 +498,9 @@
 
         <article class="plan plan--vip rv" style="--d:3" data-plan-card="premium">
           <button class="plan__top" type="button" aria-expanded="false" aria-controls="pb-4">
-            <span class="plan__name">Prémium Partner <span class="plan__tag">Korlátlan</span></span>
+            <span class="plan__head"><span class="plan__name">Prémium Partner</span><span class="plan__tag">Korlátlan</span></span>
             <span class="plan__desc">Folyamatos gondozás, havi jelentéssel.</span>
-            <span class="plan__price"><span class="amt"><b data-m="39990" data-y="399900">39 990</b><span data-m="Ft / hó" data-y="Ft / év">Ft / hó</span></span></span>
+            <span class="plan__price"><span class="amt"><b data-m="39990" data-y="399900">39 990</b><span data-m="Ft / hó" data-y="Ft / év">Ft / hó</span></span><span class="plan__save">Megtakarítás: 79&nbsp;980 Ft</span></span>
             <span class="plan__chev" aria-hidden="true"><svg><use href="#i-down"/></svg></span>
           </button>
           <div class="plan__body" id="pb-4"><div class="plan__inner"><div>
@@ -351,21 +529,21 @@
               <div><dt>Saját .hu domain</dt><dd>benne van minden csomagban</dd></div>
               <div><dt>Más végződésű domain (pl. .com)</dt><dd>beszerzési áron</dd></div>
             </dl>
-            <p class="fine"><span data-vat>Az árak alanyi adómentes végösszegek, ÁFA-t nem tartalmaznak.</span> Módosítás minden, ami a meglévő oldalon változik: szöveg, kép, ár, nyitvatartás, új aloldal. Új funkcióra külön ajánlatot adunk. Minimum 12 hónap, utána 30 napos felmondási idővel bármikor kiléphetsz. 24 hónap után a weboldal teljes forráskódját is megkapod (a saját üzemeltetésű foglalás- és rendeléskezelő rendszer kivételével).</p>
+            <p class="fine"><span data-vat>Az árak alanyi adómentes végösszegek, ÁFA-t nem tartalmaznak.</span> Módosítás minden, ami a meglévő oldalon változik: szöveg, kép, ár, nyitvatartás, illetve a csomagkereten belüli tartalmi bővítés. Csomagkereten felüli új aloldalra vagy új funkcióra külön ajánlatot adunk. Minimum 12 hónap, utána 30 napos felmondási idővel bármikor kiléphetsz. 24 hónap után a weboldal teljes forráskódját is megkapod (a saját üzemeltetésű foglalás- és rendeléskezelő rendszer kivételével).</p>
           </div>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- ============ CTA / PLANNER ENTRY ============ -->
-  <section class="sec" id="tervezes" aria-labelledby="tervezes-h">
+  <!-- ============ CTA / HEARTH ============ -->
+  <section class="sec hearth-sec" id="tervezes" aria-labelledby="tervezes-h" data-scroll="hearth">
     <div class="wrap">
-      <div class="hearth rv">
+      <div class="hearth">
         <div class="hearth__grid">
           <div>
             <h2 id="tervezes-h">Lásd a saját oldalad, <span class="serif">még ezen a héten.</span></h2>
-            <p>Két perc, kötelezettség nélkül.</p>
+            <p class="hearth__lead">Két perc, kötelezettség nélkül.</p>
             <div class="hearth__cta">
               <a class="btn btn--primary btn--lg" href="#tervezes" data-planner data-src="also"><span>Tervezés indítása</span><svg><use href="#i-arrow"/></svg></a>
             </div>
@@ -392,11 +570,11 @@
   </section>
 
   <!-- ============ FAQ ============ -->
-  <section class="sec" id="kerdesek" aria-labelledby="kerdesek-h" style="padding-top:0">
+  <section class="sec" id="kerdesek" aria-labelledby="kerdesek-h">
     <div class="wrap faqwrap">
       <header class="sec__head rv">
-        <h2 id="kerdesek-h">Amit <span class="serif">érdemes tudni.</span></h2>
-        <p class="sec__sub">Nem találod a választ? Írj nekünk: <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a></p>
+        <h2 id="kerdesek-h">Amit érdemes tudni.</h2>
+        <p class="sec__sub">Kérdésed van? <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a></p>
       </header>
       <div class="faq rv">
         <details>
@@ -444,8 +622,9 @@
   <div class="wrap">
     <div class="foot__grid">
       <div class="foot__about">
-        <a class="foot__brand" href="#top" aria-label="Zala Studio – az oldal teteje">
-          <img class="foot__logo" src="assets/logo/zala-logo-dark.svg" alt="Zala Studio" width="230" height="50" loading="lazy" decoding="async">
+        <a class="brand foot__brand" href="#top" aria-label="Zala Studio – az oldal teteje">
+          <img src="assets/logo/zala-mark.svg" alt="" width="34" height="34">
+          <b>zala<span class="serif">studio</span></b>
         </a>
         <p>Weboldalak vállalkozásoknak, Zalaszentgrótról. Az egész országban dolgozunk.</p>
         <a class="btn btn--primary foot__cta" href="#tervezes" data-planner data-src="lablec"><span>Ingyenes bemutató</span><svg><use href="#i-arrow"/></svg></a>
@@ -465,10 +644,14 @@
         <a href="adatvedelem.html#impresszum">Impresszum</a>
         <a href="adatvedelem.html#adatkezeles">Adatvédelem</a>
         <a href="aszf.html">ÁSZF</a>
+        <a href="/elallas">Elállás a szerződéstől</a>
         <a href="/elofizetes">Előfizetés kezelése</a>
       </nav>
     </div>
-    <p class="foot__bottom"><span>© 2026 Zala Studio</span><button class="foot__ck" type="button" data-cookie-settings>Süti-beállítások</button></p>
+    <p class="foot__bottom">
+      <span>© 2026 Zala Studio</span>
+      <button class="foot__ck" type="button" data-cookie-settings>Süti-beállítások</button>
+    </p>
   </div>
 </footer>
 
@@ -496,14 +679,14 @@
 
         <section class="pl__step" data-step="type" aria-labelledby="plTitle">
           <p class="pl__kicker">Weboldaltervező</p>
-          <h2 id="plTitle">Milyen vállalkozásod <span class="serif">van?</span></h2>
+          <h2 id="plTitle">Milyen vállalkozásod van?</h2>
           <p class="pl__hint">Válaszd a legközelebbit, a többit később pontosítjuk.</p>
           <div class="opts opts--types" id="optTypes" role="radiogroup" aria-label="A vállalkozás típusa"></div>
         </section>
 
         <section class="pl__step" data-step="name">
           <p class="pl__kicker">2. lépés</p>
-          <h2>Hogy hívják a <span class="serif">vállalkozást?</span></h2>
+          <h2>Hogy hívják a vállalkozást?</h2>
           <p class="pl__hint">Figyeld az előnézetet: már a te neved szerepel rajta.</p>
           <div class="pl__group">
             <label class="fld" id="fldBiz"><span>A vállalkozás neve</span>
@@ -518,7 +701,7 @@
 
         <section class="pl__step" data-step="features">
           <p class="pl__kicker">3. lépés</p>
-          <h2>Mit tudjon <span class="serif">az oldal?</span></h2>
+          <h2>Mit tudjon az oldal?</h2>
           <p class="pl__hint">A vállalkozásodhoz illőket előre bejelöltük.</p>
           <div class="included"><svg><use href="#i-check"/></svg><span><b>Mindig benne van</b>Hívás gomb, térkép, nyitvatartás, .hu domain, tárhely és mentés.</span></div>
           <div class="opts" id="optFeatures" aria-label="Funkciók"></div>
@@ -526,14 +709,14 @@
 
         <section class="pl__step" data-step="style">
           <p class="pl__kicker">4. lépés</p>
-          <h2>Milyen hangulatú <span class="serif">legyen?</span></h2>
+          <h2>Milyen hangulatú legyen?</h2>
           <p class="pl__hint">Koppints rá, és nézd, hogyan változik.</p>
           <div class="opts" id="optStyles" role="radiogroup" aria-label="Stílus"></div>
         </section>
 
         <section class="pl__step" data-step="situation">
           <p class="pl__kicker">5. lépés</p>
-          <h2>Hol tart <span class="serif">most?</span></h2>
+          <h2>Hol tart most?</h2>
           <div class="opts" id="optSituation" role="radiogroup" aria-label="Jelenlegi helyzet"></div>
           <label class="fld" id="fldUrl" hidden style="margin-top:14px"><span>Link <small>(nem kötelező)</small></span>
             <input class="inp" id="inUrl" name="link" maxlength="200" inputmode="url" autocomplete="url" placeholder="facebook.com/… vagy www.…">
@@ -546,7 +729,7 @@
 
         <section class="pl__step" data-step="contact">
           <p class="pl__kicker">Utolsó lépés</p>
-          <h2>A te <span class="serif">ajánlatod.</span></h2>
+          <h2>A te ajánlatod.</h2>
           <div class="rec" id="rec">
             <p class="rec__k">Ezt ajánljuk neked</p>
             <div class="rec__row"><span class="rec__name" id="recName">Vállalkozás</span><span class="amt"><b id="recPrice">6 990</b><span>Ft / hó</span></span></div>

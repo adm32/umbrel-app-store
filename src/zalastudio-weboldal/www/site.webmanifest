@@ -4,8 +4,8 @@
   "description": "Weboldalak vállalkozásoknak – előbb látod, utána fizetsz.",
   "start_url": "/",
   "display": "browser",
-  "background_color": "#15110E",
-  "theme_color": "#15110E",
+  "background_color": "#120F0D",
+  "theme_color": "#120F0D",
   "lang": "hu",
   "icons": [
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },

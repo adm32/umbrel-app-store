@@ -3,5 +3,6 @@ Allow: /
 Disallow: /koszonom.html
 Disallow: /fizetes/
 Disallow: /elofizetes
+Disallow: /elallas
 
 Sitemap: https://zalastudio.hu/sitemap.xml

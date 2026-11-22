@@ -27,7 +27,7 @@ var (
 		Spots  int    `json:"spots"`
 		Vat    string `json:"vat"`
 		Portal string `json:"portal"`
-	}{Spots: 5, Vat: "brutto"}
+	}{Spots: 5, Vat: "mentes"}
 )
 
 // ---------- statistics (no IP addresses stored; cookies only with consent, see cookies.go) ----------
@@ -198,7 +198,7 @@ func saveStats() {
 		keys = append(keys, k)
 	}
 	sort.Strings(keys)
-	for len(keys) > 400 {
+	for len(keys) > 395 {
 		delete(stats.Days, keys[0])
 		keys = keys[1:]
 	}

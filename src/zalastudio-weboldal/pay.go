@@ -19,10 +19,11 @@ import (
 )
 
 var (
-	dashBase  = strings.TrimSuffix(dashIngest, "/ingest")
-	payCodeRe = regexp.MustCompile(`^[A-HJ-NP-Z2-9]{10}$`)
-	payLimit  = newLimiter(40, 10*time.Minute)
-	hookLimit = newLimiter(600, 10*time.Minute)
+	dashBase      = strings.TrimSuffix(dashIngest, "/ingest")
+	payCodeRe     = regexp.MustCompile(`^[A-HJ-NP-Z2-9]{10}$`)
+	payLimit      = newLimiter(40, 10*time.Minute)
+	withdrawLimit = newLimiter(10, 10*time.Minute)
+	hookLimit     = newLimiter(600, 10*time.Minute)
 	// Stripe's hosted checkout. Browsers apply form-action to the redirect after the form, so it must be listed.
 	checkoutOrigin = env("CHECKOUT_ORIGIN", "https://checkout.stripe.com")
 )
@@ -58,17 +59,17 @@ func payShell(w http.ResponseWriter, code int, title, inner string) {
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>`+html.EscapeString(title)+` – Zala Studio</title>
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#FBF7F1" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#15110E" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#120F0D" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/site.css?v=36">
-<script src="/assets/js/pay.js?v=36" defer></script>
+<link rel="stylesheet" href="/assets/css/site.css?v=39">
+<script src="/assets/js/pay.js?v=39" defer></script>
 </head>
 <body class="paypage">
 <header class="head is-scrolled">
   <div class="wrap head__in">
-    <a class="brand" href="/" aria-label="Zala Studio – főoldal"><img src="/assets/logo/zala-mark.svg" alt="" width="36" height="36"><b>zala<span class="serif">studio</span></b></a>
+    <a class="brand" href="/" aria-label="Zala Studio – főoldal"><img src="/assets/logo/zala-mark.svg" alt="" width="32" height="32"><b>zala<span class="serif">studio</span></b></a>
     <a class="back" href="mailto:info@zalastudio.hu">info@zalastudio.hu</a>
   </div>
 </header>
@@ -157,7 +158,7 @@ func payForm(w http.ResponseWriter, code int, info payInfo, errMsg string) {
 	b.WriteString(`<ul class="pay__list">
 <li>` + checkSVG + `<span>Bankkártya, Apple Pay vagy Google Pay</span></li>
 <li>` + checkSVG + `<span>Nem kell figyelned a határidőket, a díjat ` + adv + ` automatikusan levonjuk</span></li>
-<li>` + checkSVG + `<span>Minden befizetésről számlát küldünk e-mailben</span></li>
+<li>` + checkSVG + `<span>Minden befizetésről elektronikus számlát küldünk e-mailben</span></li>
 </ul>`)
 	b.WriteString(`<form class="pay__form" method="post" action="/fizetes/` + info.Code + `">`)
 	if errMsg != "" {
@@ -172,10 +173,10 @@ func payForm(w http.ResponseWriter, code int, info payInfo, errMsg string) {
 <li>24 hónap után a weboldal kódját átadjuk, a foglalás- és rendeléskezelő rendszer kivételével (ÁSZF 7.).</li>
 <li>Vállalkozásként a felelősségünk az utolsó 12 hónapban fizetett díjak összegéig korlátozott (ÁSZF 11.).</li>
 </ul></div>`)
-	b.WriteString(`<label class="pay__ok"><input type="checkbox" name="elfogadom" value="igen" required><span>Elolvastam és elfogadom az <a href="/aszf.html" target="_blank" rel="noopener">általános szerződési feltételeket</a>, kifejezetten a fenti kiemelt feltételeket is, és hozzájárulok, hogy a díjat ` + adv + ` automatikusan levonják a kártyámról.</span></label>`)
+	b.WriteString(`<label class="pay__ok"><input type="checkbox" name="elfogadom" value="igen" required><span>Elolvastam és elfogadom az <a href="/aszf.html" target="_blank" rel="noopener">általános szerződési feltételeket</a>, kifejezetten a fenti kiemelt feltételeket is, hozzájárulok az elektronikus számla kiállításához (Áfa tv. 175. §), valamint ahhoz, hogy a díjat ` + adv + ` automatikusan levonják a kártyámról.</span></label>`)
 	b.WriteString(`<button class="btn btn--primary btn--lg pay__go" type="submit"><span>Megrendelés és fizetés</span><span class="spinner" aria-hidden="true"></span>` + arrowSVG + `</button>`)
 	b.WriteString(`<p class="pay__safe">` + lockSVG + `<span>A fizetés a Stripe oldalán történik. A kártyaadataidat mi nem látjuk és nem tároljuk.</span></p></form>`)
-	b.WriteString(`<p class="pay__fine">Szolgáltató: Zala Studio (<a href="/adatvedelem.html#impresszum">impresszum</a>) · <a href="/aszf.html">ÁSZF</a> · <a href="/adatvedelem.html">Adatvédelem</a> · Kérdésed van? <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a></p></article>`)
+	b.WriteString(`<p class="pay__fine">Szolgáltató: Zala Studio (<a href="/adatvedelem.html#impresszum">Impresszum</a>) · <a href="/aszf.html">ÁSZF</a> · <a href="/adatvedelem.html">Adatvédelem</a> · <a href="/elallas">Elállás a szerződéstől</a> · Kérdésed van? <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a></p></article>`)
 	payShell(w, code, "Előfizetés indítása", b.String())
 }
 
@@ -237,6 +238,128 @@ func payPage(w http.ResponseWriter, r *http.Request, rest string) {
 	w.Header().Set("Location", res.URL)
 	w.Header().Set("Cache-Control", "no-store")
 	w.WriteHeader(303)
+}
+
+// withdrawPage implements the mandatory online withdrawal function for consumers
+// (45/2014. (II. 26.) Korm. rendelet 22. § (1a)–(1d), effective 19 June 2026).
+func withdrawForm(w http.ResponseWriter, code int, name, email, ref, note, errMsg string) {
+	var b strings.Builder
+	b.WriteString(`<article class="doc__card pay">`)
+	b.WriteString(`<p class="eyebrow">Fogyasztói elállási funkció · 45/2014. Korm. rendelet 22. §</p>`)
+	b.WriteString(`<h1>Elállás a szerződéstől</h1>`)
+	b.WriteString(`<p class="pay__plan">Fogyasztóként a szerződés megkötésétől számított 14 napon belül itt is gyakorolhatod az indokolás nélküli elállási vagy felmondási jogodat (részletek: <a href="/aszf.html#fogyaszto">ÁSZF 12. pont</a>). Vállalkozások a szerződés felmondását e-mailben kérhetik az <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a> címen.</p>`)
+	b.WriteString(`<form class="pay__form" method="post" action="/elallas">`)
+	if errMsg != "" {
+		b.WriteString(`<p class="pay__err" role="alert">` + html.EscapeString(errMsg) + `</p>`)
+	}
+	b.WriteString(`<label class="fld"><span>Fogyasztó neve</span><input class="inp" name="nev" required maxlength="80" autocomplete="name" value="` + html.EscapeString(name) + `" placeholder="Teljes név"></label>`)
+	b.WriteString(`<label class="fld"><span>E-mail-cím (ide küldjük a visszaigazolást)</span><input class="inp" name="email" type="email" required maxlength="120" autocomplete="email" value="` + html.EscapeString(email) + `" placeholder="nev@example.hu"></label>`)
+	b.WriteString(`<label class="fld"><span>A szerződés azonosítója</span><input class="inp" name="azonosito" required maxlength="120" value="` + html.EscapeString(ref) + `" placeholder="Weboldal neve, fizetési kód vagy számlaszám"></label>`)
+	b.WriteString(`<label class="fld"><span>Megjegyzés <small>(nem kötelező)</small></span><textarea class="inp" name="uzenet" maxlength="1000" placeholder="Pl. szerződéskötés dátuma">` + html.EscapeString(note) + `</textarea></label>`)
+	b.WriteString(`<div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true"><label>Weboldal<input name="weboldal" tabindex="-1" autocomplete="off"></label></div>`)
+	b.WriteString(`<button class="btn btn--primary btn--lg" type="submit" style="width:100%"><span>Elállás megerősítése</span>` + arrowSVG + `</button>`)
+	b.WriteString(`<p class="pay__fine">Az „Elállás megerősítése” gomb megnyomásával benyújtod az elállási/felmondási nyilatkozatodat. A beérkezést azonnal visszaigazoljuk ezen az oldalon és e-mailben is. · <a href="/aszf.html#fogyaszto">ÁSZF</a> · <a href="/adatvedelem.html#adatkezeles">Adatvédelem</a></p>`)
+	b.WriteString(`</form></article>`)
+	payShell(w, code, "Elállás a szerződéstől", b.String())
+}
+
+func withdrawPage(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "GET" || r.Method == "HEAD" {
+		withdrawForm(w, 200, "", "", "", "", "")
+		return
+	}
+	if r.Method != "POST" {
+		w.Header().Set("Allow", "GET, POST")
+		w.WriteHeader(405)
+		return
+	}
+	if !withdrawLimit.allow(clientIP(r)) {
+		payMessage(w, 429, "Túl sok próbálkozás", "Várj néhány percet, vagy küldd el a nyilatkozatodat közvetlenül e-mailben az <a href=\"mailto:info@zalastudio.hu\">info@zalastudio.hu</a> címre.", false, "")
+		return
+	}
+	raw, err := io.ReadAll(io.LimitReader(r.Body, 8000))
+	if err != nil {
+		withdrawForm(w, 400, "", "", "", "", "Hibás kérés. Próbáld újra.")
+		return
+	}
+	form, err := url.ParseQuery(string(raw))
+	if err != nil {
+		withdrawForm(w, 400, "", "", "", "", "Hibás kérés. Próbáld újra.")
+		return
+	}
+	if form.Get("weboldal") != "" {
+		payMessage(w, 200, "Elállási nyilatkozat rögzítve", "A nyilatkozatot rögzítettük.", true, "")
+		return
+	}
+	name := clean(form.Get("nev"), 80)
+	email := strings.ToLower(clean(form.Get("email"), 120))
+	ref := clean(form.Get("azonosito"), 120)
+	note := cut(strings.TrimSpace(ctrl.ReplaceAllString(strings.ToValidUTF8(strings.ReplaceAll(form.Get("uzenet"), "\r", ""), ""), "")), 1000)
+
+	if len([]rune(name)) < 2 {
+		withdrawForm(w, 422, name, email, ref, note, "Add meg a teljes neved.")
+		return
+	}
+	if !emailRe.MatchString(email) {
+		withdrawForm(w, 422, name, email, ref, note, "Adj meg egy érvényes e-mail-címet a visszaigazoláshoz.")
+		return
+	}
+	if len([]rune(ref)) < 2 {
+		withdrawForm(w, 422, name, email, ref, note, "Add meg a szerződés azonosítóját (pl. weboldal neve, fizetési kód vagy számlaszám).")
+		return
+	}
+
+	now := time.Now()
+	ts := now.In(budapest).Format("2006.01.02. 15:04:05")
+	id := uuid()
+	msg := "FOGYASZTÓI ELÁLLÁS / FELMONDÁS (45/2014. Korm. rendelet 22. §)\n" +
+		"Nyilatkozat azonosítója: " + id[:8] + "\n" +
+		"Beérkezés ideje: " + ts + " (Europe/Budapest)\n" +
+		"Szerződés azonosítója: " + ref
+	if note != "" {
+		msg += "\nMegjegyzés: " + note
+	}
+	l := Lead{
+		ID:       id,
+		Created:  now.UTC().Format("2006-01-02T15:04:05.000Z"),
+		Source:   "urlap",
+		Entry:    "elallas",
+		Business: "[ELÁLLÁS] " + cut(ref, 108),
+		Name:     name,
+		Email:    email,
+		Message:  cut(msg, 2000),
+		Features: []string{},
+		Billing:  "m",
+		Device:   "asztali",
+	}
+	if mobileRe.MatchString(r.UserAgent()) {
+		l.Device = "mobil"
+	}
+	obMu.Lock()
+	outbox = append(outbox, &outItem{Lead: l})
+	err = saveOutbox()
+	if err != nil {
+		outbox = outbox[:len(outbox)-1]
+	}
+	obMu.Unlock()
+	if err != nil {
+		log.Print("withdraw: could not save: ", err)
+		withdrawForm(w, 500, name, email, ref, note, "Most nem sikerült elmenteni. Küldd el e-mailben az info@zalastudio.hu címre.")
+		return
+	}
+	log.Printf("withdraw: %s (%s)", id[:8], ref)
+	go flush()
+
+	receipt := `<dl class="kv pay__kv" style="width:100%;max-width:440px;text-align:left;margin:8px 0">` +
+		`<div><dt>Visszaigazolási kód</dt><dd>` + html.EscapeString(strings.ToUpper(id[:8])) + `</dd></div>` +
+		`<div><dt>Beérkezés ideje</dt><dd>` + html.EscapeString(ts) + `</dd></div>` +
+		`<div><dt>Név</dt><dd>` + html.EscapeString(name) + `</dd></div>` +
+		`<div><dt>E-mail</dt><dd>` + html.EscapeString(email) + `</dd></div>` +
+		`<div><dt>Szerződés azonosítója</dt><dd>` + html.EscapeString(ref) + `</dd></div>` +
+		`</dl>`
+	payMessage(w, 200, "Elállási nyilatkozat megérkezett",
+		"Rögzítettük a nyilatkozatodat. A visszaigazolást haladéktalanul megküldjük e-mailben is a megadott címre; addig ezt az oldalt elmentheted vagy kinyomtathatod.",
+		true, receipt)
 }
 
 // relayWebhook passes Stripe's webhook to the Irányítópult unchanged; it verifies the signature.

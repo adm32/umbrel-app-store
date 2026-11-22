@@ -154,6 +154,9 @@ func public(w http.ResponseWriter, r *http.Request) {
 	case "/elofizetes":
 		portalRedirect(w, r)
 		return
+	case "/elallas":
+		withdrawPage(w, r)
+		return
 	case "/healthz":
 		w.Header().Set("Content-Type", "text/plain")
 		io.WriteString(w, "ok")

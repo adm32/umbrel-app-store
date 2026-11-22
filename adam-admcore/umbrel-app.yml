@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: Zala Studio (zalastudio.hu)
-version: "5.5.1"
+version: "6.0.0"
 tagline: Zala Studio – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -33,6 +33,7 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
+  6.0.0 – megújult megjelenés és 2026-os jogi frissítés: egységes álló betűtípus (Schibsted Grotesk, dőlt betűk nélkül), telefonra optimalizált parallaxis és sima animációk, élő iparágváltó a nyitó telefonon, kiemelt részlet-nagyító. Frissített ÁSZF és adatkezelési tájékoztató a 2026-os magyar jogszabályok szerint (250 000 Ft-os békéltető testületi határ, 3 éves panaszőrzés, elektronikus számla elfogadás, új online elállási oldal a /elallas címen).
   5.5.1 – belső rendrakás: a nem használt kódrészek kikerültek, a forráskód átláthatóbb fájlokra bontva. Az oldal ugyanúgy működik.
   5.5.0 – jogi és szövegi javítások: új ÁSZF, impresszum és adatkezelési tájékoztató (telefonszám, NAV, 5 éves megőrzés), alanyi adómentes ÁFA-szöveg mindenhol, bevezető beállítási díjak áthúzott árak nélkül, a tervezőben minden csomagnál látszik a beállítási díj, a fizetési oldalon kiemelt feltételek és „Megrendelés és fizetés” gomb, az ntfy-értesítésben nincs személyes adat.
   5.4.0 – egyértelműbb csomagok. Minden kártyán pontosan látszik, mi van benne; a Prémium Partnerből kikerült a Facebook-kezelés, helyette havi jelentés, nyomdakész QR-kódos tábla és szórólap, 4 nyelv. Új GYIK-pont a webshopról, és az ÁFA-szöveg most egyértelmű („ÁFA-t nem számítunk fel”).

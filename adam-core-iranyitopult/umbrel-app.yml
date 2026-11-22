@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-core-iranyitopult
 category: automation
 name: Zala Studio Irányítópult
-version: "2.1.2"
+version: "2.1.3"
 tagline: Érdeklődők és látogatók a zalastudio.hu-ról, értesítéssel
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-core-iranyitopult/icon.svg
 description: >-
@@ -33,6 +33,7 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
+  2.1.3 – belső rendrakás: a forráskód átláthatóbb fájlokra bontva, a nem használt részek kikerültek. Minden ugyanúgy működik.
   2.1.2 – az ntfy-értesítésekben (új érdeklődő, fizetések) nincs többé név, telefonszám vagy üzenet, csak a jelzés; a részletek az Irányítópulton. A fizetési oldal ÁFA-szövege: alanyi adómentes végösszeg. A tervező „Facebook- és Instagram-linkek” opciója.
   2.1.1 – az előnézet és a funkciók nevei a weboldal új csomagjaihoz igazodnak („Korlátlan módosítás”), és a fizetési oldalon „ÁFA-t nem számítunk fel” szerepel.
   2.1.0 – az online fizetés újra be van kapcsolva: fizetési link az ügyfél lapján, Stripe-beállítások, havi bevétel, sikertelen fizetések és a „Kiszámlázandó” lista, mellette gyorslink a Számlázz.hu-ra.

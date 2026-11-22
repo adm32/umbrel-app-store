@@ -109,7 +109,7 @@
       if (open) setTimeout(function () {
         var r = p.getBoundingClientRect();
         if (r.top < 70) window.scrollBy({ top: r.top - 80, behavior: reduced ? "auto" : "smooth" });
-      }, 380);
+      }, 120);
     });
   });
   if (desktop.addEventListener) desktop.addEventListener("change", syncPlans);
@@ -117,19 +117,22 @@
 
   var roll = function (b, to) {
     var from = parseInt(b.textContent.replace(/\D/g, ""), 10) || 0;
-    if (reduced || from === to) { b.textContent = fmt(to); return; }
-    var t0 = performance.now(), dur = 650;
+    if (reduced || from === to || billSwitches > 2) { b.textContent = fmt(to); return; }
+    var t0 = performance.now(), dur = 260;
     (function f(now) {
       var k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 4);
       b.textContent = fmt(Math.round((from + (to - from) * e) / 10) * 10);
       if (k < 1) requestAnimationFrame(f); else b.textContent = fmt(to);
     })(t0);
   };
-  // Segmented controls: the dark thumb follows the checked label.
+  // Segmented controls: the dark thumb slides on the GPU with translate3d.
   function placeThumbs() {
     $$(".seg").forEach(function (sg) {
       var th = $(".seg__thumb", sg), on = $("input:checked + label", sg);
-      if (th && on) { th.style.left = on.offsetLeft + "px"; th.style.width = on.offsetWidth + "px"; }
+      if (th && on) {
+        th.style.width = on.offsetWidth + "px";
+        th.style.transform = "translate3d(" + on.offsetLeft + "px, 0, 0)";
+      }
     });
   }
   placeThumbs();
@@ -141,6 +144,8 @@
     r.addEventListener("change", function () {
       if (!r.checked) return;
       billing = r.value; billSwitches++;
+      var seg = r.closest && r.closest(".seg");
+      if (seg) seg.classList.toggle("is-used", billSwitches >= 3);
       var plansBox = $("#plans");
       if (plansBox) plansBox.classList.toggle("is-yearly", billing === "y");
       $$(".plan").forEach(function (p) {
@@ -196,9 +201,9 @@
     heroWord.appendChild(neu);
     if (reduced || !old || !old.animate) { if (old) old.remove(); return; }
     // crisp masked vertical slide: new word glides up out of the line mask as old lifts away
-    neu.animate([{ opacity: 0, transform: "translateY(82%)" }, { opacity: 1, transform: "none" }], { duration: 280, delay: 50, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
-    old.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(-82%)" }], { duration: 200, easing: "cubic-bezier(.4,0,1,1)", fill: "forwards" }).onfinish = function () { if (old.parentNode) old.remove(); };
-    setTimeout(function () { if (old.parentNode) old.remove(); }, 450);
+    neu.animate([{ opacity: 0, transform: "translateY(82%)" }, { opacity: 1, transform: "none" }], { duration: 240, delay: 30, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
+    old.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(-82%)" }], { duration: 180, easing: "cubic-bezier(.4,0,1,1)", fill: "forwards" }).onfinish = function () { if (old.parentNode) old.remove(); };
+    setTimeout(function () { if (old.parentNode) old.remove(); }, 300);
   }
   function syncHeroPills(idx) {
     var active = null;
@@ -217,7 +222,7 @@
     if (heroStageHalo && DEMOS[idx]) heroStageHalo.style.setProperty("--halo", DEMOS[idx].tint);
   }
   if (heroScreen) {
-    var di = 0, dtimer = null, dvisible = true;
+    var di = 0, dtimer = null, dvisible = true, heroClicks = 0;
     render(heroScreen, DEMOS[0]);
     syncHeroPills(0);
     var showDemo = function (idx) {
@@ -232,15 +237,17 @@
       syncHeroPills(di);
       var neu = heroScreen.__ps;
       if (old && old.animate && !reduced) {
-        old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, easing: "ease-in", fill: "forwards" }).onfinish = function () { if (old.parentNode) old.remove(); };
-        neu.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 240, delay: 110, easing: "ease-out", fill: "backwards" });
-        setTimeout(function () { if (old.parentNode) old.remove(); }, 600);
+        old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 140, easing: "cubic-bezier(.4,0,1,1)", fill: "forwards" }).onfinish = function () { if (old.parentNode) old.remove(); };
+        neu.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, delay: 60, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
+        setTimeout(function () { if (old.parentNode) old.remove(); }, 300);
       } else if (old) old.remove();
     };
     heroPills.forEach(function (b) {
       b.addEventListener("click", function () {
         userPickedDemo = true;
         clearTimeout(dtimer);
+        var bar = $("#heroSwitch");
+        if (bar && ++heroClicks >= 4) bar.classList.add("is-used");
         showDemo(parseInt(b.getAttribute("data-demo"), 10) || 0);
       });
     });
@@ -291,7 +298,7 @@
   };
   function blank() {
     return { type: null, biz: "", city: "", features: null, featTouched: false, style: null, styleTouched: false, situation: null, url: "", timing: null,
-      plan: null, nev: "", tel: "", email: "", call: null, msg: "", src: "", opened: 0 };
+      plan: null, nev: "", tel: "", email: "", call: "barmikor", msg: "", src: "", opened: 0 };
   }
 
   /* -- build options -- */
@@ -413,7 +420,7 @@
     if (name === "contact") paintOffer();
     if (!seenSteps[name]) { seenSteps[name] = 1; track("cfg_step", { s: name }); }
     var focusEl = name === "name" ? el.biz : name === "contact" ? (S.nev ? null : el.name) : null;
-    if (focusEl && desktop.matches) setTimeout(function () { focusEl.focus({ preventScroll: true }); }, 350);
+    if (focusEl && desktop.matches) setTimeout(function () { focusEl.focus({ preventScroll: true }); }, 260);
     else if (name === "done") $('[data-step="done"]').focus({ preventScroll: true });
     save();
   }
@@ -432,7 +439,8 @@
     var name = STEPS[stepIdx];
     clearBad();
     if (name === "type" && !S.type) {
-      var box = $("#optTypes"); box.animate && box.animate([{ transform: "translateX(-6px)" }, { transform: "translateX(6px)" }, { transform: "none" }], { duration: 300 });
+      var box = $("#optTypes");
+      if (!reduced && box && box.animate) box.animate([{ transform: "translateX(-6px)" }, { transform: "translateX(6px)" }, { transform: "none" }], { duration: 260, easing: "cubic-bezier(.22,1,.36,1)" });
       return;
     }
     if (name === "name" && S.biz.trim().length < 2) { bad($("#fldBiz"), el.errName, "Írd be a vállalkozás nevét (ha még nincs, egy munkanevet is)."); el.biz.focus(); return; }
@@ -450,7 +458,7 @@
       if (!S.featTouched) S.features = null;
       if (!S.styleTouched) S.style = null;
       syncControls(); paint(); haptic();
-      if (STEPS[stepIdx] === "type") setTimeout(function () { if (STEPS[stepIdx] === "type") setStep(1, 1); }, reduced ? 0 : 340);
+      if (STEPS[stepIdx] === "type") setTimeout(function () { if (STEPS[stepIdx] === "type") setStep(1, 1); }, reduced ? 0 : 220);
     } else if (i.name === "funkcio") {
       var f = curFeatures().filter(function (x) { return x !== i.value; });
       if (i.checked) f.push(i.value);
@@ -580,7 +588,7 @@
       plOpen = false; closing = false; updateDock(); fitViewport();
       if (heroScreen) loop && loop();
     };
-    if (reduced) finish(); else { dlg.classList.add("is-closing"); setTimeout(finish, 300); }
+    if (reduced) finish(); else { dlg.classList.add("is-closing"); setTimeout(finish, 200); }
     if (!fromHistory && history.state && history.state.pl) { try { history.back(); } catch (e) { /* ignore */ } }
     else if (location.hash === "#tervezo") { try { history.replaceState(null, "", location.pathname + location.search); } catch (e) { /* ignore */ } }
   }
@@ -608,7 +616,12 @@
     if (!tel && !mail) { bad($("#fldTel"), el.errContact, "Adj meg egy telefonszámot vagy e-mail-címet, hogy elküldhessük a bemutatót."); el.tel.focus(); return; }
     if (tel && tel.replace(/\D/g, "").length < 8) { bad($("#fldTel"), el.errContact, "Ez a telefonszám túl rövidnek tűnik."); el.tel.focus(); return; }
     if (mail && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) { bad($("#fldMail"), el.errContact, "Az e-mail-cím formátuma nem megfelelő."); el.mail.focus(); return; }
-    if (!el.consent.checked) { bad(null, el.errContact, "Fogadd el az adatkezelési tájékoztatót."); $("#fldConsent").animate && $("#fldConsent").animate([{ transform: "translateX(-6px)" }, { transform: "translateX(6px)" }, { transform: "none" }], { duration: 300 }); return; }
+    if (!el.consent.checked) {
+      bad(null, el.errContact, "Fogadd el az adatkezelési tájékoztatót.");
+      var cEl = $("#fldConsent");
+      if (!reduced && cEl && cEl.animate) cEl.animate([{ transform: "translateX(-6px)" }, { transform: "translateX(6px)" }, { transform: "none" }], { duration: 260, easing: "cubic-bezier(.22,1,.36,1)" });
+      return;
+    }
     sending = true; el.next.classList.add("is-loading"); el.next.disabled = true;
     var data = {
       v: 2, forras: "tervezo", src: S.src, tipus: S.type, vallalkozas: S.biz.trim(), telepules: S.city.trim(),

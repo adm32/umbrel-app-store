@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-admcore
 category: social
 name: Zala Studio (zalastudio.hu)
-version: "6.0.2"
+version: "6.0.3"
 tagline: Zala Studio – weboldalak vállalkozásoknak
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-admcore/icon.svg
 description: >-
@@ -33,6 +33,7 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
+  6.0.3 – telefonos kezelhetőség, kontraszt és mozgás-finomhangolás: minden gomb és link legalább 44×44 px érintési felületet kapott mobilon és gépen is, javított WCAG AA kontraszt világos és sötét módban, minden UI animáció 300 ms alatt és kizárólag GPU-barát transform/opacity alapon fut, ismétlődő váltásoknál gyorsuló mozgással, a láblécben és a tervezőben tisztább csoportosítással és előre kiválasztott visszahívási opcióval.
   6.0.2 – finomítások és helyszíni fotózás kivezetése: kikerült a helyszíni fotózás a kiegészítők közül és az ÁSZF-ből, a Vadvirág kiemelő rész valódi, tűéles HTML/CSS előnézet lett alacsony felbontású kép helyett, a Telefonra tervezve alatti sáv a hero alatti lebegő kártyával azonos megjelenést kapott, a parallaxis telefonok teteje görgetésnél nem vágódik le, és eltűntek a sablonos ikonok.
   6.0.1 – vizuális javítások: visszakerült az élő folyó animáció a nyitóképre és a hero alatti lebegő adatsáv, élethű iPhone Dynamic Island arányok a Munkáink telefonkereteken, hajszálpontos kiemelés a Vadvirág gombokon, és minden ikon egységes, tiszta vektorra cserélve az egész oldalon.
   6.0.0 – megújult megjelenés és 2026-os jogi frissítés: egységes álló betűtípus (Schibsted Grotesk, dőlt betűk nélkül), telefonra optimalizált parallaxis és sima animációk, élő iparágváltó a nyitó telefonon, kiemelt részlet-nagyító. Frissített ÁSZF és adatkezelési tájékoztató a 2026-os magyar jogszabályok szerint (250 000 Ft-os békéltető testületi határ, 3 éves panaszőrzés, elektronikus számla elfogadás, új online elállási oldal a /elallas címen).

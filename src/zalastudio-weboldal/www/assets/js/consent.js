@@ -24,7 +24,7 @@
     if (!box) return;
     var b = box; box = null;
     b.classList.remove("is-in");
-    setTimeout(function () { if (b.parentNode) b.parentNode.removeChild(b); }, 400);
+    setTimeout(function () { if (b.parentNode) b.parentNode.removeChild(b); }, 250);
   }
   function open(again) {
     if (box) return;

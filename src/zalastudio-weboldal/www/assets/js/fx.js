@@ -94,8 +94,10 @@
     order: "Hüvelykujjra méretezett gomb — egy koppintással indul a rendelés.",
     call: "Azonnali tárcsázás, nem kell kimásolni a számot."
   };
-  function setLens(key) {
+  var lensClicks = 0;
+  function setLens(key, user) {
     if (!lensFrame || !LENS_CAPS[key]) return;
+    if (user && lensBar && ++lensClicks >= 4) lensBar.classList.add("is-used");
     lensFrame.setAttribute("data-lens-active", key);
     if (lensCap) lensCap.textContent = LENS_CAPS[key];
     var active = null;
@@ -109,13 +111,13 @@
   }
   lensBtns.forEach(function (b) {
     var k = b.getAttribute("data-lens");
-    b.addEventListener("click", function () { setLens(k); });
+    b.addEventListener("click", function () { setLens(k, true); });
   });
   if (lensFrame) {
     $$("[data-vv]", lensFrame).forEach(function (el) {
       el.addEventListener("click", function () {
         var k = el.getAttribute("data-vv");
-        if (LENS_CAPS[k]) setLens(k);
+        if (LENS_CAPS[k]) setLens(k, true);
       });
     });
   }
@@ -406,32 +408,5 @@
     });
   }
 
-  /* ---------- Smooth spring height animation for native <details> ---------- */
-  $$(".faq details, details.more").forEach(function (det) {
-    var sum = $("summary", det);
-    if (!sum || !det.animate) return;
-    var anim = null, closing = false;
-    sum.addEventListener("click", function (e) {
-      e.preventDefault();
-      det.style.overflow = "hidden";
-      if (closing || !det.open) {
-        if (anim) anim.cancel();
-        closing = false;
-        var startH = det.offsetHeight;
-        det.open = true;
-        var endH = det.offsetHeight;
-        anim = det.animate({ height: [startH + "px", endH + "px"] }, { duration: 240, easing: "cubic-bezier(.22,1,.36,1)" });
-        anim.onfinish = function () { det.style.height = det.style.overflow = ""; anim = null; };
-        anim.oncancel = function () { det.style.height = det.style.overflow = ""; };
-      } else {
-        if (anim) anim.cancel();
-        closing = true;
-        var sH = det.offsetHeight;
-        var eH = sum.offsetHeight;
-        anim = det.animate({ height: [sH + "px", eH + "px"] }, { duration: 200, easing: "cubic-bezier(.22,1,.36,1)" });
-        anim.onfinish = function () { det.open = false; closing = false; det.style.height = det.style.overflow = ""; anim = null; };
-        anim.oncancel = function () { closing = false; det.style.height = det.style.overflow = ""; };
-      }
-    });
-  });
+  /* Native <details> accordions animate via CSS revealIn (opacity + transform only, zero height reflow). */
 })();

@@ -23,12 +23,12 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 <link rel="preload" href="assets/fonts/schibsted-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=41">
-<script src="assets/js/boot.js?v=41"></script>
-<script src="assets/js/preview.js?v=41" defer></script>
-<script src="assets/js/site.js?v=41" defer></script>
-<script src="/assets/js/consent.js?v=41" defer></script>
-<script src="assets/js/fx.js?v=41" defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=42">
+<script src="assets/js/boot.js?v=42"></script>
+<script src="assets/js/preview.js?v=42" defer></script>
+<script src="assets/js/site.js?v=42" defer></script>
+<script src="/assets/js/consent.js?v=42" defer></script>
+<script src="assets/js/fx.js?v=42" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -591,7 +591,7 @@
       <nav class="foot__col" aria-label="Az oldal részei">
         <h3>Oldal</h3>
         <a href="#munkaink">Munkáink</a>
-        <a href="#folyamat">Hogyan működik</a>
+        <a href="#folyamat">Folyamat</a>
         <a href="#arak">Árak</a>
         <a href="#kerdesek">Kérdések</a>
       </nav>
@@ -600,7 +600,7 @@
         <a href="mailto:info@zalastudio.hu">info@zalastudio.hu</a>
         <a href="https://www.facebook.com/profile.php?id=61596220696670" target="_blank" rel="noopener">Facebook</a>
         <a href="https://www.tiktok.com/@zalastudio_weboldalak" target="_blank" rel="noopener">TikTok</a>
-        <a href="adatvedelem.html#impresszum">Impresszum</a>
+        <a class="foot__sep" href="adatvedelem.html#impresszum">Impresszum</a>
         <a href="adatvedelem.html#adatkezeles">Adatvédelem</a>
         <a href="aszf.html">ÁSZF</a>
         <a href="/elallas">Elállás a szerződéstől</a>
@@ -674,7 +674,7 @@
         </section>
 
         <section class="pl__step" data-step="situation">
-          <p class="pl__kicker">5. lépés</p>
+          <p class="pl__kicker">5. lépés · Már majdnem kész</p>
           <h2>Hol tart most?</h2>
           <div class="opts" id="optSituation" role="radiogroup" aria-label="Jelenlegi helyzet"></div>
           <label class="fld" id="fldUrl" hidden style="margin-top:14px"><span>Link <small>(nem kötelező)</small></span>
@@ -687,7 +687,7 @@
         </section>
 
         <section class="pl__step" data-step="contact">
-          <p class="pl__kicker">Utolsó lépés</p>
+          <p class="pl__kicker">Utolsó lépés · 30 másodperc</p>
           <h2>A te ajánlatod.</h2>
           <div class="rec" id="rec">
             <p class="rec__k">Ezt ajánljuk neked</p>
@@ -701,16 +701,18 @@
           </div>
           <div class="pl__group">
             <p class="pl__hint" style="margin:0 0 14px">Hová küldhetjük a bemutatót? Egy munkanapon belül jelentkezünk.</p>
-            <label class="fld" id="fldName"><span>A neved</span>
-              <input class="inp" id="inName" name="nev" maxlength="80" autocomplete="name" enterkeyhint="next" placeholder="Kovács Anna">
-            </label>
-            <label class="fld" id="fldTel"><span>Telefonszám</span>
-              <input class="inp" id="inTel" name="telefon" type="tel" maxlength="40" inputmode="tel" autocomplete="tel" enterkeyhint="next" placeholder="+36 30 123 4567">
-            </label>
-            <label class="fld" id="fldMail"><span>E-mail <small>(nem kötelező)</small></span>
-              <input class="inp" id="inMail" name="email" type="email" maxlength="120" inputmode="email" autocomplete="email" enterkeyhint="done" placeholder="anna@example.hu">
-            </label>
-            <div class="pl__group" style="margin-top:16px">
+            <div class="pl__contact-fields">
+              <label class="fld" id="fldName"><span>A neved</span>
+                <input class="inp" id="inName" name="nev" maxlength="80" autocomplete="name" enterkeyhint="next" placeholder="Kovács Anna">
+              </label>
+              <label class="fld" id="fldTel"><span>Telefonszám</span>
+                <input class="inp" id="inTel" name="telefon" type="tel" maxlength="40" inputmode="tel" autocomplete="tel" enterkeyhint="next" placeholder="+36 30 123 4567">
+              </label>
+              <label class="fld" id="fldMail"><span>E-mail <small>(nem kötelező)</small></span>
+                <input class="inp" id="inMail" name="email" type="email" maxlength="120" inputmode="email" autocomplete="email" enterkeyhint="done" placeholder="anna@example.hu">
+              </label>
+            </div>
+            <div class="pl__group" style="margin-top:20px">
               <span class="pl__label">Mikor hívhatunk?</span>
               <div class="chips" id="optCall" role="radiogroup" aria-label="Mikor hívhatunk"></div>
             </div>

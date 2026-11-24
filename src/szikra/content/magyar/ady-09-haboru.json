@@ -1,0 +1,522 @@
+{
+ "unit": "ady",
+ "id": "ady-haboru",
+ "order": 9,
+ "name": "Világháborús versek",
+ "icon": "🕊️",
+ "color": "#8fa3bf",
+ "sum": "Az eltévedt lovas, Ember az embertelenségben, Emlékezés egy nyár-éjszakára…",
+ "learn": [
+  {
+   "id": "hatter",
+   "title": "Ady és a háború",
+   "b": [
+    "1914–1918: I. világháború. Az elején nacionalista lelkesedés; villámháború helyett állóháború.",
+    "Ady kezdettől ellenzi a vérontást – nyíltan háborúellenes, humanista.",
+    "Költészete átalakul: a jelképiség háttérbe szorul, megjelenik az expresszionista képalkotás.",
+    "A halottak élén (1918) – benne a háború alatt született versek."
+   ]
+  },
+  {
+   "id": "ertek",
+   "title": "Értékváltás",
+   "b": [
+    "Az induló Adynál a Holnap, az Új a legfőbb érték.",
+    "A háborúban a Jövő csak újabb borzalmat hozhat → a Tegnap, a Múlt lesz megtartó érték: értékőrzés.",
+    "Az ostorozó hangot a közös sorsvállalás felelőssége váltja fel.",
+    "Intés az őrzőkhöz (1915): „Őrzők, vigyázzatok a strázsán” – az ember Szépbe-szőtt hitét kell őrizni."
+   ]
+  },
+  {
+   "id": "lovas",
+   "title": "Az eltévedt lovas",
+   "p": "lovas",
+   "b": [
+    "1914 augusztusa – az első világháborús verse. A háborút egy szóval sem említi!",
+    "A lovas lehet Magyarország, az emberiség vagy a magára maradt egyén jelképe.",
+    "Látvány nincs, csak hang: „Vak ügetését hallani”. Köd, Ősz, November, múlt századok köde.",
+    "Keret: „Eltévedt, hajdani” → „Hajdani, eltévedt” – a végére a lovas a múlté (halott)."
+   ]
+  },
+  {
+   "id": "ember",
+   "title": "Ember az embertelenségben",
+   "p": "ember",
+   "b": [
+    "1916. szeptember · kiváltó élmény: a román csapatok betörése Erdélybe, menekülő székelyek – Csucsáról látta.",
+    "Erkölcsi parancs: embernek kell maradni az embertelenségben.",
+    "Az embertelenség megfelelője: a Téboly (puskatus, rémség, borzalom). Az emberséghez az értelem tartozik.",
+    "Előbb magát biztatja, a végén másokért kiált."
+   ]
+  },
+  {
+   "id": "nyar",
+   "title": "Emlékezés egy nyár-éjszakára",
+   "p": "nyarejszaka",
+   "b": [
+    "1917 februárja (korlátlan tengeralattjáró-háború) – a háború kitörésének éjszakáját idézi, lidérces álomképekkel.",
+    "A bibliai apokalipszis angyala: „Az Égből dühödt angyal dobolt”.",
+    "Ómenek: kigyulladt a méhes, a csikó lába eltört, Burkus kutya elveszett, a néma Mári dalolt.",
+    "Felborult erkölcsi rend. Refrén: „Különös, / Különös nyár-éjszaka volt.” Műfaj: rapszódia."
+   ]
+  },
+  {
+   "id": "kronika",
+   "title": "Krónikás ének 1918-ból",
+   "p": "kronikas",
+   "b": [
+    "Tinódi krónikás énekeit idézi („summáját írom Eger várának”) – régies stílus, szókincs.",
+    "Krónikásként, kívülállóként sorolja a borzalmakat – de nem tud elhatárolódni.",
+    "Bokorrím = ragrím (igék T/3. személyraggal: gyűlnek, készűlnek…). A monotóniát az „ölnek” töri meg.",
+    "Jeremiád: panaszos elsiratás. Expresszionista: vér-folyó, dög-halmok, halál-mezők."
+   ]
+  }
+ ],
+ "poems": [
+  {
+   "id": "lovas",
+   "title": "Az eltévedt lovas",
+   "year": "1914",
+   "vol": "A halottak élén",
+   "video": "https://www.youtube.com/watch?v=CUzwj9Zg3y8",
+   "notes": [
+    "Rejtélyes, többértelmű szimbolista vers – a háborút meg sem nevezi.",
+    "Köd-motívum, ember nélküli világ, otthontalanság, kiúttalanság.",
+    "„Csupa vérzés, csupa titok…” – a „csupa” fokozza a szorongást.",
+    "Rokon tájak: A magyar Ugaron, A téli Magyarország, Kocsi-út az éjszakában."
+   ],
+   "text": "Vak ügetését hallani\nEltévedt, hajdani lovasnak,\nVolt erdők és ó-nádasok\nLáncolt lelkei riadoznak.\n\nHol foltokban imitt-amott\nŐs sűrűből bozót rekedt meg,\nMost hirtelen téli mesék\nRémei kielevenednek.\n\nItt van a sűrű, a bozót,\nItt van a régi, tompa nóta,\nMely a süket ködben lapult\nVitéz, bús nagyapáink óta.\n\nKisértetes nálunk az Ősz\nS fogyatkozott számú az ember:\nS a domb-keritéses síkon\nKöd-gubában jár a November.\n\nErdővel, náddal pőre sík\nBenőtteti hirtelen, újra\nNovemberes, ködös magát\nMult századok ködébe bújva.\n\nCsupa vérzés, csupa titok,\nCsupa nyomások, csupa ősök,\nCsupa erdők és nádasok,\nCsupa hajdani eszelősök.\n\nHajdani, eltévedt utas\nVág neki új hináru útnak,\nDe nincsen fény, nincs lámpa-láng\nÉs hírük sincsen a faluknak.\n\nAlusznak némán a faluk,\nMultat álmodván dideregve\nS a köd-bozótból kirohan\nOrdas, bölény s nagymérgü medve.\n\nVak ügetését hallani\nHajdani, eltévedt lovasnak,\nVolt erdők és ó-nádasok\nLáncolt lelkei riadoznak."
+  },
+  {
+   "id": "intes",
+   "title": "Intés az őrzőkhöz",
+   "year": "1915",
+   "video": "https://www.youtube.com/watch?v=ahX4j-gzldI",
+   "notes": [
+    "Refrén: „Őrzők, vigyázzatok a strázsán”.",
+    "„Az Élet él és élni akar” – az értékek őrzése a háborúban."
+   ],
+   "text": "Őrzők, vigyázzatok a strázsán,\nCsillag-szórók az éjszakák,\nSzent-János-bogarak a kertben,\nEmlékek elmúlt nyarakon,\nFlórenc nyarán s összekeverten\nBúcsúztató őszi Lidónak\nEmlékei a hajnali\nPárás, dísz-kócos tánci termen,\nTörtént szépek, éltek és voltak,\nKik meg nem halhatnak soha,\nŐrzött elvenek és holtak,\nSzívek távoli mosolya,\nReátok néz, aggódva, árván,\nŐrzők: vigyázzatok a strázsán.\n\nŐrzők, vigyázzatok a strázsán,\nAz Élet él és élni akar,\nNem azért adott annyi szépet,\nHogy átvádoljanak most rajta\nVéres s ostoba feneségek.\nOly szomorú embernek lenni\nS szörnyűek az állat-hős igék\nS a csillag-szóró éjszakák\nMa sem engedik feledtetni\nAz ember Szépbe-szőtt hitét\nS akik még vagytok, őrzők, árván,\nŐrzők: vigyázzatok a strázsán."
+  },
+  {
+   "id": "ember",
+   "title": "Ember az embertelenségben",
+   "year": "1916",
+   "vol": "A halottak élén",
+   "notes": [
+    "Ember ↔ embertelenség szembeállítása határozza meg a verset.",
+    "Erős érzelmi tartalmú kérdő és felkiáltó mondatok.",
+    "Az utolsó sor: „S megint élek, kiáltok másért: / Ember az embertelenségben.”"
+   ],
+   "text": "Szivemet a puskatus zúzta,\nSzememet ezer rémség nyúzta,\nNéma dzsin ült büszke torkomon\nS agyamat a Téboly ütötte.\n\nÉs most mégis, indulj föl, erőm,\nIndulj föl megintlen a Földről!\nHajnal van-e, vagy pokol éjfél?\nMindegy, indulj csak vakmerőn,\nMint régen-régen cselekedted.\n\nÉkes magyarnak soha szebbet\nSzáz menny és pokol sem adhatott:\nEmber az embertelenségben,\nMagyar az űzött magyarságban,\nÚjból-élő és makacs halott.\n\nBorzalmak tiport országútján,\nTetőn, ahogy mindég akartam,\nRévedtem által a szörnyüket:\nMilyen baj esett a magyarban\nS az Isten néha milyen gyenge.\n\nÉs élni kell ma oly halottnak,\nOlyan igazán szenvedőnek,\nKi beteg szívvel tengve-lengve,\nNagy kincseket, akiket lopnak,\nBekvártélyoz béna szivébe\nS vél őrizni egy szebb tegnapot.\n\nÓh, minden gyászok, be értelek,\nÓh, minden Jövő, be féltelek,\n(Bár föltámadt holthoz nem illik)\nS hogy szánom menekülő fajtám.\n\nAztán rossz szivemből szakajtván\nEszembe jut és eszembe jut:\nSzivemet a puskatus zúzta,\nSzememet ezer rémség nyúzta,\nNéma dzsin ült büszke torkomon\nS agyamat a Téboly ütötte.\n\nS megint élek, kiáltok másért:\nEmber az embertelenségben."
+  },
+  {
+   "id": "nyarejszaka",
+   "title": "Emlékezés egy nyár-éjszakára",
+   "year": "1917",
+   "video": "https://24.hu/kultura/2018/11/08/ady-endre-galvolgyi-janos-emlekezes-egy-nyar-ejszakara/",
+   "notes": [
+    "Egyetlen nagy szakasz, amelyet a refrén tagol.",
+    "A rossz lett aktívvá, az ember erkölcsileg kicsivé törpült: megőrült a világ.",
+    "Az egyén nem tud szabadulni a rettenetes éjszaka emlékétől."
+   ],
+   "text": "Az Égből dühödt angyal dobolt\nRiadót a szomoru Földre,\nLegalább száz ifjú bomolt,\nLegalább száz csillag lehullott,\nLegalább száz párta omolt:\nKülönös,\nKülönös nyár-éjszaka volt.\n\nKigyúladt öreg méhesünk,\nLegszebb csikónk a lábát törte,\nÁlmomban élő volt a holt,\nJó kutyánk, Burkus, elveszett\nS Mári szolgálónk, a néma,\nHirtelen hars nótákat dalolt:\nKülönös,\nKülönös nyár-éjszaka volt.\n\nCsörtettek bátran a senkik\nÉs meglapult az igaz ember\nS a kényes rabló is rabolt:\nKülönös,\nKülönös nyár-éjszaka volt.\n\nTudtuk, hogy az ember esendő\nS nagyon adós a szeretettel:\nHiába, mégis furcsa volt\nFordulása élt s volt világnak.\nCsúfolódóbb sohse volt a Hold:\nSohse volt még kisebb az ember,\nMint azon az éjszaka volt:\nKülönös,\nKülönös nyár-éjszaka volt.\n\nAz iszonyuság a lelkekre\nKaján örömmel ráhajolt,\nMinden emberbe beköltözött\nMinden ősének titkos sorsa,\nVéres, szörnyű lakodalomba\nRészegen indult a Gondolat,\nAz Ember büszke legénye,\nKi, íme, senki béna volt:\nKülönös,\nKülönös nyár-éjszaka volt.\n\nAzt hittem, akkor azt hittem,\nValamely elhanyagolt Isten\nÉletre kap s halálba visz\nS, íme, mindmostanig itt élek\nAkként, amaz éjszaka kivé tett\nS Isten-várón emlékezem\nEgy világot elsüllyesztő,\nRettenetes éjszakára:\nKülönös,\nKülönös nyár-éjszaka volt."
+  },
+  {
+   "id": "kronikas",
+   "title": "Krónikás ének 1918-ból",
+   "year": "1918",
+   "video": "https://www.youtube.com/watch?v=-hJiwmDPFGs",
+   "notes": [
+    "Nincsenek már értékek: hit, hajlék, tűzhely, emberség – helyettük öldöklés, bitófa.",
+    "Áthajlás csak az „ölnek” soroknál – nyomatékosít.",
+    "„Kik olvasandják ezt, majd elképűlnek” – nem közömbös, és az olvasót sem hagyja annak."
+   ],
+   "text": "Iszonyú dolgok mostan történűlnek,\nNépek népekkel egymás ellen gyűlnek,\nBűnösök és jók egyként keserűlnek\nS ember hitei kivált meggyöngűlnek.\n\nEmber hajléki már rég nem épűlnek,\nSzivek, tűzhelyek, agyak de sérűlnek,\nKik olvasandják ezt, majd elképűlnek,\nHa ő szivükben hív érzések fűlnek.\n\nJaj, hogy szép álmok ígyen elszörnyűlnek,\nJaj, hogy mindenek igába görnyűlnek,\nJaj, hogy itt most már nem is lelkesűlnek\nS mégis idegen pokol lángján sűlnek.\n\nItt most vér-folyók partból kitérűlnek,\nItt most már minden leendők gyérűlnek,\nItt régi átkok mélyesre mélyűlnek:\nJaj, mik készűlnek, jaj, mik is készűlnek?\n\nHegedűs fickók többet hegedűlnek,\nOlcsó cécókon ezerek vegyűlnek,\nRút zsivány-arcok ékesre derűlnek\nS ijjedt szelidek szökve menekűlnek.\n\nLámpás, szép fejek sután megszédűlnek,\nEmberségesek igen megréműlnek,\nIfjak kik voltak, hoppra megvénűlnek\nS a Föld lakói dög-halmokba dűlnek.\n\nBús kedvű anyák keservesen szűlnek,\nLabdázó fiúk halálba merűlnek,\nŐs, szép kemencék sorjukba elhűlnek\nS kedvelt szűzeink uccára kerűlnek.\n\nS szegény emberek mégsem csömörűlnek,\nButák, fáradtak és néha örűlnek,\nSzegény emberek mindent kitörűlnek\nEmlékeikből, mert csak ölnek, ölnek.\n\nSzegény emberek ölnek és csak ölnek\nS láz-álmaikban boldogan békűlnek\nS reggelre kelvén megint megdühűlnek,\nKárhoznak, halnak, vadakká törpűlnek.\n\nHalál-mezőkön bitófák épűlnek,\nNagy tetejükre kövér varjak űlnek,\nUnják a hullát, el- s vissza-röpűlnek,\nDe az emberek meg nem csömörűlnek."
+  }
+ ],
+ "cards": [
+  {
+   "t": "mc",
+   "l": "hatter",
+   "q": "Milyen képalkotás jelenik meg Ady háborús költészetében?",
+   "a": "Expresszionista",
+   "x": [
+    "Impresszionista",
+    "Romantikus",
+    "Klasszicista"
+   ],
+   "w": "A jelképiség háttérbe szorul."
+  },
+  {
+   "t": "mc",
+   "l": "hatter",
+   "q": "Melyik kötetben jelentek meg a világháborús versek?",
+   "a": "A halottak élén (1918)",
+   "x": [
+    "Az utolsó hajók (1923)",
+    "Ki látott engem? (1914)",
+    "A menekülő Élet (1912)"
+   ],
+   "w": "Ady utolsó, még életében kiadott kötete."
+  },
+  {
+   "t": "tf",
+   "l": "hatter",
+   "q": "Ady a háború elején osztotta a nacionalista lelkesedést.",
+   "ok": false,
+   "w": "Kezdettől ellenezte a vérontást – nyíltan háborúellenes volt."
+  },
+  {
+   "t": "mc",
+   "l": "ertek",
+   "q": "Mi lesz megtartó érték Ady háborús költészetében?",
+   "a": "A Tegnap, a Múlt – az értékőrzés",
+   "x": [
+    "A Holnap, az Új",
+    "A pénz, az arany",
+    "A dicsőség, a győzelem"
+   ],
+   "w": "Megfordul a korábbi értékrend."
+  },
+  {
+   "t": "mc",
+   "l": "ertek",
+   "q": "Mi váltja fel a háborús versekben az ostorozó, bíráló hangot?",
+   "a": "A közös sorsvállalás felelőssége",
+   "x": [
+    "A gúny és a nevetés",
+    "A teljes hallgatás",
+    "A győzelmi ének"
+   ],
+   "w": "A lírai én viszonya a közösséghez is megváltozik."
+  },
+  {
+   "t": "cloze",
+   "l": "ertek",
+   "p": "intes",
+   "s": "Őrzők, [vigyázzatok] a [strázsán]",
+   "x": [
+    "aludjatok",
+    "kapuban"
+   ],
+   "w": "Az Intés az őrzőkhöz refrénje."
+  },
+  {
+   "t": "mc",
+   "l": "lovas",
+   "p": "lovas",
+   "q": "Mikor írta Ady Az eltévedt lovast?",
+   "a": "1914 augusztusában – ez az első világháborús verse",
+   "x": [
+    "1918 novemberében",
+    "1912-ben, a háború előtt",
+    "1916-ban, Csucsán"
+   ],
+   "w": "Nem sokkal a háború kitörése után."
+  },
+  {
+   "t": "tf",
+   "l": "lovas",
+   "p": "lovas",
+   "q": "Az eltévedt lovas többször is megnevezi a háborút.",
+   "ok": false,
+   "w": "Egy szóval sem említi – csak az emberiség eltévelyedéséről szól."
+  },
+  {
+   "t": "mc",
+   "l": "lovas",
+   "p": "lovas",
+   "q": "Kit jelképezhet az eltévedt lovas?",
+   "a": "Magyarországot, az emberiséget vagy a magára maradt egyént",
+   "x": [
+    "Csak Csinszkát",
+    "A pénz istenét",
+    "Thaly Kálmánt"
+   ],
+   "w": "Többértelmű szimbólum."
+  },
+  {
+   "t": "mc",
+   "l": "lovas",
+   "p": "lovas",
+   "q": "Hogyan érzékeljük a lovast a versben?",
+   "a": "Nem látjuk, csak a vak ügetését halljuk",
+   "x": [
+    "Részletesen leírja a külsejét",
+    "Megszólal és beszél hozzánk",
+    "Fényképszerűen látjuk"
+   ],
+   "w": "„Vak ügetését hallani”."
+  },
+  {
+   "t": "mc",
+   "l": "lovas",
+   "p": "lovas",
+   "q": "Mi változik az első és az utolsó versszak között?",
+   "a": "„Eltévedt, hajdani” → „Hajdani, eltévedt”: a lovas a végére a múlté lesz",
+   "x": [
+    "Semmi, a két versszak betűre azonos",
+    "A lovas a végén hazatalál",
+    "A lovasból gyalogos lesz"
+   ],
+   "w": "Szörnyű jövőkép."
+  },
+  {
+   "t": "cloze",
+   "l": "lovas",
+   "p": "lovas",
+   "s": "[Csupa] vérzés, csupa titok, / Csupa nyomások, csupa [ősök]",
+   "x": [
+    "Teli",
+    "álmok"
+   ],
+   "w": "A „csupa” fokozza a szorongást."
+  },
+  {
+   "t": "cloze",
+   "l": "lovas",
+   "p": "lovas",
+   "s": "S a domb-keritéses síkon / Köd-gubában jár a [November].",
+   "x": [
+    "Halál",
+    "Tél"
+   ],
+   "w": "Ősz, köd, November – a halál, a bizonytalanság."
+  },
+  {
+   "t": "mc",
+   "l": "lovas",
+   "p": "lovas",
+   "q": "Melyik korábbi versek tájaival rokon Az eltévedt lovas világa?",
+   "a": "A magyar Ugaron, Kocsi-út az éjszakában",
+   "x": [
+    "Őrizem a szemed, Nézz, Drágám",
+    "Új vizeken járok, Az Illés szekerén",
+    "Párisban járt az Ősz, Szajna-versek"
+   ],
+   "w": "A magyarság kiúttalansága, pusztulása."
+  },
+  {
+   "t": "mc",
+   "l": "ember",
+   "p": "ember",
+   "q": "Mi az Ember az embertelenségben kiváltó élménye?",
+   "a": "A román csapatok betörése Erdélybe, a menekülő székelyek",
+   "x": [
+    "A háború kitörése 1914-ben",
+    "Léda elvesztése",
+    "Egy párizsi utazás"
+   ],
+   "w": "1916 augusztusa – Ady a csucsai kastélyból látta."
+  },
+  {
+   "t": "mc",
+   "l": "ember",
+   "p": "ember",
+   "q": "Mi az embertelenség megfelelője az Ember az embertelenségben?",
+   "a": "A Téboly",
+   "x": [
+    "Az Ugar",
+    "A Nagyúr",
+    "Az Ősz"
+   ],
+   "w": "Puskatus, rémség, borzalom, szörnyű."
+  },
+  {
+   "t": "cloze",
+   "l": "ember",
+   "p": "ember",
+   "s": "Ember az [embertelenségben], / Magyar az űzött [magyarságban]",
+   "x": [
+    "emberségben",
+    "országban"
+   ],
+   "w": "A vers kulcssorai."
+  },
+  {
+   "t": "mc",
+   "l": "ember",
+   "p": "ember",
+   "q": "Milyen erkölcsi parancsot fogalmaz meg az Ember az embertelenségben?",
+   "a": "Embernek kell maradni az embertelenségben",
+   "x": [
+    "Mindenáron győzni kell",
+    "Menekülni kell a háborúból",
+    "Bosszút kell állni"
+   ],
+   "w": "Az értelem fényét nem szabad kialudni hagyni."
+  },
+  {
+   "t": "tf",
+   "l": "ember",
+   "p": "ember",
+   "q": "Az Ember az embertelenségben végén a lírai én már másokért kiált.",
+   "ok": true,
+   "w": "„S megint élek, kiáltok másért”."
+  },
+  {
+   "t": "mc",
+   "l": "nyar",
+   "p": "nyarejszaka",
+   "q": "Mit idéz fel az Emlékezés egy nyár-éjszakára?",
+   "a": "A háború kitörésének éjszakáját, lidérces álomképekkel",
+   "x": [
+    "Egy szerelmes nyári éjszakát Lédával",
+    "Gyerekkori nyarakat Érmindszenten",
+    "A háború végét"
+   ],
+   "w": "A világ felfordult."
+  },
+  {
+   "t": "type",
+   "l": "nyar",
+   "p": "nyarejszaka",
+   "q": "Egészítsd ki a refrént: „Különös, / Különös … volt.”",
+   "a": "nyár-éjszaka",
+   "alt": [
+    "nyárejszaka",
+    "nyár éjszaka"
+   ],
+   "w": "A refrén tagolja az egyetlen nagy szakaszt."
+  },
+  {
+   "t": "mc",
+   "l": "nyar",
+   "p": "nyarejszaka",
+   "q": "Mi az Emlékezés egy nyár-éjszakára műfaja?",
+   "a": "Rapszódia",
+   "x": [
+    "Elégia",
+    "Óda",
+    "Ballada"
+   ],
+   "w": "A zaklatottság kifejezésére a legalkalmasabb."
+  },
+  {
+   "t": "match",
+   "l": "nyar",
+   "p": "nyarejszaka",
+   "q": "Párosítsd az ómeneket (előjeleket)!",
+   "pairs": [
+    [
+     "öreg méhesünk",
+     "kigyulladt"
+    ],
+    [
+     "legszebb csikónk",
+     "a lábát törte"
+    ],
+    [
+     "Burkus, a jó kutyánk",
+     "elveszett"
+    ],
+    [
+     "Mári, a néma szolgáló",
+     "hars nótákat dalolt"
+    ]
+   ],
+   "w": "A mindennapi környezet változásai jelzik a világ felfordulását."
+  },
+  {
+   "t": "cloze",
+   "l": "nyar",
+   "p": "nyarejszaka",
+   "s": "Csörtettek bátran a [senkik] / És meglapult az [igaz] ember",
+   "x": [
+    "hősök",
+    "gonosz"
+   ],
+   "w": "Felborult erkölcsi értékrend."
+  },
+  {
+   "t": "mc",
+   "l": "nyar",
+   "p": "nyarejszaka",
+   "q": "Mikor keletkezett az Emlékezés egy nyár-éjszakára?",
+   "a": "1917 februárjában",
+   "x": [
+    "1914 augusztusában",
+    "1918 novemberében",
+    "1916 szeptemberében"
+   ],
+   "w": "Amikor meghirdették a korlátlan tengeralattjáró-háborút."
+  },
+  {
+   "t": "mc",
+   "l": "kronika",
+   "p": "kronikas",
+   "q": "Kinek a krónikás énekeire emlékeztet a Krónikás ének 1918-ból?",
+   "a": "Tinódi Lantos Sebestyén",
+   "x": [
+    "Balassi Bálint",
+    "Zrínyi Miklós",
+    "Kölcsey Ferenc"
+   ],
+   "w": "„summáját írom Eger várának”."
+  },
+  {
+   "t": "mc",
+   "l": "kronika",
+   "p": "kronikas",
+   "q": "Milyen a Krónikás ének rímtechnikája?",
+   "a": "Bokorrím – ragrím (igék T/3. személyraggal)",
+   "x": [
+    "Félrím (xaxa)",
+    "Keresztrím (abab)",
+    "Rímtelen szabadvers"
+   ],
+   "w": "gyűlnek, keserűlnek, készűlnek… – monoton."
+  },
+  {
+   "t": "mc",
+   "l": "kronika",
+   "p": "kronikas",
+   "q": "Mi töri meg a Krónikás ének monotóniáját?",
+   "a": "Az „ölnek” rím és ismétlés (áthajlással)",
+   "x": [
+    "Egy vidám refrén",
+    "Egy párbeszéd",
+    "A versszakok rövidülése"
+   ],
+   "w": "„mert csak ölnek, ölnek. / Szegény emberek ölnek és csak ölnek”."
+  },
+  {
+   "t": "mc",
+   "l": "kronika",
+   "p": "kronikas",
+   "q": "Mi a jeremiád?",
+   "a": "Panaszos hangvétel, a múlt szépségének elsiratása",
+   "x": [
+    "Harcra buzdító ének",
+    "Vidám tréfás vers",
+    "Bibliai himnusz"
+   ],
+   "w": "Jeremiás próféta siralmaira utal."
+  },
+  {
+   "t": "cloze",
+   "l": "kronika",
+   "p": "kronikas",
+   "s": "Iszonyú dolgok mostan [történűlnek], / Népek népekkel egymás ellen [gyűlnek]",
+   "x": [
+    "lesznek",
+    "harcolnak"
+   ],
+   "w": "A vers nyitánya – közösség cselekszik közösség ellen."
+  },
+  {
+   "t": "order",
+   "l": "kronika",
+   "q": "Rakd keletkezési sorrendbe a háborús verseket!",
+   "items": [
+    "Az eltévedt lovas",
+    "Intés az őrzőkhöz",
+    "Ember az embertelenségben",
+    "Emlékezés egy nyár-éjszakára",
+    "Krónikás ének 1918-ból"
+   ],
+   "w": "1914 → 1915 → 1916 → 1917 → 1918 – minden évre egy!"
+  }
+ ]
+}

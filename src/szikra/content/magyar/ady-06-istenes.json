@@ -1,0 +1,438 @@
+{
+ "unit": "ady",
+ "id": "ady-istenes",
+ "order": 6,
+ "name": "Istenes versek",
+ "icon": "🕯️",
+ "color": "#6cc7ff",
+ "sum": "Álmom: az Isten, A Sion-hegy alatt, Hiszek hitetlenül…, Istenhez hanyatló árnyék",
+ "learn": [
+  {
+   "id": "hatter",
+   "title": "Háttér",
+   "b": [
+    "Édesanyja, Pásztor Mária papok és tanítók leszármazottja → Ady jól ismerte a Bibliát.",
+    "Iskolái vallásos szelleműek: nagykárolyi piarista (szigorú katolikus), majd zilahi református gimnázium.",
+    "Betegsége (szifilisz) az 1900-as évek elején → a halál közelségének tudata.",
+    "Állandó támadások: érthetetlenség, erkölcstelenség, hazafiatlanság – Párizsba, Érmindszentre menekül."
+   ]
+  },
+  {
+   "id": "jell",
+   "title": "Ady Istene",
+   "b": [
+    "Az istenes versek 1908–1912 között jellemzőek (Az Illés szekerén, Szeretném…, A Minden-Titkok versei, A menekülő Élet).",
+    "Nem az egyházak Istene, hanem a maga teremtette Isten – személyes, közvetlen kapcsolat, mint az ószövetségi prófétáké vagy Balassié.",
+    "A megtört lelkű ember fordul hozzá vigaszért; bűnbánat, néha perlekedés, hit a megbocsátásban.",
+    "Párhuzam: Balassi Bálint – Adj már csendességet."
+   ]
+  },
+  {
+   "id": "sion",
+   "title": "A Sion-hegy alatt",
+   "p": "sion",
+   "b": [
+    "1908 · a felnőtt férfi istenkeresése gyermekkori emlékekből indul (lámpás, hajnali mise, harangszó).",
+    "Groteszk Isten: kopott, harang alakú kabátos öregúr, aki harangoz – lidérces álom.",
+    "A lírai én nem tudja az Úr nevét, nem tud egy gyermeki imát sem → a megváltás elmarad.",
+    "A „tékozló fiú” magára marad, sírva ül. Tragikus vallásosság: nem talál békét."
+   ]
+  },
+  {
+   "id": "hiszek",
+   "title": "Hiszek hitetlenül Istenben",
+   "p": "hiszek",
+   "b": [
+    "1910 · a cím paradoxon: hit és hitetlenség, tagadás és megvallás egyszerre.",
+    "Hinni akarás: „Mert hinni akarok”. Visszavágyik a lekacagott értékekhez (szépség, tisztaság, igazság).",
+    "Isten megfejthetetlen titok – de a „titkok titka” a költő önmaga."
+   ]
+  },
+  {
+   "id": "hanyatlo",
+   "title": "Istenhez hanyatló árnyék",
+   "p": "hanyatlo",
+   "b": [
+    "1912 · mottó: Zsoltárok könyve 109. – régies hatás.",
+    "„akart, vágyott Istenem” – a mégis-morál dacával akar hinni.",
+    "Paradoxon: „Ki létlenül is leglevőbb”.",
+    "Zárás – a megtalált bizonyosság: „Nem szabad hinni senki másba.”"
+   ]
+  }
+ ],
+ "poems": [
+  {
+   "id": "alom",
+   "title": "Álmom: az Isten",
+   "video": "https://www.youtube.com/watch?v=WUK3buML7PA",
+   "notes": [
+    "„Batyum: a legsúlyosabb Nincsen, / Utam: a nagy Nihil, a Semmi”.",
+    "Zárás: „Szeret kibékülni az ember, / Mikor halni készül.”"
+   ],
+   "text": "Batyum: a legsúlyosabb Nincsen,\nUtam: a nagy Nihil, a Semmi,\nA sorsom: menni, menni, menni\nS az álmom: az Isten.\n\nVele szeretnék találkozni,\nAz álmommal, nagy, bolond hitben\nS csak ennyit szólni: Isten, Isten\nS újból imádkozni.\n\nNem bírom már harcom vitézül,\nMegtelek Isten-szerelemmel:\nSzeret kibékülni az ember,\nMikor halni készül."
+  },
+  {
+   "id": "sion",
+   "title": "A Sion-hegy alatt",
+   "year": "1908",
+   "video": "https://www.youtube.com/watch?v=EmZeA86M5Qo",
+   "notes": [
+    "Tér és idő fiktív: „valahol”, „nyirkos, vak, őszi hajnal”.",
+    "Az Úr: harang-kabát piros betűkkel foltozva; Rórátéra (hajnali adventi mise) harangoz.",
+    "3. vsz.: a magányos, rongyolt lelkű, istenkereső lírai én.",
+    "A várakozó Úr és a nevét nem tudó „tékozló fiú” örökre elszakadnak."
+   ],
+   "text": "Borzolt, fehér Isten-szakállal,\nTépetten, fázva fújt, szaladt\nAz én Uram, a rég feledett,\nNyirkos, vak, őszi hajnalon,\nValahol Sion-hegy alatt.\n\nEgy nagy harang volt a kabátja,\nPiros betükkel foltozott,\nBús és kopott volt az öreg Úr,\nPaskolta, verte a ködöt,\nRórátéra harangozott.\n\nLámpás volt reszkető kezemben\nÉs rongyolt lelkemben a Hit\nS eszemben a régi ifjuság:\nÉreztem az Isten-szagot\nS kerestem akkor valakit.\n\nMegvárt ott, a Sion-hegy alján\nS lángoltak, égtek a kövek.\nHarangozott és simogatott,\nBekönnyezte az arcomat,\nJó volt, kegyes volt az öreg.\n\nRáncos, vén kezét megcsókoltam\nS jajgatva törtem az eszem:\n„Hogy hívnak téged, szép, öreg Úr,\nKihez mondottam sok imát?\nJaj, jaj, jaj, nem emlékezem.”\n\n„Halottan visszajöttem hozzád\nÉn, az életben kárhozott.\nCsak tudnék egy gyermeki imát.”\nŐ nézett reám szomorún\nS harangozott, harangozott.\n\n„Csak nagyszerű nevedet tudnám.”\nŐ várt, várt s aztán fölszaladt.\nMinden lépése zsoltár-ütem:\nHalotti zsoltár. S én ülök\nSírván a Sion-hegy alatt."
+  },
+  {
+   "id": "hiszek",
+   "title": "Hiszek hitetlenül Istenben",
+   "year": "1910",
+   "video": "https://www.youtube.com/watch?v=luV0bEWI3tw",
+   "notes": [
+    "Kétségbeesett hit: istenközelség és elhagyatottság, hit és kétség.",
+    "„Hiszek Krisztusban, Krisztust várok, / Beteg vagyok, beteg.”",
+    "„És én vagyok a titkok titka, / Szegény, hajszolt magam.”"
+   ],
+   "text": "Hiszek hitetlenül Istenben,\nMert hinni akarok,\nMert sohse volt úgy rászorulva\nSem élő, sem halott.\n\nSzinte ömölnek tört szivemből\nA keserű igék,\nMelyek tavaly még holtak voltak,\nCifrázott semmiség.\n\nMost minden-minden imává vált,\nMost minden egy husáng,\nMely veri szívem, testem, lelkem\nS mely kegyes szomjuság.\n\nSzépség, tisztaság és igazság,\nLekacagott szavak,\nÓh, bár haltam volna meg akkor,\nHa lekacagtalak.\n\nSzüzesség, jóság, bölcs derékség,\nÓh, jaj, be kellettek.\nHiszek Krisztusban, Krisztust várok,\nBeteg vagyok, beteg.\n\nMeg-megállok, mint alvajáró\nS eszmélni akarok\nS szent káprázatokban előttem\nSzáz titok kavarog.\n\nMinden titok e nagy világon\nS az Isten is, ha van\nÉs én vagyok a titkok titka,\nSzegény, hajszolt magam.\n\nIsten, Krisztus, Erény és sorban\nMinden, mit áhitok\nS mért áhitok? - ez magamnál is,\nÓh, jaj, nagyobb titok."
+  },
+  {
+   "id": "hanyatlo",
+   "title": "Istenhez hanyatló árnyék",
+   "year": "1912",
+   "motto": "„Mint az árnyék, mikor elhanyatlik, el kell mennem, és ide s tova hányattatom, mint a sáska.” (Zsoltárok könyve 109.)",
+   "video": "https://www.youtube.com/watch?v=cT2_ooXe3v0",
+   "notes": [
+    "A megnyugtató hitért, a biztos támaszért könyörög.",
+    "Üldöztetés, szenvedés hajtja az elfelejtett Istenhez.",
+    "A 109. zsoltár két sorát beleszövi a versbe."
+   ],
+   "text": "Akaratomból is kihullassz,\nÉn akart, vágyott Istenem,\nMár magamat sem ismerem\nS Hozzád beszélni rontás fullaszt.\n\nÜldöztetésimben kellettél\nS kerestelek bús-szilajon\nS már-már jajomból kihagyom\nNeved, mely szebb minden neveknél.\n\nSzent Képzelés, örök hit-balzsam,\nKi létlenül is leglevőbb,\nMeghalok szent Szined előtt\nS akarom, hogy hited akarjam.\n\nMegűzeték s nem nyugszom addig,\nMíg hitedet meg nem nyerem,\nMert kockán van az életem,\nMint árnyék, mikor elhanyatlik.\n\nS hányattatom, miként a sáska,\nMert csak Tenéked van erőd\nS mert nem láttam régen előbb:\nNem szabad hinni senki másba."
+  }
+ ],
+ "cards": [
+  {
+   "t": "mc",
+   "l": "hatter",
+   "q": "Ki volt Ady édesanyja?",
+   "a": "Pásztor Mária",
+   "x": [
+    "Boncza Berta",
+    "Brüll Adél",
+    "Kiss Mária"
+   ],
+   "w": "Papok és tanítók leszármazottja."
+  },
+  {
+   "t": "mc",
+   "l": "hatter",
+   "q": "Melyik volt Ady szigorú katolikus iskolája?",
+   "a": "A nagykárolyi piarista gimnázium",
+   "x": [
+    "A zilahi református gimnázium",
+    "A debreceni jogakadémia",
+    "A párizsi Sorbonne"
+   ],
+   "w": "Utána Zilahon, református gimnáziumban folytatta."
+  },
+  {
+   "t": "mc",
+   "l": "hatter",
+   "q": "Mivel vádolták Adyt a támadói?",
+   "a": "Érthetetlenséggel, erkölcstelenséggel, hazafiatlansággal",
+   "x": [
+    "Lustasággal és tehetségtelenséggel",
+    "Túlzott vallásossággal",
+    "Kuruc-ellenességgel"
+   ],
+   "w": "Ezért menekült többször Párizsba, illetve haza Érmindszentre."
+  },
+  {
+   "t": "mc",
+   "l": "jell",
+   "q": "Mikor jellemzőek az istenes versek Ady költészetében?",
+   "a": "1908–1912 között",
+   "x": [
+    "1899–1903 között",
+    "1914–1918 között",
+    "Csak 1906-ban"
+   ],
+   "w": "Bár a Biblia világa az egész életművet áthatja."
+  },
+  {
+   "t": "tf",
+   "l": "jell",
+   "q": "Ady Istene az egyházak Istene, akihez szertartásokon keresztül fordul.",
+   "ok": false,
+   "w": "A maga teremtette Isten, személyes, közvetlen kapcsolattal."
+  },
+  {
+   "t": "mc",
+   "l": "jell",
+   "q": "Melyik régi költő istenes verseivel rokon Ady istenkeresése?",
+   "a": "Balassi Bálint",
+   "x": [
+    "Petőfi Sándor",
+    "Arany János",
+    "Csokonai Vitéz Mihály"
+   ],
+   "w": "A sokat szenvedett ember vigaszért, lelki békéért fordul Istenhez."
+  },
+  {
+   "t": "mc",
+   "l": "jell",
+   "q": "Melyik Balassi-verssel érdemes párhuzamba állítani?",
+   "a": "Adj már csendességet…",
+   "x": [
+    "Egy katonaének",
+    "Hogy Júliára talála, így köszöne neki",
+    "Borivóknak való"
+   ],
+   "w": "9. évfolyamos anyag – párhuzamnak tökéletes."
+  },
+  {
+   "t": "sort",
+   "l": "jell",
+   "q": "Jellemző Ady istenes verseire, vagy nem?",
+   "cats": [
+    "Jellemző",
+    "Nem jellemző"
+   ],
+   "ca": [
+    "bűnbánat",
+    "perlekedés Istennel",
+    "hit a megbocsátásban"
+   ],
+   "cb": [
+    "egyházi szertartások leírása",
+    "magabiztos, kétség nélküli hit",
+    "más vallások gúnyolása"
+   ],
+   "w": "A kiábrándult lélek biztos kapaszkodót keres."
+  },
+  {
+   "t": "cloze",
+   "l": "jell",
+   "p": "alom",
+   "s": "Szeret [kibékülni] az ember, / Mikor [halni] készül.",
+   "x": [
+    "harcolni",
+    "élni"
+   ],
+   "w": "Álmom: az Isten – zárósorok."
+  },
+  {
+   "t": "cloze",
+   "l": "jell",
+   "p": "alom",
+   "s": "Batyum: a legsúlyosabb [Nincsen], / Utam: a nagy [Nihil], a Semmi",
+   "x": [
+    "Arany",
+    "Holnap"
+   ],
+   "w": "Álmom: az Isten nyitánya."
+  },
+  {
+   "t": "mc",
+   "l": "sion",
+   "p": "sion",
+   "q": "Hogyan jelenik meg az Úr A Sion-hegy alatt című versben?",
+   "a": "Kopott, harang alakú kabátos, harangozó öregúrként – groteszken",
+   "x": [
+    "Villámló, haragvó bíróként",
+    "Fényes angyalok közt trónolva",
+    "Disznófejű Nagyúrként"
+   ],
+   "w": "„Egy nagy harang volt a kabátja”."
+  },
+  {
+   "t": "mc",
+   "l": "sion",
+   "p": "sion",
+   "q": "Miből indul az istenkeresés A Sion-hegy alatt?",
+   "a": "Gyermekkori emlékekből (lámpás, hajnali mise, harangszó)",
+   "x": [
+    "Egy párizsi templomlátogatásból",
+    "A háború borzalmaiból",
+    "Léda tanácsából"
+   ],
+   "w": "A kisdiák lámpással indul hajnali misére."
+  },
+  {
+   "t": "tf",
+   "l": "sion",
+   "p": "sion",
+   "q": "A Sion-hegy alatt végén a lírai én megtalálja a hitet és megnyugszik.",
+   "ok": false,
+   "w": "A megváltás elmarad: elhagyatottan ül és sír."
+  },
+  {
+   "t": "mc",
+   "l": "sion",
+   "p": "sion",
+   "q": "Miért marad el a megváltás A Sion-hegy alatt?",
+   "a": "Mert a lírai én elfelejtette az Úr nevét és a gyermeki imát",
+   "x": [
+    "Mert az Úr elküldi",
+    "Mert elalszik",
+    "Mert Párizsba utazik"
+   ],
+   "w": "„Csak nagyszerű nevedet tudnám.”"
+  },
+  {
+   "t": "cloze",
+   "l": "sion",
+   "p": "sion",
+   "s": "„Hogy hívnak téged, szép, öreg Úr, / Kihez mondottam sok imát? / Jaj, jaj, jaj, nem [emlékezem].”",
+   "x": [
+    "tudok hinni",
+    "látlak"
+   ],
+   "w": "A tékozló fiú nem tudja a nevet."
+  },
+  {
+   "t": "type",
+   "l": "sion",
+   "p": "sion",
+   "q": "Melyik bibliai példázat alakjához hasonlítható a hazatérő, Úr nevét nem tudó lírai én? (a … fiú)",
+   "a": "tékozló fiú",
+   "alt": [
+    "a tékozló fiú",
+    "tékozló"
+   ],
+   "w": "Hitehagyott felnőttként tér vissza az Úrhoz."
+  },
+  {
+   "t": "mc",
+   "l": "sion",
+   "p": "sion",
+   "q": "Milyen hangulatú A Sion-hegy alatt?",
+   "a": "Lidérces, kísérteties, mint egy rossz álom",
+   "x": [
+    "Vidám, ünnepi",
+    "Harcias, lelkesítő",
+    "Tárgyilagos, tudósító"
+   ],
+   "w": "Képtelen látomás: lángoló kövek, monoton harangszó."
+  },
+  {
+   "t": "mc",
+   "l": "hiszek",
+   "p": "hiszek",
+   "q": "Milyen stíluseszköz a cím: „Hiszek hitetlenül”?",
+   "a": "Paradoxon",
+   "x": [
+    "Hasonlat",
+    "Alliteráció",
+    "Megszólítás"
+   ],
+   "w": "Hit és hitetlenség egyszerre."
+  },
+  {
+   "t": "cloze",
+   "l": "hiszek",
+   "p": "hiszek",
+   "s": "Hiszek hitetlenül Istenben, / Mert hinni [akarok], / Mert sohse volt úgy [rászorulva] / Sem élő, sem halott.",
+   "x": [
+    "tudok",
+    "elfáradva"
+   ],
+   "w": "A hinni akarás szándéka."
+  },
+  {
+   "t": "mc",
+   "l": "hiszek",
+   "p": "hiszek",
+   "q": "Kit nevez a költő a „titkok titkának”?",
+   "a": "Önmagát",
+   "x": [
+    "Istent",
+    "Krisztust",
+    "Csinszkát"
+   ],
+   "w": "„És én vagyok a titkok titka, / Szegény, hajszolt magam.”"
+  },
+  {
+   "t": "tf",
+   "l": "hiszek",
+   "p": "hiszek",
+   "q": "A Hiszek hitetlenül Istenben című versben egyszerre van jelen Isten tagadása és megvallása.",
+   "ok": true,
+   "w": "Kétségbeesett hit: hit és kétség."
+  },
+  {
+   "t": "mc",
+   "l": "hiszek",
+   "p": "hiszek",
+   "q": "Milyen értékekhez vágyik vissza a költő, amiket korábban „lekacagott”?",
+   "a": "Szépség, tisztaság, igazság, jóság",
+   "x": [
+    "Pénz, hírnév, siker",
+    "Harc, dicsőség, győzelem",
+    "Párizs, bor, szerelem"
+   ],
+   "w": "„Óh, bár haltam volna meg akkor, / Ha lekacagtalak.”"
+  },
+  {
+   "t": "mc",
+   "l": "hanyatlo",
+   "p": "hanyatlo",
+   "q": "Honnan való az Istenhez hanyatló árnyék mottója?",
+   "a": "Zsoltárok könyve 109.",
+   "x": [
+    "Ésaiás könyve",
+    "Jób könyve",
+    "Jelenések könyve"
+   ],
+   "w": "A zsoltár két sorát bele is szövi a versbe."
+  },
+  {
+   "t": "cloze",
+   "l": "hanyatlo",
+   "p": "hanyatlo",
+   "s": "Szent Képzelés, örök hit-balzsam, / Ki létlenül is [leglevőbb]",
+   "x": [
+    "legszebb",
+    "legtávolabb"
+   ],
+   "w": "Paradoxon: hit és hitetlenség egyszerre."
+  },
+  {
+   "t": "mc",
+   "l": "hanyatlo",
+   "p": "hanyatlo",
+   "q": "Hogyan zárul az Istenhez hanyatló árnyék?",
+   "a": "„Nem szabad hinni senki másba.”",
+   "x": [
+    "„Uram, én megadom magam.”",
+    "„Sohse nézek többet vissza.”",
+    "„Hogyha akarunk, ha merünk.”"
+   ],
+   "w": "A megtalált bizonyosság."
+  },
+  {
+   "t": "mc",
+   "l": "hanyatlo",
+   "p": "hanyatlo",
+   "q": "Hogyan nevezi Istent az Istenhez hanyatló árnyékban?",
+   "a": "„akart, vágyott Istenem”",
+   "x": [
+    "„öreg Úr”",
+    "„disznófejű Nagyúr”",
+    "„Korhely-Apolló”"
+   ],
+   "w": "A mégis-morál dacával akar bízni."
+  },
+  {
+   "t": "order",
+   "l": "hanyatlo",
+   "q": "Rakd keletkezési sorrendbe az istenes verseket!",
+   "items": [
+    "A Sion-hegy alatt",
+    "Hiszek hitetlenül Istenben",
+    "Istenhez hanyatló árnyék"
+   ],
+   "w": "1908 → 1910 → 1912."
+  }
+ ]
+}

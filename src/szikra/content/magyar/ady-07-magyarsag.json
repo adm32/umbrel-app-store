@@ -1,0 +1,464 @@
+{
+ "unit": "ady",
+ "id": "ady-magyarsag",
+ "order": 7,
+ "name": "Magyarság-versek",
+ "icon": "🪨",
+ "color": "#3ee6a8",
+ "sum": "Nekünk Mohács kell, A föl-földobott kő, Magyar jakobinus dala…",
+ "links": [
+  {
+   "title": "Zanza: Ady és a magyarság",
+   "url": "https://zanza.tv/irodalom/klasszikus-modernseg-realizmus-naturalizmus-szimbolizmus-impresszionizmus-szecesszio/ady-0"
+  }
+ ],
+ "learn": [
+  {
+   "id": "felt",
+   "title": "Nemzetféltés",
+   "b": [
+    "A nemzetféltés, a szorongás váltja ki a keserű, átkozódó, ostorozó magyarság-verseket.",
+    "„Mit ér az ember, ha magyar?” · a táj halálszagú róna, fojtó ugar, a nép megérett egy új Mohácsra.",
+    "A kérdés: fennmarad-e a nyelvileg, kulturálisan elszigetelt magyarság a népek versengésében?"
+   ]
+  },
+  {
+   "id": "vetek",
+   "title": "Nemzeti vétkek Ady szerint",
+   "b": [
+    "Akarathiány, tenni nem tudás.",
+    "Szavakban nagyhangúság, hencegő dicsekvés – tettekben patópálos tehetetlenség.",
+    "A magyarság a „hőkölő” harcok szánalmas népe."
+   ]
+  },
+  {
+   "id": "mohacs",
+   "title": "Nekünk Mohács kell · A fajok cirkuszában",
+   "p": "mohacs",
+   "b": [
+    "Nekünk Mohács kell (1908): a legkönyörtelenebb népostorozó vers.",
+    "Benedek Marcell: „fordított himnusz” – Istentől nem áldást, hanem verést kér, mert sorscsapások nélkül elpusztulna a nemzet.",
+    "A fajok cirkuszában (1910): lemaradásunk tragikus szomorúsága, céltalanság, a nemzethalál gondolata – mint Berzsenyi, Kölcsey, Vörösmarty."
+   ]
+  },
+  {
+   "id": "ko",
+   "title": "A föl-földobott kő · Az én magyarságom",
+   "p": "kodobott",
+   "b": [
+    "A föl-földobott kő (1909 nyara): féléves párizsi és riviérai út után hazatérve.",
+    "A kő mindig visszahull a földre: szükségszerűség, determináltság – a hazaszeretet = gravitáció.",
+    "Vállalja magyarságát a nép hibáival együtt. Az én magyarságom (1908): „Mindennél keserűbb, / Mindennél igazabb.”"
+   ]
+  },
+  {
+   "id": "jakob",
+   "title": "Magyar jakobinus dala · Az Idő rostájában",
+   "p": "jakobinus",
+   "b": [
+    "Magyar jakobinus dala (1908): a nemzetiségek sorsközössége, összefogása – „eszme-barrikádok”.",
+    "Hazaszeretetében nincs nacionalizmus, sovinizmus – az erőszakos magyarosítás idején is.",
+    "Az Idő rostájában (1914): az Idő óriás rostával rostál – aki nem mag a Jövőnek, kihull."
+   ]
+  },
+  {
+   "id": "ossz",
+   "title": "Összegzés",
+   "b": [
+    "Kritikai nemzetszemlélet: gyöngéd szeretet + öntudatos bírálat – mint Berzsenyi, Kölcsey, Vörösmarty, Petőfi.",
+    "Az úri Magyarország a múlthoz kötötte a magyarságot; Adynál a magyarság = a múltban gyökerező új, a haladás.",
+    "Góg és Magóg, Vazul: lázadó magatartásuk miatt fontosak neki. Harca a szellem harca a korlátoltság ellen."
+   ]
+  }
+ ],
+ "poems": [
+  {
+   "id": "enmagyar",
+   "title": "Az én magyarságom",
+   "year": "1908",
+   "notes": [
+    "Négy versszak, mind „Az én magyarságom” sorral kezdődik.",
+    "Ellentétes jelzők: keserű, igaz, véres, fekete, büszke, átkozott."
+   ],
+   "text": "Az én magyarságom\nMindennél keserűbb,\nMindennél igazabb.\n\nAz én magyarságom\nVéres és fekete,\nVéres és szomorú.\n\nAz én magyarságom\nBüszke felleg-orom,\nBüszke, nagy sirató.\n\nAz én magyarságom:\nNincs ilyen átkozott,\nNincs ilyen igazi."
+  },
+  {
+   "id": "mohacs",
+   "title": "Nekünk Mohács kell",
+   "year": "1908",
+   "video": "https://www.youtube.com/watch?v=Jr1sAhctp6w",
+   "notes": [
+    "„Fordított himnusz” (Benedek Marcell).",
+    "Isten segítségét a verésben, az örök büntetésben kéri (Király István).",
+    "Mert békességben „akkor végünk, végünk”."
+   ],
+   "text": "Ha van Isten, ne könyörüljön rajta:\nVeréshez szokott fajta,\nCigány-népek langy szivű sihederje,\nVerje csak, verje, verje.\n\nHa van Isten, meg ne sajnáljon engem:\nÉn magyarnak születtem.\nSzent galambja nehogy zöld ágat hozzon,\nÜssön csak, ostorozzon.\n\nHa van Isten, földtől a fényes égig\nRángasson minket végig.\nNe legyen egy félpercnyi békességünk,\nMert akkor végünk, végünk."
+  },
+  {
+   "id": "fajok",
+   "title": "A fajok cirkuszában",
+   "year": "1910",
+   "video": "https://www.youtube.com/watch?v=YM-zvpPEUo8",
+   "notes": [
+    "A magyarság képtelen felküzdeni magát a történelemformáló népek közé.",
+    "Eltévedés, reménytelenség, komor céltalanság.",
+    "„Cirkusz-ponyvák / Bohóc-sorsa leng előttünk.”"
+   ],
+   "text": "Magyar bolyba sodort léttel\nSírom el, hogy nincs magyarság,\nNincs kivétel\nS még a fájdalmunk is régi.\n\nMinden, minden ideálunk\nMásutt megunt ócskaság már,\nHarcba szállunk\nS már tudjuk, hogy kár a harcért.\n\nCsak cammogva fonjuk éltünk\nMások elhányt guzsalyáról\nS nem kár értünk,\nHa elvágják fonalunkat.\n\nCsak valami más is volna\nA mi másolt életünkben,\nMint új borba\nBelesajtolt szagos fürtök.\n\nDe a mi kis bolyunk semmi,\nHúsvéttalan a magyarság\nS írni, tenni\nMégis űznek nagy parancsok.\n\nNem tudom, hogy mi a célja\nEnnek a hazug életnek,\nMégis néha\nEzért mindent lángba dobnék.\n\nMi az én nyomoruságom,\nBármi koldus, bármilyen bús?\nSírva látom:\nKietlenebb a fajtámé.\n\nCéljainkat elcélozták,\nÉletünket már elélték.\nCirkusz-ponyvák\nBohóc-sorsa leng előttünk."
+  },
+  {
+   "id": "kodobott",
+   "title": "A föl-földobott kő",
+   "year": "1909",
+   "video": "https://www.youtube.com/watch?v=4HnDk9-YY4o",
+   "notes": [
+    "A hazához, a „kicsi országhoz” való sorsszerű kötődés egyik legszebb vallomása.",
+    "Címadó metafora: a földobott kő mindig visszahull – determináltság, gravitáció.",
+    "„Százszor földobnál, én visszaszállnék, / Százszor is, végül is.”"
+   ],
+   "text": "Föl-földobott kő, földedre hullva,\nKicsi országom, újra meg újra\nHazajön a fiad.\n\nMessze tornyokat látogat sorba,\nSzédül, elbusong s lehull a porba,\nAmelyből vétetett.\n\nMindig elvágyik s nem menekülhet,\nMagyar vágyakkal, melyek elülnek\nS fölhorgadnak megint.\n\nTied vagyok én nagy haragomban,\nNagy hűtlenségben, szerelmes gondban\nSzomoruan magyar.\n\nFöl-fölhajtott kő, bús akaratlan,\nKicsi országom, példás alakban\nTe orcádra ütök.\n\nÉs, jaj, hiába mindenha szándék,\nSzázszor földobnál, én visszaszállnék,\nSzázszor is, végül is."
+  },
+  {
+   "id": "jakobinus",
+   "title": "Magyar jakobinus dala",
+   "year": "1908",
+   "video": "https://www.youtube.com/watch?v=52ilK-HWITw",
+   "notes": [
+    "A nemzetiségek (magyar, oláh, szláv) sorsközössége és összefogása.",
+    "Kérdések sora: „Mikor fogunk már összefogni?”",
+    "Zárás: „Holnap már minden a mienk lesz, / Hogyha akarunk, ha merünk.”"
+   ],
+   "text": "Ujjunk begyéből vér serken ki,\nMikor téged tapogatunk,\nTe álmos, szegény Magyarország,\nVajon vagy-e és mink vagyunk?\n\nVajon lehet-e jobbra várni?\nSzemünk és lelkünk fáj bele,\nVajon fölébred valahára\nA szolga-népek Bábele?\n\nEzer zsibbadt vágyból mért nem lesz\nVégül egy erős akarat?\nHiszen magyar, oláh, szláv bánat\nMindigre egy bánat marad.\n\nHiszen gyalázatunk, keservünk\nMár ezer év óta rokon.\nMért nem találkozunk süvöltve\nAz eszme-barrikádokon?\n\nDunának, Oltnak egy a hangja,\nMorajos, halk, halotti hang.\nÁrpád hazájában jaj annak,\nAki nem úr és nem bitang.\n\nMikor fogunk már összefogni?\nMikor mondunk már egy nagyot,\nMi, elnyomottak, összetörtek,\nMagyarok és nem-magyarok?\n\nMeddig lesz még úr a betyárság\nÉs pulyahad mi, milliók?\nMagyarország népe meddig lesz\nKalitkás seregély-fiók?\n\nBús koldusok Magyarországa,\nMa se hitünk, se kenyerünk.\nHolnap már minden a mienk lesz,\nHogyha akarunk, ha merünk."
+  },
+  {
+   "id": "rosta",
+   "title": "Az Idő rostájában",
+   "year": "1914",
+   "video": "https://www.youtube.com/watch?v=5drqXnceEGc",
+   "notes": [
+    "Az Idő óriás rostával rostál: aki nem mag a Jövőnek, kihull.",
+    "A költő is osztja faj-sorsát: „Be igazság szerint hullunk ki”."
+   ],
+   "text": "Kezében óriás rostával\nÁll az Idő és rostál egyre,\nVilágokat szed és rostál ki\nVidáman és nem keseregve\nS búsul csak az, akit kihullat.\n\nS aki kihull, megérdemelte,\nAz ocsut az Idő nem szánja,\nAszott nemzetek, hült világok,\nTört életek miazmás vágya\nHalálra-valók s nem kár értük.\n\nSzóljak próféták új szavával:\nNem kik mertek tagadni multat,\nDe kik nem magvak a Jövőnek,\nMindig azok, akik kihullnak:\nVilágok, népek, girhes eszmék.\n\nFonnyadtak s összezsugorodtak,\n(Így szól az új próféta-ének)\nAz Úr, az Idő áll örökké,\nDe elmulnak a renyhe népek\nS velük együtt a tiszta Lóthok.\n\nÓh, aszottak és be nem teltek\nS óh, magam is faj-sorsom osztván,\nBe igazság szerint hullunk ki\nA kegyetlen óriás rostán,\nKedvét nem töltvén az Időnek."
+  }
+ ],
+ "cards": [
+  {
+   "t": "mc",
+   "l": "felt",
+   "q": "Mi váltotta ki Adyból a magyarság-verseket?",
+   "a": "A nemzetféltés, a szorongás",
+   "x": [
+    "A győzelmi mámor",
+    "A pénz utáni vágy",
+    "Léda kérése"
+   ],
+   "w": "Keserű, átkozódó, ostorozó költemények."
+  },
+  {
+   "t": "tf",
+   "l": "felt",
+   "q": "Ady attól félt, hogy a nyelvileg, kulturálisan elszigetelt magyarság névtelenül elvérzik a népek harcában.",
+   "ok": true,
+   "w": "Ez a magyarság-versek alapkérdése."
+  },
+  {
+   "t": "mc",
+   "l": "vetek",
+   "q": "Melyik nemzeti vétket ostorozza Ady?",
+   "a": "Akarathiány, patópálos tehetetlenség",
+   "x": [
+    "Túlzott szorgalom",
+    "Szerénység, csendesség",
+    "Túl sok tett, kevés szó"
+   ],
+   "w": "Szavakban nagyhangúság, tettekben tehetetlenség."
+  },
+  {
+   "t": "cloze",
+   "l": "vetek",
+   "s": "A magyarság szerinte a „[hőkölő]” harcok szánalmas népe.",
+   "x": [
+    "győztes",
+    "hősi",
+    "véres"
+   ],
+   "w": "Nekilendül, aztán visszahőköl."
+  },
+  {
+   "t": "mc",
+   "l": "mohacs",
+   "p": "mohacs",
+   "q": "Ki nevezte a Nekünk Mohács kellt „fordított himnusznak”?",
+   "a": "Benedek Marcell",
+   "x": [
+    "Király István",
+    "Riedl Frigyes",
+    "Hatvany Lajos"
+   ],
+   "w": "Irodalomtudós."
+  },
+  {
+   "t": "mc",
+   "l": "mohacs",
+   "p": "mohacs",
+   "q": "Miért kér verést Istentől a Nekünk Mohács kell?",
+   "a": "Mert az állandó sorscsapások nélkül elpusztulna a nemzet",
+   "x": [
+    "Mert gyűlöli a magyarokat",
+    "Mert nem hisz Istenben",
+    "Mert háborút akar"
+   ],
+   "w": "„Ne legyen egy félpercnyi békességünk, / Mert akkor végünk, végünk.”"
+  },
+  {
+   "t": "cloze",
+   "l": "mohacs",
+   "p": "mohacs",
+   "s": "Ne legyen egy félpercnyi [békességünk], / Mert akkor [végünk], végünk.",
+   "x": [
+    "boldogságunk",
+    "jónk"
+   ],
+   "w": "A Nekünk Mohács kell zárása."
+  },
+  {
+   "t": "cloze",
+   "l": "mohacs",
+   "p": "mohacs",
+   "s": "Ha van Isten, meg ne sajnáljon engem: / Én [magyarnak] [születtem].",
+   "x": [
+    "költőnek",
+    "vétettem"
+   ],
+   "w": "A 2. versszak."
+  },
+  {
+   "t": "mc",
+   "l": "mohacs",
+   "p": "fajok",
+   "q": "Mi szólal meg A fajok cirkuszában?",
+   "a": "A lemaradásunk miatti tragikus szomorúság, céltalanság",
+   "x": [
+    "Győzelmi öröm",
+    "Szerelmi féltékenység",
+    "Vallásos áhítat"
+   ],
+   "w": "A magyarság képtelen a történelemformáló népek közé felküzdeni magát."
+  },
+  {
+   "t": "cloze",
+   "l": "mohacs",
+   "p": "fajok",
+   "s": "Céljainkat [elcélozták], / Életünket már [elélték].",
+   "x": [
+    "elvesztettük",
+    "eladták"
+   ],
+   "w": "Mindent mások csináltak meg előttünk."
+  },
+  {
+   "t": "mc",
+   "l": "mohacs",
+   "p": "fajok",
+   "q": "Kik vívódtak Adyhoz hasonlóan a nemzethalál gondolatával?",
+   "a": "Berzsenyi, Kölcsey, Vörösmarty",
+   "x": [
+    "Balassi, Zrínyi, Janus Pannonius",
+    "Babits, Kosztolányi, Juhász",
+    "Jókai, Mikszáth, Gárdonyi"
+   ],
+   "w": "A nemzethalál-motívum hagyománya."
+  },
+  {
+   "t": "mc",
+   "l": "ko",
+   "p": "kodobott",
+   "q": "Mit fejez ki A föl-földobott kő címadó metaforája?",
+   "a": "A hazához való sorsszerű kötődést: mindig visszahull",
+   "x": [
+    "A menekülés sikerét",
+    "A pénz hatalmát",
+    "A szerelem könnyedségét"
+   ],
+   "w": "Szükségszerűség, determináltság, helyhez kötöttség."
+  },
+  {
+   "t": "mc",
+   "l": "ko",
+   "p": "kodobott",
+   "q": "Melyik erővel azonosul a hazaszeretet A föl-földobott kőben?",
+   "a": "A gravitációval",
+   "x": [
+    "A mágnesességgel",
+    "A széllel",
+    "A tűzzel"
+   ],
+   "w": "A világegyetemet működésben tartó legnagyobb erő."
+  },
+  {
+   "t": "cloze",
+   "l": "ko",
+   "p": "kodobott",
+   "s": "Föl-földobott kő, földedre hullva, / Kicsi [országom], újra meg újra / [Hazajön] a fiad.",
+   "x": [
+    "falum",
+    "Elmegy"
+   ],
+   "w": "A vers nyitánya – a térképen is ott van!"
+  },
+  {
+   "t": "mc",
+   "l": "ko",
+   "p": "kodobott",
+   "q": "Milyen helyzetben született A föl-földobott kő?",
+   "a": "1909 nyarán, féléves párizsi és riviérai út után hazatérve",
+   "x": [
+    "A fronton, 1916-ban",
+    "Csucsán, az esküvő után",
+    "Nagyváradon, újságíróként"
+   ],
+   "w": "Újra hazatért – ahogy a kő."
+  },
+  {
+   "t": "cloze",
+   "l": "ko",
+   "p": "kodobott",
+   "s": "Tied vagyok én nagy [haragomban], / Nagy hűtlenségben, szerelmes gondban / Szomoruan [magyar].",
+   "x": [
+    "örömömben",
+    "boldog"
+   ],
+   "w": "A hibáival együtt vállalja."
+  },
+  {
+   "t": "cloze",
+   "l": "ko",
+   "p": "enmagyar",
+   "s": "Az én magyarságom / Mindennél [keserűbb], / Mindennél [igazabb].",
+   "x": [
+    "édesebb",
+    "szebb"
+   ],
+   "w": "Az én magyarságom (1908)."
+  },
+  {
+   "t": "mc",
+   "l": "jakob",
+   "p": "jakobinus",
+   "q": "Mit hirdet a Magyar jakobinus dala?",
+   "a": "A magyar és nem-magyar elnyomottak összefogását",
+   "x": [
+    "A magyarok felsőbbrendűségét",
+    "A nemesség dicsőségét",
+    "A háború szükségességét"
+   ],
+   "w": "„Magyarok és nem-magyarok”."
+  },
+  {
+   "t": "cloze",
+   "l": "jakob",
+   "p": "jakobinus",
+   "s": "Mért nem találkozunk süvöltve / Az [eszme-barrikádokon]?",
+   "x": [
+    "csatamezőkön",
+    "várfalakon"
+   ],
+   "w": "Az eszmék harca – nem fegyveres harc."
+  },
+  {
+   "t": "cloze",
+   "l": "jakob",
+   "p": "jakobinus",
+   "s": "Holnap már minden a mienk lesz, / Hogyha [akarunk], ha [merünk].",
+   "x": [
+    "tudunk",
+    "kérünk"
+   ],
+   "w": "A vers zárása – biztató, cselekvésre hív."
+  },
+  {
+   "t": "cloze",
+   "l": "jakob",
+   "p": "jakobinus",
+   "s": "Dunának, [Oltnak] egy a hangja",
+   "x": [
+    "Tiszának",
+    "Marosnak"
+   ],
+   "w": "A magyar és a román folyó egy hangon szól."
+  },
+  {
+   "t": "tf",
+   "l": "jakob",
+   "q": "Ady hazaszeretetében megjelenik a más népeket lenéző sovinizmus.",
+   "ok": false,
+   "w": "Nyoma sincs benne nacionalizmusnak, sovinizmusnak."
+  },
+  {
+   "t": "mc",
+   "l": "jakob",
+   "p": "rosta",
+   "q": "Mit tesz az Idő Az Idő rostájában?",
+   "a": "Óriás rostával rostál: aki nem mag a Jövőnek, kihull",
+   "x": [
+    "Megállítja a háborút",
+    "Minden népet megment",
+    "Visszafordul a múltba"
+   ],
+   "w": "„S aki kihull, megérdemelte”."
+  },
+  {
+   "t": "match",
+   "l": "ossz",
+   "q": "Párosítsd a verset a kulcsképével!",
+   "pairs": [
+    [
+     "Nekünk Mohács kell",
+     "fordított himnusz"
+    ],
+    [
+     "A föl-földobott kő",
+     "gravitáció, visszahullás"
+    ],
+    [
+     "Magyar jakobinus dala",
+     "eszme-barrikádok"
+    ],
+    [
+     "Az Idő rostájában",
+     "rosta, ocsú"
+    ],
+    [
+     "A fajok cirkuszában",
+     "bohóc-sors, cirkusz-ponyvák"
+    ]
+   ],
+   "w": "Minden magyarság-versnek van egy központi képe."
+  },
+  {
+   "t": "order",
+   "l": "ossz",
+   "q": "Rakd keletkezési sorrendbe!",
+   "items": [
+    "Nekünk Mohács kell",
+    "A föl-földobott kő",
+    "A fajok cirkuszában",
+    "Az Idő rostájában"
+   ],
+   "w": "1908 → 1909 → 1910 → 1914."
+  },
+  {
+   "t": "mc",
+   "l": "ossz",
+   "q": "Mit jelent Ady számára a magyarság fogalma?",
+   "a": "A múltban gyökerező újat, a haladást",
+   "x": [
+    "Az idejét múlt hagyományokat",
+    "A nemesi kiváltságokat",
+    "A más népek fölötti uralmat"
+   ],
+   "w": "Az úri Magyarország a múlthoz kötötte, Ady a haladáshoz."
+  }
+ ]
+}

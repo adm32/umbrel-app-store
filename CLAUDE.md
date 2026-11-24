@@ -16,6 +16,7 @@ source. Build with `sh src/<app>/build.sh`, never edit `bin/`.
 | `adam-csaszko` | `src/csaszko-weboldal` | csaszkobarbershop.hu · 4770 |
 | `adam-csaszko-foglalasok` | `src/csaszko-foglalasok` | admin · 4771, remote admin · 4773 |
 | `adam-tukor` | `src/tukor` | failover admin · 4790 |
+| `adam-szikra` | `src/szikra` (study material in `content/`) | study app · 4780 |
 | `adam-tv-remote` | `adam-tv-remote/server.js` (Node, no build) | 8188 |
 | `adam-router`, `adam-vitals` | no source here | 8095, 7468 |
 
@@ -42,3 +43,7 @@ source. Build with `sh src/<app>/build.sh`, never edit `bin/`.
 - UI work follows the 20 UX & animation principles (snappy <300 ms, eased, ≥44 px targets,
   few choices, accept messy input and return it clean).
 - Speed matters: no external libraries, fonts or scripts. Keep comments in served files short.
+- Szikra: new study material from Ádám = a new JSON topic file in `src/szikra/content/<subject>/`
+  (format in `content/README.md`). Only facts from his documents; skip parts struck through in them.
+  Raise `const version` in `main.go` too (open pages reload when it changes). Editing a card's
+  question text resets that card's progress, so fix typos only when needed.

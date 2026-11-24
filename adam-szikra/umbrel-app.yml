@@ -1,0 +1,43 @@
+manifestVersion: 1
+id: adam-szikra
+category: productivity
+name: Szikra
+version: "1.0.0"
+tagline: Érettségi felkészülés rövid, játékos körökben
+icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-szikra/icon.svg
+description: >-
+  Interactive study app for the érettségi. Short rounds (about 5 minutes, 10 questions) built on
+  what learning research shows works: retrieval practice instead of re-reading, spaced
+  repetition (wrong answers come back at the end of the round and again on later days), short
+  notes before new material, interleaving. Memoriter drills per stanza: put the lines in order,
+  fill the gaps, type the missing line, first-letter view.
+
+
+  Card types: multiple choice, swipe true/false, typed answers (accents and small typos are
+  forgiven), fill the gaps, put in order, match pairs, swipe into two groups. XP, combo, levels,
+  daily streak, badges, progress per topic and poem, and a countdown to the next test; the
+  repetition schedule adapts to that date.
+
+
+  Profiles: everyone picks their own profile on the first screen (Ádám with a teddy bear, Hanna
+  with a bunny and a pink theme; more can be added). Each profile has its own progress, XP,
+  streak, badges and test date.
+
+
+  First subject: Hungarian literature – Ady Endre (10 topics, 41 poems, about 450 cards). New
+  material is a JSON file in src/szikra/content. Progress is a small JSON file in the app's data
+  folder (daily copy kept for 7 days); the app itself is one static program of about 10 MB.
+developer: Adam
+website: https://github.com/adm32/umbrel-app-store
+dependencies: []
+repo: https://github.com/adm32/umbrel-app-store
+support: https://github.com/adm32/umbrel-app-store/issues
+port: 4780
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+submitter: Adam
+submission: https://github.com/adm32/umbrel-app-store
+releaseNotes: >-
+  1.0.0 – első kiadás: Ady Endre (10 témakör, 41 vers, 447 kártya, 4 memoriter-edző), napi kör, ismétlés, XP, kombó, széria, jelvények, visszaszámlálás a csütörtöki dolgozatig. Profilok: Ádám (maci) és Hanna (nyuszi, pink téma), külön haladással.

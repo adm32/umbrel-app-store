@@ -1,0 +1,9 @@
+{
+  "id": "magyar",
+  "name": "Magyar irodalom",
+  "icon": "📖",
+  "color": "#ff7a3d",
+  "units": [
+    { "id": "ady", "name": "Ady Endre", "sub": "1877–1919 · a modern magyar líra megújítója" }
+  ]
+}

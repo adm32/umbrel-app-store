@@ -1,0 +1,858 @@
+{
+ "unit": "ady",
+ "id": "ady-szerelem",
+ "order": 4,
+ "name": "Szerelmi líra",
+ "icon": "💔",
+ "color": "#ff6fb5",
+ "sum": "Perdita, Léda-versek, Csinszka-versek",
+ "links": [
+  {
+   "title": "Zanza: Ady szerelmi költészete",
+   "url": "https://zanza.tv/irodalom/klasszikus-modernseg-realizmus-naturalizmus-szimbolizmus-impresszionizmus-szecesszio/ady-1"
+  },
+  {
+   "title": "10 dolog, amit nem feltétlenül tudtál Lédáról",
+   "url": "https://www.youtube.com/watch?v=zuIFyw6M6e4"
+  },
+  {
+   "title": "Így Tindereztek ők: Ady & Léda",
+   "url": "https://www.youtube.com/watch?v=WDjsgYi1esk"
+  },
+  {
+   "title": "10 dolog, amit nem biztos, hogy tudtál Csinszkáról",
+   "url": "https://www.youtube.com/watch?v=Wdx8cJHDnPQ"
+  },
+  {
+   "title": "Szerelmi történetek: Ady és Csinszka",
+   "url": "https://www.youtube.com/watch?v=nuBzw8FiW0I"
+  },
+  {
+   "title": "Lédával a bálban (dark pop feldolgozás)",
+   "url": "https://www.youtube.com/watch?v=tIeC2G4HCcU"
+  }
+ ],
+ "learn": [
+  {
+   "id": "perdita",
+   "title": "Perdita-költészet",
+   "p": "menyasszony",
+   "b": [
+    "Elindítója Vajda János (Gina-szerelem).",
+    "Szabadabb erkölcsű társasági hölgyhöz, szeretőhöz, züllésbe taszított lányhoz szól.",
+    "Nem a lelki harmónia, hanem a gyötrő, égető szenvedély a lényeg.",
+    "A nő nem menyasszony vagy feleség, hanem partner, ellenfél. Pl.: Az én menyasszonyom (1900)."
+   ]
+  },
+  {
+   "id": "leda",
+   "title": "Léda",
+   "b": [
+    "Diósy Ödönné Brüll Adél – Nagyváradon ismerkednek meg, 1903-ban.",
+    "Férjes asszony, idősebb a költőnél, intelligens, művelt; magával viszi Párizsba, támogatja a pályáját.",
+    "Lázadás: nyíltan vállalt házasságtörő kapcsolat a nyárspolgári képmutatással szemben.",
+    "Benne volt a menekülés, az egyéni megváltódás vágya – túl sokat vártak tőle. 1912-ben vége."
+   ]
+  },
+  {
+   "id": "ledaj",
+   "title": "A Léda-versek jellemzői",
+   "b": [
+    "Nagy szenvedély, érzéki forróság, erotika – újszerű a magyar lírában.",
+    "Ellentmondásos: öröm és kín, boldogság és gyötrelem; hamar diszharmonikus lesz.",
+    "Gesztusok: hódolás, könyörgés, fenyegetés, megbánás. A „szeretlek” nem hangzik el!",
+    "A soha be nem teljesülés érzése → halálhangulat. Meg akarlak tartani (1904), Örök harc és nász (1906)."
+   ]
+  },
+  {
+   "id": "heja",
+   "title": "Héja-nász az avaron (MEMORITER)",
+   "p": "heja",
+   "b": [
+    "1905 · a ragadozó héjapár = a szerelmesek; diszharmonikus szerelem, örökös mozgás.",
+    "1. vsz.: bántó hanghatások · 2. vsz.: általános érvény, minden szerelem sorsa.",
+    "3. vsz.: Nyárból az Őszbe, gyorsuló út, megállás · 4. vsz.: megállás = halál, „utolsó nász”.",
+    "Mondanivaló: a hiábavalóság sejtetése, a gyengéd jóság fájdalmat okozó érzése."
+   ]
+  },
+  {
+   "id": "bal",
+   "title": "Lédával a bálban",
+   "p": "bal",
+   "b": [
+    "1907 · két szerelem ellentéte: víg párok ↔ Adyék „fekete párja”.",
+    "1. vsz.: harmónia · 2. vsz.: belép a testet öltött boldogtalanság · 3. vsz.: csend, győz a szomorúság.",
+    "Baljós, sejtelmes vízió: nincs megváltó szerelem, a boldogság mögött ott lappang a boldogtalanság."
+   ]
+  },
+  {
+   "id": "bucsu",
+   "title": "A két búcsúvers (1912)",
+   "p": "elbocsato",
+   "b": [
+    "Valaki útra vált belőlünk (ápr.) · Elbocsátó, szép üzenet (máj.).",
+    "Mindkettő A magunk szerelme kötet Imádság a csalásért ciklusában jelent meg (1913).",
+    "Valaki…: többes szám 1. sz., fájdalmas-szomorú, múlt idő, hiány.",
+    "Elbocsátó…: egyes szám 1. sz., gőgös-sértő, jelen idő, leszámolás. A kettő kiegészíti egymást."
+   ]
+  },
+  {
+   "id": "csinszka",
+   "title": "Csinszka",
+   "b": [
+    "Boncza Berta – Ady távoli rokona, Csucsán (Erdély nyugati része) élt.",
+    "Levélben más hangon szólt, mint a többi rajongó. 1914: első látogatás, 1915: esküvő.",
+    "Majdnem 20 év korkülönbség. A csucsai kastélyban éltek; Csinszka a menedék, az egyetlen támasz.",
+    "Csinszka-versek: nincs vívódás, egyszerű dalforma, idill, letisztult szerelem."
+   ]
+  },
+  {
+   "id": "orizem",
+   "title": "Őrizem a szemed (MEMORITER)",
+   "p": "orizem",
+   "b": [
+    "1916 · az öregedő férfi szerelmi vallomása: társban keres vigaszt, Csinszka háttérben marad.",
+    "1. vsz.: nyugalom, egymást fogó kéz; a „vénülő” ismétlése: öregség ↔ szerelem.",
+    "2. vsz.: kozmikus kép („világok pusztulása”), eltűnnek a rímek → háborús rettenet.",
+    "3. vsz. = 1. vsz., de már riadt kapaszkodás · 4. vsz.: miért, meddig? – nincs válasz."
+   ]
+  },
+  {
+   "id": "kesoi",
+   "title": "Késői Csinszka-versek",
+   "p": "demegis",
+   "b": [
+    "Nézz, Drágám, kincseimre: a címben Csinszkát szólítja meg; büszke maradt a magyarra; Csinszka a menedéke.",
+    "De ha mégis? (1918): elégia – nagyon beteg, érzi az elmúlást.",
+    "Azt kéri Csinszkától, tartsa meg őt „tegnapi embernek”: végrendeletszerű megbékélés."
+   ]
+  }
+ ],
+ "poems": [
+  {
+   "id": "menyasszony",
+   "title": "Az én menyasszonyom",
+   "year": "1900",
+   "video": "https://www.youtube.com/watch?v=CS1N6sBV_Qo",
+   "notes": [
+    "Perdita-vers: a megvetett, kitagadott nő szerelme többet ér a „tisztes” világnál.",
+    "Zárás: „Ketten voltunk csak tiszták, hófehérek.”"
+   ],
+   "text": "Mit bánom én, ha utcasarkok rongya,\nDe elkisérjen egész a síromba.\n\nÁlljon előmbe izzó, forró nyárban:\n„Téged szeretlek, Te vagy, akit vártam.”\n\nLegyen kirugdalt, kitagadott, céda,\nCsak a szivébe láthassak be néha.\n\nHa vad viharban átkozódva állunk:\nEgyütt roskadjon, törjön össze lábunk.\n\nHa egy-egy órán megtelik a lelkünk:\nÜdvöt, gyönyört csak egymás ajkán leljünk.\n\nHa ott fetrengek lenn, az utcaporba:\nBoruljon rám és óvjon átkarolva.\n\nTisztító, szent tűz hogyha általéget:\nSzárnyaljuk együtt bé a mindenséget.\n\nMindig csókoljon, egyformán szeressen:\nKönnyben, piszokban, szenvedésben, szennyben.\n\nAmiben minden álmom semmivé lett,\nHozza vissza Ő: legyen Ő az Élet.\n\nKifestett arcát angyalarcnak látom:\nA lelkem lenne: életem, halálom.\n\nSzétzúzva minden kőtáblát és láncot,\nHoltig kacagnók a nyüzsgő világot.\n\nEgyütt kacagnánk végső búcsút intve,\nMeghalnánk együtt, egymást istenítve.\n\nMeghalnánk, mondván:\n„Bűn és szenny az élet,\nKetten voltunk csak tiszták, hófehérek.”"
+  },
+  {
+   "id": "megakarlak",
+   "title": "Meg akarlak tartani",
+   "year": "1904",
+   "video": "https://www.youtube.com/watch?v=jVci75BpC_4",
+   "notes": [
+    "Paradoxon: „Elhagylak, mert nagyon kivánlak.”",
+    "A szerelem őre a „megszépítő messzeség” – az álom megtartása."
+   ],
+   "text": "Őrjít ez a csókos valóság,\nEz a nagy beteljesülés,\nEz a megadás, ez a jóság.\n\nÖledbe hullva, sírva, vágyva\nKönyörgök hozzád, asszonyom:\nŰzz, kergess ki az éjszakába.\n\nMikor legtüzesebb az ajkam,\nAkkor fagyjon meg a tied,\nTaposs és rúgj kacagva rajtam.\n\nHóhérok az eleven vágyak,\nÁtok a legszebb jelen is:\nElhagylak, mert nagyon kivánlak.\n\nTestedet, a kéjekre gyúltat,\nHadd lássam mindig hóditón,\nIllatos vánkosán a multnak.\n\nMeg akarlak tartani téged,\nEzért választom őrödül\nA megszépítő messzeséget.\n\nMaradjon meg az én nagy álmom\nEgy asszonyról, aki szeret\nS akire én örökre vágyom."
+  },
+  {
+   "id": "orokharc",
+   "title": "Örök harc és nász",
+   "year": "1906",
+   "video": "https://www.youtube.com/watch?v=387jfUgCOwM",
+   "notes": [
+    "„Én asszonyom” megszólítás háromszor.",
+    "A szerelem egyszerre harc és nász: bántás, gyűlölet és vágy."
+   ],
+   "text": "Én asszonyom, be jó, ha bántlak:\nMeakulpázok, megtörök, sírok,\nVárlak, kivánlak.\n\nÉn asszonyom, be jó, ha rossz vagy,\nSzivemben százszor, százszor megöllek,\nŰzlek, gyülöllek.\n\nÉn asszonyom, ugye, hogy így lesz?\nÖrök lesz a mi nagy csatázásunk\nS örök a nászunk."
+  },
+  {
+   "id": "heja",
+   "title": "Héja-nász az avaron",
+   "year": "1905",
+   "memo": true,
+   "video": "https://www.youtube.com/watch?v=ht9s4a40t2o",
+   "notes": [
+    "Diszharmonikus szerelem: vergődő nyugtalanság, örökös mozgás, gyötrelmes fájdalom.",
+    "Ragadozó héjapár = szerelmesek.",
+    "1. vsz.: bántó hanghatások (vijjogva, sírva) kísérik a vágyat.",
+    "2. vsz.: nem két ember kapcsolata, hanem minden szerelem közös sorsa.",
+    "3. vsz.: boldogság → boldogtalanság, ifjúság → öregség; gyorsuló rohanás, majd megállás.",
+    "4. vsz.: megállás = halál; hiábavalóvá lett a korábbi mozgás."
+   ],
+   "text": "Útra kelünk. Megyünk az Őszbe,\nVijjogva, sírva, kergetőzve,\nKét lankadt szárnyú héja-madár.\n\nÚj rablói vannak a Nyárnak,\nCsattognak az új héja-szárnyak,\nDúlnak a csókos ütközetek.\n\nSzállunk a Nyárból, űzve szállunk,\nValahol az Őszben megállunk,\nFölborzolt tollal, szerelmesen.\n\nEz az utolsó nászunk nékünk:\nEgymás husába beletépünk\nS lehullunk az őszi avaron."
+  },
+  {
+   "id": "bal",
+   "title": "Lédával a bálban",
+   "year": "1907",
+   "video": "https://www.youtube.com/watch?v=3jv2HAFGZSY",
+   "notes": [
+    "Kétféle szerelem: víg párok ↔ Adyék. A régi idill és a mai diszharmónia.",
+    "Hangulat: baljós, szomorú. Sejtelmes vízió.",
+    "Mondanivaló: nincs megváltást jelentő szerelem."
+   ],
+   "text": "Sikolt a zene, tornyosul, omlik\nParfümös, boldog, forró, ifju pára\nS a rózsakoszorús ifjak, leányok\nRettenve néznek egy fekete párra.\n\n„Kik ezek?” S mi bús csöndben belépünk.\nHalál-arcunk sötét fátyollal óvjuk\nS hervadt, régi rózsa-koszoruinkat\nA víg teremben némán szerte-szórjuk.\n\nElhal a zene s a víg teremben\nTéli szél zúg s elalusznak a lángok.\nMi táncba kezdünk és sírva, dideregve\nRebbennek szét a boldog mátka-párok."
+  },
+  {
+   "id": "elbocsato",
+   "title": "Elbocsátó, szép üzenet",
+   "year": "1912",
+   "vol": "A magunk szerelme – Imádság a csalásért",
+   "video": "https://www.youtube.com/watch?v=TbCSm5x6gzY",
+   "notes": [
+    "A Lédával való szakítás verse (1912. 05. 16.).",
+    "Kegyetlen, igazságtalan, gyilkosan gőgös: a versek csak „kegyes csalásként” szóltak hozzá.",
+    "Egyes szám 1. személy, jelenidejűség, leszámolás jellegű mondatok."
+   ],
+   "text": "Törjön százegyszer százszor-tört varázs:\nHát elbocsátlak még egyszer, utólszor,\nHa hitted, hogy még mindig tartalak\nS hitted, hogy kell még elbocsáttatás.\nSzázszor-sujtottan dobom, ím, feléd\nFeledésemnek gazdag úr-palástját.\nVedd magadra, mert lesz még hidegebb is,\nVedd magadra, mert sajnálom magunkat,\nEgyenlőtlen harc nagy szégyeniért,\nAlázásodért, nem tudom, miért,\nSzóval már téged, csak téged sajnállak.\n\nMilyen régen és titkosan így volt már:\nSorsod szépítni hányszor adatott\nÁmító kegyből, szépek szépiért\nForrott és küldött, ékes Léda-zsoltár.\nSohase kaptam, el hát sohse vettem:\nÁtadtam néked szépen ál-hitét\nCsókoknak, kik mással csattantanak\nS szerelmeket, kiket mással szerettem:\nÉs köszönök ma annyi ölelést,\nÁm köszönök mégis annyi volt-Lédát,\nAmennyit férfi megköszönni tud,\nMikor egy unott, régi csókon lép át.\n\nÉs milyen régen nem kutattalak\nFövényes multban, zavaros jelenben\nS már jövőd kicsiny s asszonyos rab-útján\nMilyen régen elbúcsuztattalak.\nMilyen régen csupán azt keresem,\nHogy szép énemből valamid maradjon,\nÉn csodás, verses rádfogásaimból\nS biztasd magad árván, szerelmesen,\nHogy te is voltál, nemcsak az, aki\nNem bírt magának mindent vallani\nS ráaggatott díszeiből egy nőre.\n\nBüszke mellemről, ki nagy, telhetetlen,\nAkartam látni szép hullásodat\nS nem elhagyott némber kis bosszuját,\nKi áll dühödten bosszu-hímmel lesben,\nNem kevés, szegény magad csúfolását,\nHisz rajtad van krőzusságom nyoma\nS hozzám tartozni lehetett hited,\nKinek mulását nem szabad, hogy lássák,\nKinek én úgy adtam az ölelést,\nHogy neki is öröme teljék benne,\nKi előttem kis kérdőjel vala\nS csak a jöttömmel lett beteljesedve.\n\nLezörögsz-e, mint rég-hervadt virág\nRég-pihenő imakönyvből kihullva,\nVagy futkározva rongyig-cipeled\nVett nimbuszod, e zsarnok, bús igát\nS, mely végre méltó nőjéért rebeg,\nMagamimádó önmagam imáját?\nKérem a Sorsot, sorsod kérje meg,\nCsillag-sorsomba ne véljen fonódni\nS mindegy, mi nyel el, ár avagy salak:\nÁltalam vagy, mert meg én láttalak\nS régen nem vagy, mert már régen nem látlak."
+  },
+  {
+   "id": "valaki",
+   "title": "Valaki útra vált belőlünk",
+   "year": "1912",
+   "vol": "A magunk szerelme – Imádság a csalásért",
+   "video": "https://www.youtube.com/watch?v=nhz9U0Eu3EY",
+   "notes": [
+    "1912. 04. 16. – a Léda-szerelem vége, búcsúvers.",
+    "Többes szám 1. személy, végig fájdalmas-szomorú hang, múlt idejű igék.",
+    "Az „asszony-részünk” hagyott el – hiány, veszteség, elhagyatottság."
+   ],
+   "text": "Unatkozók s halálra-untak,\nBolondosan furcsák vagyunk,\nFájdalmasak és búcsuzók\nS milyen furcsán nézzük magunkat\nS milyen furcsán néznek most minket.\nCsalódás-kő ránk nem zuhant\nS mégis sujtódottan, szédülten,\nSustorgó ázott-fák a tűzben,\nPanasszal égünk, lángtalan.\n\nMint elárvult pipere-asztal,\nMint falnak forditott tükör,\nOlyan a lelkünk, kér, marasztal\nValakit, ki már nincs velünk,\nKi után ájult búval nézünk.\nEgy régi, kényes, édes dámát,\nKegyetlen szépet siratunk,\nBennünksarjadtat: asszony-részünk.\nValakit, kiért hiúk voltunk,\nApródok s cifra dalnokok\nS kit udvarunkban udvaroltunk.\n\nIngunk s mint rossz tornyok, bedőlünk,\nNagy termeink üresen kongnak,\nKölykösen úszók szemeink:\nValaki útravált belőlünk\nS nem veszi észre senki más,\nMilyen magános férfi-porta\nLett a szemünk, lett a szivünk,\nSzemünknek és szivünknek sorsa,\nMert asszony-részünk elhagyott.\n\nNem tudjuk szeretni magunkat\nÉs nem hisszük el, hogy szeretnek,\nÁkombákomos szépeket\nIdegen, váró embereknek\nA régi tussal nem irunk,\nMert mi csak magunknak bókoltunk,\nAsszony-énünkért, szertelen,\nÉrte voltunk jók, ha jók voltunk\nÉs kacérok és hűtlenek\nÉs most sírva megözvegyedtünk.\n\nEzer óh, jaj, baj, ejnye, nyűg\nSiránkozik pityergő szánkon\nS omladozó, árva szivünk\nEzer fájást talál, hogy fájjon\nS ezeregy fájás fáj nekünk.\nKopott az arcunk, kopott minden,\nKopott a világ s a szivünk\nS minden világ a szemeinkben:\nMi hírért, sikerért szalasszon,\nÖsztönzőnk, igazi valónk,\nKiszakadt belőlünk, az asszony."
+  },
+  {
+   "id": "orizem",
+   "title": "Őrizem a szemed",
+   "year": "1916",
+   "memo": true,
+   "video": "https://www.youtube.com/watch?v=MyBYOY0l4ms",
+   "notes": [
+    "Az öregedő férfi szerelmi vallomása – vigaszt keres a társban.",
+    "1. vsz.: nyugalom, kéz és szem képe; „vénülő” → öregség ↔ szerelem feszültsége.",
+    "2. vsz.: kozmikus pusztulás, „ősi vad” metafora, eltűnő rímek – háborús rettenet (I. vh.).",
+    "3. vsz.: az 1. megismétlése, de már riadt egymásba kapaszkodás.",
+    "4. vsz.: miért, meddig? – nincs válasz, de megmarad a szeretet igénye."
+   ],
+   "text": "Már vénülő kezemmel\nFogom meg a kezedet,\nMár vénülő szememmel\nŐrizem a szemedet.\n\nVilágok pusztulásán\nŐsi vad, kit rettenet\nŰz, érkeztem meg hozzád\nS várok riadtan veled.\n\nMár vénülő kezemmel\nFogom meg a kezedet,\nMár vénülő szememmel\nŐrizem a szemedet.\n\nNem tudom, miért, meddig\nMaradok meg még neked,\nDe a kezedet fogom\nS őrizem a szemedet."
+  },
+  {
+   "id": "nezz",
+   "title": "Nézz, Drágám, kincseimre",
+   "video": "https://www.youtube.com/watch?v=YBd2kaMlhZY",
+   "notes": [
+    "Címben Csinszkát szólítja meg.",
+    "1. megszólítás · 2. büszke a magyarságra · 3. szeresse bajban is · 4. nélküle már halott lenne · 5. Csinszka a menedék · 6. az első szakasz ismétlése: lássa fiatalnak."
+   ],
+   "text": "Nézz, Drágám, kincseimre,\nLázáros szomorú nincseimre\nNézz egy hű, igaz élet sorsára\nS őszülő tincseimre.\n\nNem mentem erre-arra,\nBúsan büszke voltam a magyarra\nS ezért is, hajh, sokszor kerültem\nSok hajhra, jajra, bajra.\n\nJó voltam szerelemben:\nEgy Isten sem gondolhatná szebben,\nAhogy én gyermekűl elgondoltam\nS nézz lázban, vérben, sebben.\n\nHa te nem jöttél vóna,\nMa már tán panaszló szám se szólna\nS gunyolói hivő életeknek\nRaknak a koporsóba.\n\nNézz, Drágám, rám szeretve,\nTéged találtalak menekedve\nS ha van még kedv ez aljas világban:\nTe vagy a szivem kedve.\n\nNézz, Drágám, kincseimre,\nLázáros, szomorú nincseimre\nS legyenek neked sötétek, ifjak:\nŐszülő tincseimre."
+  },
+  {
+   "id": "demegis",
+   "title": "De ha mégis?",
+   "year": "1918",
+   "video": "https://www.youtube.com/watch?v=DVoqb1oMVZU",
+   "notes": [
+    "Elégia: az elmúlás, a boldogság elvesztése.",
+    "Már nagyon beteg; azt kéri, Csinszka tartsa meg a szívében.",
+    "Megbékélés, végrendeletszerű zárás."
+   ],
+   "text": "Gondoltam: drága, kicsi társam,\nPróbáljunk mégis megmaradni\nEbben a gyilkos, vad dúlásban.\n\nMikor mindenek vesznek, tűnnek,\nTarts meg tegnapnak, tanuságnak,\nTarts meg csodának avagy bűnnek.\n\nMikor mindenek futnak, hullnak,\nGondoltam: drága, kicsi társam,\nTarts meg engem igérő Multnak.\n\nTarts meg engem, míg szögek vernek,\nVéres szivemmel, megbénultan,\nMégiscsak tegnapi embernek.\n\nKarolsz még, drága, kicsi társam?\nJaj nekem, jaj, ezerszer is jaj,\nEbben a véres ájulásban.\n\nDe ha megyek, sorsom te vedd el,\nKinek az orkán odaadta,\nA te tűrő, igaz kezeddel."
+  }
+ ],
+ "cards": [
+  {
+   "t": "mc",
+   "l": "perdita",
+   "q": "Ki indította el a magyar perdita-költészetet?",
+   "a": "Vajda János (Gina-szerelem)",
+   "x": [
+    "Petőfi Sándor (Júlia-versek)",
+    "Balassi Bálint (Júlia-versek)",
+    "Reviczky Gyula"
+   ],
+   "w": "Ady Vajdát tartotta elődjének."
+  },
+  {
+   "t": "mc",
+   "l": "perdita",
+   "q": "Kihez szól a perdita-költészet?",
+   "a": "Szabadabb erkölcsű nőhöz, szeretőhöz",
+   "x": [
+    "A hűséges feleséghez",
+    "A menyasszonyhoz",
+    "Istenhez"
+   ],
+   "w": "A nő nem élettárs, hanem ellenfél, aki inkább kínoz, mint megnyugtat."
+  },
+  {
+   "t": "tf",
+   "l": "perdita",
+   "q": "A perdita-költészetben a lelki harmónián van a hangsúly.",
+   "ok": false,
+   "w": "A gyötrő, égető szerelmi-testi szenvedélyen."
+  },
+  {
+   "t": "cloze",
+   "l": "perdita",
+   "p": "menyasszony",
+   "s": "Mit bánom én, ha utcasarkok [rongya], / De elkisérjen egész a [síromba].",
+   "x": [
+    "dísze",
+    "házamba"
+   ],
+   "w": "Az én menyasszonyom (1900) nyitánya."
+  },
+  {
+   "t": "cloze",
+   "l": "perdita",
+   "p": "menyasszony",
+   "s": "„Bűn és szenny az élet, / Ketten voltunk csak [tiszták], [hófehérek].”",
+   "x": [
+    "boldogok",
+    "szabadok"
+   ],
+   "w": "A megvetettek tisztasága – ellentét."
+  },
+  {
+   "t": "type",
+   "l": "leda",
+   "q": "Mi volt Léda valódi neve? (Diósy Ödönné …)",
+   "a": "Brüll Adél",
+   "alt": [
+    "Diósy Ödönné Brüll Adél",
+    "Bruell Adel",
+    "Brül Adél"
+   ],
+   "w": "Diósy Ödönné Brüll Adél."
+  },
+  {
+   "t": "mc",
+   "l": "leda",
+   "q": "Hol és mikor ismerkedett meg Ady Lédával?",
+   "a": "Nagyváradon, 1903-ban",
+   "x": [
+    "Párizsban, 1904-ben",
+    "Budapesten, 1906-ban",
+    "Csucsán, 1914-ben"
+   ],
+   "w": "Nagyvárad, 1903."
+  },
+  {
+   "t": "tf",
+   "l": "leda",
+   "q": "Léda fiatalabb volt Adynál, és még nem volt férjnél.",
+   "ok": false,
+   "w": "Férjes asszony volt és idősebb a költőnél."
+  },
+  {
+   "t": "mc",
+   "l": "leda",
+   "q": "Miért volt lázadás a Léda-szerelem?",
+   "a": "Nyíltan vállalták a házasságtörő kapcsolatot a nyárspolgári képmutatással szemben",
+   "x": [
+    "Mert Léda szegény parasztlány volt",
+    "Mert titokban házasodtak össze",
+    "Mert Ady nem akart Párizsba menni"
+   ],
+   "w": "Tiltakozás az úri Magyarország erkölcse, előítélete ellen."
+  },
+  {
+   "t": "mc",
+   "l": "leda",
+   "q": "Mikor ért véget Ady és Léda kapcsolata?",
+   "a": "1912-ben",
+   "x": [
+    "1906-ban",
+    "1909-ben",
+    "1915-ben"
+   ],
+   "w": "→ Elbocsátó, szép üzenet."
+  },
+  {
+   "t": "mc",
+   "l": "ledaj",
+   "q": "Melyik szó NEM hangzik el a Léda-versekben?",
+   "a": "szeretlek",
+   "x": [
+    "asszonyom",
+    "csók",
+    "nász"
+   ],
+   "w": "Azt, hogy szeretlek, nem mondja ki!"
+  },
+  {
+   "t": "mc",
+   "l": "ledaj",
+   "q": "Milyen gesztusok gyakoriak a Léda-versekben?",
+   "a": "Hódolás, könyörgés, fenyegetés, megbánás",
+   "x": [
+    "Nyugodt, boldog együttlét",
+    "Hálaadás, imádság",
+    "Gúnyolódás a politikán"
+   ],
+   "w": "Az együttlét öröme hiányzik belőlük."
+  },
+  {
+   "t": "sort",
+   "l": "ledaj",
+   "q": "Léda-vers vagy Csinszka-vers jellemzője?",
+   "cats": [
+    "Léda-versek",
+    "Csinszka-versek"
+   ],
+   "ca": [
+    "vívódás, gyötrelem",
+    "érzéki forróság",
+    "öröm és kín"
+   ],
+   "cb": [
+    "egyszerű dalforma",
+    "menedék, idill",
+    "letisztult szerelem"
+   ],
+   "w": "A két korszak szinte ellentéte egymásnak."
+  },
+  {
+   "t": "cloze",
+   "l": "ledaj",
+   "p": "megakarlak",
+   "s": "Hóhérok az eleven vágyak, / Átok a legszebb jelen is: / Elhagylak, mert nagyon [kivánlak].",
+   "x": [
+    "szeretlek",
+    "gyűlöllek"
+   ],
+   "w": "Meg akarlak tartani – paradoxon."
+  },
+  {
+   "t": "mc",
+   "l": "ledaj",
+   "p": "megakarlak",
+   "q": "Mit választ a szerelme „őréül” a Meg akarlak tartani?",
+   "a": "A megszépítő messzeséget",
+   "x": [
+    "A csucsai kastélyt",
+    "Párizs fényeit",
+    "A házasságot"
+   ],
+   "w": "Hogy megmaradjon az álom egy asszonyról."
+  },
+  {
+   "t": "cloze",
+   "l": "ledaj",
+   "p": "orokharc",
+   "s": "Örök lesz a mi nagy [csatázásunk] / S örök a [nászunk].",
+   "x": [
+    "szerelmünk",
+    "békénk"
+   ],
+   "w": "Örök harc és nász (1906)."
+  },
+  {
+   "t": "mc",
+   "l": "heja",
+   "p": "heja",
+   "q": "Mit jelképez a héjapár a Héja-nász az avaronban?",
+   "a": "A szerelmeseket – a ragadozó, gyötrő szerelmet",
+   "x": [
+    "A magyar népet",
+    "A pénzt és a halált",
+    "Istent és az embert"
+   ],
+   "w": "Ragadozó héjapár = szerelmesek."
+  },
+  {
+   "t": "mc",
+   "l": "heja",
+   "p": "heja",
+   "q": "Milyen évszakváltás jelenik meg a Héja-nászban?",
+   "a": "A Nyárból az Őszbe",
+   "x": [
+    "Tavaszból nyárba",
+    "Télből tavaszba",
+    "Őszből télbe"
+   ],
+   "w": "Nyár = ifjúság, boldogság · Ősz = öregség, halál."
+  },
+  {
+   "t": "order",
+   "l": "heja",
+   "p": "heja",
+   "q": "Rakd sorba a Héja-nász versszakainak tartalmát!",
+   "items": [
+    "Útra kelés: bántó hangok (vijjogva, sírva)",
+    "Általánosítás: minden szerelem közös sorsa",
+    "Gyorsuló út a Nyárból az Őszbe, megállás",
+    "Utolsó nász: lehullás az avaron = halál"
+   ],
+   "w": "Mozgás → általánosítás → gyorsulás → halál."
+  },
+  {
+   "t": "mc",
+   "l": "heja",
+   "p": "heja",
+   "q": "Mit jelent a megállás a Héja-nász 4. versszakában?",
+   "a": "A halált – hiábavalóvá lett a korábbi mozgás",
+   "x": [
+    "A boldog megnyugvást",
+    "A házasságkötést",
+    "Párizsba érkezést"
+   ],
+   "w": "„S lehullunk az őszi avaron.”"
+  },
+  {
+   "t": "tf",
+   "l": "heja",
+   "p": "heja",
+   "q": "A Héja-nász az avaron harmonikus, boldog szerelmet ábrázol.",
+   "ok": false,
+   "w": "Diszharmonikus: vergődés, örökös mozgás, gyötrelmes fájdalom."
+  },
+  {
+   "t": "mc",
+   "l": "heja",
+   "p": "heja",
+   "q": "Mit fejez ki a Héja-nász 1. versszakában a „Vijjogva, sírva, kergetőzve”?",
+   "a": "Bántó hanghatások kísérik a szerelmi vágyat",
+   "x": [
+    "A madarak boldog énekét",
+    "A háború zaját",
+    "Egy bál zenéjét"
+   ],
+   "w": "Már az elején jelzi a diszharmóniát."
+  },
+  {
+   "t": "mc",
+   "l": "bal",
+   "p": "bal",
+   "q": "Mire épül a Lédával a bálban?",
+   "a": "Két szerelem ellentétére: víg párok ↔ a „fekete pár”",
+   "x": [
+    "Két ország ellentétére",
+    "Isten és ember vitájára",
+    "A pénz és a vér harcára"
+   ],
+   "w": "A régi idill és a mai diszharmónia."
+  },
+  {
+   "t": "order",
+   "l": "bal",
+   "p": "bal",
+   "q": "Rakd sorba a Lédával a bálban versszakait!",
+   "items": [
+    "Harmónia: gyanútlan, örülő párok",
+    "Belép a fekete pár: testet öltött boldogtalanság",
+    "Csend, némaság: győz a szomorúság"
+   ],
+   "w": "Fenyegető elmúlás a végén."
+  },
+  {
+   "t": "cloze",
+   "l": "bal",
+   "p": "bal",
+   "s": "S a rózsakoszorús ifjak, leányok / Rettenve néznek egy [fekete] [párra].",
+   "x": [
+    "boldog",
+    "ifjúra"
+   ],
+   "w": "„Kik ezek?”"
+  },
+  {
+   "t": "mc",
+   "l": "bal",
+   "p": "bal",
+   "q": "Mi a Lédával a bálban mondanivalója?",
+   "a": "Nincs megváltó szerelem, a boldogság mögött ott lappang a boldogtalanság",
+   "x": [
+    "A tánc mindent megold",
+    "A fiatalok boldogsága örök",
+    "A bál a nemesség bűne"
+   ],
+   "w": "Az idő a legnagyobb létbeli ellenfél."
+  },
+  {
+   "t": "sort",
+   "l": "bucsu",
+   "p": "elbocsato",
+   "q": "Valaki útra vált belőlünk vagy Elbocsátó, szép üzenet?",
+   "cats": [
+    "Valaki útra vált…",
+    "Elbocsátó, szép üzenet"
+   ],
+   "ca": [
+    "többes szám 1. személy",
+    "végig fájdalmas-szomorú hang",
+    "múlt idejű igék",
+    "hiány, elhagyatottság"
+   ],
+   "cb": [
+    "egyes szám 1. személy",
+    "gőgös, sértő hang",
+    "jelenidejűség",
+    "leszámolás jellegű mondatok"
+   ],
+   "w": "Ugyanannak az érzésnek két megnyilvánulása."
+  },
+  {
+   "t": "tf",
+   "l": "bucsu",
+   "q": "A két búcsúvers szemben áll egymással: az egyik igaz, a másik hazug.",
+   "ok": false,
+   "w": "Kiegészítik egymást: a fájdalom és a düh egyszerre van jelen a szakításkor."
+  },
+  {
+   "t": "mc",
+   "l": "bucsu",
+   "q": "Melyik kötetben és ciklusban jelent meg a két búcsúvers?",
+   "a": "A magunk szerelme – Imádság a csalásért (1913)",
+   "x": [
+    "Új versek – Léda asszony zsoltárai (1906)",
+    "Vér és arany – A Halál rokona (1907)",
+    "A halottak élén (1918)"
+   ],
+   "w": "Mindkettő 1912-ben íródott."
+  },
+  {
+   "t": "mc",
+   "l": "bucsu",
+   "p": "elbocsato",
+   "q": "Milyen az Elbocsátó, szép üzenet hangja?",
+   "a": "Gőgös, fensőbbséges, kegyetlenül sértő",
+   "x": [
+    "Fájdalmas, szomorú, gyászoló",
+    "Alázatos, bocsánatkérő",
+    "Vidám, játékos"
+   ],
+   "w": "„Gyilkosan gőgös” vers."
+  },
+  {
+   "t": "tf",
+   "l": "bucsu",
+   "p": "elbocsato",
+   "q": "Az Elbocsátó, szép üzenetben Ady kimondja: a Lédához írt versek csak kegyes csalásként szóltak.",
+   "ok": true,
+   "w": "Több versben is szó van róla, hogy minden nőben csak önmagát szerette."
+  },
+  {
+   "t": "cloze",
+   "l": "bucsu",
+   "p": "elbocsato",
+   "s": "Általam vagy, mert meg én [láttalak] / S régen nem vagy, mert már régen nem [látlak].",
+   "x": [
+    "szerettelek",
+    "szeretlek"
+   ],
+   "w": "Az Elbocsátó, szép üzenet zárósorai."
+  },
+  {
+   "t": "mc",
+   "l": "bucsu",
+   "p": "valaki",
+   "q": "Kit siratnak a Valaki útra vált belőlünk című versben?",
+   "a": "Az „asszony-részünket”, a nőt, aki kiszakadt belőlünk",
+   "x": [
+    "Ady anyját",
+    "Egy elesett katonát",
+    "Az öreg Urat"
+   ],
+   "w": "„Mert asszony-részünk elhagyott.”"
+  },
+  {
+   "t": "cloze",
+   "l": "bucsu",
+   "p": "valaki",
+   "s": "Mint elárvult [pipere-asztal], / Mint falnak forditott [tükör]",
+   "x": [
+    "íróasztal",
+    "kép"
+   ],
+   "w": "Hasonlatok a lélek elárvultságára."
+  },
+  {
+   "t": "type",
+   "l": "csinszka",
+   "q": "Mi volt Csinszka valódi neve?",
+   "a": "Boncza Berta",
+   "alt": [
+    "Bonca Berta",
+    "Boncza Bertha"
+   ],
+   "w": "Boncza Berta – Ady távoli rokona."
+  },
+  {
+   "t": "mc",
+   "l": "csinszka",
+   "q": "Hol élt Csinszka, és hol éltek később együtt?",
+   "a": "Csucsán, a Boncza-kastélyban",
+   "x": [
+    "Nagyváradon",
+    "Érmindszenten",
+    "Párizsban"
+   ],
+   "w": "Erdély nyugati része, festői környezet."
+  },
+  {
+   "t": "mc",
+   "l": "csinszka",
+   "q": "Mikor volt Ady és Csinszka esküvője?",
+   "a": "1915",
+   "x": [
+    "1912",
+    "1914",
+    "1918"
+   ],
+   "w": "1914: első látogatás · 1915: esküvő."
+  },
+  {
+   "t": "tf",
+   "l": "csinszka",
+   "q": "Ady és Csinszka között majdnem 20 év volt a korkülönbség.",
+   "ok": true,
+   "w": "Adynak aggályai is támadtak emiatt."
+  },
+  {
+   "t": "sort",
+   "l": "csinszka",
+   "q": "Léda-vers vagy Csinszka-vers?",
+   "cats": [
+    "Léda",
+    "Csinszka"
+   ],
+   "ca": [
+    "Héja-nász az avaron",
+    "Lédával a bálban",
+    "Meg akarlak tartani",
+    "Elbocsátó, szép üzenet"
+   ],
+   "cb": [
+    "Őrizem a szemed",
+    "Nézz, Drágám, kincseimre",
+    "De ha mégis?"
+   ],
+   "w": "A legfontosabb besorolás a témakörben!"
+  },
+  {
+   "t": "mc",
+   "l": "orizem",
+   "p": "orizem",
+   "q": "Mi az Őrizem a szemed alaphelyzete?",
+   "a": "Az öregedő férfi vallomása: a társban keres vigaszt",
+   "x": [
+    "Szakítás egy szeretővel",
+    "Egy fiatal fiú első szerelme",
+    "Hazafias buzdítás"
+   ],
+   "w": "Csinszka a háttérben marad."
+  },
+  {
+   "t": "mc",
+   "l": "orizem",
+   "p": "orizem",
+   "q": "Mit fejez ki az Őrizem a szemed 2. versszakában a rímek eltűnése?",
+   "a": "A háborús rettenetet, a riadalmat",
+   "x": [
+    "A boldog nyugalmat",
+    "Hogy a költő sietett",
+    "A szerelem beteljesülését"
+   ],
+   "w": "„Világok pusztulásán” – zajlik az I. világháború."
+  },
+  {
+   "t": "mc",
+   "l": "orizem",
+   "p": "orizem",
+   "q": "Mi a különbség az Őrizem a szemed 1. és 3. versszaka között?",
+   "a": "Szövegük azonos, de a 3. már a riadt egymásba kapaszkodást is sugallja",
+   "x": [
+    "A 3. versszak egészen más szavakból áll",
+    "Az 1. szomorú, a 3. vidám",
+    "Nincs semmi különbség a jelentésben"
+   ],
+   "w": "A kozmikus pusztulás megváltoztatja a hangulati hátteret."
+  },
+  {
+   "t": "tf",
+   "l": "orizem",
+   "p": "orizem",
+   "q": "Az Őrizem a szemed 4. versszakának kérdéseire (miért, meddig) a költő pontos választ ad.",
+   "ok": false,
+   "w": "Nincs és nem is lehetséges válasz – kiszámíthatatlan a sors."
+  },
+  {
+   "t": "mc",
+   "l": "orizem",
+   "p": "orizem",
+   "q": "Melyik szó ismétlése érzékelteti az öregség és a szerelem feszültségét?",
+   "a": "vénülő",
+   "x": [
+    "rettenet",
+    "pusztulás",
+    "riadtan"
+   ],
+   "w": "„Már vénülő kezemmel… Már vénülő szememmel”."
+  },
+  {
+   "t": "mc",
+   "l": "kesoi",
+   "p": "nezz",
+   "q": "Kit szólít meg a Nézz, Drágám, kincseimre címe?",
+   "a": "Csinszkát",
+   "x": [
+    "Lédát",
+    "Az édesanyját",
+    "Istent"
+   ],
+   "w": "Csinszka volt a menedéke."
+  },
+  {
+   "t": "cloze",
+   "l": "kesoi",
+   "p": "nezz",
+   "s": "Téged [találtalak] menekedve / S ha van még kedv ez aljas világban: / Te vagy a szivem [kedve].",
+   "x": [
+    "szerettelek",
+    "öröme"
+   ],
+   "w": "Nézz, Drágám, kincseimre."
+  },
+  {
+   "t": "tf",
+   "l": "kesoi",
+   "p": "nezz",
+   "q": "A Nézz, Drágám, kincseimre 2. versszakában arról beszél, hogy büszke maradt a magyarra.",
+   "ok": true,
+   "w": "„Búsan büszke voltam a magyarra”."
+  },
+  {
+   "t": "mc",
+   "l": "kesoi",
+   "p": "demegis",
+   "q": "Mi a De ha mégis? műfaja?",
+   "a": "Elégia",
+   "x": [
+    "Óda",
+    "Ballada",
+    "Himnusz"
+   ],
+   "w": "Az elmúlás, a boldogság elvesztése jelenik meg."
+  },
+  {
+   "t": "cloze",
+   "l": "kesoi",
+   "p": "demegis",
+   "s": "Tarts meg [tegnapnak], tanuságnak, / Tarts meg [csodának] avagy bűnnek.",
+   "x": [
+    "holnapnak",
+    "álomnak"
+   ],
+   "w": "Végrendeletszerű kérés Csinszkához."
+  },
+  {
+   "t": "mc",
+   "l": "kesoi",
+   "p": "demegis",
+   "q": "Mit kér a költő Csinszkától a De ha mégis?-ben?",
+   "a": "Hogy betegen is tartsa meg őt a szívében, „tegnapi embernek”",
+   "x": [
+    "Hogy hagyja el őt",
+    "Hogy költözzenek Párizsba",
+    "Hogy írjon helyette verseket"
+   ],
+   "w": "Megbékélés – végrendeletszerű vers."
+  }
+ ]
+}

@@ -1,0 +1,436 @@
+{
+ "unit": "ady",
+ "id": "ady-letharc",
+ "order": 3,
+ "name": "Létharc & pénz",
+ "icon": "⚔️",
+ "color": "#ff5a6e",
+ "sum": "Harc a Nagyúrral, Az ős Kaján, Kocsi-út az éjszakában",
+ "learn": [
+  {
+   "id": "harc",
+   "title": "Létharc-versek",
+   "b": [
+    "A költői én egy kozmikus méretű, időtlen harc hőse – a teljességért.",
+    "Alapszituáció: magányos, egyenlőtlen, vereségre ítélt küzdelem mitikus-szimbolikus lényekkel.",
+    "Balladás, színpadias: szaggatott cselekmény, lírai és epikus beszédmód keveredik.",
+    "Pl.: Harc a Nagyúrral, Az ős Kaján."
+   ]
+  },
+  {
+   "id": "penz",
+   "title": "Pénz és hiányérzet",
+   "b": [
+    "A vér mellett az élet másik nagy mozgatóereje: az arany, a pénz – amit mások nem mertek kimondani.",
+    "Örökös pénzgondok; Párizs luxusában döbben rá szegénységére.",
+    "A modern élet = a pénzért folytatott harc csatatere.",
+    "Először a Vér és arany ciklusban (pl. Mi urunk: a pénz)."
+   ]
+  },
+  {
+   "id": "nagyur",
+   "title": "Harc a Nagyúrral",
+   "p": "nagyur",
+   "b": [
+    "A disznófejű Nagyúr = a pénz, az arany embertelen hatalma.",
+    "1. vsz.: félelem, a „megöl” háromszor, lihegő rövid mondatok – de: „ha hagyom”.",
+    "Hízelgés → könyörgés („Add az aranyod”) → vad küzdelem. Drámai monológ a 4–7. strófában.",
+    "„Ezer este múlt ezer estre” – hiábavaló, de a harc folyik: mégis-morál. Balladához közelít."
+   ]
+  },
+  {
+   "id": "kajan",
+   "title": "Az ős Kaján",
+   "p": "kajan",
+   "b": [
+    "1907, Párizs. A Vér és arany ciklus címadó verse. 17 ötsoros strófa, 3 egység.",
+    "Az ős Kaján: Kelet mitikus költő-király-istene, Korhely-Apolló, a mámor istene.",
+    "Kellékek: bíbor-palást, rossz zsakett, feszület, két gyertya, bor, vér – kocsmaasztal, színpadiasság.",
+    "„Mit ér az ember, ha magyar?” · Vége: „Uram, én megadom magam.” – válságvers, negatív ars poetica."
+   ]
+  },
+  {
+   "id": "kocsi",
+   "title": "Kocsi-út az éjszakában",
+   "p": "kocsi",
+   "b": [
+    "1909 · a Szeretném, ha szeretnének kötet legjelentősebb darabja – az élet ellehetetlenülésének verse.",
+    "„Minden Egész eltörött” – széttörtség, „egésztelenség”, a beteljesülés lehetetlensége.",
+    "Minden versszak első és utolsó sora azonos → keret.",
+    "milyen → minden → mintha / félig: a teljesség fokozatos széthullása. A kocsi-út = életút."
+   ]
+  }
+ ],
+ "poems": [
+  {
+   "id": "nagyur",
+   "title": "Harc a Nagyúrral",
+   "year": "1905",
+   "video": "https://www.youtube.com/watch?v=eFIeuzMzkOw",
+   "notes": [
+    "A pénz-motívum reprezentatív nagy verse.",
+    "Gyors cselekvés, sok ige, szaggatott előadás, tragédiát sejtető befejezés → ballada.",
+    "9–10. vsz.: drámai csúcspont – a megalázott emberség harcba száll a süket közönnyel.",
+    "Üzenet: az embertelenséggel szemben a harcot reménytelen helyzetben sem szabad feladni."
+   ],
+   "text": "Megöl a disznófejű Nagyúr,\nÉreztem, megöl, ha hagyom,\nVigyorgott rám és ült meredten:\nAz aranyon ült, az aranyon,\nÉreztem, megöl, ha hagyom.\n\nSertés testét, az undokot, én\nSimogattam. Ő remegett.\n„Nézd meg, ki vagyok” (súgtam neki)\nS meglékeltem a fejemet,\nAgyamba nézett s nevetett.\n\n(Vad vágyak vad kalandorának\nTart talán?) S térdre hulltam ott.\nA zúgó Élet partján voltunk,\nKetten voltunk, alkonyodott:\n„Add az aranyod, aranyod.”\n\n„Engem egy pillanat megölhet,\nNekem már várni nem szabad,\nEngem szólítnak útra, kéjre\nTitokzatos hívó szavak,\nNekem már várni nem szabad.”\n\n„A te szivedet serte védi,\nAz én belsőm fekély, galád.\nAz én szivem mégis az áldott:\nAz Élet marta fel, a Vágy.\nArany kell. Mennem kell tovább.”\n\n„Az én jachtomra vár a tenger,\nEzer sátor vár énreám,\nIdegen nap, idegen balzsam,\nIdegen mámor, új leány,\nMind énreám vár, énreám.”\n\n„Az egész élet bennem zihál,\nMinden, mi új, felém üget,\nSzent zűrzavar az én sok álmom,\nNeked minden álmod süket,\nHasítsd ki hát aranyszügyed.”\n\nMár ránk szakadt a bús, vak este.\nÉn nyöszörögtem. A habok\nAz üzenetet egyre hozták:\nVárunk. Van-e már aranyod?\nZúgtak a habok, a habok.\n\nÉs összecsaptunk. Rengett a part,\nHusába vájtam kezemet,\nTéptem, cibáltam. Mindhiába.\nAranya csörgött. Nevetett.\nNem mehetek, nem mehetek.\n\nEzer este múlt ezer estre,\nA vérem hull, hull, egyre hull,\nMessziről hívnak, szólongatnak\nÉs mi csak csatázunk vadul:\nÉn s a disznófejű Nagyúr."
+  },
+  {
+   "id": "kajan",
+   "title": "Az ős Kaján",
+   "year": "1907",
+   "vol": "Vér és arany – ciklus-címadó vers",
+   "video": "https://www.youtube.com/watch?v=D2ys2LAVDpI",
+   "notes": [
+    "A neve talán a Káin név torzítása; egyesíti a keleti, a görög (Apolló, Dionüszosz) és a keresztény mitológiát.",
+    "Megszólítások: „Nagyságos úr, kegyes pajtásom”, „Apám”, ötször „Uram”.",
+    "A beszélő magához csak negatív szavakat társít (meddő, bolond, förtelem, romlás, csömör).",
+    "A 10. strófa kérdése: „Mit ér az ember, ha magyar?”",
+    "Vége: kapituláció – „Uram, én megadom magam.” Válságvers."
+   ]
+  },
+  {
+   "id": "kocsi",
+   "title": "Kocsi-út az éjszakában",
+   "year": "1909",
+   "vol": "Szeretném, ha szeretnének",
+   "video": "http://magyar-irodalom.elte.hu/sulinet/igyjo/setup/portrek/ady/hangok/aekocsi.wav",
+   "notes": [
+    "Bölcseleti érvényű tudatvers a töredékességről.",
+    "1. vsz.: kozmikus törtség (csonka Hold) · 2. vsz.: térben mindenre kiterjed · 3. vsz.: időben a jövő felé.",
+    "„Félig mély csönd és félig lárma” – jajszó, nem dal."
+   ],
+   "text": "Milyen csonka ma a Hold,\nAz éj milyen sivatag, néma,\nMilyen szomoru vagyok én ma,\nMilyen csonka ma a Hold.\n\nMinden Egész eltörött,\nMinden láng csak részekben lobban,\nMinden szerelem darabokban,\nMinden Egész eltörött.\n\nFut velem egy rossz szekér,\nUtána mintha jajszó szállna,\nFélig mély csönd és félig lárma,\nFut velem egy rossz szekér."
+  }
+ ],
+ "cards": [
+  {
+   "t": "mc",
+   "l": "harc",
+   "q": "Mi a létharc-versek alapszituációja?",
+   "a": "A magányos lírai én egyenlőtlen, vereségre ítélt harca mitikus lényekkel",
+   "x": [
+    "Két szerelmes boldog egymásra találása",
+    "Egy tájleírás a Hortobágyról",
+    "Imádság a lelki békéért"
+   ],
+   "w": "Kozmikus, időtlen harc – a teljességért."
+  },
+  {
+   "t": "mc",
+   "l": "harc",
+   "q": "Melyik műfajjal rokonok a létharc-versek?",
+   "a": "A balladával",
+   "x": [
+    "Az ódával",
+    "Az epigrammával",
+    "A himnusszal"
+   ],
+   "w": "Szaggatottság, lírai + epikus beszédmód, színpadiasság."
+  },
+  {
+   "t": "tf",
+   "l": "penz",
+   "q": "Ady szerint a vér mellett az arany, a pénz az élet másik nagy mozgatóereje.",
+   "ok": true,
+   "w": "Ezt mások nem merték kimondani."
+  },
+  {
+   "t": "mc",
+   "l": "penz",
+   "q": "Melyik ciklusban kapnak helyet először a pénz-versek?",
+   "a": "Vér és arany",
+   "x": [
+    "A magyar Ugaron",
+    "Léda asszony zsoltárai",
+    "Esze Tamás komája"
+   ],
+   "w": "Pl. Mi urunk: a pénz."
+  },
+  {
+   "t": "mc",
+   "l": "penz",
+   "q": "Hol döbbent rá Ady igazán a saját szegénységére?",
+   "a": "Párizs luxusában",
+   "x": [
+    "Csucsán",
+    "Érmindszenten",
+    "A Hortobágyon"
+   ],
+   "w": "Szemében mindenható hatalommá vált a pénz."
+  },
+  {
+   "t": "mc",
+   "l": "nagyur",
+   "p": "nagyur",
+   "q": "Mit testesít meg a disznófejű Nagyúr?",
+   "a": "A pénz, az arany embertelen hatalmát",
+   "x": [
+    "Istent",
+    "A halált",
+    "Lédát"
+   ],
+   "w": "„Az aranyon ült, az aranyon”."
+  },
+  {
+   "t": "mc",
+   "l": "nagyur",
+   "p": "nagyur",
+   "q": "Melyik műfajhoz közelít a Harc a Nagyúrral?",
+   "a": "Ballada",
+   "x": [
+    "Óda",
+    "Elégia",
+    "Epigramma"
+   ],
+   "w": "Sok ige, szaggatott előadás, tragédiát sejtető befejezés."
+  },
+  {
+   "t": "type",
+   "l": "nagyur",
+   "p": "nagyur",
+   "q": "Hányszor fordul elő a „megöl” szó a Harc a Nagyúrral 1. versszakában?",
+   "a": "3",
+   "alt": [
+    "három",
+    "háromszor",
+    "3x",
+    "3-szor"
+   ],
+   "w": "A fenyegetettség érzése – de ott a „ha hagyom” küzdeni vágyás is."
+  },
+  {
+   "t": "order",
+   "l": "nagyur",
+   "p": "nagyur",
+   "q": "Rakd sorba a harc menetét!",
+   "items": [
+    "Félelem: „megöl, ha hagyom”",
+    "Hízelgés: simogatja a sertéstestet",
+    "Könyörgés térden: „Add az aranyod”",
+    "Vad összecsapás – mindhiába",
+    "Végtelen harc: „Ezer este múlt ezer estre”"
+   ],
+   "w": "Hízelgés → könyörgés → küzdelem → időtlen harc."
+  },
+  {
+   "t": "tf",
+   "l": "nagyur",
+   "p": "nagyur",
+   "q": "A Harc a Nagyúrral csak dekadens belenyugvást, lemondást fejez ki.",
+   "ok": false,
+   "w": "Benne van a szembeszállás, a mégis-morál szépsége is."
+  },
+  {
+   "t": "cloze",
+   "l": "nagyur",
+   "p": "nagyur",
+   "s": "Már ránk szakadt a bús, vak este. / Én nyöszörögtem. A [habok] / Az üzenetet egyre hozták: / Várunk. Van-e már [aranyod]?",
+   "x": [
+    "szelek",
+    "kenyered"
+   ],
+   "w": "Az élet hívó szava – arany kell hozzá."
+  },
+  {
+   "t": "mc",
+   "l": "nagyur",
+   "p": "nagyur",
+   "q": "Mi a vers általános üzenete?",
+   "a": "Az embertelenséggel szemben a harcot reménytelen helyzetben sem szabad feladni",
+   "x": [
+    "A pénzt mindenáron meg kell szerezni",
+    "Jobb azonnal megadni magunkat",
+    "A szerelem mindent legyőz"
+   ],
+   "w": "A Nagyúr mindenféle embertelenséget megtestesít."
+  },
+  {
+   "t": "mc",
+   "l": "kajan",
+   "p": "kajan",
+   "q": "Melyik ciklus címadó verse Az ős Kaján?",
+   "a": "Vér és arany",
+   "x": [
+    "A magyar Ugaron",
+    "A daloló Páris",
+    "Imádság a csalásért"
+   ],
+   "w": "1907, Párizs; Budapesti Napló."
+  },
+  {
+   "t": "mc",
+   "l": "kajan",
+   "p": "kajan",
+   "q": "Ki az ős Kaján?",
+   "a": "Kelet mitikus költő-király-istene, a mámor istene (Korhely-Apolló)",
+   "x": [
+    "A pénz disznófejű ura",
+    "Az öreg Úr a Sion-hegy alatt",
+    "Ady apja"
+   ],
+   "w": "Ősi keleti, görög és keresztény mitológia egyesül benne."
+  },
+  {
+   "t": "cloze",
+   "l": "kajan",
+   "p": "kajan",
+   "s": "Mit ér az ember, ha [magyar]?",
+   "x": [
+    "szegény",
+    "költő",
+    "beteg"
+   ],
+   "w": "Az ős Kaján leggyakrabban idézett sora – a magyarság-versek alapmondata is."
+  },
+  {
+   "t": "mc",
+   "l": "kajan",
+   "p": "kajan",
+   "q": "Hogyan végződik Az ős Kaján küzdelme?",
+   "a": "Kapitulációval: „Uram, én megadom magam.”",
+   "x": [
+    "A költő győzelmével",
+    "Kibéküléssel és tánccal",
+    "Az ős Kaján halálával"
+   ],
+   "w": "Teljes önfeladás – válságvers."
+  },
+  {
+   "t": "tf",
+   "l": "kajan",
+   "p": "kajan",
+   "q": "Az ős Kaján válságvers, egyfajta negatív ars poetica.",
+   "ok": true,
+   "w": "Önértelmező, létértelmező, értékkereső – a lét válságának költeménye."
+  },
+  {
+   "t": "mc",
+   "l": "kajan",
+   "p": "kajan",
+   "q": "Melyik kellék NEM tartozik Az ős Kaján színpadához?",
+   "a": "Héja-szárny",
+   "x": [
+    "Bíbor-palást",
+    "Két gyertya",
+    "Rossz zsakett"
+   ],
+   "w": "Kellékek: bíbor-palást, rossz zsakett, feszület, két gyertya, bor, vér."
+  },
+  {
+   "t": "mc",
+   "l": "kajan",
+   "p": "kajan",
+   "q": "Milyen szavakat társít magához a beszélő Az ős Kajánban?",
+   "a": "Csak negatívakat: meddő, bolond, förtelem, romlás, csömör",
+   "x": [
+    "Csak dicsérőket",
+    "Vallásos, áhítatos szavakat",
+    "Párizsi divatszavakat"
+   ],
+   "w": "Következetes önleértékelés."
+  },
+  {
+   "t": "mc",
+   "l": "kocsi",
+   "p": "kocsi",
+   "q": "Melyik kötet legjelentősebb darabja a Kocsi-út az éjszakában?",
+   "a": "Szeretném, ha szeretnének",
+   "x": [
+    "Új versek",
+    "Vér és arany",
+    "A halottak élén"
+   ],
+   "w": "1909 – az élet ellehetetlenülésének nagy verse."
+  },
+  {
+   "t": "cloze",
+   "l": "kocsi",
+   "p": "kocsi",
+   "s": "Minden [Egész] [eltörött]",
+   "x": [
+    "Szerelem",
+    "elveszett"
+   ],
+   "w": "A vers kulcssora."
+  },
+  {
+   "t": "mc",
+   "l": "kocsi",
+   "p": "kocsi",
+   "q": "Miről szól a Kocsi-út az éjszakában?",
+   "a": "A széttörtségről, „egésztelenségről”, a beteljesülés lehetetlenségéről",
+   "x": [
+    "Egy vidám éjszakai utazásról",
+    "A háború kitöréséről",
+    "A pénz hatalmáról"
+   ],
+   "w": "Egyéni sors és egyetemes törvény egyszerre."
+  },
+  {
+   "t": "mc",
+   "l": "kocsi",
+   "p": "kocsi",
+   "q": "Mi a Kocsi-út versszakainak szerkezeti sajátossága?",
+   "a": "Minden versszak első és utolsó sora azonos – keretet ad",
+   "x": [
+    "Minden versszak kérdéssel zárul",
+    "A versszakok tükörképei egymásnak",
+    "Nincsenek versszakok"
+   ],
+   "w": "A külső élményre belső érzet reagál a keretben."
+  },
+  {
+   "t": "order",
+   "l": "kocsi",
+   "p": "kocsi",
+   "q": "A teljesség széthullása – rakd sorba a kulcsszavakat!",
+   "items": [
+    "„Milyen” (1. vsz.)",
+    "„Minden” (2. vsz.)",
+    "„mintha”, „félig” (3. vsz.)"
+   ],
+   "w": "A „félig”-ek véglegesen széthasítják a teljességet."
+  },
+  {
+   "t": "match",
+   "l": "kocsi",
+   "p": "kocsi",
+   "q": "Mire terjed ki a törtség az egyes versszakokban?",
+   "pairs": [
+    [
+     "1. versszak",
+     "kozmikus szint (csonka Hold)"
+    ],
+    [
+     "2. versszak",
+     "térben mindenre"
+    ],
+    [
+     "3. versszak",
+     "időben, a jövő felé"
+    ]
+   ],
+   "w": "Fokozatosan tágul a széthullás."
+  },
+  {
+   "t": "cloze",
+   "l": "kocsi",
+   "p": "kocsi",
+   "s": "Félig mély [csönd] és félig [lárma]",
+   "x": [
+    "zene",
+    "sötét"
+   ],
+   "w": "Jajszó, nem dal – az alkotó csönd is széttörik."
+  },
+  {
+   "t": "tf",
+   "l": "kocsi",
+   "p": "kocsi",
+   "q": "A „rossz szekér” útja az életutat jelképezi.",
+   "ok": true,
+   "w": "A kocsi-út = életút, amely dal helyett jajszót hallat."
+  }
+ ]
+}

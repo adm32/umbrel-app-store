@@ -1,0 +1,603 @@
+{
+ "unit": "ady",
+ "id": "ady-ars",
+ "order": 1,
+ "name": "Ars poetica",
+ "icon": "🎺",
+ "color": "#ff7a3d",
+ "sum": "Góg és Magóg, Új vizeken járok, Illés, Messiások, Szeretném…, Hunn",
+ "links": [
+  {
+   "title": "Zanza: Ady ars poeticája",
+   "url": "https://zanza.tv/irodalom/klasszikus-modernseg-realizmus-naturalizmus-szimbolizmus-impresszionizmus-szecesszio/ady"
+  }
+ ],
+ "learn": [
+  {
+   "id": "gog1",
+   "title": "Góg és Magóg – a vezérvers",
+   "p": "gog",
+   "b": [
+    "Az Új versek (1906) előhangja: ciklusokon kívülre helyezett programvers (keletkezés: 1905).",
+    "A Párizsból hazaérkező költő lírai önvallomása, hitvallása, programadása.",
+    "A vezérverseknek Ady nem adott címet, első sorukkal jelöljük őket.",
+    "MEMORITER – fejből kell tudni!"
+   ]
+  },
+  {
+   "id": "gog2",
+   "title": "Góg és Magóg – szimbólumok",
+   "p": "gog",
+   "b": [
+    "Góg és Magóg népe = a magyarság: pusztulásra ítélt, a fejlődéstől elzárt nép.",
+    "Verecke = honfoglalás, a Kelet, az ősiséghez ragaszkodás · Dévény = Magyarország nyugati kapuja, a Nyugat, az új.",
+    "Vazul = áldozat: a költő tudja, mi vár rá, mégis vállalja a küldetést (mártírsors).",
+    "Pusztaszer = a múlthoz való görcsös ragaszkodás."
+   ]
+  },
+  {
+   "id": "gog3",
+   "title": "Góg és Magóg – forma",
+   "p": "gog",
+   "b": [
+    "Kulcsszó: az „új” (6×). 4× „mégis” → lázadó eltökéltség, mégis-morál.",
+    "Ellentétek: „hiába” ↔ „mégis”, „én” ↔ „ti” – tragikus kettősség.",
+    "Zárás: a dal „mégis győztes, mégis új és magyar” – jövendölésszerű remény.",
+    "Verselés: bimetrikus (ütemhangsúlyos és időmértékes egyszerre) · rím: félrím (xaxa)."
+   ]
+  },
+  {
+   "id": "ujviz",
+   "title": "Új vizeken járok",
+   "p": "ujviz",
+   "b": [
+    "Az Új versek ZÁRÓ darabja – a kötet előhangjával kapcsolható össze.",
+    "A hajó = a költő és költészete, amely új, szűzi vizekre indul.",
+    "Művészi öntudat, önérzetes, prófétai hang: ő „a Holnap hőse”.",
+    "„Én nem leszek a szürkék hegedőse” – az „új” szolgálatába állítja költészetét."
+   ]
+  },
+  {
+   "id": "illes",
+   "title": "Az Illés szekerén · A magyar Messiások",
+   "p": "illes",
+   "b": [
+    "Az Illés szekerén: az azonos című kötet előhangja. A próféták kiválasztott lelkek – sorsuk felemelő, de tragikus.",
+    "A művészlét = megnemértettség, otthontalanság, elhagyatottság. „Szivük izzik, agyuk jégcsapos”.",
+    "A magyar Messiások (1907): meddő áldozat – „semmit se tehettek”, mégis ezerszer vállalják a megváltást."
+   ]
+  },
+  {
+   "id": "szer",
+   "title": "Szeretném, ha szeretnének · Hunn, új legenda",
+   "p": "szeretnem",
+   "b": [
+    "Szeretném, ha szeretnének (1909): az azonos című kötet előhangja – tragikus árvaság, mohó szeretetvágy.",
+    "Nemcsak a saját magánya: az általános emberi elhagyatottság, elidegenedés szól belőle.",
+    "Hunn, új legenda (1913): válasz Hatvany Lajos bírálatára – kérdéssel induló, vitatkozó-perlekedő beszédhelyzet.",
+    "Elhatárolódik a szolgai utánzástól, de vállalja a költő közösségteremtő hivatását."
+   ]
+  }
+ ],
+ "poems": [
+  {
+   "id": "gog",
+   "title": "Góg és Magóg fia vagyok én…",
+   "year": "1905",
+   "vol": "Új versek (1906) – előhang",
+   "memo": true,
+   "video": "https://www.youtube.com/watch?v=CqHDVtLNBhI",
+   "notes": [
+    "1. vsz.: archaikus jelleg; Góg és Magóg népe = a pusztulásra ítélt magyarság, a költő feladata megváltani.",
+    "2. vsz.: Verecke (Kelet, ősiség) ↔ Dévény (Nyugat, újdonság).",
+    "3. vsz.: Vazul – a költő áldozatként, mártírként látja magát.",
+    "4. vsz.: jövendölés: az új dal mégis győztes, új és magyar. Pusztaszer = görcsös múltba kapaszkodás.",
+    "6× „új”, 4× „mégis” · bimetrikus · félrím (xaxa)."
+   ],
+   "text": "Góg és Magóg fia vagyok én,\nHiába döngetek kaput, falat\nS mégis megkérdem tőletek:\nSzabad-e sírni a Kárpátok alatt?\n\nVerecke híres útján jöttem én,\nFülembe még ősmagyar dal rivall,\nSzabad-e Dévénynél betörnöm\nÚj időknek új dalaival?\n\nFülembe forró ólmot öntsetek,\nLegyek az új, az énekes Vazul,\nNe halljam az élet új dalait,\nTiporjatok reám durván, gazul.\n\nDe addig sírva, kínban, mit se várva\nMégiscsak száll új szárnyakon a dal\nS ha elátkozza százszor Pusztaszer,\nMégis győztes, mégis új és magyar."
+  },
+  {
+   "id": "ujviz",
+   "title": "Új vizeken járok",
+   "year": "1905",
+   "vol": "Új versek – záró vers",
+   "notes": [
+    "A művészi öntudat megfogalmazása, önérzetes, prófétai hang.",
+    "Refrén: „Röpülj, hajóm” – minden versszak első sora a negyedikben visszatér.",
+    "Célja a magyar kultúra megújítása: ő „a Holnap hőse”."
+   ],
+   "text": "Ne félj, hajóm, rajtad a Holnap hőse,\nRöhögjenek a részeg evezősre.\nRöpülj, hajóm,\nNe félj, hajóm: rajtad a Holnap hőse.\n\nSzállani, szállani, szállani egyre,\nÚj, új Vizekre, nagy, szűzi Vizekre,\nRöpülj, hajóm,\nSzállani, szállani, szállani egyre.\n\nÚj horizonok libegnek elébed,\nMinden percben új, félelmes az Élet,\nRöpülj, hajóm,\nÚj horizonok libegnek elébed.\n\nNem kellenek a megálmodott álmok,\nÚj kínok, titkok, vágyak vizén járok,\nRöpülj, hajóm,\nNem kellenek a megálmodott álmok.\n\nÉn nem leszek a szürkék hegedőse,\nHajtson szentlélek vagy a korcsma gőze:\nRöpülj, hajóm,\nÉn nem leszek a szürkék hegedőse."
+  },
+  {
+   "id": "illes",
+   "title": "Az Illés szekerén",
+   "vol": "Az Illés szekerén – előhang",
+   "video": "https://www.youtube.com/watch?v=YKDOuoxu5tU",
+   "notes": [
+    "„Az Úr Illésként elviszi mind, / Kiket nagyon sujt és szeret” – a kiválasztottak.",
+    "A látnoksors együtt jár a megnemértettséggel, otthontalansággal, tragikus elhagyatottsággal."
+   ],
+   "text": "Az Úr Illésként elviszi mind,\nKiket nagyon sujt és szeret:\nTüzes, gyors sziveket ad nekik,\nEzek a tüzes szekerek.\n\nAz Illés-nép Ég felé rohan\nS ha megáll ott, hol a tél örök,\nA Himaláják jégcsucsain\nPorzik szekerük és zörög.\n\nÉg s Föld között, bús-hazátlanul\nHajtja őket a Sors szele.\nGonosz, hűvös szépségek felé\nSzáguld az Illés szekere.\n\nSzivük izzik, agyuk jégcsapos,\nA Föld reájuk fölkacag\nS jég-útjukat szánva szórja be\nHideg gyémántporral a Nap."
+  },
+  {
+   "id": "messias",
+   "title": "A magyar Messiások",
+   "year": "1907",
+   "video": "https://www.youtube.com/watch?v=VNH-JbXVLco",
+   "notes": [
+    "A magyar messiások sorsa a meddő áldozat, mégis ezerszer vállalják a megváltás szerepét.",
+    "A hiábavalóság élménye + a mártíromságot mégis vállaló elszántság."
+   ],
+   "text": "Sósabbak itt a könnyek\nS a fájdalmak is mások.\nEzerszer Messiások\nA magyar Messiások.\n\nEzerszer is meghalnak\nS üdve nincs a keresztnek,\nMert semmit se tehettek,\nÓh, semmit se tehettek."
+  },
+  {
+   "id": "szeretnem",
+   "title": "Szeretném, ha szeretnének",
+   "year": "1909",
+   "vol": "Szeretném, ha szeretnének – előhang",
+   "video": "https://www.youtube.com/watch?v=rC74aFQ0pUw",
+   "notes": [
+    "Az egyén tragikus árvasága, mohó szeretetvágy.",
+    "Általános emberi elhagyatottság, elidegenedés – nem csak egy ember magánya."
+   ],
+   "text": "Sem utódja, sem boldog őse,\nSem rokona, sem ismerőse\nNem vagyok senkinek,\nNem vagyok senkinek.\n\nVagyok, mint minden ember: fenség,\nÉszak-fok, titok, idegenség,\nLidérces, messze fény,\nLidérces, messze fény.\n\nDe, jaj, nem tudok így maradni,\nSzeretném magam megmutatni,\nHogy látva lássanak,\nHogy látva lássanak.\n\nEzért minden: önkínzás, ének:\nSzeretném, hogyha szeretnének\nS lennék valakié,\nLennék valakié."
+  },
+  {
+   "id": "hunn",
+   "title": "Hunn, új legenda",
+   "year": "1913",
+   "video": "https://www.youtube.com/watch?v=zyVdtQEwm-M",
+   "notes": [
+    "Válasz Hatvany Lajos bírálatára. Kérdéssel induló, vitatkozó-perlekedő beszédhelyzet.",
+    "A maga útját járó romantikus költőutód: elhatárolódik a szolgai utánzástól, de vállalja a közösségteremtést.",
+    "A vers az alkotó egyéniség megvilágosodásának története."
+   ],
+   "text": "Minek a tanács, jóslat, aggodalmak?:\nGesztusaim élnek, míg meg nem halnak\nS életemnek csak nézői a maiak.\n\nMessziről és messzire megy ez élet\nS csak: élet ez, summája ezrekének,\nÖrök, magyar határ-pör, meg nem szakadott.\n\nS életük ez a mérsékelt csodáknak,\nMikben mégis ős állandóság vágtat,\nHunn, új legenda, mely zsarnokin életik.\n\nMásolja ám el életét a gyönge,\nFúrja magát elélten a göröngybe,\nVoltom, se végem nem lehet enyhe szabály.\n\nHa ki király, Sorsának a királya,\nMit bánom én, hogy Goethe hogy csinálja,\nHogy tempóz Arany s Petőfi hogy istenül.\n\nNekem beszédes költő-példák némák,\nSem a betelt s kikerített poémák,\nSem a mutatványos fátum nem kenyerem.\n\nBennem a szándék sok százados szándék,\nMagyar bevárás, Úrverte ajándék\nS lelkem: példázat, dac-fajok úri daca.\n\nZsinatokat doboltam, hogyha tetszett\nS parancsoltam élükre seregeknek\nHangos Dózsát s szapora Jacques Bonhomme-ot.\n\nSzázféle bajnok mássá sohse váltan,\nÜtő legény, aki az ütést álltam:\nÍgy állva, várva vagyok egészen magyar.\n\nVagyok egy ágban szabadulás, béklyó,\nProtestáló hit s küldetéses vétó:\nEb ura fakó, Ugocsa non coronat.\n\nKi voltam öreg grammás-diák korban,\nÉgnek lendülten s százszor megbotoltan,\nKülön jussom: vénen is diák lehetek.\n\nKalapom, szűröm, szivem förgetegben,\nNézik a vihart, hogy ki bírja szebben\nS visszapattog róluk jég, vád és szidalom.\n\nKülön alkuja lehet a Halállal,\nAkit, amikor milliókat vállal,\nNem bámitott az Élet sok, új kapuja.\n\nA tolakodó Gráciát ellöktem,\nÉn nem bűvésznek, de mindennek jöttem,\nA Minden kellett s megillet a Semmisem.\n\nÉn voltam Úr, a Vers csak cifra szolga,\nHulltommal hullni: ez a szolga dolga,\nHa a Nagyúr sírja szolgákat követel."
+  }
+ ],
+ "cards": [
+  {
+   "t": "mc",
+   "l": "gog1",
+   "p": "gog",
+   "q": "Melyik kötet előhangja a Góg és Magóg fia vagyok én…?",
+   "a": "Új versek",
+   "x": [
+    "Vér és arany",
+    "Az Illés szekerén",
+    "Szeretném, ha szeretnének"
+   ],
+   "w": "Az Új versek (1906) előhangja – ciklusokon kívülre helyezett programvers."
+  },
+  {
+   "t": "tf",
+   "l": "gog1",
+   "p": "gog",
+   "q": "A Góg és Magóg fia vagyok én… az Új versek egyik ciklusának nyitóverse.",
+   "ok": false,
+   "w": "Nem egy ciklus része: a ciklusokon kívülre helyezett előhang, programvers."
+  },
+  {
+   "t": "mc",
+   "l": "gog1",
+   "p": "gog",
+   "q": "Miért a vers első sora a címe?",
+   "a": "A vezérverseknek Ady nem adott címet, első sorukkal jelöljük őket",
+   "x": [
+    "A cenzúra törölte a címet",
+    "Mert kuruc nóta dallamára írta",
+    "Így szokás minden szonettnél"
+   ],
+   "w": "Vezérvers = előhang; nincs címe, első sorával idézzük."
+  },
+  {
+   "t": "mc",
+   "l": "gog1",
+   "p": "gog",
+   "q": "Milyen helyzetben szól a lírai én a Góg és Magógban?",
+   "a": "Párizsból hazaérkező költőként, hitvallást és programot ad",
+   "x": [
+    "Halálos ágyán búcsúzik",
+    "A fronton, katonaként",
+    "Csucsán, Csinszka mellett"
+   ],
+   "w": "Lírai önvallomás, hitvallás, programadás."
+  },
+  {
+   "t": "match",
+   "l": "gog2",
+   "p": "gog",
+   "q": "Párosítsd a szimbólumot a jelentésével!",
+   "pairs": [
+    [
+     "Góg és Magóg népe",
+     "a magyarság"
+    ],
+    [
+     "Verecke",
+     "Kelet, honfoglalás, ősiség"
+    ],
+    [
+     "Dévény",
+     "Nyugat kapuja, az új"
+    ],
+    [
+     "Vazul",
+     "áldozat, mártír költő"
+    ],
+    [
+     "Pusztaszer",
+     "görcsös ragaszkodás a múlthoz"
+    ]
+   ],
+   "w": "Ez a vers szimbólumrendszere – dolgozatban mindig jól jön!"
+  },
+  {
+   "t": "mc",
+   "l": "gog2",
+   "p": "gog",
+   "q": "Mit jelképez Dévény?",
+   "a": "Magyarország nyugati kapuját, a Nyugatot, az újat",
+   "x": [
+    "A honfoglalást, a keleti ősiséget",
+    "A pusztulásra ítélt népet",
+    "A múlthoz való görcsös ragaszkodást"
+   ],
+   "w": "Dévény ↔ Verecke: Nyugat ↔ Kelet."
+  },
+  {
+   "t": "mc",
+   "l": "gog2",
+   "p": "gog",
+   "q": "Mit jelképez Verecke?",
+   "a": "A honfoglalást, a Keletet, az ősiséghez ragaszkodást",
+   "x": [
+    "A Nyugat kapuját",
+    "A költő mártírhalálát",
+    "Párizst"
+   ],
+   "w": "„Verecke híres útján jöttem én” – sorsközösség a „keleti” magyarsággal."
+  },
+  {
+   "t": "mc",
+   "l": "gog2",
+   "p": "gog",
+   "q": "Melyik történelmi alakkal azonosul a költő a 3. versszakban?",
+   "a": "Vazul",
+   "x": [
+    "Árpád",
+    "Koppány",
+    "Dózsa György"
+   ],
+   "w": "„Legyek az új, az énekes Vazul” – Vazul fülébe ólmot öntöttek; a költő vállalja az áldozatot."
+  },
+  {
+   "t": "mc",
+   "l": "gog2",
+   "p": "gog",
+   "q": "Mit jelképez Pusztaszer a vers végén?",
+   "a": "A múlthoz való görcsös ragaszkodást",
+   "x": [
+    "A honfoglaló Keletet",
+    "A Nyugat felé nyitott kaput",
+    "A győztes új dalt"
+   ],
+   "w": "„S ha elátkozza százszor Pusztaszer, / Mégis győztes, mégis új és magyar.”"
+  },
+  {
+   "t": "type",
+   "l": "gog3",
+   "p": "gog",
+   "q": "Mi a Góg és Magóg kulcsszava (6-szor szerepel)?",
+   "a": "új",
+   "alt": [
+    "az új",
+    "uj"
+   ],
+   "w": "6× „új” – nyomatékosítás."
+  },
+  {
+   "t": "mc",
+   "l": "gog3",
+   "p": "gog",
+   "q": "Hányszor szerepel a „mégis” (mégiscsak) a Góg és Magógban?",
+   "a": "4-szer",
+   "x": [
+    "2-szer",
+    "3-szor",
+    "6-szor"
+   ],
+   "w": "4× „mégis” – lázadó eltökéltség, ebből lett a „mégis-morál”."
+  },
+  {
+   "t": "mc",
+   "l": "gog3",
+   "p": "gog",
+   "q": "Milyen a Góg és Magóg verselése?",
+   "a": "Bimetrikus (ütemhangsúlyos és időmértékes egyszerre)",
+   "x": [
+    "Tisztán időmértékes (hexameter)",
+    "Szabadvers",
+    "Felező nyolcas"
+   ],
+   "w": "Bimetrikus – a magyaros és az antik ritmus egyszerre."
+  },
+  {
+   "t": "mc",
+   "l": "gog3",
+   "p": "gog",
+   "q": "Milyen a Góg és Magóg rímelése?",
+   "a": "Félrím (xaxa)",
+   "x": [
+    "Páros rím (aabb)",
+    "Keresztrím (abab)",
+    "Bokorrím (aaaa)"
+   ],
+   "w": "Csak a 2. és a 4. sor rímel."
+  },
+  {
+   "t": "tf",
+   "l": "gog3",
+   "p": "gog",
+   "q": "A Góg és Magóg végén a remény szól: az új dal mégis győztes, új és magyar lesz.",
+   "ok": true,
+   "w": "Jövendölésszerű zárás – mégis-morál."
+  },
+  {
+   "t": "order",
+   "l": "gog3",
+   "p": "gog",
+   "q": "Rakd sorba a Góg és Magóg versszakainak tartalmát!",
+   "items": [
+    "Archaikus jelleg: Góg és Magóg népe = a magyarság",
+    "Verecke és Dévény: Kelet és Nyugat ellentéte",
+    "Vazul: a költő áldozatként látja magát",
+    "Jövendölés: a dal mégis győztes, új és magyar"
+   ],
+   "w": "1. archaikus jelleg → 2. Kelet–Nyugat → 3. áldozat → 4. remény."
+  },
+  {
+   "t": "mc",
+   "l": "gog3",
+   "p": "gog",
+   "q": "Milyen ellentétpárok feszülnek a versben?",
+   "a": "„hiába” ↔ „mégis”, „én” ↔ „ti”",
+   "x": [
+    "„nyár” ↔ „ősz”, „héja” ↔ „avar”",
+    "„Tisza” ↔ „Gangesz”",
+    "„Léda” ↔ „Csinszka”"
+   ],
+   "w": "A tragikus kettősség: a költő magányosan áll szemben a közönséggel."
+  },
+  {
+   "t": "mc",
+   "l": "ujviz",
+   "p": "ujviz",
+   "q": "Hol áll az Új vizeken járok az Új versek kötetben?",
+   "a": "A kötet záró darabja",
+   "x": [
+    "A kötet előhangja",
+    "A magyar Ugaron ciklus nyitóverse",
+    "A Léda asszony zsoltárai ciklus közepén"
+   ],
+   "w": "Az előhang (Góg és Magóg) és a záróvers keretezi a kötetet."
+  },
+  {
+   "t": "mc",
+   "l": "ujviz",
+   "p": "ujviz",
+   "q": "Mit jelképez a hajó az Új vizeken járokban?",
+   "a": "A költőt és az új felé induló költészetét",
+   "x": [
+    "Párizst",
+    "A pénz hatalmát",
+    "A háborús Magyarországot"
+   ],
+   "w": "Az új, szűzi vizekre szálló hajó = a megújító költő."
+  },
+  {
+   "t": "cloze",
+   "l": "ujviz",
+   "p": "ujviz",
+   "s": "Ne félj, hajóm, rajtad a [Holnap] [hőse]",
+   "x": [
+    "Tegnap",
+    "hajósa",
+    "Múlt"
+   ],
+   "w": "A költő a Holnap hőse – az újat hozza."
+  },
+  {
+   "t": "cloze",
+   "l": "ujviz",
+   "p": "ujviz",
+   "s": "Én nem leszek a [szürkék] [hegedőse]",
+   "x": [
+    "szentek",
+    "hajósa",
+    "dalnoka"
+   ],
+   "w": "Nem a középszerűség költője akar lenni."
+  },
+  {
+   "t": "tf",
+   "l": "ujviz",
+   "p": "ujviz",
+   "q": "Az Új vizeken járok önérzetes, prófétai hangú vers a művészi öntudatról.",
+   "ok": true,
+   "w": "Ady a legmagasabb igényt állítja önmagával szemben."
+  },
+  {
+   "t": "mc",
+   "l": "illes",
+   "p": "illes",
+   "q": "Kik az „Illés-nép” Az Illés szekerén című versben?",
+   "a": "A kiválasztott, próféta-sorsú lelkek, művészek",
+   "x": [
+    "A bibliai zsidó nép",
+    "A magyar parasztság",
+    "A pénzes polgárok"
+   ],
+   "w": "„Az Úr Illésként elviszi mind, / Kiket nagyon sujt és szeret”."
+  },
+  {
+   "t": "tf",
+   "l": "illes",
+   "p": "illes",
+   "q": "Az Illés szekerén szerint a látnoksors boldog, harmonikus élet.",
+   "ok": false,
+   "w": "Felemelően szép, de tragikus: megnemértettség, otthontalanság, elhagyatottság."
+  },
+  {
+   "t": "cloze",
+   "l": "illes",
+   "p": "illes",
+   "s": "Szivük [izzik], agyuk [jégcsapos]",
+   "x": [
+    "fázik",
+    "lángoló",
+    "aranyos"
+   ],
+   "w": "Ellentét: forró szív, hideg ész."
+  },
+  {
+   "t": "mc",
+   "l": "illes",
+   "p": "messias",
+   "q": "Mi a magyar Messiások sorsa?",
+   "a": "Meddő áldozat – mégis ezerszer vállalják a megváltást",
+   "x": [
+    "Győztes megváltás",
+    "Kényelmes, polgári élet",
+    "Elmenekülnek Párizsba"
+   ],
+   "w": "„Mert semmit se tehettek, / Óh, semmit se tehettek.”"
+  },
+  {
+   "t": "cloze",
+   "l": "illes",
+   "p": "messias",
+   "s": "Sósabbak itt a [könnyek] / S a fájdalmak is [mások].",
+   "x": [
+    "tengerek",
+    "kisebbek"
+   ],
+   "w": "A magyar messiások tragédiája."
+  },
+  {
+   "t": "mc",
+   "l": "szer",
+   "p": "szeretnem",
+   "q": "Mi szólal meg a Szeretném, ha szeretnének című versben?",
+   "a": "Tragikus árvaság, mohó szeretetvágy",
+   "x": [
+    "Gőgös leszámolás egy nővel",
+    "Lelkes hazafias buzdítás",
+    "Bibliai bűnbánat"
+   ],
+   "w": "Az egyén tragikus árvasága, általános emberi elidegenedés."
+  },
+  {
+   "t": "tf",
+   "l": "szer",
+   "p": "szeretnem",
+   "q": "A Szeretném, ha szeretnének csak a költő saját magányáról szól.",
+   "ok": false,
+   "w": "Nemcsak egy ember magánya: az általános emberi elhagyatottság, elidegenedés is."
+  },
+  {
+   "t": "cloze",
+   "l": "szer",
+   "p": "szeretnem",
+   "s": "Szeretném magam [megmutatni], / Hogy látva [lássanak]",
+   "x": [
+    "elrejteni",
+    "szeressenek"
+   ],
+   "w": "A látva látás vágya."
+  },
+  {
+   "t": "mc",
+   "l": "szer",
+   "p": "szeretnem",
+   "q": "Milyen szerepe van a Szeretném, ha szeretnének című versnek?",
+   "a": "Az azonos című kötet előhangja",
+   "x": [
+    "Az Új versek záróverse",
+    "A Vér és arany címadó verse",
+    "Kuruc ciklus nyitóverse"
+   ],
+   "w": "Az Illés szekerén is az azonos című kötet előhangja."
+  },
+  {
+   "t": "mc",
+   "l": "szer",
+   "p": "hunn",
+   "q": "Kinek a bírálatára válaszolt Ady a Hunn, új legendával?",
+   "a": "Hatvany Lajos",
+   "x": [
+    "Király István",
+    "Babits Mihály",
+    "Riedl Frigyes"
+   ],
+   "w": "A vers ajánlása is neki szól: „szeret, bánt és félt”."
+  },
+  {
+   "t": "mc",
+   "l": "szer",
+   "p": "hunn",
+   "q": "Milyen beszédhelyzet jellemzi a Hunn, új legendát?",
+   "a": "Kérdéssel induló, vitatkozó-perlekedő",
+   "x": [
+    "Imádságos, alázatos",
+    "Szerelmes, könyörgő",
+    "Tárgyilagos, leíró"
+   ],
+   "w": "„Minek a tanács, jóslat, aggodalmak?”"
+  },
+  {
+   "t": "cloze",
+   "l": "szer",
+   "p": "hunn",
+   "s": "Mit bánom én, hogy [Goethe] hogy csinálja, / Hogy tempóz [Arany] s Petőfi hogy istenül.",
+   "x": [
+    "Vörösmarty",
+    "Shakespeare",
+    "Balassi"
+   ],
+   "w": "A maga útját járja – nem utánoz senkit."
+  },
+  {
+   "t": "tf",
+   "l": "szer",
+   "p": "hunn",
+   "q": "A Hunn, új legendában Ady elutasítja a költő közösségteremtő hivatását.",
+   "ok": false,
+   "w": "Elhatárolódik a szolgai utánzástól, DE vállalja a klasszikus hivatást, a közösségteremtést."
+  },
+  {
+   "t": "match",
+   "l": "szer",
+   "q": "Párosítsd a verset a helyével!",
+   "pairs": [
+    [
+     "Góg és Magóg fia vagyok én…",
+     "az Új versek előhangja"
+    ],
+    [
+     "Új vizeken járok",
+     "az Új versek záró darabja"
+    ],
+    [
+     "Az Illés szekerén",
+     "az azonos című kötet előhangja"
+    ],
+    [
+     "Szeretném, ha szeretnének",
+     "a róla elnevezett kötet előhangja"
+    ]
+   ],
+   "w": "Előhangok és keretversek."
+  }
+ ]
+}

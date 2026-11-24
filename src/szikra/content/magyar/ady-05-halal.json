@@ -1,0 +1,379 @@
+{
+ "unit": "ady",
+ "id": "ady-halal",
+ "order": 5,
+ "name": "Halál-versek",
+ "icon": "🥀",
+ "color": "#b69cff",
+ "sum": "A Halál rokona, Párisban járt az Ősz, Sírni, sírni, sírni",
+ "learn": [
+  {
+   "id": "alap",
+   "title": "Az elmúlás alapélménye",
+   "b": [
+    "Visszatérő betegség, egzisztenciális bizonytalanság, politikai támadások → a halál közelsége.",
+    "Az Élet–Halál motívum a leggyakoribb és legváltozatosabb az életműben.",
+    "Fiatalon franciás, dekadens halálhangulat; később a halál közeledtének vacogó rémülete.",
+    "Léda-versekben is: a csúf élettel szemben a halál megszépül, jó barát, vigasztaló."
+   ]
+  },
+  {
+   "id": "rokon",
+   "title": "A Halál rokona",
+   "p": "halalrokona",
+   "b": [
+    "1907, Vér és arany kötet – az első halál-ciklus (a kötet nyitóciklusa) címadó verse.",
+    "„szeretem” 9×, „vagyok” 2× · rím: xaxa · szótag: 9-9-8-4 → lassú, elégikus lejtés.",
+    "Keretes: az utolsó versszak megismétli az elsőt. Állóképek sorozata, nincs történet.",
+    "Nem a halált szereti, hanem a melankóliát – a halál „játszi mását”. Rokon = veleszületett, elrendelt kapcsolat."
+   ]
+  },
+  {
+   "id": "osz",
+   "title": "Párisban járt az Ősz",
+   "p": "parisosz",
+   "b": [
+    "1906 augusztusa, Párizs · az elégia határán járó búcsúdal.",
+    "Az Ősz (nagybetűvel!) = a halál allegóriája; kánikulában „szökik be” Párizsba, a Szent Mihály útján.",
+    "„füstösek, furcsák, búsak, bíborak” – alliteráció, négyes halmozás: még csak futó hangulat.",
+    "2. fele: az Ősz „súgott valamit” → megdöbbenés: a halál közelsége. „én tudom csupán”."
+   ]
+  },
+  {
+   "id": "sirni",
+   "title": "Sírni, sírni, sírni · elégia",
+   "p": "sirni",
+   "b": [
+    "1907 · ősi siratóének: elképzelt gyászmenet, idegen halott – a költő saját halálát éli meg.",
+    "„Testamentumot, szörnyüt, írni / És sírni, sírni, sírni, sírni.”",
+    "Más halálversek: Halál lovai (a halál allegóriája), Halál a síneken (a halál pillanata).",
+    "Elégia: görög eredetű, panasz, szomorúság, vágyódás; alapélménye az elmúlás, a boldogság elvesztése."
+   ]
+  }
+ ],
+ "poems": [
+  {
+   "id": "halalrokona",
+   "title": "A Halál rokona",
+   "year": "1907",
+   "vol": "Vér és arany – nyitóciklus címadó verse",
+   "video": "https://www.youtube.com/watch?v=0CwYMYsrQdw",
+   "notes": [
+    "A cím négyszer fordul elő: ciklus, vers, első sor, utolsó versszak.",
+    "Én-központú beszédhelyzet, jelen idő, tárgyi mellékmondatok → személyes értékrend.",
+    "A halál kísérőjelenségei (koporsó, testamentum) nem szerepelnek – a halál szimbólum.",
+    "Negatív jelzők: tűnő, beteg, hervadó, bánatos, kísértetes, dér-esős, fáradt, csalódott."
+   ],
+   "text": "Én a Halál rokona vagyok,\nSzeretem a tűnő szerelmet,\nSzeretem megcsókolni azt,\nAki elmegy.\n\nSzeretem a beteg rózsákat,\nHervadva ha vágynak, a nőket,\nA sugaras, a bánatos\nŐsz-időket.\n\nSzeretem a szomorú órák\nKisértetes, intő hivását,\nA nagy Halál, a szent Halál\nJátszi mását.\n\nSzeretem az elutazókat,\nSírókat és fölébredőket\nS dér-esős, hideg hajnalon\nA mezőket.\n\nSzeretem a fáradt lemondást,\nKönnyetlen sírást és a békét,\nBölcsek, poéták, betegek\nMenedékét.\n\nSzeretem azt, aki csalódott,\nAki rokkant, aki megállott,\nAki nem hisz, aki borus:\nA világot.\n\nÉn a Halál rokona vagyok,\nSzeretem a tűnő szerelmet,\nSzeretem megcsókolni azt,\nAki elmegy."
+  },
+  {
+   "id": "parisosz",
+   "title": "Párisban járt az Ősz",
+   "year": "1906",
+   "video": "https://www.youtube.com/watch?v=EP9OPQk2WdU",
+   "notes": [
+    "Elégia határán járó búcsúdal. Az Ősz = a halál allegóriája.",
+    "Szinesztézia, különös hangzás: egyszerre tragikus és idillikus.",
+    "„Itt járt s hogy itt járt, én tudom csupán” – a felismerés bizonyossága."
+   ],
+   "text": "Párisba tegnap beszökött az Ősz.\nSzent Mihály útján suhant nesztelen,\nKánikulában, halk lombok alatt\nS találkozott velem.\n\nBallagtam éppen a Szajna felé\nS égtek lelkemben kis rőzse-dalok:\nFüstösek, furcsák, búsak, bíborak,\nArról, hogy meghalok.\n\nElért az Ősz és súgott valamit,\nSzent Mihály útja beleremegett,\nZüm, züm: röpködtek végig az uton\nTréfás falevelek.\n\nEgy perc: a Nyár meg sem hőkölt belé\nS Párisból az Ősz kacagva szaladt.\nItt járt s hogy itt járt, én tudom csupán\nNyögő lombok alatt."
+  },
+  {
+   "id": "sirni",
+   "title": "Sírni, sírni, sírni",
+   "year": "1907",
+   "video": "https://www.youtube.com/watch?v=YHzouS62ziY",
+   "notes": [
+    "Ősi siratóének fájdalmával érzékelteti a halál okozta megrendülést.",
+    "A temetési szertartás közben a költő saját halálát is megéli."
+   ],
+   "text": "Várni, ha éjfélt üt az óra,\nEgy közeledő koporsóra.\n\nNem kérdeni, hogy kit temetnek,\nCsöngetyűzni a gyász-menetnek.\n\nEzüst sátrak, fekete leplek\nAlatt lóbálni egy keresztet.\n\nÁllni gyászban, súlyos ezüstben,\nFuldokolni a fáklyafüstben.\n\nZörgő árnyakkal harcra kelni,\nFojtott zsolozsmát énekelni.\n\nHallgatni orgonák búgását,\nSíri harangok mély zúgását.\n\nLépni mély, tárt sírokon által\nKomor pappal, néma szolgákkal.\n\nRemegve, bújva, lesve, lopva\nNézni egy idegen halottra.\n\nFázni holdas, babonás éjen\nTömjén-árban, lihegve mélyen.\n\nTagadni multat, mellet verve,\nMegbabonázva, térdepelve.\n\nMegbánni mindent. Törve, gyónva\nBorulni rá egy koporsóra.\n\nTestamentumot, szörnyüt, írni\nÉs sírni, sírni, sírni, sírni."
+  }
+ ],
+ "cards": [
+  {
+   "t": "mc",
+   "l": "alap",
+   "q": "Melyik Ady életművének leggyakoribb, legváltozatosabb motívuma?",
+   "a": "Az Élet–Halál motívum",
+   "x": [
+    "A pénz-motívum",
+    "A kuruc-motívum",
+    "A Párizs-motívum"
+   ],
+   "w": "Költészetének javarésze a halál közelségének tudatában születik."
+  },
+  {
+   "t": "tf",
+   "l": "alap",
+   "q": "Fiatalkorában Ady halálszemlélete franciás, dekadens volt.",
+   "ok": true,
+   "w": "Később a halál közeledtének vacogó rémülete jelenik meg."
+  },
+  {
+   "t": "mc",
+   "l": "rokon",
+   "p": "halalrokona",
+   "q": "Melyik kötetben jelent meg A Halál rokona?",
+   "a": "Vér és arany",
+   "x": [
+    "Új versek",
+    "Az Illés szekerén",
+    "A halottak élén"
+   ],
+   "w": "Az első halál-ciklus címadó verse."
+  },
+  {
+   "t": "type",
+   "l": "rokon",
+   "p": "halalrokona",
+   "q": "Hányszor szerepel a „szeretem” ige A Halál rokonában?",
+   "a": "9",
+   "alt": [
+    "kilenc",
+    "kilencszer",
+    "9x",
+    "9-szer"
+   ],
+   "w": "9× „szeretem” és 2× „vagyok”."
+  },
+  {
+   "t": "mc",
+   "l": "rokon",
+   "p": "halalrokona",
+   "q": "Mit szeret valójában a költő A Halál rokonában?",
+   "a": "A melankóliát, a halál „játszi mását”",
+   "x": [
+    "Magát a halált",
+    "A pénzt",
+    "A háborút"
+   ],
+   "w": "„A nagy Halál, a szent Halál / Játszi mását.”"
+  },
+  {
+   "t": "cloze",
+   "l": "rokon",
+   "p": "halalrokona",
+   "s": "A nagy Halál, a szent Halál / [Játszi] [mását].",
+   "x": [
+    "Komor",
+    "arcát"
+   ],
+   "w": "Nem a halált, hanem annak játszi mását szereti."
+  },
+  {
+   "t": "mc",
+   "l": "rokon",
+   "p": "halalrokona",
+   "q": "Mi A Halál rokona rímképlete és szótagszáma?",
+   "a": "xaxa, 9-9-8-4",
+   "x": [
+    "abab, 8-8-8-8",
+    "aaaa, felező nyolcas",
+    "aabb, 10-10-10-10"
+   ],
+   "w": "A csonka 4. sor lassít – elégikus lejtés."
+  },
+  {
+   "t": "tf",
+   "l": "rokon",
+   "p": "halalrokona",
+   "q": "A Halál rokona részletesen bemutatja a halál kísérőjelenségeit (koporsó, testamentum).",
+   "ok": false,
+   "w": "Egyik sem szerepel – a halál itt szimbólum."
+  },
+  {
+   "t": "mc",
+   "l": "rokon",
+   "p": "halalrokona",
+   "q": "Mit fejez ki a „rokon” szó a címben?",
+   "a": "A halállal való veleszületett, előre elrendelt közelséget",
+   "x": [
+    "Véletlen ismeretséget",
+    "Ellenséges viszonyt",
+    "Egy családtag halálát"
+   ],
+   "w": "A rokon nem „jó szomszéd”: a kapcsolat nem tetszőleges."
+  },
+  {
+   "t": "mc",
+   "l": "rokon",
+   "p": "halalrokona",
+   "q": "Milyen A Halál rokona szerkezete?",
+   "a": "Állóképek sorozata, keretes (az utolsó versszak = az első)",
+   "x": [
+    "Egy történetet mesél el időrendben",
+    "Párbeszéd két szereplő között",
+    "Egyetlen hosszú mondat"
+   ],
+   "w": "A képek sorrendje akár fel is cserélhető."
+  },
+  {
+   "t": "cloze",
+   "l": "rokon",
+   "p": "halalrokona",
+   "s": "Én a Halál [rokona] vagyok, / Szeretem a [tűnő] szerelmet",
+   "x": [
+    "barátja",
+    "örök"
+   ],
+   "w": "Nyitó- és zárósor."
+  },
+  {
+   "t": "mc",
+   "l": "osz",
+   "p": "parisosz",
+   "q": "Minek az allegóriája az Ősz a Párisban járt az Őszben?",
+   "a": "A halálé",
+   "x": [
+    "A szerelemé",
+    "Párizsé",
+    "A háborúé"
+   ],
+   "w": "Nagybetűvel: Ősz."
+  },
+  {
+   "t": "mc",
+   "l": "osz",
+   "p": "parisosz",
+   "q": "Hol suhant nesztelen az Ősz?",
+   "a": "A Szent Mihály útján",
+   "x": [
+    "A Champs-Élysées-n",
+    "A Montmartre-on",
+    "A Szajna hídján"
+   ],
+   "w": "„Szent Mihály útján suhant nesztelen”."
+  },
+  {
+   "t": "cloze",
+   "l": "osz",
+   "p": "parisosz",
+   "s": "[Füstösek], furcsák, búsak, [bíborak], / Arról, hogy meghalok.",
+   "x": [
+    "Fáradtak",
+    "boldogak"
+   ],
+   "w": "Alliteráció + négyes halmozás."
+  },
+  {
+   "t": "mc",
+   "l": "osz",
+   "p": "parisosz",
+   "q": "Mi a stíluseszköz a „füstösek, furcsák, búsak, bíborak” sorban?",
+   "a": "Alliteráció és halmozás",
+   "x": [
+    "Oximoron",
+    "Megszemélyesítés",
+    "Paradoxon"
+   ],
+   "w": "Alliteráció = betűrím, szókezdő mássalhangzók összecsengése."
+  },
+  {
+   "t": "mc",
+   "l": "osz",
+   "p": "parisosz",
+   "q": "Mit emel ki az „én tudom csupán”?",
+   "a": "A halál közelségének felismerését, bizonyosságát",
+   "x": [
+    "Hogy senki sem látta Párizst",
+    "A költő tudását a francia nyelvről",
+    "A nyár örökkévalóságát"
+   ],
+   "w": "A melankóliát megdöbbenés váltja fel."
+  },
+  {
+   "t": "tf",
+   "l": "osz",
+   "p": "parisosz",
+   "q": "A Párisban járt az Ősz nyár közepén, kánikulában játszódik.",
+   "ok": true,
+   "w": "Az Ősz a kánikulában „szökött be” – a halál váratlanul jelzi magát."
+  },
+  {
+   "t": "mc",
+   "l": "osz",
+   "p": "parisosz",
+   "q": "Mi a Párisban járt az Ősz műfaja?",
+   "a": "Az elégia határán járó búcsúdal",
+   "x": [
+    "Óda",
+    "Ballada",
+    "Himnusz"
+   ],
+   "w": "Búcsú az élettől."
+  },
+  {
+   "t": "mc",
+   "l": "sirni",
+   "p": "sirni",
+   "q": "Mit idéz meg a Sírni, sírni, sírni?",
+   "a": "Egy ősi siratóének fájdalmával egy elképzelt temetést",
+   "x": [
+    "Egy esküvőt",
+    "Egy párizsi bált",
+    "Egy csatát"
+   ],
+   "w": "Gyászmenet, idegen halott – közben a saját halál."
+  },
+  {
+   "t": "cloze",
+   "l": "sirni",
+   "p": "sirni",
+   "s": "Testamentumot, [szörnyüt], írni / És [sírni], sírni, sírni, sírni.",
+   "x": [
+    "szépet",
+    "nevetni"
+   ],
+   "w": "A zárósorok."
+  },
+  {
+   "t": "match",
+   "l": "sirni",
+   "q": "Párosítsd a halálverset a jellemzőjével!",
+   "pairs": [
+    [
+     "A Halál rokona",
+     "melankólia, „szeretem”"
+    ],
+    [
+     "Halál lovai",
+     "a halál allegóriája"
+    ],
+    [
+     "Halál a síneken",
+     "a halál pillanata"
+    ],
+    [
+     "Sírni, sírni, sírni",
+     "temetés, gyászmenet"
+    ]
+   ],
+   "w": "Ady sokféleképpen ábrázolja a halált."
+  },
+  {
+   "t": "mc",
+   "l": "sirni",
+   "q": "Mi az elégia alapélménye?",
+   "a": "Az elmúlás, a boldogság elvesztése vagy elérhetetlensége",
+   "x": [
+    "A győzelem öröme",
+    "Isten dicsőítése",
+    "Egy történet elbeszélése"
+   ],
+   "w": "Panasz, szomorúság, vágyódás."
+  },
+  {
+   "t": "mc",
+   "l": "sirni",
+   "q": "Mi az alliteráció?",
+   "a": "Betűrím: a szókezdő mássalhangzók összecsengése",
+   "x": [
+    "Két ellentétes fogalom összekapcsolása",
+    "Ugyanannak a sornak a megismétlése",
+    "Rím a sorok végén"
+   ],
+   "w": "Pl. „virágnak virága, világnak világa”."
+  }
+ ]
+}

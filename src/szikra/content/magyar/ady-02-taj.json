@@ -1,0 +1,452 @@
+{
+ "unit": "ady",
+ "id": "ady-taj",
+ "order": 2,
+ "name": "Látomásos tájversek",
+ "icon": "🌾",
+ "color": "#9ad45b",
+ "sum": "A Tisza-parton, A magyar Ugaron, A Hortobágy poétája, Párizs",
+ "links": [
+  {
+   "title": "Zanza: látomásos tájköltészet",
+   "url": "https://zanza.tv/irodalom/klasszikus-modernseg-realizmus-naturalizmus-szimbolizmus-impresszionizmus-szecesszio/ady-0"
+  }
+ ],
+ "learn": [
+  {
+   "id": "ugarc",
+   "title": "A magyar Ugaron ciklus",
+   "b": [
+    "Az Új versek (1906) önálló ciklusa.",
+    "Hagyomány: a magyar táj „aranykalásszal ékes rónaság” (+). Adynál: magyar Ugar (−).",
+    "A táj elátkozott vidék, halálszagú róna, a népek kalodája.",
+    "Ady nem leírja a tájat, hanem látomásszerűen megidézi. Gyöngéd szeretet + indulatos bírálat: keserű nemzetostorozás."
+   ]
+  },
+  {
+   "id": "tisza",
+   "title": "A Tisza-parton (MEMORITER)",
+   "p": "tisza",
+   "b": [
+    "Ellentét: Gangesz partja (álomvilág, ahová visszavágyik) ↔ Tisza-part (a jelen valósága).",
+    "1. vsz. választékos · 2. vsz.: mondatértékű szavak halmozása, vulgarizmusok.",
+    "Két értékrend ütközése. A záró kérdés („A Tisza-parton mit keresek?”) bizonytalanságot sejtet."
+   ]
+  },
+  {
+   "id": "ugar",
+   "title": "A magyar Ugaron",
+   "p": "ugar",
+   "b": [
+    "Nem tájleírás, hanem riasztó látomás: hiperbola (képtelen túlzás) + parabola (példázat).",
+    "Az Ugar = a feudális Magyarország jelképe; Magyarország az elvetélt lehetőségek hazája.",
+    "1–2. vsz.: a költői én cselekszik (gázolok, lehajlok) · 3–4. vsz.: az Ugar cselekszik (lehúz, altat, befed).",
+    "Lefelé ívelő kompozíció · a kacagó szél ironikus · keserű hangnem · bimetrikus, félrím."
+   ]
+  },
+  {
+   "id": "horto",
+   "title": "A Hortobágy poétája",
+   "p": "hortobagy",
+   "b": [
+    "A művész tragédiája: a „kúnfajta, nagyszemű legény” ↔ a csorda, a durva környezet.",
+    "„Minden más táján a világnak / Szent dalnok lett volna belőle.”",
+    "A szépség elvész: „Eltemette rögtön a nótát: / Káromkodott vagy fütyörészett.”"
+   ]
+  },
+  {
+   "id": "paris",
+   "title": "Párizs – az ellenpólus",
+   "b": [
+    "A daloló Páris ciklus követi A magyar Ugaron ciklust → erős ellentét.",
+    "Párizs = szabadság, gazdagság, fény, kultúra – mindennek az ellentéte, ami idehaza várta.",
+    "Pl.: Egy párisi hajnalon, A Szajna partján, Párizs, az én Bakonyom."
+   ]
+  }
+ ],
+ "poems": [
+  {
+   "id": "tisza",
+   "title": "A Tisza-parton",
+   "year": "1905",
+   "vol": "Új versek – A magyar Ugaron ciklus",
+   "memo": true,
+   "video": "https://www.youtube.com/watch?v=rUeCM3d6tu0",
+   "notes": [
+    "A cím és az első sor belső feszültséget teremt: Gangesz ↔ Tisza.",
+    "A térbeli távolság a művészi kibontakozás két lehetőségének távolsága is.",
+    "2. vsz.: teljes mondatok helyett szavak halmozása, vulgarizmusok – durva valóság.",
+    "Záró kérdés: bizonytalanság, idegenség."
+   ],
+   "text": "Jöttem a Gangesz partjairól,\nHol álmodoztam déli verőn,\nA szívem egy nagy harangvirág\nS finom remegések: az erőm.\n\nGémes kút, malom alja, fokos,\nSivatag, lárma, durva kezek,\nVad csókok, bambák, álom-bakók.\nA Tisza-parton mit keresek?"
+  },
+  {
+   "id": "ugar",
+   "title": "A magyar Ugaron",
+   "year": "1905",
+   "vol": "Új versek – a ciklus záró darabja",
+   "video": "https://www.youtube.com/watch?v=UsKKMjdJ4LI",
+   "notes": [
+    "Műfaj: dal, látomásos tájvers · társadalombíráló, nemzetostorozó.",
+    "Középpontban a metafora: Magyarország egy nagy Ugar.",
+    "Ellentétek: elvadult táj ↔ szűzi föld, dudva ↔ virág.",
+    "Lefelé ívelő kompozíció: a lírai én egyre passzívabb, az Ugar egyre aktívabb.",
+    "Stílus: látomásos-allegorikus · hangnem: keserű · bimetrikus · félrím."
+   ],
+   "text": "Elvadult tájon gázolok:\nŐs, buja földön dudva, muhar.\nEzt a vad mezőt ismerem,\nEz a magyar Ugar.\n\nLehajlok a szent humuszig:\nE szűzi földön valami rág.\nHej, égig-nyúló giz-gazok,\nHát nincsen itt virág?\n\nVad indák gyűrűznek körül,\nMíg a föld alvó lelkét lesem,\nRégmult virágok illata\nBódít szerelmesen.\n\nCsönd van. A dudva, a muhar,\nA gaz lehúz, altat, befed\nS egy kacagó szél suhan el\nA nagy Ugar felett."
+  },
+  {
+   "id": "hortobagy",
+   "title": "A Hortobágy poétája",
+   "year": "1905",
+   "video": "https://www.youtube.com/watch?v=TMlFmq9EkUc",
+   "notes": [
+    "A művész tragédiája – ellentétre épül (művész ↔ durva környezet).",
+    "Halmozás és szembenállás: „halálra, borra, nőre” ↔ „piszkos, gatyás, bamba”.",
+    "A poétasors az elnémulás."
+   ],
+   "text": "Kúnfajta, nagyszemű legény volt,\nKínzottja sok-sok méla vágynak,\nCsordát őrzött és nekivágott\nA híres magyar Hortobágynak.\n\nAlkonyatok és délibábok\nMegfogták százszor is a lelkét,\nDe ha virág nőtt a szivében,\nA csorda-népek lelegelték.\n\nEzerszer gondolt csodaszépet,\nGondolt halálra, borra, nőre,\nMinden más táján a világnak\nSzent dalnok lett volna belőle.\n\nDe ha a piszkos, gatyás, bamba\nTársakra s a csordára nézett,\nEltemette rögtön a nótát:\nKáromkodott vagy fütyörészett."
+  }
+ ],
+ "cards": [
+  {
+   "t": "mc",
+   "l": "ugarc",
+   "q": "Melyik kötet ciklusa A magyar Ugaron?",
+   "a": "Új versek",
+   "x": [
+    "Vér és arany",
+    "Az Illés szekerén",
+    "A halottak élén"
+   ],
+   "w": "Az Új versek (1906) önálló ciklusa."
+  },
+  {
+   "t": "mc",
+   "l": "ugarc",
+   "q": "Hogyan jelenik meg a táj Ady tájverseiben?",
+   "a": "Látomásszerűen idézi meg, nem leírja",
+   "x": [
+    "Pontosan, festőien leírja",
+    "Idilli „aranykalásszal ékes rónaságként”",
+    "Csak városi tájként"
+   ],
+   "w": "Látomásos tájversek."
+  },
+  {
+   "t": "cloze",
+   "l": "ugarc",
+   "s": "A hagyományban a magyar táj „[aranykalásszal] ékes rónaság”, Adynál magyar [Ugar].",
+   "x": [
+    "búzavirággal",
+    "Alföld",
+    "puszta"
+   ],
+   "w": "A pozitív hagyomány ↔ Ady negatív látomása."
+  },
+  {
+   "t": "tf",
+   "l": "ugarc",
+   "q": "Ady tájverseiben a gyöngéd szeretet és az indulatos bírálat egyszerre van jelen.",
+   "ok": true,
+   "w": "Újfajta, kritikai hazaszeretet."
+  },
+  {
+   "t": "mc",
+   "l": "tisza",
+   "p": "tisza",
+   "q": "Mivel áll ellentétben a Tisza-part a versben?",
+   "a": "A Gangesz partjával",
+   "x": [
+    "A Szajna partjával",
+    "A Duna-parttal",
+    "A Hortobággyal"
+   ],
+   "w": "„Jöttem a Gangesz partjairól” ↔ „A Tisza-parton mit keresek?”"
+  },
+  {
+   "t": "mc",
+   "l": "tisza",
+   "p": "tisza",
+   "q": "Mit jelképez a Gangesz-part?",
+   "a": "Az álomvilágot, ahonnan a lírai én elszakadt, ahová visszavágyik",
+   "x": [
+    "A jelen magyar valóságát",
+    "A háborút",
+    "A pénz hatalmát"
+   ],
+   "w": "A Tisza-part a jelen valósága."
+  },
+  {
+   "t": "sort",
+   "l": "tisza",
+   "p": "tisza",
+   "q": "Gangesz-part vagy Tisza-part? Melyik világhoz tartozik?",
+   "cats": [
+    "Gangesz-part",
+    "Tisza-part"
+   ],
+   "ca": [
+    "harangvirág-szív",
+    "finom remegések",
+    "álmodozás déli verőn"
+   ],
+   "cb": [
+    "gémes kút, fokos",
+    "durva kezek",
+    "vad csókok, bambák"
+   ],
+   "w": "Választékos álomvilág ↔ durva valóság."
+  },
+  {
+   "t": "tf",
+   "l": "tisza",
+   "p": "tisza",
+   "q": "A Tisza-parton 2. versszakában teljes mondatok helyett mondatértékű szavak, szókapcsolatok halmozása áll.",
+   "ok": true,
+   "w": "És gyakoriak a vulgarizmusok – az 1. strófa választékosságával szemben."
+  },
+  {
+   "t": "mc",
+   "l": "tisza",
+   "p": "tisza",
+   "q": "Mit sejtet a záró kérdés: „A Tisza-parton mit keresek?”",
+   "a": "Bizonytalanságot, idegenséget",
+   "x": [
+    "Boldog hazatérést",
+    "Harcra buzdítást",
+    "Istenhitet"
+   ],
+   "w": "Két értékrend ütközése után nincs válasz."
+  },
+  {
+   "t": "mc",
+   "l": "tisza",
+   "p": "tisza",
+   "q": "Mit jelent a vers két helyszíne közti térbeli távolság?",
+   "a": "A művészi kibontakozás két lehetőségének távolságát",
+   "x": [
+    "Ady indiai utazását",
+    "A háború két frontját",
+    "Léda és Csinszka különbségét"
+   ],
+   "w": "Az álom és a valóság közti távolság."
+  },
+  {
+   "t": "mc",
+   "l": "ugar",
+   "p": "ugar",
+   "q": "Mit jelképez A magyar Ugaron című versben az Ugar?",
+   "a": "A feudális, elmaradott Magyarországot",
+   "x": [
+    "A termékeny magyar földet",
+    "Párizst",
+    "A szerelmet"
+   ],
+   "w": "Szimbólum: a feudális Magyarország."
+  },
+  {
+   "t": "mc",
+   "l": "ugar",
+   "p": "ugar",
+   "q": "Hogyan változik A magyar Ugaron szereplőinek aktivitása?",
+   "a": "Előbb a költői én cselekszik, a végén már az Ugar",
+   "x": [
+    "Végig a költő cselekszik",
+    "Előbb az Ugar, a végén a költő győz",
+    "Senki sem cselekszik"
+   ],
+   "w": "1–2. vsz.: gázolok, lehajlok · 3–4. vsz.: lehúz, altat, befed."
+  },
+  {
+   "t": "order",
+   "l": "ugar",
+   "p": "ugar",
+   "q": "Rakd fokozás szerint sorba az Ugar igéit!",
+   "items": [
+    "lehúz",
+    "altat",
+    "befed"
+   ],
+   "w": "„A gaz lehúz, altat, befed” – a vad mező győzelme."
+  },
+  {
+   "t": "sort",
+   "l": "ugar",
+   "p": "ugar",
+   "q": "Riasztó valóság vagy elvetélt lehetőség?",
+   "cats": [
+    "Riasztó valóság",
+    "Lehetőség"
+   ],
+   "ca": [
+    "dudva, muhar",
+    "égig-nyúló giz-gazok",
+    "vad indák"
+   ],
+   "cb": [
+    "szent humusz",
+    "szűzi föld",
+    "régmult virágok illata"
+   ],
+   "w": "A lehetőségek megvoltak a pusztulás elkerülésére."
+  },
+  {
+   "t": "mc",
+   "l": "ugar",
+   "p": "ugar",
+   "q": "Milyen A magyar Ugaron kompozíciója?",
+   "a": "Lefelé ívelő",
+   "x": [
+    "Felfelé ívelő",
+    "Körkörös, keretes",
+    "Párhuzamos"
+   ],
+   "w": "A lírai én szándéka elbukik, az Ugar győz."
+  },
+  {
+   "t": "mc",
+   "l": "ugar",
+   "p": "ugar",
+   "q": "Mit fejez ki a „kacagó szél” a vers végén?",
+   "a": "Ironikusan kíséri a lírai én nagyra törő szándékát",
+   "x": [
+    "A tavasz érkezését",
+    "A költő boldogságát",
+    "Isten jelenlétét"
+   ],
+   "w": "A reménytelenséget sugallja."
+  },
+  {
+   "t": "match",
+   "l": "ugar",
+   "p": "ugar",
+   "q": "Párosítsd a fogalmat!",
+   "pairs": [
+    [
+     "hiperbola",
+     "képtelenül túlzó kép"
+    ],
+    [
+     "parabola",
+     "példázat"
+    ],
+    [
+     "metafora",
+     "Magyarország = Ugar"
+    ],
+    [
+     "hangnem",
+     "keserű"
+    ]
+   ],
+   "w": "A vers egyszerre hiperbola és parabola."
+  },
+  {
+   "t": "tf",
+   "l": "ugar",
+   "p": "ugar",
+   "q": "A magyar Ugaron egy konkrét, valós tájat ír le.",
+   "ok": false,
+   "w": "Nem konkrét tájat ábrázol, hanem víziót fest."
+  },
+  {
+   "t": "cloze",
+   "l": "ugar",
+   "p": "ugar",
+   "s": "A költő szerint Magyarország az [elvetélt] lehetőségek hazája.",
+   "x": [
+    "korlátlan",
+    "boldog",
+    "végtelen"
+   ],
+   "w": "A lehetőségek elvesztek."
+  },
+  {
+   "t": "mc",
+   "l": "ugar",
+   "p": "ugar",
+   "q": "Mi a számon kérő kérdés a 2. versszak végén?",
+   "a": "„Hát nincsen itt virág?”",
+   "x": [
+    "„A Tisza-parton mit keresek?”",
+    "„Mit ér az ember, ha magyar?”",
+    "„Kik ezek?”"
+   ],
+   "w": "A szépséget, a kultúrát kéri számon az Ugartól."
+  },
+  {
+   "t": "mc",
+   "l": "horto",
+   "p": "hortobagy",
+   "q": "Miről szól A Hortobágy poétája?",
+   "a": "A művész tragédiájáról a durva, műveletlen környezetben",
+   "x": [
+    "A puszta szépségéről",
+    "Egy boldog pásztorfiúról",
+    "A pénz hatalmáról"
+   ],
+   "w": "A poétasors az elnémulás."
+  },
+  {
+   "t": "cloze",
+   "l": "horto",
+   "p": "hortobagy",
+   "s": "Minden más táján a [világnak] / Szent [dalnok] lett volna belőle.",
+   "x": [
+    "hazának",
+    "pap",
+    "hős"
+   ],
+   "w": "Máshol költő lehetett volna."
+  },
+  {
+   "t": "mc",
+   "l": "horto",
+   "p": "hortobagy",
+   "q": "Mit tesz a poéta a nótával, amikor a társaira néz?",
+   "a": "Eltemeti: káromkodik vagy fütyörészik",
+   "x": [
+    "Elénekli nekik",
+    "Leírja egy füzetbe",
+    "Elküldi Párizsba"
+   ],
+   "w": "A dal elvész a durva környezetben."
+  },
+  {
+   "t": "cloze",
+   "l": "horto",
+   "p": "hortobagy",
+   "s": "De ha virág nőtt a szivében, / A [csorda-népek] [lelegelték].",
+   "x": [
+    "birkanyájak",
+    "letaposták"
+   ],
+   "w": "Ellentét: virág ↔ csorda."
+  },
+  {
+   "t": "mc",
+   "l": "paris",
+   "q": "Melyik ciklus követi az Új versekben A magyar Ugaron ciklust?",
+   "a": "A daloló Páris",
+   "x": [
+    "Léda asszony zsoltárai",
+    "Esze Tamás komája",
+    "Vér és arany"
+   ],
+   "w": "Szándékos ellentét: sivár Ugar ↔ ragyogó Párizs."
+  },
+  {
+   "t": "mc",
+   "l": "paris",
+   "q": "Mit jelképez Párizs Ady számára?",
+   "a": "Szabadságot, gazdagságot, fényt, kultúrát",
+   "x": [
+    "Elmaradottságot",
+    "A halált",
+    "A háborút"
+   ],
+   "w": "Ide menekül a valóságban és a verseiben is."
+  }
+ ]
+}

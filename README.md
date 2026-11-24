@@ -10,6 +10,7 @@ adam-core-iranyitopult/    Zala Studio Irányítópult (leads, payments, tax)  �
 adam-csaszko/              Csaszko Barbershop website                       ← built from src/csaszko-weboldal
 adam-csaszko-foglalasok/   Csaszko Foglalások (bookings back office + API)  ← built from src/csaszko-foglalasok
 adam-tukor/                Tükör (standby server, failover)                 ← built from src/tukor
+adam-szikra/               Szikra (érettségi study app, profiles)           ← built from src/szikra
 adam-router/               Router (opens the home router's admin page; nginx, no own code)
 adam-tv-remote/            TV Remote (single Node.js file: adam-tv-remote/server.js)
 adam-vitals/               Vitals (image built from the adm32/umbrel_apps repository)
@@ -114,6 +115,22 @@ reinstalling the apps.
 | `proxy.go` | Per-port proxy (+10000), routing decisions, machine-to-machine API |
 | `sync.go` | Health checks, failover, failback with merge, the 15-second sync, daily backup |
 | `ui.go`, `www/index.html` | Admin page and its API |
+
+### Szikra – `src/szikra` → `adam-szikra` (port 4780, Umbrel login stays on)
+
+Study app for the érettségi: 5-minute rounds, spaced repetition, memoriter drills, XP/streak/badges,
+profiles (Ádám 🐻 dark "szikra" theme, Hanna 🐰 "pink" theme), each with its own progress and test date.
+
+| File | What it does |
+|---|---|
+| `content/<subject>/*.json` | **The study material.** `subject.json` + one file per topic (notes, poems, cards). Format: `content/README.md`. New material = new topic file, then build. `go test` checks every card. |
+| `content.go` | Loading the material; generates the „Melyik versből való?” cards and the memoriter drills from poem texts |
+| `srs.go` | Spaced repetition: Leitner boxes, intervals capped before the test date, how "known" a card is |
+| `session.go` | Putting a round together (smart / topic / poem / memo / review) |
+| `game.go` | XP, combo, levels, streak, badges |
+| `profiles.go`, `store.go` | `DATA_DIR/profiles.json`, `DATA_DIR/profiles/<id>/progress.json` (+ daily backups) |
+| `api.go` | JSON API; every call names its profile (`X-Profile` header or `?p=`) |
+| `web/app.js`, `web/app.css` | The whole page: views, card types, canvas effects, sounds, themes, avatars |
 
 Every Cloudflare public hostname points to `http://host.docker.internal:1<port>` (Tükör), not to
 the app directly. Both Umbrels must run the same versions of every app.

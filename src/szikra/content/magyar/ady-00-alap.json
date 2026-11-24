@@ -1,0 +1,80 @@
+{
+  "unit": "ady",
+  "id": "ady-alap",
+  "order": 0,
+  "name": "Ady világa",
+  "icon": "✨",
+  "color": "#ffc94d",
+  "sum": "Életút, kötetek, szimbolizmus, mégis-morál",
+  "links": [
+    { "title": "Zanza: Ady szerelmi költészete", "url": "https://zanza.tv/irodalom/klasszikus-modernseg-realizmus-naturalizmus-szimbolizmus-impresszionizmus-szecesszio/ady-1" }
+  ],
+  "learn": [
+    { "id": "ki", "title": "Ki volt Ady?", "b": [
+      "Érmindszent, 1877. nov. 22. – Budapest, 1919. jan. 27.",
+      "A Nyugat első nemzedékének tagja, a folyóirat meghatározó alakja.",
+      "A 20. század eleji magyar líra megújítója: az Új versek (1906) indítja a modern magyar lírát.",
+      "A magyar szimbolizmus megteremtője, költő-elődjének Vajda Jánost tartotta."
+    ] },
+    { "id": "stilus", "title": "Szimbolizmus", "b": [
+      "Hatottak rá a francia szimbolisták: Baudelaire, Verlaine, Rimbaud.",
+      "És a századvég magyar költői: Reviczky Gyula, Komjáthy Jenő, Kiss József.",
+      "A szimbólum (jelkép) nem közöl, hanem megsejtet: többrétegű, nehezen fejthető meg.",
+      "Erős zeneiség („Zenét minékünk, csak zenét!” – Verlaine), fiktív tér és idő: látomásos tájak."
+    ] },
+    { "id": "szerep", "title": "Az Ady-szerep", "b": [
+      "Óriási zsenigőg, önkitárulkozás: különös egyéniség, tiltakozik a szürkeség ellen.",
+      "Prófétai, vátesz-szerep.",
+      "Nemzetostorozás – a nemzetért érzett felelősségből.",
+      "Mégis-morál: meg nem alkuvás és dac (Király István elnevezése).",
+      "Dekadens életérzés (halálvágy, elmúlás) → szecessziós vonás."
+    ] },
+    { "id": "ut", "title": "Ady útja – a térkép", "b": [
+      "Érmindszent (születés) → Nagykároly, piarista gimn. (1888–92) → Zilah, református gimn. (1892–96) → Debrecen.",
+      "Nagyvárad (1900–03): újságíró, 1903-ban itt ismeri meg Lédát. 1908: itt jelenik meg A Holnap antológia.",
+      "Párizs: 1904-től többször (1911-ig) – a szabadság és a kultúra városa.",
+      "Csucsa, Boncza-kastély: 1915-ben feleségül veszi Csinszkát. Budapest 1906–1919, sírja a Fiumei úti temetőben."
+    ] },
+    { "id": "kotet", "title": "A kötetek", "b": [
+      "Versek (1899) · Még egyszer (1903) · Új versek (1906) · Vér és arany",
+      "Az Illés szekerén · Szeretném, ha szeretnének · A Minden-Titkok versei · A menekülő Élet",
+      "A magunk szerelme (1913) · Ki látott engem? (1914) · A halottak élén (1918)",
+      "Az utolsó hajók (1923) – halála után jelent meg."
+    ] },
+    { "id": "temak", "title": "A nagy témakörök", "b": [
+      "Ars poetica · látomásos tájversek · létharc és pénz · szerelem (Léda, Csinszka)",
+      "Halál · istenes versek · magyarság · kuruc versek · háborúellenes versek",
+      "Ezeket mind külön témakörként gyakorolhatod itt az appban."
+    ] }
+  ],
+  "cards": [
+    { "t": "mc", "l": "ki", "q": "Melyik folyóirat első nemzedékének volt tagja Ady?", "a": "Nyugat", "x": ["A Hét", "Budapesti Napló", "Pesti Hírlap"], "w": "Ady a Nyugat első nemzedékének tagja és a folyóirat meghatározó alakja volt." },
+    { "t": "mc", "l": "ki", "q": "Melyik kötettel (1906) kezdődik a modern magyar líra?", "a": "Új versek", "x": ["Vér és arany", "Még egyszer", "Versek"], "w": "Az Adyra jellemző költői megszólalás kezdete az 1906-os Új versekhez kapcsolható." },
+    { "t": "mc", "l": "ki", "q": "Kit tartott Ady költő-elődjének?", "a": "Vajda Jánost", "x": ["Petőfi Sándort", "Arany Jánost", "Reviczky Gyulát"], "w": "A magyar szimbolizmus megteremtője, Ady, Vajda Jánost tartotta elődjének." },
+    { "t": "type", "l": "ki", "q": "Melyik francia stílusirányzat követése jellemző Ady művészi stílusára?", "a": "szimbolizmus", "alt": ["szimbolista", "szimbolizmust", "a szimbolizmus"], "w": "A 19. század második felében Franciaországban létrejött szimbolizmust követi." },
+    { "t": "sort", "l": "stilus", "q": "Francia szimbolista vagy századvégi magyar költő? Húzd a megfelelő oldalra!", "cats": ["Francia szimbolista", "Századvégi magyar"], "ca": ["Baudelaire", "Verlaine", "Rimbaud"], "cb": ["Reviczky Gyula", "Komjáthy Jenő", "Kiss József"], "w": "Mindkét csoport hatott Ady költészetére." },
+    { "t": "tf", "l": "stilus", "q": "A szimbolista vers szimbólumai egyértelműek, pontosan közlik a mondanivalót.", "ok": false, "w": "Épp fordítva: nem közölnek, hanem megsejtetnek valamit, a jelentésük többrétegű." },
+    { "t": "cloze", "l": "stilus", "s": "A szimbólumok nem [közölnek], hanem [megsejtetnek] valamit.", "x": ["elbeszélnek", "leírnak", "kimondanak"], "w": "Ez a szimbolizmus lényege." },
+    { "t": "mc", "l": "stilus", "q": "Kitől származik: „Zenét minékünk, csak zenét!”?", "a": "Verlaine", "x": ["Baudelaire", "Rimbaud", "Ady"], "w": "Verlaine sora – a szimbolista versek erős zeneiségére utal." },
+    { "t": "mc", "l": "stilus", "q": "Milyen térben és időben játszódnak Ady szimbolista versei?", "a": "Fiktív térben és időben – látomásos tájakon", "x": ["Pontosan megnevezett helyen és napon", "Mindig Párizsban, a jelenben", "A honfoglalás korában"], "w": "A művek történése fiktív térben és időben játszódik." },
+    { "t": "type", "l": "szerep", "q": "Mi a neve Ady meg nem alkuvó, dacos, „hiába – mégis” magatartásának?", "a": "mégis-morál", "alt": ["mégis morál", "megismoral"], "w": "Király István nevezte el mégis-morálnak." },
+    { "t": "mc", "l": "szerep", "q": "Ki nevezte el „mégis-morálnak” Ady dacos magatartását?", "a": "Király István", "x": ["Benedek Marcell", "Riedl Frigyes", "Hatvany Lajos"], "w": "Király István irodalomtörténész elnevezése." },
+    { "t": "mc", "l": "szerep", "q": "Milyen költői szerep jellemző Adyra?", "a": "Prófétai, vátesz-szerep", "x": ["Személytelen, tárgyilagos megfigyelő", "Naiv népi dalnok", "Udvari ünnepi költő"], "w": "A vátesz = látnok, próféta. Ady vállalja ezt a szerepet." },
+    { "t": "tf", "l": "szerep", "q": "A dekadens életérzés (halálvágy, elmúlás) szecessziós vonás Ady költészetében.", "ok": true, "w": "Igen, a halálhangulat a szecesszióhoz köti." },
+    { "t": "tf", "l": "szerep", "q": "Ady különös egyéniségnek tartotta magát, és tiltakozott a szürkeség ellen.", "ok": true, "w": "Erőteljes önkitárulkozás, óriási zsenigőg jellemzi." },
+    { "t": "mc", "l": "ut", "q": "Hol született Ady?", "a": "Érmindszenten", "x": ["Nagykárolyban", "Zilahon", "Csucsán"], "w": "Érmindszent, 1877. november 22." },
+    { "t": "type", "l": "ut", "q": "Melyik évben született Ady Endre?", "a": "1877", "w": "1877. november 22., Érmindszent." },
+    { "t": "type", "l": "ut", "q": "Melyik évben halt meg Ady Endre?", "a": "1919", "w": "1919. január 27., Budapest." },
+    { "t": "order", "l": "ut", "q": "Rakd időrendbe Ady életének állomásait!", "items": ["Érmindszent – születés", "Nagykároly – piarista gimnázium", "Zilah – református gimnázium", "Nagyvárad – újságíró, megismeri Lédát", "Párizs – első út", "Csucsa – házasság Csinszkával"], "w": "1877 → 1888 → 1892 → 1900–03 → 1904 → 1915." },
+    { "t": "match", "l": "ut", "q": "Párosítsd a helyeket!", "pairs": [["Érmindszent", "szülőfalu"], ["Nagyvárad", "itt ismeri meg Lédát"], ["Csucsa", "Boncza-kastély, Csinszka"], ["Párizs", "a fény, a kultúra városa"]], "w": "A térképen ezek a legfontosabb pontok." },
+    { "t": "mc", "l": "ut", "q": "Hol jelent meg 1908-ban a fiatal költők antológiája, A Holnap?", "a": "Nagyváradon", "x": ["Budapesten", "Debrecenben", "Párizsban"], "w": "A Holnap – Nagyvárad, 1908." },
+    { "t": "mc", "l": "ut", "q": "Melyik kávéház volt a Nyugat íróinak találkozóhelye?", "a": "New York kávéház", "x": ["Pilvax kávéház", "Centrál kávéház", "Japán kávéház"], "w": "A New York-palota kávéháza." },
+    { "t": "order", "l": "kotet", "q": "Rakd megjelenési sorrendbe a köteteket!", "items": ["Versek", "Még egyszer", "Új versek", "A magunk szerelme", "Ki látott engem?", "A halottak élén"], "w": "1899 → 1903 → 1906 → 1913 → 1914 → 1918." },
+    { "t": "mc", "l": "kotet", "q": "Melyik Ady utolsó, még életében megjelent kötete (1918)?", "a": "A halottak élén", "x": ["Az utolsó hajók", "Ki látott engem?", "A menekülő Élet"], "w": "Az utolsó hajók már halála után, 1923-ban jelent meg." },
+    { "t": "tf", "l": "kotet", "q": "Az utolsó hajók Ady halála után, 1923-ban jelent meg.", "ok": true, "w": "Posztumusz kötet." },
+    { "t": "mc", "l": "temak", "q": "Melyik NEM Ady-témakör?", "a": "Tanító célú állatmesék", "x": ["Istenes versek", "Magyarság-versek", "Pénz-versek (létharc)"], "w": "A többi mind nagy Ady-témakör." },
+    { "t": "match", "l": "temak", "q": "Melyik témakörbe tartozik a vers?", "pairs": [["Héja-nász az avaron", "szerelmi líra"], ["A magyar Ugaron", "látomásos tájvers"], ["A Sion-hegy alatt", "istenes vers"], ["Az eltévedt lovas", "háborús vers"]], "w": "A tétel elején mindig érdemes elhelyezni a verset a témakörben." },
+    { "t": "match", "l": "temak", "q": "Melyik témakörbe tartozik a vers?", "pairs": [["Góg és Magóg fia vagyok én…", "ars poetica"], ["Harc a Nagyúrral", "létharc, pénz"], ["A Halál rokona", "halál-vers"], ["Bujdosó kuruc rigmusa", "kuruc vers"]], "w": "Érdemes tudni a besorolást." },
+    { "t": "tf", "l": "ki", "q": "Ady édesanyja papok és tanítók leszármazottja volt, ezért Ady jól ismerte a Bibliát.", "ok": true, "w": "Édesanyja Pásztor Mária volt." }
+  ]
+}

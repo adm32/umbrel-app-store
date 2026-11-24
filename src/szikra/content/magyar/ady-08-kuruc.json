@@ -1,0 +1,311 @@
+{
+ "unit": "ady",
+ "id": "ady-kuruc",
+ "order": 8,
+ "name": "Kuruc versek",
+ "icon": "🗡️",
+ "color": "#e8a15a",
+ "sum": "Bujdosó kuruc rigmusa, Sípja régi babonának",
+ "links": [
+  {
+   "title": "Prezi: Ady kuruc versei",
+   "url": "https://prezi.com/8lotz8z0arc6/ady-endre-kuruc-versek/"
+  },
+  {
+   "title": "Elemzés: Bujdosó kuruc rigmusa",
+   "url": "http://blog.verselemzes.hu/jegyzet/ady-endre-bujdoso-kuruc-rigmusa-elemzes/"
+  },
+  {
+   "title": "Elemzés: Sípja régi babonának",
+   "url": "http://blog.verselemzes.hu/jegyzet/ady-endre-sipja-regi-babonanak-elemzes/"
+  }
+ ],
+ "learn": [
+  {
+   "id": "hatter",
+   "title": "Kuruc romantika",
+   "b": [
+    "A kiegyezés utáni, millenniumi nemzeti mitológia: Rákóczi-kultusz, kuruc romantika.",
+    "Thaly Kálmán (1839–1909) saját utánzatait hiteles kuruc versként adta ki.",
+    "Riedl Frigyes 1913-ban bizonyította be, hogy hamisítványok.",
+    "Ady: a Rákóczi-hagyományról le kell választani a nemesi önigazolás torzításait."
+   ]
+  },
+  {
+   "id": "ady",
+   "title": "Ady kuruc versei",
+   "b": [
+    "A magányos, elárult, reménytelenül lázadó ember vádló keserűsége.",
+    "A tragikus múlt és a tragikus jelen egybemosódik; csüggedtség + elszántság, helytállás.",
+    "Mintája a szegénylegény-költészet.",
+    "Első önálló ciklus: Esze Tamás komája – a Szeretném, ha szeretnének kötetben."
+   ]
+  },
+  {
+   "id": "bujdoso",
+   "title": "Bujdosó kuruc rigmusa",
+   "p": "bujdoso",
+   "b": [
+    "1909 · archaizáló lírai szerepdal: a vesztett ügy bujdosó katonája beszél.",
+    "Forma: felező nyolcas, négyes bokorrím (aaaa) – ősi verszene.",
+    "Ady = a bujdosó kuruc, aki küzd, mindent feláldoz, és semmit sem kap.",
+    "„Mégis” mentalitás: a hazaszeretet elemi ösztönként mégis hazahúzza."
+   ]
+  },
+  {
+   "id": "sipja",
+   "title": "Sípja régi babonának",
+   "p": "sipja",
+   "b": [
+    "1913 · a Ki látott engem? (1914) kötet kuruc ciklusának címadó verse.",
+    "Ajánlás: Kernstok Károlynak, baráti szeretettel.",
+    "A sípszó: „átkozott nép… szabadságra érdemetlen”.",
+    "Kézsmárk hegye, Majtény síkja · „Sohse nézek többet vissza.”"
+   ]
+  }
+ ],
+ "poems": [
+  {
+   "id": "bujdoso",
+   "title": "Bujdosó kuruc rigmusa",
+   "year": "1909",
+   "video": "https://www.youtube.com/watch?v=SOhN8In5apk",
+   "notes": [
+    "Archaizáló lírai szerepdal; felező nyolcas, négyes bokorrím (aaaa).",
+    "A bujdosó mindent adott hazájának, de semmit sem kapott: „Mindent adtam, mit sem adtál”.",
+    "„Áldott inség: magyar élet” – a mégis-morál kuruc köntösben."
+   ],
+   "text": "Tíz jó évig a halálban,\nEgy rossz karddal száz csatában,\nSoha-soha hites vágyban,\nSoha-soha vetett ágyban.\n\nKergettem a labanc-hordát,\nSirattam a szivem sorsát,\nMégsem fordult felém orcád,\nRossz csillagú Magyarország.\n\nSirattalak, nem sirattál,\nPártoltalak, veszni hagytál,\nMindent adtam, mit sem adtál,\nHa eldőltem, nem biztattál.\n\nHullasztottam meleg vérem,\nRágódtam dobott kenyéren.\nSe barátom, se testvérem,\nSe bánatom, se reményem.\n\nMár életem nyugalommal\nIndul és kevéske gonddal,\nVendégséggel, vigalommal,\nLengyel borral és asszonnyal.\n\nLengyel urak selymes ágya\nMégis forró, mint a máglya.\nHajh, még egyszer lennék árva,\nBe jó volna, hogyha fájna.\n\nÁldott inség: magyar élet,\nVilágon sincs párod néked,\nNincsen célod, nincsen véged,\nKínhalál az üdvösséged.\n\nElbocsát az anyánk csókja,\nMinden rózsánk véres rózsa,\nBénán esünk koporsóba,\nDe így éltünk vitézmódra."
+  },
+  {
+   "id": "sipja",
+   "title": "Sípja régi babonának",
+   "year": "1913",
+   "vol": "Ki látott engem? (1914) – kuruc ciklus címadó verse",
+   "ded": "Kernstok Károlynak, baráti szeretettel",
+   "video": "https://www.youtube.com/watch?v=h288XiUXK6g",
+   "notes": [
+    "A „régi babona” sípja átkot fúj a népre.",
+    "Búcsú: határszélen botot vág, többé nem néz vissza."
+   ],
+   "text": "Csak magamban sírom sorsod,\nVérem népe, magyar népem,\nSátor-sarkon bort nyakalva\nKoldus-vásár közepében,\nMár menőben bús világgá,\nFáradt lábbal útrakészen.\n\nKörös-körül kavarognak\nBéna árnyak, rongyos árnyak,\nNótát sipol a fülembe\nSípja régi babonának,\nÉdes népem, szól a sípszó,\nSohse lesz jól, sohse látlak.\n\nSzól a sípszó: átkozott nép,\nNe hagyja az Úr veretlen,\nUralkodást magán nem tűr\nS szabadságra érdemetlen,\nHa bosszút áll, gyáva, lankadt\nS ha kegyet ád, rossz, kegyetlen.\n\nÜzenhettek már utánam,\nKézsmárk hegye, Majtény síkja,\nHatár-szélen botot vágok,\nVérem többé sohse issza\nVeszett népem veszett földje:\nSohse nézek többet vissza."
+  }
+ ],
+ "cards": [
+  {
+   "t": "mc",
+   "l": "hatter",
+   "q": "Ki adta ki saját utánzatait hiteles kuruc versként?",
+   "a": "Thaly Kálmán",
+   "x": [
+    "Riedl Frigyes",
+    "Kernstok Károly",
+    "Király István"
+   ],
+   "w": "Tudós tekintélyként terjesztette a legendákat."
+  },
+  {
+   "t": "mc",
+   "l": "hatter",
+   "q": "Ki bizonyította be 1913-ban, hogy Thaly „kuruc versei” hamisítványok?",
+   "a": "Riedl Frigyes",
+   "x": [
+    "Thaly Kálmán",
+    "Benedek Marcell",
+    "Hatvany Lajos"
+   ],
+   "w": "1913."
+  },
+  {
+   "t": "tf",
+   "l": "hatter",
+   "q": "Ady szerint a Rákóczi-hagyományról le kell választani a nemesi önigazolás torzításait.",
+   "ok": true,
+   "w": "Politikai tapasztalatai ismertették fel vele."
+  },
+  {
+   "t": "mc",
+   "l": "ady",
+   "q": "Melyik ciklusban rendeződtek először önálló ciklussá Ady kuruc versei?",
+   "a": "Esze Tamás komája",
+   "x": [
+    "Vér és arany",
+    "A daloló Páris",
+    "Imádság a csalásért"
+   ],
+   "w": "A Szeretném, ha szeretnének kötetben (1909)."
+  },
+  {
+   "t": "mc",
+   "l": "ady",
+   "q": "Melyik költészet volt Ady kuruc verseinek mintája?",
+   "a": "A szegénylegény-költészet",
+   "x": [
+    "Az udvari lovagi líra",
+    "A francia szimbolizmus",
+    "Az antik óda"
+   ],
+   "w": "Népi, bujdosó-sorsú hősök."
+  },
+  {
+   "t": "mc",
+   "l": "ady",
+   "q": "Milyen ember szólal meg Ady kuruc verseiben?",
+   "a": "A magányos, elárult, reménytelenül lázadó ember",
+   "x": [
+    "A győztes hadvezér",
+    "A boldog, gondtalan vitéz",
+    "A gazdag földesúr"
+   ],
+   "w": "Vádló keserűség, de elszántság is."
+  },
+  {
+   "t": "mc",
+   "l": "bujdoso",
+   "p": "bujdoso",
+   "q": "Milyen a Bujdosó kuruc rigmusa versformája?",
+   "a": "Felező nyolcas, négyes bokorrím (aaaa)",
+   "x": [
+    "Bimetrikus, félrím (xaxa)",
+    "xaxa, 9-9-8-4 szótag",
+    "Szabadvers, rímtelen"
+   ],
+   "w": "Ősi emlékeket idéző verszene."
+  },
+  {
+   "t": "mc",
+   "l": "bujdoso",
+   "p": "bujdoso",
+   "q": "Mi a Bujdosó kuruc rigmusa műfaja?",
+   "a": "Archaizáló lírai szerepdal",
+   "x": [
+    "Ballada",
+    "Óda",
+    "Prózavers"
+   ],
+   "w": "Egy vesztett ügy bujdosó katonája beszél."
+  },
+  {
+   "t": "cloze",
+   "l": "bujdoso",
+   "p": "bujdoso",
+   "s": "Sirattalak, nem [sirattál], / Pártoltalak, veszni [hagytál]",
+   "x": [
+    "szerettél",
+    "adtál"
+   ],
+   "w": "Egyoldalú szeretet – a haza nem viszonozza."
+  },
+  {
+   "t": "cloze",
+   "l": "bujdoso",
+   "p": "bujdoso",
+   "s": "Mégsem fordult felém orcád, / Rossz [csillagú] [Magyarország].",
+   "x": [
+    "sorsú",
+    "hazám"
+   ],
+   "w": "A 2. versszak zárósora."
+  },
+  {
+   "t": "cloze",
+   "l": "bujdoso",
+   "p": "bujdoso",
+   "s": "Áldott inség: magyar élet, / Világon sincs párod néked, / Nincsen célod, nincsen véged, / [Kínhalál] az üdvösséged.",
+   "x": [
+    "Boldogság",
+    "Dicsőség"
+   ],
+   "w": "Paradox áldás – mégis vállalja."
+  },
+  {
+   "t": "tf",
+   "l": "bujdoso",
+   "p": "bujdoso",
+   "q": "A Bujdosó kuruc rigmusában Ady a kuruc alakjában a saját sorsát is megfogalmazza.",
+   "ok": true,
+   "w": "Ady = bujdosó kuruc, aki mindent feláldoz és semmit sem kap."
+  },
+  {
+   "t": "mc",
+   "l": "sipja",
+   "p": "sipja",
+   "q": "Kinek ajánlotta Ady a Sípja régi babonának című verset?",
+   "a": "Kernstok Károlynak",
+   "x": [
+    "Hatvany Lajosnak",
+    "Csinszkának",
+    "Thaly Kálmánnak"
+   ],
+   "w": "„Kernstok Károlynak, baráti szeretettel”."
+  },
+  {
+   "t": "mc",
+   "l": "sipja",
+   "p": "sipja",
+   "q": "Melyik kötet kuruc ciklusának címadó verse a Sípja régi babonának?",
+   "a": "Ki látott engem? (1914)",
+   "x": [
+    "Szeretném, ha szeretnének",
+    "A halottak élén",
+    "A menekülő Élet"
+   ],
+   "w": "1913-ban írta, 1914-ben jelent meg."
+  },
+  {
+   "t": "cloze",
+   "l": "sipja",
+   "p": "sipja",
+   "s": "Üzenhettek már utánam, / Kézsmárk hegye, [Majtény] síkja",
+   "x": [
+    "Mohács",
+    "Világos"
+   ],
+   "w": "Majtény – a kuruc szabadságharc vége (1711)."
+  },
+  {
+   "t": "mc",
+   "l": "sipja",
+   "p": "sipja",
+   "q": "Mit mond a sípszó a népről a Sípja régi babonának-ban?",
+   "a": "Átkozott nép, szabadságra érdemetlen",
+   "x": [
+    "Áldott nép, győzni fog",
+    "Boldog nép, nincs gondja",
+    "Szorgos nép, gazdag lesz"
+   ],
+   "w": "„Ha bosszút áll, gyáva, lankadt / S ha kegyet ád, rossz, kegyetlen.”"
+  },
+  {
+   "t": "cloze",
+   "l": "sipja",
+   "p": "sipja",
+   "s": "Veszett népem veszett földje: / Sohse nézek többet [vissza].",
+   "x": [
+    "haza",
+    "rátok"
+   ],
+   "w": "A búcsú zárósora."
+  },
+  {
+   "t": "sort",
+   "l": "sipja",
+   "q": "Melyik versből való?",
+   "cats": [
+    "Bujdosó kuruc rigmusa",
+    "Sípja régi babonának"
+   ],
+   "ca": [
+    "Rossz csillagú Magyarország",
+    "Lengyel borral és asszonnyal",
+    "Kínhalál az üdvösséged"
+   ],
+   "cb": [
+    "Kézsmárk hegye, Majtény síkja",
+    "Sohse nézek többet vissza",
+    "Édes népem, szól a sípszó"
+   ],
+   "w": "Két kuruc vers – könnyű összekeverni."
+  }
+ ]
+}

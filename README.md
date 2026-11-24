@@ -116,7 +116,7 @@ reinstalling the apps.
 | `sync.go` | Health checks, failover, failback with merge, the 15-second sync, daily backup |
 | `ui.go`, `www/index.html` | Admin page and its API |
 
-### Szikra – `src/szikra` → `adam-szikra` (port 4780, Umbrel login stays on)
+### Szikra – `src/szikra` → `adam-szikra` (port 4780 behind Umbrel login, 4781 public with own password)
 
 Study app for the érettségi: 5-minute rounds, spaced repetition, memoriter drills, XP/streak/badges,
 profiles (Ádám 🐻 dark "szikra" theme, Hanna 🐰 "pink" theme), each with its own progress and test date.
@@ -129,7 +129,8 @@ profiles (Ádám 🐻 dark "szikra" theme, Hanna 🐰 "pink" theme), each with i
 | `session.go` | Putting a round together (smart / topic / poem / memo / review) |
 | `game.go` | XP, combo, levels, streak, badges |
 | `profiles.go`, `store.go` | `DATA_DIR/profiles.json`, `DATA_DIR/profiles/<id>/progress.json` (+ daily backups) |
-| `api.go` | JSON API; every call names its profile (`X-Profile` header or `?p=`) |
+| `api.go` | JSON API; every call names its profile (`X-Profile` header or `?p=`). Each profile only gets the subjects whose `subject.json` lists it in `for`. |
+| `auth.go`, `scrypt.go` | Password of the public port (REMOTE_PORT 8082 → 4781); set only from the Umbrel address |
 | `web/app.js`, `web/app.css` | The whole page: views, card types, canvas effects, sounds, themes, avatars |
 
 Every Cloudflare public hostname points to `http://host.docker.internal:1<port>` (Tükör), not to

@@ -162,8 +162,13 @@ function swipeable(el, { onMove, onCommit, threshold = 100 }) {
 // ================= state, api =================
 const S = { lib: null, state: null, topics: {}, poems: {}, learn: {}, sound: ls('sound', '1') === '1', motion: ls('motion', 'auto'), visits: 0, profile: ls('profile', ''), profiles: [] };
 async function api(path, opts = {}, profile = S.profile) {
-  const r = await fetch(path, { ...opts, headers: { 'Content-Type': 'application/json', 'X-Profile': profile || '' } });
-  if (!r.ok) { const e = new Error(r.status + ' ' + path); e.status = r.status; throw e; }
+  const r = await fetch(path, { ...opts, headers: { 'Content-Type': 'application/json', 'X-Szikra': '1', 'X-Profile': profile || '' } });
+  if (r.status === 401 && path !== '/api/login') { showLogin(); const e = new Error('login'); e.status = 401; throw e; }
+  if (!r.ok) {
+    const e = new Error(r.status + ' ' + path); e.status = r.status;
+    try { e.msg = (await r.json()).error; } catch {}
+    throw e;
+  }
   return r.json();
 }
 const post = (p, b, prof) => api(p, { method: 'POST', body: JSON.stringify(b) }, prof);
@@ -187,7 +192,7 @@ const AVATARS = {
 };
 const avatarSVG = a => `<svg class="av" viewBox="0 0 64 64" aria-hidden="true">${(AVATARS[a] || AVATARS.maci).svg}</svg>`;
 async function loadLib() {
-  S.lib = await api('/api/library');
+  S.lib = await api('/api/library'); S.libFor = S.profile; S.topics = {}; S.poems = {}; S.learn = {};
   for (const s of S.lib.subjects) for (const t of s.topics) {
     S.topics[t.id] = t;
     for (const p of t.poems || []) S.poems[p.id] = p;
@@ -365,13 +370,16 @@ async function render() {
   let fn, m;
   for (const [re, f] of routes) if ((m = hash.match(re))) { fn = f; break; }
   if (!fn) { location.hash = '#/'; return; }
+  if (S.locked) return;
   if (!me() && fn !== viewWho) { location.hash = '#/who'; return; }
+  if (me() && S.libFor !== S.profile) { try { await loadLib(); } catch (e) { if (e.status === 401) return; } }
   if (P && fn !== viewPlay) endPlayMode();
   if (Q.list.length) Q.flush();
   try {
     const el = await fn(...m.slice(1));
     if (my === renderSeq && el) swap(el);
   } catch (e) {
+    if (e.status === 401) return;
     if (e.status === 404 && fn !== viewWho) { S.profile = ''; lsSet('profile', ''); location.hash = '#/who'; return; }
     console.error(e);
     if (my === renderSeq) swap(h('div', { class: 'empty' }, h('div', { class: 'big-emoji' }, '🔌'), h('h2', {}, 'Nem érem el a szervert'), h('p', { class: 'sub' }, 'Nézd meg, hogy fut-e az Umbrel, aztán próbáld újra.'), h('button', { class: 'btn', onclick: () => render() }, 'Újra')));
@@ -404,6 +412,7 @@ function topBar(st) {
 // ================= home =================
 async function viewHome() {
   const st = await getState();
+  if (!S.lib.subjects.length) return viewNoMaterial(st);
   const subj = S.lib.subjects[0], ss = st.subjects.find(s => s.id === subj.id) || st.subjects[0];
   const first = S.visits++ === 0;
   const now = st.now, left = st.examTs - now;
@@ -449,6 +458,21 @@ async function viewHome() {
     h('h3', { class: 'sec unit' }, subj.units[0]?.name || subj.name, h('span', {}, subj.units[0]?.sub || '')), tiles,
     h('p', { class: 'foot' }, `Szikra ${S.lib.version} · ${subj.topics.reduce((a, t) => a + t.cardCount, 0)} kártya · ${memoPoems.length} memoriter`));
   root._after = () => countUp($('.rv', root), 0, readiness, 1100);
+  return root;
+}
+
+function viewNoMaterial(st) {
+  const who = me();
+  const root = h('div', {}, topBar(st),
+    h('section', { class: 'empty nomat' },
+      h('div', { class: 'face', html: avatarSVG(who?.avatar) }),
+      h('h2', {}, `Szia, ${who?.name || ''}!`),
+      h('p', { class: 'sub' }, 'Itt még nincs tananyagod. Küldd el Ádámnak a jegyzeteidet (Word, PDF, fotó is jó), és ő felteszi őket a Szikrába – csak a te profilodban fognak megjelenni.'),
+      h('div', { class: 'steps' },
+        h('div', {}, h('b', {}, '1'), 'Jegyzetek → Ádám'),
+        h('div', {}, h('b', {}, '2'), 'Ő feltölti a Szikrába'),
+        h('div', {}, h('b', {}, '3'), 'Frissítés után itt lesz')),
+      h('button', { class: 'btn ghost', onclick: () => location.hash = '#/me' }, 'Addig: állítsd be az érettségi dátumát')));
   return root;
 }
 
@@ -561,6 +585,9 @@ async function viewMe() {
       h('div', { class: 'field' }, h('label', {}, 'Mikor?'), at),
       h('button', { class: 'btn gold', onclick: async () => { try { await put('/api/exam', { name: name.value, at: at.value }); toast('Elmentve ✓ – az ismétlések ehhez igazodnak'); } catch { toast('Nem sikerült menteni'); } } }, 'Mentés'),
       h('p', { class: 'tip', style: { marginTop: '10px' } }, 'A Szikra úgy ütemezi az ismétléseket, hogy a dátum előtt mindent még legalább egyszer lásd.')),
+    S.auth?.remote
+      ? [h('h3', { class: 'sec' }, 'Belépés'), h('div', { class: 'panel' }, h('button', { class: 'btn ghost', onclick: async () => { try { await post('/api/logout', {}); } catch {} location.reload(); } }, 'Kijelentkezés ezen az eszközön'))]
+      : [h('h3', { class: 'sec' }, 'Jelszó a nyilvános címhez', h('span', {}, S.auth?.enabled ? 'be van állítva ✓' : 'még nincs')), passwordPanel()],
     h('h3', { class: 'sec' }, 'Beállítások'),
     h('div', { class: 'panel' }, snd, mot,
       h('a', { class: 'btn ghost', href: '/api/export?p=' + encodeURIComponent(S.profile), style: { textDecoration: 'none', marginTop: '8px' } }, '⤓ Haladás letöltése (mentés)')),
@@ -569,6 +596,41 @@ async function viewMe() {
       h('button', { class: 'btn coral', onclick: async () => { if (fold(conf.value) !== 'torles') { shake(conf); return; } try { await post('/api/reset', { confirm: conf.value }); lsSet('queue', '[]'); Q.list = []; toast('Tiszta lap ✓'); location.hash = '#/'; } catch { toast('Nem sikerült'); } } }, 'Törlés')),
     h('p', { class: 'foot' }, `Szikra ${S.lib.version} · a tanulás kutatások alapján: kikérdezés, szétszórt ismétlés, rövid körök.`));
   return root;
+}
+
+// ================= password =================
+function passwordPanel() {
+  const pw = h('input', { type: 'password', autocomplete: 'new-password', placeholder: 'legalább 6 karakter', name: 'new-password' });
+  const save = h('button', { class: 'btn gold', onclick: async () => {
+    if (pw.value.length < 6) { shake(pw); toast('A jelszó legyen legalább 6 karakter.'); return; }
+    try { await post('/api/password', { password: pw.value }); pw.value = ''; S.auth = await api('/api/auth'); toast('Jelszó elmentve ✓ – a nyilvános címen ezzel lehet belépni'); render(); }
+    catch (e) { toast(e.msg || 'Nem sikerült menteni'); }
+  } }, S.auth?.enabled ? 'Jelszó cseréje' : 'Jelszó beállítása');
+  return h('div', { class: 'panel' },
+    h('div', { class: 'field' }, h('label', {}, S.auth?.enabled ? 'Új jelszó (mindenkit kiléptet)' : 'Jelszó'), pw), save,
+    h('p', { class: 'tip', style: { marginTop: '10px' } }, 'Ezt kéri a Szikra a nyilvános címen (pl. szikra.admcore.hu). Itt, az Umbrelen keresztül nem kell. Hannának is ezt add meg.'));
+}
+function showLogin() {
+  if (S.locked) return;
+  S.locked = true; endPlayMode?.();
+  const en = S.auth?.enabled !== false;
+  const pw = h('input', { type: 'password', autocomplete: 'current-password', placeholder: 'jelszó', 'aria-label': 'jelszó', class: 'inp' });
+  const err = h('p', { class: 'tip', style: { color: 'var(--coral)', minHeight: '20px', margin: '8px 0 0' } });
+  const go = h('button', { class: 'btn', onclick: submit }, 'Belépés');
+  async function submit() {
+    if (!pw.value) { shake(pw); return; }
+    go.disabled = true;
+    try { await post('/api/login', { password: pw.value }); S.locked = false; S.auth = await api('/api/auth'); SND.unlock(); SND.ok(5); boot(); }
+    catch (e) { shake(card); err.textContent = e.msg || 'Nem sikerült belépni.'; pw.select(); buzz([30, 40, 30]); SND.bad(); }
+    finally { go.disabled = false; }
+  }
+  pw.addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
+  const card = h('div', { class: 'qcard login' },
+    h('div', { class: 'logo', style: { justifyContent: 'center', margin: '0 0 6px' }, html: LOGO + '<span>Szikra</span>' }),
+    en ? [h('p', { class: 'q', style: { textAlign: 'center' } }, 'Add meg a jelszót'), pw, err, h('div', { style: { marginTop: '14px' } }, go)]
+       : [h('p', { class: 'q', style: { textAlign: 'center' } }, 'Még nincs jelszó'), h('p', { class: 'sub', style: { textAlign: 'center', color: 'var(--ink2)' } }, 'Nyisd meg a Szikrát az Umbrelen (a Tailscale-címen), és a profiloldalon állíts be egyet.')]);
+  $('#app').replaceChildren(h('div', { class: 'who view' }, card));
+  setTimeout(() => pw.focus(), 200);
 }
 
 // ================= profiles =================
@@ -594,7 +656,7 @@ async function viewWho() {
     const face = $('.face', card); face.style.animation = 'none';
     if (!RM()) face.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.22,.82)', offset: .3 }, { transform: 'translateY(-16px) scale(.92,1.12)', offset: .6 }, { transform: 'scale(1)' }], { duration: 460, easing: 'ease-out' });
     const [x, y] = center(face); FX.burst(x, y, { n: 30, colors: p.theme === 'pink' ? pinkCols : undefined });
-    S.profile = p.id; lsSet('profile', p.id); S.state = null; S.visits = 0;
+    S.profile = p.id; lsSet('profile', p.id); S.state = null; S.visits = 0; S.libFor = null;
     await sleep(RM() ? 0 : 430);
     applyTheme(p.theme);
     location.hash = '#/';
@@ -785,8 +847,8 @@ async function viewPlay(qs) {
     const xpEl = h('b', {}, '0'), accEl = h('b', {}, '0%');
     const subj = S.lib.subjects[0];
     const rows = [];
-    const bs = before.subjects.find(s => s.id === subj.id), as = after?.subjects.find(s => s.id === subj.id);
-    if (bs && as) rows.push([subj.units[0]?.name || subj.name, bs.known, as.known, '#ff7a3d']);
+    const bs = subj && before.subjects.find(s => s.id === subj.id), as = subj && after?.subjects.find(s => s.id === subj.id);
+    if (bs && as) rows.push([subj.units[0]?.name || subj.name, bs.known, as.known, 'var(--spark)']);
     for (const id of [...play.touched].slice(0, 3)) {
       const b = before.topics.find(t => t.id === id), a = after?.topics.find(t => t.id === id);
       if (b && a) rows.push([`${S.topics[id].icon} ${S.topics[id].name}`, b.known, a.known, S.topics[id].color]);
@@ -1054,13 +1116,20 @@ document.addEventListener('keydown', e => {
 document.documentElement.classList.toggle('rm', RM());
 mq.addEventListener?.('change', () => document.documentElement.classList.toggle('rm', RM()));
 addEventListener('pointerdown', () => SND.unlock(), { once: true });
-(async () => {
+async function boot() {
   $('#app').replaceChildren(h('div', { class: 'spin' }));
   for (let k = 0; ; k++) {
-    try { await loadLib(); S.profiles = await api('/api/profiles'); break; } catch { await sleep(Math.min(8000, 800 * (k + 1))); }
+    try {
+      S.auth = await api('/api/auth');
+      if (S.auth.remote && !S.auth.loggedIn) { showLogin(); return; }
+      S.profiles = await api('/api/profiles');
+      break;
+    } catch (e) { if (e.status === 401) return; await sleep(Math.min(8000, 800 * (k + 1))); }
   }
   if (me()) applyTheme(me().theme);
+  S.libFor = null;
   render();
   Q.flush();
-})();
+}
+boot();
 })();

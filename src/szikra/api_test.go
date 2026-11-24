@@ -10,19 +10,28 @@ import (
 	"time"
 )
 
-func testServer(t *testing.T) (*server, *http.ServeMux, *time.Time) {
+func testServer(t *testing.T) (*server, http.Handler, *time.Time) {
+	s, mux, now := testServerRaw(t)
+	return s, s.guard(mux, false), now
+}
+
+func testServerRaw(t *testing.T) (*server, *http.ServeMux, *time.Time) {
 	t.Helper()
 	lib, err := loadLibrary(contentFS)
 	if err != nil {
 		t.Fatal(err)
 	}
-	profiles, err := openProfiles(t.TempDir())
+	dir := t.TempDir()
+	profiles, err := openProfiles(dir)
 	if err != nil {
 		t.Fatal(err)
 	}
-	libJSON, _ := buildLibraryJSON(lib)
+	auth, err := openAuth(dir)
+	if err != nil {
+		t.Fatal(err)
+	}
 	now := time.Date(2026, 11, 23, 22, 30, 0, 0, loc)
-	s := &server{lib: lib, profiles: profiles, libJSON: libJSON, rng: rand.New(rand.NewPCG(3, 4))}
+	s := &server{lib: lib, profiles: profiles, auth: auth, libJSON: map[string][]byte{}, rng: rand.New(rand.NewPCG(3, 4))}
 	s.now = func() time.Time { return now }
 	mux := http.NewServeMux()
 	s.routes(mux)
@@ -36,6 +45,7 @@ func do(t *testing.T, mux http.Handler, method, path, body string, out any) int 
 	if !strings.Contains(path, "p=") {
 		req.Header.Set("X-Profile", "adam")
 	}
+	req.Header.Set("X-Szikra", "1")
 	w := httptest.NewRecorder()
 	mux.ServeHTTP(w, req)
 	if out != nil && w.Code == 200 {
@@ -234,8 +244,26 @@ func TestProfiles(t *testing.T) {
 	var a, h StateResp
 	do(t, mux, "GET", "/api/state", "", &a)
 	do(t, mux, "GET", "/api/state?p=hanna", "", &h)
-	if a.XP == 0 || h.XP != 0 || h.Subjects[0].Fresh != h.Subjects[0].Total {
+	if a.XP == 0 || h.XP != 0 {
 		t.Fatalf("profiles not separate: adam %d xp, hanna %d xp", a.XP, h.XP)
+	}
+	// Hanna studies other things: the Ady material is Ádám's only
+	if len(a.Subjects) != 1 || len(h.Subjects) != 0 || len(h.Topics) != 0 {
+		t.Fatalf("subjects: adam %d, hanna %d", len(a.Subjects), len(h.Subjects))
+	}
+	var hs Session
+	do(t, mux, "GET", "/api/session?p=hanna", "", &hs)
+	var ht Session
+	do(t, mux, "GET", "/api/session?p=hanna&mode=topic&topic=ady-ars", "", &ht)
+	if len(hs.Items) != 0 || len(ht.Items) != 0 {
+		t.Fatalf("hanna got Ady cards: %d / %d", len(hs.Items), len(ht.Items))
+	}
+	var hl struct{ Subjects []Subject }
+	do(t, mux, "GET", "/api/library?p=hanna", "", &hl)
+	var al struct{ Subjects []Subject }
+	do(t, mux, "GET", "/api/library", "", &al)
+	if len(hl.Subjects) != 0 || len(al.Subjects) != 1 {
+		t.Fatalf("library: hanna %d, adam %d subjects", len(hl.Subjects), len(al.Subjects))
 	}
 	if a.Exam.At == "" || h.Exam.At != "" || h.Exam.Name != "Érettségi" {
 		t.Fatalf("exams: %+v / %+v", a.Exam, h.Exam)
@@ -253,5 +281,77 @@ func TestProfiles(t *testing.T) {
 	var ed Profile
 	if do(t, mux, "PUT", "/api/profiles/hanna", `{"name":"Hanna","avatar":"cica","theme":"szikra"}`, &ed) != 200 || ed.Avatar != "cica" || ed.Theme != "szikra" {
 		t.Fatalf("edit: %+v", ed)
+	}
+}
+
+// The public address asks for the password; only the Umbrel address can set it.
+func TestRemoteAuth(t *testing.T) {
+	s, mux, _ := testServerRaw(t)
+	local, remote := s.guard(mux, false), s.guard(mux, true)
+	req := func(h http.Handler, method, path, body, cookie string, csrf bool) *httptest.ResponseRecorder {
+		r := httptest.NewRequest(method, path, strings.NewReader(body))
+		r.Header.Set("X-Profile", "adam")
+		r.RemoteAddr = "203.0.113.5:1234"
+		if csrf {
+			r.Header.Set("X-Szikra", "1")
+		}
+		if cookie != "" {
+			r.Header.Set("Cookie", cookie)
+		}
+		w := httptest.NewRecorder()
+		h.ServeHTTP(w, r)
+		return w
+	}
+	if c := req(remote, "GET", "/api/state", "", "", false).Code; c != 401 {
+		t.Fatalf("remote without login: %d", c)
+	}
+	if c := req(remote, "GET", "/", "", "", false).Code; c != 200 {
+		t.Fatalf("remote page itself: %d", c)
+	}
+	if c := req(remote, "POST", "/api/login", `{"password":"x"}`, "", true).Code; c != 403 {
+		t.Fatalf("login before a password exists: %d", c)
+	}
+	if c := req(remote, "POST", "/api/password", `{"password":"titkos123"}`, "", true).Code; c != 403 {
+		t.Fatalf("password set from the internet: %d", c)
+	}
+	if c := req(local, "POST", "/api/password", `{"password":"titkos123"}`, "", false).Code; c != 403 {
+		t.Fatalf("write without X-Szikra: %d", c)
+	}
+	if c := req(local, "POST", "/api/password", `{"password":"rov"}`, "", true).Code; c != 400 {
+		t.Fatalf("too short password: %d", c)
+	}
+	if c := req(local, "POST", "/api/password", `{"password":"titkos123"}`, "", true).Code; c != 200 {
+		t.Fatalf("set password: %d", c)
+	}
+	if c := req(local, "GET", "/api/state", "", "", false).Code; c != 200 {
+		t.Fatalf("Umbrel address needs no app password: %d", c)
+	}
+	if c := req(remote, "POST", "/api/login", `{"password":"rossz"}`, "", true).Code; c != 401 {
+		t.Fatalf("wrong password: %d", c)
+	}
+	w := req(remote, "POST", "/api/login", `{"password":"titkos123"}`, "", true)
+	if w.Code != 200 {
+		t.Fatalf("login: %d", w.Code)
+	}
+	cookie := strings.Split(w.Header().Get("Set-Cookie"), ";")[0]
+	if c := req(remote, "GET", "/api/state", "", cookie, false).Code; c != 200 {
+		t.Fatalf("remote with session: %d", c)
+	}
+	var st map[string]bool
+	json.Unmarshal(req(remote, "GET", "/api/auth", "", cookie, false).Body.Bytes(), &st)
+	if !st["remote"] || !st["enabled"] || !st["loggedIn"] {
+		t.Fatalf("auth status: %v", st)
+	}
+	// a new password logs out every device
+	req(local, "POST", "/api/password", `{"password":"masik456"}`, "", true)
+	if c := req(remote, "GET", "/api/state", "", cookie, false).Code; c != 401 {
+		t.Fatalf("old session after a new password: %d", c)
+	}
+	// too many wrong guesses
+	for i := 0; i < 8; i++ {
+		req(remote, "POST", "/api/login", `{"password":"nem"}`, "", true)
+	}
+	if c := req(remote, "POST", "/api/login", `{"password":"masik456"}`, "", true).Code; c != 429 {
+		t.Fatalf("no lockout after 8 wrong guesses: %d", c)
 	}
 }

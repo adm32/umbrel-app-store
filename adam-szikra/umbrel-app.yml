@@ -2,7 +2,7 @@ manifestVersion: 1
 id: adam-szikra
 category: productivity
 name: Szikra
-version: "1.0.0"
+version: "1.1.0"
 tagline: Érettségi felkészülés rövid, játékos körökben
 icon: https://raw.githubusercontent.com/adm32/umbrel-app-store/main/adam-szikra/icon.svg
 description: >-
@@ -21,7 +21,12 @@ description: >-
 
   Profiles: everyone picks their own profile on the first screen (Ádám with a teddy bear, Hanna
   with a bunny and a pink theme; more can be added). Each profile has its own progress, XP,
-  streak, badges and test date.
+  streak, badges, test date and own study material.
+
+
+  Public address: port 4781 is the same app with its own password, for a Cloudflare Tunnel
+  hostname (e.g. szikra.admcore.hu → http://host.docker.internal:14781 through Tükör). It stays
+  locked until the password is set on the profile page from the Umbrel address (port 4780).
 
 
   First subject: Hungarian literature – Ady Endre (10 topics, 41 poems, about 450 cards). New
@@ -40,4 +45,5 @@ defaultPassword: ""
 submitter: Adam
 submission: https://github.com/adm32/umbrel-app-store
 releaseNotes: >-
+  1.1.0 – mindenkinek saját tananyag (az Ady-anyag csak Ádámé, Hanna üres kezdőképernyőt kap); jelszavas nyilvános cím (4781-es port, pl. szikra.admcore.hu), a jelszót a profiloldalon lehet beállítani.
   1.0.0 – első kiadás: Ady Endre (10 témakör, 41 vers, 447 kártya, 4 memoriter-edző), napi kör, ismétlés, XP, kombó, széria, jelvények, visszaszámlálás a csütörtöki dolgozatig. Profilok: Ádám (maci) és Hanna (nyuszi, pink téma), külön haladással.

@@ -15,7 +15,9 @@ import (
 type server struct {
 	lib      *Library
 	profiles *Profiles
-	libJSON  []byte
+	auth     *Auth
+	libMu    sync.Mutex
+	libJSON  map[string][]byte // per profile
 	rngMu    sync.Mutex
 	rng      *rand.Rand
 	now      func() time.Time
@@ -38,14 +40,25 @@ func (s *server) routes(mux *http.ServeMux) {
 }
 
 func (s *server) library(w http.ResponseWriter, r *http.Request) {
-	sendStatic(w, r, "library.json", s.libJSON, "application/json; charset=utf-8", "no-cache")
+	_, pid := s.storeFor(w, r)
+	if pid == "" {
+		return
+	}
+	s.libMu.Lock()
+	b := s.libJSON[pid]
+	if b == nil {
+		b, _ = buildLibraryJSON(s.lib.subjectsFor(pid))
+		s.libJSON[pid] = b
+	}
+	s.libMu.Unlock()
+	sendStatic(w, r, "library-"+pid+".json", b, "application/json; charset=utf-8", "no-cache")
 }
 
 // buildLibraryJSON is everything the page shows outside a round: subjects, topics, notes, poems.
 // The cards themselves only travel in rounds.
-func buildLibraryJSON(lib *Library) ([]byte, error) {
-	var subs []Subject
-	for _, s := range lib.Subjects {
+func buildLibraryJSON(subjects []*Subject) ([]byte, error) {
+	subs := []Subject{}
+	for _, s := range subjects {
 		c := *s
 		c.Topics = nil
 		for _, t := range s.Topics {
@@ -109,7 +122,7 @@ type StateResp struct {
 	History   []HistDay      `json:"history"`
 }
 
-func (s *server) buildState(p *Progress, now time.Time) StateResp {
+func (s *server) buildState(p *Progress, now time.Time, subjects []*Subject) StateResp {
 	out := StateResp{Version: version, Now: now.Unix(), XP: p.XP, Level: levelFor(p.XP), Exam: p.Exam, BestCombo: p.BestCombo, Rounds: p.Rounds}
 	if et := p.examTime(); !et.IsZero() {
 		out.ExamTS = et.Unix()
@@ -124,7 +137,8 @@ func (s *server) buildState(p *Progress, now time.Time) StateResp {
 			poemCards[c.P] = append(poemCards[c.P], c)
 		}
 	}
-	for _, subj := range s.lib.Subjects {
+	out.Subjects, out.Topics, out.Poems, out.Badges = []SubjectState{}, []TopicState{}, []PoemState{}, []Badge{}
+	for _, subj := range subjects {
 		ss := SubjectState{ID: subj.ID}
 		sum := 0.0
 		for _, t := range subj.Topics {
@@ -176,7 +190,7 @@ func (s *server) buildState(p *Progress, now time.Time) StateResp {
 		}
 		out.Subjects = append(out.Subjects, ss)
 	}
-	for _, b := range allBadges(s.lib) {
+	for _, b := range allBadges(subjects) {
 		b.At = p.Badges[b.ID]
 		out.Badges = append(out.Badges, b)
 	}
@@ -195,19 +209,19 @@ func (s *server) buildState(p *Progress, now time.Time) StateResp {
 func round3(f float64) float64 { return float64(int(f*1000+0.5)) / 1000 }
 
 func (s *server) state(w http.ResponseWriter, r *http.Request) {
-	store := s.storeFor(w, r)
+	store, pid := s.storeFor(w, r)
 	if store == nil {
 		return
 	}
 	var out StateResp
-	store.view(func(p *Progress) { out = s.buildState(p, s.now()) })
+	store.view(func(p *Progress) { out = s.buildState(p, s.now(), s.lib.subjectsFor(pid)) })
 	writeJSON(w, out)
 }
 
 // ---- rounds ----
 
 func (s *server) session(w http.ResponseWriter, r *http.Request) {
-	store := s.storeFor(w, r)
+	store, pid := s.storeFor(w, r)
 	if store == nil {
 		return
 	}
@@ -216,7 +230,7 @@ func (s *server) session(w http.ResponseWriter, r *http.Request) {
 	var out Session
 	store.view(func(p *Progress) {
 		s.rngMu.Lock()
-		out = buildSession(s.lib, p, q, s.now(), s.rng)
+		out = buildSession(s.lib, s.lib.subjectsFor(pid), p, q, s.now(), s.rng)
 		s.rngMu.Unlock()
 	})
 	writeJSON(w, out)
@@ -231,7 +245,7 @@ type answerReq struct {
 }
 
 func (s *server) answer(w http.ResponseWriter, r *http.Request) {
-	store := s.storeFor(w, r)
+	store, _ := s.storeFor(w, r)
 	if store == nil {
 		return
 	}
@@ -285,7 +299,7 @@ func (s *server) answer(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *server) seen(w http.ResponseWriter, r *http.Request) {
-	store := s.storeFor(w, r)
+	store, _ := s.storeFor(w, r)
 	if store == nil {
 		return
 	}
@@ -309,7 +323,7 @@ func (s *server) seen(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *server) finish(w http.ResponseWriter, r *http.Request) {
-	store := s.storeFor(w, r)
+	store, pid := s.storeFor(w, r)
 	if store == nil {
 		return
 	}
@@ -330,7 +344,7 @@ func (s *server) finish(w http.ResponseWriter, r *http.Request) {
 		if req.MaxCombo > p.BestCombo && req.MaxCombo <= 1000 {
 			p.BestCombo = req.MaxCombo
 		}
-		got := awardBadges(s.lib, p, req, now)
+		got := awardBadges(s.lib, s.lib.subjectsFor(pid), p, req, now)
 		st, done := streak(p, now)
 		resp = map[string]any{"badges": got, "streak": st, "todayDone": done, "xp": p.XP, "level": levelFor(p.XP), "rounds": p.Rounds}
 		return nil
@@ -343,7 +357,7 @@ func (s *server) finish(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *server) exam(w http.ResponseWriter, r *http.Request) {
-	store := s.storeFor(w, r)
+	store, _ := s.storeFor(w, r)
 	if store == nil {
 		return
 	}
@@ -369,7 +383,7 @@ func (s *server) exam(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *server) reset(w http.ResponseWriter, r *http.Request) {
-	store := s.storeFor(w, r)
+	store, _ := s.storeFor(w, r)
 	if store == nil {
 		return
 	}
@@ -393,7 +407,7 @@ func (s *server) reset(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *server) export(w http.ResponseWriter, r *http.Request) {
-	store := s.storeFor(w, r)
+	store, _ := s.storeFor(w, r)
 	if store == nil {
 		return
 	}
@@ -408,7 +422,7 @@ func (s *server) export(w http.ResponseWriter, r *http.Request) {
 
 // storeFor finds the profile of a request (X-Profile header, or ?p= for plain links). It
 // answers 404 itself when there is none, and the page then shows the profile picker.
-func (s *server) storeFor(w http.ResponseWriter, r *http.Request) *Store {
+func (s *server) storeFor(w http.ResponseWriter, r *http.Request) (*Store, string) {
 	id := r.URL.Query().Get("p")
 	if id == "" {
 		id = r.Header.Get("X-Profile")
@@ -416,15 +430,15 @@ func (s *server) storeFor(w http.ResponseWriter, r *http.Request) *Store {
 	st, err := s.profiles.store(id)
 	if err != nil {
 		http.Error(w, "data error", http.StatusInternalServerError)
-		return nil
+		return nil, ""
 	}
 	if st == nil {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusNotFound)
 		w.Write([]byte(`{"error":"profile"}`))
-		return nil
+		return nil, ""
 	}
-	return st
+	return st, id
 }
 
 type ProfileCard struct {
@@ -446,7 +460,11 @@ func (s *server) listProfiles(w http.ResponseWriter, r *http.Request) {
 				pc.XP, pc.Level = p.XP, levelFor(p.XP)
 				pc.Streak, pc.TodayDone = streak(p, now)
 				n, sum := 0, 0.0
+				mine := topicSet(s.lib.subjectsFor(pr.ID))
 				for _, c := range s.lib.All {
+					if !mine[c.Topic] {
+						continue
+					}
 					n++
 					sum += known(p.Cards[c.ID], now)
 				}

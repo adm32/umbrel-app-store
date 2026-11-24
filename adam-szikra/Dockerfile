@@ -4,6 +4,6 @@ FROM scratch
 ARG TARGETARCH=amd64
 COPY bin/szikra-linux-${TARGETARCH} /szikra
 ENV DATA_DIR=/data PORT=8080 TZ=Europe/Budapest
-EXPOSE 8080
+EXPOSE 8080 8082
 USER 1000:1000
 ENTRYPOINT ["/szikra"]

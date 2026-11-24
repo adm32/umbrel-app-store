@@ -114,10 +114,11 @@ var fixedBadges = []Badge{
 	{ID: "ezer", Name: "Ezres", Icon: "🏆", Desc: "1000 helyes válasz."},
 }
 
-// allBadges lists the fixed badges plus one per memoriter poem and one per topic.
-func allBadges(lib *Library) []Badge {
+// allBadges lists the fixed badges plus one per memoriter poem and one per topic of the
+// profile's own subjects.
+func allBadges(subjects []*Subject) []Badge {
 	out := append([]Badge(nil), fixedBadges...)
-	for _, s := range lib.Subjects {
+	for _, s := range subjects {
 		for _, t := range s.Topics {
 			for _, p := range t.Poems {
 				if p.Memo {
@@ -140,7 +141,7 @@ type RoundStats struct {
 }
 
 // awardBadges checks every badge after a round and returns the new ones.
-func awardBadges(lib *Library, p *Progress, r RoundStats, now time.Time) []Badge {
+func awardBadges(lib *Library, subjects []*Subject, p *Progress, r RoundStats, now time.Time) []Badge {
 	has := func(id string) bool { _, ok := p.Badges[id]; return ok }
 	var got []Badge
 	give := func(b Badge, cond bool) {
@@ -156,7 +157,7 @@ func awardBadges(lib *Library, p *Progress, r RoundStats, now time.Time) []Badge
 	}
 	st, _ := streak(p, now)
 	h := now.In(loc).Hour()
-	for _, b := range allBadges(lib) {
+	for _, b := range allBadges(subjects) {
 		switch b.ID {
 		case "elso":
 			give(b, p.Rounds >= 1)

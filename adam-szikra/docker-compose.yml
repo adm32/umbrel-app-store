@@ -19,5 +19,11 @@ services:
     environment:
       TZ: Europe/Budapest
       DATA_DIR: /data
+      PORT: "8080"
+      # Same app with its own password, for a Cloudflare Tunnel hostname (szikra.admcore.hu).
+      # Stays locked until a password is set from the Umbrel address (profile page).
+      REMOTE_PORT: "8082"
+    ports:
+      - "4781:8082"
     volumes:
       - ${APP_DATA_DIR}/data:/data

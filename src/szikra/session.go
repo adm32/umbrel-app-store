@@ -39,9 +39,12 @@ const roundSize = 10
 
 func isMemo(c *Card) bool { return strings.HasPrefix(c.K, "m-") }
 
-func buildSession(lib *Library, p *Progress, q SessionQuery, now time.Time, rng *rand.Rand) Session {
-	subj := lib.Subjects[0]
-	for _, s := range lib.Subjects {
+func buildSession(lib *Library, subjects []*Subject, p *Progress, q SessionQuery, now time.Time, rng *rand.Rand) Session {
+	if len(subjects) == 0 {
+		return Session{Mode: q.Mode, Items: []Item{}}
+	}
+	subj := subjects[0]
+	for _, s := range subjects {
 		if s.ID == q.Subject {
 			subj = s
 		}
@@ -50,6 +53,7 @@ func buildSession(lib *Library, p *Progress, q SessionQuery, now time.Time, rng 
 	for _, t := range subj.Topics {
 		inSubject[t.ID] = true
 	}
+	mine := topicSet(subjects) // a topic or poem round only for the profile's own material
 	st := func(c *Card) *CardState { return p.Cards[c.ID] }
 	fresh := func(c *Card) bool { s := st(c); return s == nil || s.Box == 0 }
 
@@ -58,11 +62,11 @@ func buildSession(lib *Library, p *Progress, q SessionQuery, now time.Time, rng 
 	n := roundSize
 	switch q.Mode {
 	case "topic":
-		if t := lib.Topics[q.Topic]; t != nil {
+		if t := lib.Topics[q.Topic]; t != nil && mine[t.ID] {
 			pool, title = t.Cards, t.Name
 		}
 	case "poem":
-		if po := lib.Poems[q.Poem]; po != nil {
+		if po := lib.Poems[q.Poem]; po != nil && mine[po.Topic] {
 			title = po.Title
 			for _, c := range lib.All {
 				if c.P == po.ID && !isMemo(c) {
@@ -71,7 +75,7 @@ func buildSession(lib *Library, p *Progress, q SessionQuery, now time.Time, rng 
 			}
 		}
 	case "memo":
-		if po := lib.Poems[q.Poem]; po != nil {
+		if po := lib.Poems[q.Poem]; po != nil && mine[po.Topic] {
 			title, n = "Memoriter: "+po.Title, 12
 			for _, c := range lib.All {
 				if c.P == po.ID && isMemo(c) && (q.Kind == "" || c.K == q.Kind) {
@@ -299,6 +303,9 @@ func buildSession(lib *Library, p *Progress, q SessionQuery, now time.Time, rng 
 			box = s.Box
 		}
 		items = append(items, Item{Kind: "card", Card: c, New: isNew, Box: box})
+	}
+	if items == nil {
+		items = []Item{}
 	}
 	return Session{Mode: q.Mode, Title: title, Items: items}
 }

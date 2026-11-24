@@ -165,7 +165,7 @@ func TestSessions(t *testing.T) {
 	p := newProgress()
 	now := time.Date(2026, 11, 23, 23, 0, 0, 0, loc)
 	rng := rand.New(rand.NewPCG(1, 2))
-	s := buildSession(lib, p, SessionQuery{}, now, rng)
+	s := buildSession(lib, lib.Subjects, p, SessionQuery{}, now, rng)
 	graded, learn := 0, 0
 	for _, it := range s.Items {
 		switch it.Kind {
@@ -198,14 +198,14 @@ func TestSessions(t *testing.T) {
 			p.Learn[it.Learn.ID] = now.Unix()
 		}
 	}
-	s2 := buildSession(lib, p, SessionQuery{}, now.Add(time.Minute), rng)
+	s2 := buildSession(lib, lib.Subjects, p, SessionQuery{}, now.Add(time.Minute), rng)
 	for _, it := range s2.Items {
 		if it.Card != nil && p.Cards[it.Card.ID] != nil {
 			t.Fatalf("second round repeats %s before it is due", it.Card.ID)
 		}
 	}
 	// a memoriter round starts with the stanza to read
-	m := buildSession(lib, newProgress(), SessionQuery{Mode: "memo", Poem: "gog"}, now, rng)
+	m := buildSession(lib, lib.Subjects, newProgress(), SessionQuery{Mode: "memo", Poem: "gog"}, now, rng)
 	if len(m.Items) == 0 || m.Items[0].Kind == "card" {
 		t.Fatalf("memo round should start with a note or the stanza")
 	}

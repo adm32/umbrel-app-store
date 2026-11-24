@@ -20,6 +20,7 @@ var contentFS embed.FS
 
 type Subject struct {
 	ID     string   `json:"id"`
+	For    []string `json:"for,omitempty"` // profile ids that study this subject; empty = everyone
 	Name   string   `json:"name"`
 	Icon   string   `json:"icon"`
 	Color  string   `json:"color"`
@@ -208,6 +209,35 @@ func loadLibrary(fsys fs.FS) (*Library, error) {
 		}
 	}
 	return lib, nil
+}
+
+// subjectsFor is the study material of one profile (everyone has their own subjects).
+func (lib *Library) subjectsFor(profile string) []*Subject {
+	var out []*Subject
+	for _, s := range lib.Subjects {
+		if len(s.For) == 0 {
+			out = append(out, s)
+			continue
+		}
+		for _, f := range s.For {
+			if f == profile {
+				out = append(out, s)
+				break
+			}
+		}
+	}
+	return out
+}
+
+// topicSet is the ids of every topic in the given subjects.
+func topicSet(subjects []*Subject) map[string]bool {
+	m := map[string]bool{}
+	for _, s := range subjects {
+		for _, t := range s.Topics {
+			m[t.ID] = true
+		}
+	}
+	return m
 }
 
 func readJSON(fsys fs.FS, name string, v any) error {

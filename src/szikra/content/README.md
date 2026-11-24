@@ -1,7 +1,7 @@
 # Szikra study material
 
 One folder per subject (`magyar/`, later `tori/`, `matek/`). Each folder has a `subject.json`
-(name, icon, colour, units) and one JSON file per topic. Files are compiled into the program,
+(name, icon, colour, units, and `for`: the profile ids who study it, e.g. `["hanna"]`) and one JSON file per topic. Files are compiled into the program,
 so after a change run `sh src/szikra/build.sh`. `go test` checks every card.
 
 ## A topic file

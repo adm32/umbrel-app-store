@@ -437,3 +437,11 @@ h3.sec span{font-weight:700;letter-spacing:0;text-transform:none;color:var(--fai
 .newp{margin-top:18px}
 .opt,.mi,.wchip,.dcard,.oslot,.q,.quote,.note li,.learn li,.tile .nm,.memo .t,.prow .t,.fbans,.fbw,.bin{overflow-wrap:anywhere;hyphens:auto;-webkit-hyphens:auto}
 @media (max-width:370px){.top .logo span{display:none}.pill{padding:0 10px}.top{gap:8px}.chip{font-size:14.5px;padding:0 8px;gap:6px}.exam h2{font-size:19px}}
+.nomat{padding:30px 6px}
+.nomat .face{width:120px;height:120px;margin:0 auto 10px;animation:float 3.2s ease-in-out infinite}
+.nomat h2{font-size:28px;margin:4px 0 8px}
+.nomat .sub{color:var(--muted);line-height:1.5;margin:0 auto 18px;max-width:420px}
+.steps{display:flex;flex-direction:column;gap:8px;margin:0 auto 20px;max-width:340px;text-align:left}
+.steps div{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:var(--glass);border:1px solid var(--line);font-weight:800}
+.steps b{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--spark);color:#fff;flex:none}
+.login{max-width:400px;margin:0 auto;width:100%}
